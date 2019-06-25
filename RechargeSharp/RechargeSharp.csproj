@@ -5,6 +5,11 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>0.0.1</Version>
     <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <PackageLicenseExpression>https://github.com/mattgenious/RechargeSharp/blob/master/LICENSE</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageTags>C#, .NET</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
