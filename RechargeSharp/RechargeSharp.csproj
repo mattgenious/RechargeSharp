@@ -5,15 +5,23 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>0.0.1</Version>
     <AssemblyVersion>0.0.1.0</AssemblyVersion>
-    <PackageLicenseExpression>https://github.com/mattgenious/RechargeSharp/blob/master/LICENSE</PackageLicenseExpression>
+    <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
