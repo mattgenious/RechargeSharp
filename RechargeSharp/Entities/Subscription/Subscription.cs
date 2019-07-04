@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
+using RechargeSharp.Entities.Shared;
 
-namespace RechargeSharp.Entities
+namespace RechargeSharp.Entities.Subscription
 {
     public class Subscription
     {
+        [JsonProperty("recharge_product_id")]
+        public long RechargeProductId { get; set; }
+
+        [JsonProperty("sku_override")]
+        public bool SkuOverride { get; set; }
+
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public long? Id { get; set; }
 

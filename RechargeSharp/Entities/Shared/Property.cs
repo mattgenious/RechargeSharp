@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities
+namespace RechargeSharp.Entities.Shared
 {
     public class Property
     {
