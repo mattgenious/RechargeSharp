@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.Charge
+namespace RechargeSharp.Entities.Shared
 {
     public class Images
     {

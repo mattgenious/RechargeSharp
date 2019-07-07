@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using RechargeSharp.Entities.Shared;
 
-namespace RechargeSharp.Entities.Charge
+namespace RechargeSharp.Entities.Shared
 {
     public class LineItem
     {

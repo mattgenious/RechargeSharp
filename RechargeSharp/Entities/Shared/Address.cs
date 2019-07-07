@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.Charge
+namespace RechargeSharp.Entities.Shared
 {
     class Address
     {
