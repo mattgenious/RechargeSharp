@@ -9,13 +9,13 @@ namespace RechargeSharp.Entities.Checkout
         public long ChargeIntervalFrequency { get; set; }
 
         [JsonProperty("cutoff_day_of_month")]
-        public object CutoffDayOfMonth { get; set; }
+        public long CutoffDayOfMonth { get; set; }
 
         [JsonProperty("cutoff_day_of_week")]
-        public object CutoffDayOfWeek { get; set; }
+        public long CutoffDayOfWeek { get; set; }
 
         [JsonProperty("expire_after_specific_number_of_charges")]
-        public object ExpireAfterSpecificNumberOfCharges { get; set; }
+        public long ExpireAfterSpecificNumberOfCharges { get; set; }
 
         [JsonProperty("fulfillment_service")]
         public string FulfillmentService { get; set; }
@@ -27,10 +27,10 @@ namespace RechargeSharp.Entities.Checkout
         public string LinePrice { get; set; }
 
         [JsonProperty("order_day_of_month")]
-        public object OrderDayOfMonth { get; set; }
+        public long OrderDayOfMonth { get; set; }
 
         [JsonProperty("order_day_of_week")]
-        public object OrderDayOfWeek { get; set; }
+        public long OrderDayOfWeek { get; set; }
 
         [JsonProperty("order_interval_frequency")]
         public long OrderIntervalFrequency { get; set; }

@@ -14,7 +14,7 @@ namespace RechargeSharp.Entities.Customer
         public string Hash { get; set; }
 
         [JsonProperty("shopify_customer_id")]
-        public object ShopifyCustomerId { get; set; }
+        public string ShopifyCustomerId { get; set; }
 
         [JsonProperty("email")]
         public string Email { get; set; }
@@ -35,7 +35,7 @@ namespace RechargeSharp.Entities.Customer
         public string BillingAddress1 { get; set; }
 
         [JsonProperty("billing_address2")]
-        public object BillingAddress2 { get; set; }
+        public string BillingAddress2 { get; set; }
 
         [JsonProperty("billing_zip")]
         public long BillingZip { get; set; }
@@ -44,7 +44,7 @@ namespace RechargeSharp.Entities.Customer
         public string BillingCity { get; set; }
 
         [JsonProperty("billing_company")]
-        public object BillingCompany { get; set; }
+        public string BillingCompany { get; set; }
 
         [JsonProperty("billing_province")]
         public string BillingProvince { get; set; }
@@ -56,7 +56,7 @@ namespace RechargeSharp.Entities.Customer
         public string BillingPhone { get; set; }
 
         [JsonProperty("processor_type")]
-        public object ProcessorType { get; set; }
+        public string ProcessorType { get; set; }
 
         [JsonProperty("status")]
         public string Status { get; set; }
@@ -68,7 +68,7 @@ namespace RechargeSharp.Entities.Customer
         public bool HasValidPaymentMethod { get; set; }
 
         [JsonProperty("reason_payment_method_not_valid")]
-        public object ReasonPaymentMethodNotValid { get; set; }
+        public string ReasonPaymentMethodNotValid { get; set; }
 
         [JsonProperty("has_card_error_in_dunning")]
         public bool HasCardErrorInDunning { get; set; }
@@ -80,6 +80,6 @@ namespace RechargeSharp.Entities.Customer
         public long NumberSubscriptions { get; set; }
 
         [JsonProperty("first_charge_processed_at")]
-        public object FirstChargeProcessedAt { get; set; }
+        public DateTimeOffset FirstChargeProcessedAt { get; set; }
     }
 }

@@ -5,9 +5,9 @@ namespace RechargeSharp.Entities.Shared
     public class ClientDetails
     {
         [JsonProperty("browser_ip")]
-        public object BrowserIp { get; set; }
+        public string BrowserIp { get; set; }
 
         [JsonProperty("user_agent")]
-        public object UserAgent { get; set; }
+        public string UserAgent { get; set; }
     }
 }

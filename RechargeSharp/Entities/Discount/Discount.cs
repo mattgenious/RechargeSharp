@@ -29,16 +29,16 @@ namespace RechargeSharp.Entities.Discount
         public long UsageLimit { get; set; }
 
         [JsonProperty("applies_to_id")]
-        public object AppliesToId { get; set; }
+        public long AppliesToId { get; set; }
 
         [JsonProperty("discount_type")]
         public string DiscountType { get; set; }
 
         [JsonProperty("applies_to")]
-        public object AppliesTo { get; set; }
+        public string AppliesTo { get; set; }
 
         [JsonProperty("applies_to_resource")]
-        public object AppliesToResource { get; set; }
+        public string AppliesToResource { get; set; }
 
         [JsonProperty("times_used")]
         public long TimesUsed { get; set; }

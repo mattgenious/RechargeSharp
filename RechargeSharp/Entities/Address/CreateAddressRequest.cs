@@ -42,6 +42,6 @@ namespace RechargeSharp.Entities.Address
         public List<ShippingLine> OriginalShippingLines { get; set; }
 
         [JsonProperty("shipping_lines_override")]
-        public object ShippingLinesOverride { get; set; }
+        public ShippingLine[] ShippingLinesOverride { get; set; }
     }
 }

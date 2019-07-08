@@ -15,10 +15,10 @@ namespace RechargeSharp.Entities.Address
         public string Address2 { get; set; }
 
         [JsonProperty("cart_attributes")]
-        public object CartAttributes { get; set; }
+        public Property[] CartAttributes { get; set; }
 
         [JsonProperty("cart_note")]
-        public object CartNote { get; set; }
+        public string CartNote { get; set; }
 
         [JsonProperty("city")]
         public string City { get; set; }
@@ -36,7 +36,7 @@ namespace RechargeSharp.Entities.Address
         public long CustomerId { get; set; }
 
         [JsonProperty("discount_id")]
-        public object DiscountId { get; set; }
+        public long DiscountId { get; set; }
 
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
@@ -48,13 +48,13 @@ namespace RechargeSharp.Entities.Address
         public string LastName { get; set; }
 
         [JsonProperty("note_attributes")]
-        public object NoteAttributes { get; set; }
+        public Property[] NoteAttributes { get; set; }
 
         [JsonProperty("original_shipping_lines")]
         public List<ShippingLine> OriginalShippingLines { get; set; }
 
         [JsonProperty("shipping_lines_override")]
-        public object ShippingLinesOverride { get; set; }
+        public ShippingLine[] ShippingLinesOverride { get; set; }
 
         [JsonProperty("phone")]
         public string Phone { get; set; }

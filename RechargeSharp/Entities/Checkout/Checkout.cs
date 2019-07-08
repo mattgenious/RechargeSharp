@@ -57,7 +57,7 @@ namespace RechargeSharp.Entities.Checkout
         public string SubtotalPrice { get; set; }
 
         [JsonProperty("tax_lines")]
-        public object[] TaxLines { get; set; }
+        public TaxLine[] TaxLines { get; set; }
 
         [JsonProperty("taxes_included")]
         public bool TaxesIncluded { get; set; }
