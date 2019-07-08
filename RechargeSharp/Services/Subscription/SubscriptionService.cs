@@ -12,7 +12,7 @@ namespace RechargeSharp.Services.Subscription
 
         public async Task<Entities.Subscription.Subscription> GetSubscriptionAsync(string id)
         {
-            var response = await HttpClient.GetAsync($"/subscriptions/{id}");
+            var response = await GetAsync($"/subscriptions/{id}");
             return JsonConvert.DeserializeObject<Entities.Subscription.Subscription>(
                 await response.Content.ReadAsStringAsync());
         }
