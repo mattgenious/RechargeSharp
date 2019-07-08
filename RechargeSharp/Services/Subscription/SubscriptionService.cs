@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Runtime.CompilerServices;
-using System.Text;
-using Microsoft.Extensions.Configuration;
+﻿using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace RechargeSharp.Services.Subscription
 {
@@ -13,6 +8,13 @@ namespace RechargeSharp.Services.Subscription
         public SubscriptionService(string apiKey) : base(apiKey)
         {
 
+        }
+
+        public async Task<Entities.Subscription.Subscription> GetSubscriptionAsync(string id)
+        {
+            var response = await HttpClient.GetAsync($"/subscriptions/{id}");
+            return JsonConvert.DeserializeObject<Entities.Subscription.Subscription>(
+                await response.Content.ReadAsStringAsync());
         }
     }
 }
