@@ -4,7 +4,7 @@ using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Addresses
 {
-    class CreateAddressRequest
+    public class CreateAddressRequest
     {
         [JsonProperty("address1")]
         public string Address1 { get; set; }
@@ -40,6 +40,6 @@ namespace RechargeSharp.Entities.Addresses
         public List<ShippingLine> OriginalShippingLines { get; set; }
 
         [JsonProperty("shipping_lines_override")]
-        public ShippingLine[] ShippingLinesOverride { get; set; }
+        public List<ShippingLine> ShippingLinesOverride { get; set; }
     }
 }

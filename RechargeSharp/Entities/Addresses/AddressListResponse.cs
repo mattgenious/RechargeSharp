@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Addresses
 {
-    class AddressListResponse
+    public class AddressListResponse
     {
         [JsonProperty("addresses")]
         public List<Address> Addresses { get; set; }

@@ -5,7 +5,7 @@ using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Addresses
 {
-    class Address
+    public class Address
     {
         [JsonProperty("address1")]
         public string Address1 { get; set; }
