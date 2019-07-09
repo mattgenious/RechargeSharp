@@ -5,10 +5,6 @@ I am currently prioritizing getting the entities created, services will come aft
 
 ## Missing items
 ### Entities
-#### Addresses
-- UpdateAddressRequest
-- OverrideShippingLinesRequest
-- ValidateAddressRequest
 #### Charges
 - ChangeNextChargeDateRequest
 - SkipChargeRequest
@@ -33,16 +29,8 @@ I am currently prioritizing getting the entities created, services will come aft
 - ChangeOrderDateRequest
 - ChangeOrderVariantRequest
 - CloneOrdersRequest
-#### Subscriptions
-- UpdateSubscriptionRequest
-- ChangeNextChargeDateSubscriptionRequest
-- ChangeAddressRequest
-- CancelSubscriptionRequest
-- ActivateSubscriptionRequest
-- DelayChargeRegenRequest
 
 ### Services
-- AddressService
 - ChargeService
 - CheckoutService
 - CollectionService
@@ -53,5 +41,7 @@ I am currently prioritizing getting the entities created, services will come aft
 - ProductService
 - ShopService
 
-## Items being currently being implemented
-- SubscriptionService
+## Next items to be implemented
+- CheckoutService
+- DiscountService
+- ChargeService
