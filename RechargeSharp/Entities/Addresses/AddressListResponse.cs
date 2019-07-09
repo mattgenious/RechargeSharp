@@ -1,0 +1,11 @@
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+
+namespace RechargeSharp.Entities.Addresses
+{
+    class AddressListResponse
+    {
+        [JsonProperty("addresses")]
+        public List<Address> Addresses { get; set; }
+    }
+}

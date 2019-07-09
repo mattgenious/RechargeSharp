@@ -2,7 +2,7 @@
 
 namespace RechargeSharp.Entities.Shared
 {
-    class Address
+    public class Address
     {
         [JsonProperty("address1")]
         public string Address1 { get; set; }
