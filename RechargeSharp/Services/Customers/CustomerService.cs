@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Customers;
+using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Services.Customers
 {
@@ -40,10 +41,10 @@ namespace RechargeSharp.Services.Customers
             return await GetCustomersAsync(queryParams);
         }
 
-        public async Task<CustomerCountResponse> CountCustomersAsync()
+        public async Task<CountResponse> CountCustomersAsync()
         {
             var response = await GetAsync("/customers/count");
-            return JsonConvert.DeserializeObject<CustomerCountResponse>(
+            return JsonConvert.DeserializeObject<CountResponse>(
                 await response.Content.ReadAsStringAsync());
         }
 
