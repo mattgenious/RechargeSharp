@@ -13,10 +13,10 @@ namespace RechargeSharp.Services.Addresses
         {
         }
 
-        public async Task<Address> GetAddressAsync(string id)
+        public async Task<AddressResponse> GetAddressAsync(string id)
         {
             var response = await GetAsync($"/addresses/{id}");
-            return JsonConvert.DeserializeObject<Address>(
+            return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync());
         }
 
@@ -39,23 +39,23 @@ namespace RechargeSharp.Services.Addresses
             return await GetAddressesAsync(queryParams);
         }
 
-        public async Task<Address> CreateAddressAsync(CreateAddressRequest createAddressRequest)
+        public async Task<AddressResponse> CreateAddressAsync(CreateAddressRequest createAddressRequest)
         {
             var response = await PostAsync("/addresses", JsonConvert.SerializeObject(createAddressRequest));
-            return JsonConvert.DeserializeObject<Address>(
+            return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync());
         }
 
-        public async Task<Address> UpdateAddressAsync(string id, UpdateAddressRequest updateAddressRequest)
+        public async Task<AddressResponse> UpdateAddressAsync(string id, UpdateAddressRequest updateAddressRequest)
         {
             var response = await PutAsync($"/addresses/{id}", JsonConvert.SerializeObject(updateAddressRequest));
-            return JsonConvert.DeserializeObject<Address>(
+            return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync());
         }
-        public async Task<Address> OverrideShippingLines(string id, OverrideShippingLinesRequest overrideShippingLinesRequest)
+        public async Task<AddressResponse> OverrideShippingLines(string id, OverrideShippingLinesRequest overrideShippingLinesRequest)
         {
             var response = await PutAsync($"/addresses/{id}", JsonConvert.SerializeObject(overrideShippingLinesRequest));
-            return JsonConvert.DeserializeObject<Address>(
+            return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync());
         }
 

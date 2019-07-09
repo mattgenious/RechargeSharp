@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Shared
 {
-    class TaxLine
+    public class TaxLine
     {
         [JsonProperty("price")]
         public string Price { get; set; }

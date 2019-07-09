@@ -3,7 +3,7 @@ using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Checkouts
 {
-    class CreateCheckoutRequestLineItem
+    public class CreateCheckoutRequestLineItem
     {
         [JsonProperty("charge_interval_frequency")]
         public long ChargeIntervalFrequency { get; set; }

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Shared
 {
-    class ShippingRate
+    public class ShippingRate
     {
         [JsonProperty("checkout")]
         public ShippingRateCheckout Checkout { get; set; }

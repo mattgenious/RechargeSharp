@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using RechargeSharp.Entities.Subscriptions;
 using RechargeSharp.Entities.Shared;
+using RechargeSharp.Entities.Subscriptions;
 
 namespace RechargeSharp.Services.Subscriptions
 {
@@ -12,10 +12,10 @@ namespace RechargeSharp.Services.Subscriptions
         {
         }
 
-        public async Task<Entities.Subscriptions.Subscription> GetSubscriptionAsync(string id)
+        public async Task<SubscriptionResponse> GetSubscriptionAsync(string id)
         {
             var response = await GetAsync($"/subscriptions/{id}");
-            return JsonConvert.DeserializeObject<Entities.Subscriptions.Subscription>(
+            return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync());
         }
 
@@ -50,46 +50,46 @@ namespace RechargeSharp.Services.Subscriptions
                 await response.Content.ReadAsStringAsync());
         }
 
-        public async Task<Subscription> CreateSubscriptionAsync(CreateSubscriptionRequest createSubscriptionRequest)
+        public async Task<SubscriptionResponse> CreateSubscriptionAsync(CreateSubscriptionRequest createSubscriptionRequest)
         {
             var response = await PostAsync("/Subscriptions", JsonConvert.SerializeObject(createSubscriptionRequest));
-            return JsonConvert.DeserializeObject<Subscription>(
+            return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync());
         }
-        public async Task<Subscription> ChangeNextChargeDateAsync(string id, DateTimeOffset date)
+        public async Task<SubscriptionResponse> ChangeNextChargeDateAsync(string id, DateTimeOffset date)
         {
-            var response = await PostAsync($"/Subscriptions/{id}/set_next_charge_date", JsonConvert.SerializeObject(new ChangeNextChargeDateRequest(){Date = date.ToString("yyyy-MM-dd")}));
-            return JsonConvert.DeserializeObject<Subscription>(
+            var response = await PostAsync($"/Subscriptions/{id}/set_next_charge_date", JsonConvert.SerializeObject(new ChangeNextChargeDateRequest {Date = date.ToString("yyyy-MM-dd")}));
+            return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync());
         }
-        public async Task<Subscription> ChangeAddressAsync(string id, ChangeAddressRequest changeAddressRequest)
+        public async Task<SubscriptionResponse> ChangeAddressAsync(string id, ChangeAddressRequest changeAddressRequest)
         {
             var response = await PostAsync($"/Subscriptions/{id}/change_address", JsonConvert.SerializeObject(changeAddressRequest));
-            return JsonConvert.DeserializeObject<Subscription>(
+            return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync());
         }
-        public async Task<Subscription> CancelSubscriptionAsync(string id, CancelSubscriptionRequest cancelSubscriptionRequest)
+        public async Task<SubscriptionResponse> CancelSubscriptionAsync(string id, CancelSubscriptionRequest cancelSubscriptionRequest)
         {
             var response = await PostAsync($"/Subscriptions/{id}/cancel", JsonConvert.SerializeObject(cancelSubscriptionRequest));
-            return JsonConvert.DeserializeObject<Subscription>(
+            return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync());
         }
-        public async Task<Subscription> ActivateSubscriptionAsync(string id)
+        public async Task<SubscriptionResponse> ActivateSubscriptionAsync(string id)
         {
             var response = await PostAsync($"/Subscriptions/{id}/activate", "{}");
-            return JsonConvert.DeserializeObject<Subscription>(
+            return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync());
         }
-        public async Task<Subscription> UpdateSubscriptionAsync(string id, UpdateSubscriptionRequest updateSubscriptionRequest)
+        public async Task<SubscriptionResponse> UpdateSubscriptionAsync(string id, UpdateSubscriptionRequest updateSubscriptionRequest)
         {
             var response = await PutAsync($"/Subscriptions/{id}", JsonConvert.SerializeObject(updateSubscriptionRequest));
-            return JsonConvert.DeserializeObject<Subscription>(
+            return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync());
         }
-        public async Task<Subscription> DelayChargeRegenAsync(string id, DelayChargeRegenRequest delayChargeRegenRequest)
+        public async Task<SubscriptionResponse> DelayChargeRegenAsync(string id, DelayChargeRegenRequest delayChargeRegenRequest)
         {
             var response = await PutAsync($"/Subscriptions/{id}", JsonConvert.SerializeObject(delayChargeRegenRequest));
-            return JsonConvert.DeserializeObject<Subscription>(
+            return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync());
         }
 

@@ -4,7 +4,7 @@ using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Checkouts
 {
-    class Checkout
+    public class Checkout
     {
         [JsonProperty("applied_discount")]
         public string AppliedDiscount { get; set; }

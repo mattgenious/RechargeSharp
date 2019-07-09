@@ -2,7 +2,7 @@
 
 namespace RechargeSharp.Entities.Checkouts
 {
-    class ProcessCheckoutRequest
+    public class ProcessCheckoutRequest
     {
         [JsonProperty("payment_processor")]
         public string PaymentProcessor { get; set; }

@@ -11,9 +11,6 @@ I am currently prioritizing getting the entities created, services will come aft
 - UnskipChargeRequest
 - RefundChargeRequest
 - TotalRefundRequest
-#### Checkouts
-- UpdateCheckoutRequest
-- UpdateCheckoutShippingLineRequest
 #### Discounts
 - UpdateDiscountRequest
 - AddDiscountToAddressRequest
@@ -32,7 +29,6 @@ I am currently prioritizing getting the entities created, services will come aft
 
 ### Services
 - ChargeService
-- CheckoutService
 - CollectionService
 - DiscountService
 - MetafieldService
@@ -42,6 +38,5 @@ I am currently prioritizing getting the entities created, services will come aft
 - ShopService
 
 ## Next items to be implemented
-- CheckoutService
 - DiscountService
 - ChargeService

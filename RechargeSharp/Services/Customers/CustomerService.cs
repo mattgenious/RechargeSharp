@@ -12,10 +12,10 @@ namespace RechargeSharp.Services.Customers
         {
         }
 
-        public async Task<Customer> GetCustomerAsync(string id)
+        public async Task<CustomerResponse> GetCustomerAsync(string id)
         {
             var response = await GetAsync($"/customers/{id}");
-            return JsonConvert.DeserializeObject<Customer>(
+            return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync());
         }
 
@@ -48,24 +48,24 @@ namespace RechargeSharp.Services.Customers
                 await response.Content.ReadAsStringAsync());
         }
 
-        public async Task<Customer> CreateCustomerAsync(CreateCustomerRequest createCustomerRequest)
+        public async Task<CustomerResponse> CreateCustomerAsync(CreateCustomerRequest createCustomerRequest)
         {
             var response = await PostAsync("/customers", JsonConvert.SerializeObject(createCustomerRequest));
-            return JsonConvert.DeserializeObject<Customer>(
+            return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync());
         }
 
-        public async Task<Customer> UpdateCustomerAsync(string id, UpdateCustomerRequest updateCustomerRequest)
+        public async Task<CustomerResponse> UpdateCustomerAsync(string id, UpdateCustomerRequest updateCustomerRequest)
         {
             var response = await PutAsync($"/customers/{id}", JsonConvert.SerializeObject(updateCustomerRequest));
-            return JsonConvert.DeserializeObject<Customer>(
+            return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync());
         }
 
-        public async Task<Customer> UpdateCustomerPaymentTokenAsync(string id, UpdateCustomerPaymentTokenRequest customerPaymentTokenRequest)
+        public async Task<CustomerResponse> UpdateCustomerPaymentTokenAsync(string id, UpdateCustomerPaymentTokenRequest customerPaymentTokenRequest)
         {
             var response = await PutAsync($"/customers/{id}", JsonConvert.SerializeObject(customerPaymentTokenRequest));
-            return JsonConvert.DeserializeObject<Customer>(
+            return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync());
         }
 
