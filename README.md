@@ -4,6 +4,54 @@ Please feel free to submit pull requests on github
 I am currently prioritizing getting the entities created, services will come afterwards.
 
 ## Missing items
-A lot of minor objects such as update requests, are still missing.
+### Entities
+#### Addresses
+- UpdateAddressRequest
+- OverrideShippingLinesRequest
+- ValidateAddressRequest
+#### Charges
+- ChangeNextChargeDateRequest
+- SkipChargeRequest
+- UnskipChargeRequest
+- RefundChargeRequest
+- TotalRefundRequest
+#### Checkouts
+- UpdateCheckoutRequest
+- UpdateCheckoutShippingLineRequest
+#### Discounts
+- UpdateDiscountRequest
+- AddDiscountToAddressRequest
+- AddDiscountToChargeRequest
+- RemoveDiscountRequest(seems to be an empty post request?)
+#### Metafields
+- UpdateMetafieldRequest
+#### One Time Products
+- UpdateOneTimeProductRequest
+#### Orders
+- UpdateOrderRequest
+- UpdateLineItemsRequest
+- ChangeOrderDateRequest
+- ChangeOrderVariantRequest
+- CloneOrdersRequest
+#### Subscriptions
+- UpdateSubscriptionRequest
+- ChangeNextChargeDateSubscriptionRequest
+- ChangeAddressRequest
+- CancelSubscriptionRequest
+- ActivateSubscriptionRequest
+- DelayChargeRegenRequest
 
-Implementation of SubscriptionService has begun, the intention is to build them using HttpClient and Polly to handle transient errors and bucket overflow behind the scenes.
+### Services
+- AddressService
+- ChargeService
+- CheckoutService
+- CollectionService
+- DiscountService
+- MetafieldService
+- OneTimeProductService
+- OrderService
+- ProductService
+- ShopService
+
+## Items being currently being implemented
+- SubscriptionService

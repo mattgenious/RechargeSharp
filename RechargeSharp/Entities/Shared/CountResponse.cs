@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.Customers
+namespace RechargeSharp.Entities.Shared
 {
-    public class CustomerCountResponse
+    public class CountResponse
     {
         [JsonProperty("count")]
         public long Count { get; set; }
