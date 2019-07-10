@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Webhooks.Charges
 {
-    class ChargeFailed : Entities.Charges.Charge
+    public class ChargeFailed : Entities.Charges.Charge
     {
         [JsonProperty("last_charge_attempt_date")]
         public DateTimeOffset LastChargeAttemptDate { get; set; }

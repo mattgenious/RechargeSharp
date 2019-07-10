@@ -6,7 +6,7 @@ using RechargeSharp.Entities.Charges;
 
 namespace RechargeSharp.Entities.Webhooks.Charges
 {
-    class ChargeFailedResponse
+    public class ChargeFailedResponse
     {
         [JsonProperty("charge")]
         public ChargeFailed Charge { get; set; }
