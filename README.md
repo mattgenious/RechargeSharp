@@ -26,6 +26,13 @@ I am currently prioritizing getting the entities created, services will come aft
 - ChangeOrderDateRequest
 - ChangeOrderVariantRequest
 - CloneOrdersRequest
+#### Webhooks
+- Addresses
+- Subscriptions
+- Charges
+- Orders
+- Products
+- Other
 
 ### Services
 - ChargeService

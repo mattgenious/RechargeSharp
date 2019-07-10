@@ -29,4 +29,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\Webhooks\Customers\" />
+    <Folder Include="Entities\Webhooks\Subscriptions\" />
+  </ItemGroup>
+
 </Project>

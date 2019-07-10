@@ -5,13 +5,13 @@ using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Charges
 {
-    class Charge
+    public class Charge
     {
         [JsonProperty("address_id")]
         public long AddressId { get; set; }
 
         [JsonProperty("billing_address")]
-        public Address BillingAddress { get; set; }
+        public Shared.Address BillingAddress { get; set; }
 
         [JsonProperty("client_details")]
         public ClientDetails ClientDetails { get; set; }
@@ -59,7 +59,7 @@ namespace RechargeSharp.Entities.Charges
         public long ShipmentsCount { get; set; }
 
         [JsonProperty("shipping_address")]
-        public Address ShippingAddress { get; set; }
+        public Shared.Address ShippingAddress { get; set; }
 
         [JsonProperty("shipping_lines")]
         public List<ShippingLine> ShippingLines { get; set; }
