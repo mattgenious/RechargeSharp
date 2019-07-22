@@ -78,6 +78,6 @@ namespace RechargeSharp.Entities.Customers
         public long NumberSubscriptions { get; set; }
 
         [JsonProperty("first_charge_processed_at")]
-        public DateTimeOffset FirstChargeProcessedAt { get; set; }
+        public DateTimeOffset? FirstChargeProcessedAt { get; set; }
     }
 }
