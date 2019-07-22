@@ -3,17 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.11</Version>
-    <AssemblyVersion>0.0.11.0</AssemblyVersion>
+    <Version>0.0.12</Version>
+    <AssemblyVersion>0.0.12.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>0.0.11.0</FileVersion>
+    <FileVersion>0.0.12.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
+    <PackageReleaseNotes>Created a method to fetch all subscriptions with specific parameters instead of having to implement the paging logic in the application using the package.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
