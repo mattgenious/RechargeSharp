@@ -37,21 +37,21 @@ namespace RechargeSharp.Services
             }).RetryAsync(3);
         }
 
-        protected async Task<HttpResponseMessage> GetAsync(string path)
+        protected Task<HttpResponseMessage> GetAsync(string path)
         {
-            return await AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.GetAsync(path));
+            return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.GetAsync(path));
         }
-        protected async Task<HttpResponseMessage> PutAsync(string path, string jsonData)
+        protected Task<HttpResponseMessage> PutAsync(string path, string jsonData)
         {
-            return await AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PutAsync(path, new StringContent(jsonData)));
+            return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PutAsync(path, new StringContent(jsonData)));
         }
-        protected async Task<HttpResponseMessage> PostAsync(string path, string jsonData)
+        protected Task<HttpResponseMessage> PostAsync(string path, string jsonData)
         {
-            return await AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PostAsync(path, new StringContent(jsonData)));
+            return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PostAsync(path, new StringContent(jsonData)));
         }
-        protected async Task<HttpResponseMessage> DeleteAsync(string path)
+        protected Task<HttpResponseMessage> DeleteAsync(string path)
         {
-            return await AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.DeleteAsync(path));
+            return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.DeleteAsync(path));
         }
     }
 }
