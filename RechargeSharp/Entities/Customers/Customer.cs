@@ -36,7 +36,7 @@ namespace RechargeSharp.Entities.Customers
         public string BillingAddress2 { get; set; }
 
         [JsonProperty("billing_zip")]
-        public long BillingZip { get; set; }
+        public string BillingZip { get; set; }
 
         [JsonProperty("billing_city")]
         public string BillingCity { get; set; }
