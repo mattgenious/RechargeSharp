@@ -16,19 +16,19 @@ namespace RechargeSharp.Services.Charges
 
         public async Task<ChargeResponse> GetChargeAsync(string id)
         {
-            var response = await GetAsync($"/charges/{id}");
+            var response = await GetAsync($"/charges/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
         private async Task<ChargeListResponse> GetChargesAsync(string queryParams)
         {
-            var response = await GetAsync($"/charges?{queryParams}");
+            var response = await GetAsync($"/charges?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeListResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
-        public async Task<ChargeListResponse> GetChargesAsync(int page = 1, int limit = 50, string email = null, string shopifyChargeId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, string hash = null)
+        public Task<ChargeListResponse> GetChargesAsync(int page = 1, int limit = 50, string email = null, string shopifyChargeId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, string hash = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += email != null ? $"&email={email}" : "";
@@ -40,54 +40,54 @@ namespace RechargeSharp.Services.Charges
             queryParams += hash != null ? $"&hash={hash}" : "";
 
 
-            return await GetChargesAsync(queryParams);
+            return GetChargesAsync(queryParams);
         }
 
         public async Task<CountResponse> CountChargesAsync()
         {
-            var response = await GetAsync("/charges/count");
+            var response = await GetAsync("/charges/count").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
         public async Task<ChargeResponse> ChangeNextChargeDateAsync(long chargeId, ChangeNextChargeDateRequest changeNextChargeDateRequest)
         {
-            var response = await PostAsync($"/charges/{chargeId}/change_next_charge_date", JsonConvert.SerializeObject(changeNextChargeDateRequest));
+            var response = await PostAsync($"/charges/{chargeId}/change_next_charge_date", JsonConvert.SerializeObject(changeNextChargeDateRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
         public async Task<ChargeResponse> SkipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest)
         {
-            var response = await PostAsync($"/charges/{chargeId}/skip", JsonConvert.SerializeObject(skipNextChargeRequest));
+            var response = await PostAsync($"/charges/{chargeId}/skip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
         public async Task<ChargeResponse> UnskipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest)
         {
-            var response = await PostAsync($"/charges/{chargeId}/unskip", JsonConvert.SerializeObject(skipNextChargeRequest));
+            var response = await PostAsync($"/charges/{chargeId}/unskip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
         public async Task<ChargeResponse> RefundChargeAsync(long chargeId, RefundChargeRequest refundChargeRequest)
         {
-            var response = await PostAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(refundChargeRequest));
+            var response = await PostAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(refundChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
         public async Task<ChargeResponse> TotalRefundChargeAsync(long chargeId, TotalRefundChargeRequest totalRefundChargeRequest)
         {
-            var response = await PostAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(totalRefundChargeRequest));
+            var response = await PostAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(totalRefundChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
         public async Task DeleteChargeAsync(string id)
         {
-            var response = await DeleteAsync($"/charges/{id}");
+            var response = await DeleteAsync($"/charges/{id}").ConfigureAwait(false);
         }
 
 

@@ -14,43 +14,43 @@ namespace RechargeSharp.Services.Checkouts
         }
         public async Task<CheckoutResponse> GetCheckoutAsync(string id)
         {
-            var response = await GetAsync($"/checkouts/{id}");
+            var response = await GetAsync($"/checkouts/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
 
 
         public async Task<CheckoutResponse> CreateCheckoutAsync(CreateCheckoutRequest createCheckoutRequest)
         {
-            var response = await PostAsync("/checkouts", JsonConvert.SerializeObject(createCheckoutRequest));
+            var response = await PostAsync("/checkouts", JsonConvert.SerializeObject(createCheckoutRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
         public async Task<CheckoutResponse> UpdateCheckoutAsync(string id, UpdateCheckoutRequest updateCheckoutRequest)
         {
-            var response = await PutAsync($"/checkouts/{id}", JsonConvert.SerializeObject(updateCheckoutRequest));
+            var response = await PutAsync($"/checkouts/{id}", JsonConvert.SerializeObject(updateCheckoutRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
         public async Task<ShippingRateListResponse> RetrieveShippingRatesAsync(string id, OverrideShippingLinesRequest overrideShippingLinesRequest)
         {
-            var response = await GetAsync($"/checkouts/{id}/shipping_rates");
+            var response = await GetAsync($"/checkouts/{id}/shipping_rates").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ShippingRateListResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
         public async Task<ProcessCheckoutResponse> ProcessCheckoutAsync(string token, ProcessCheckoutRequest processCheckoutRequest)
         {
-            var response = await PostAsync("/checkouts/validate", JsonConvert.SerializeObject(processCheckoutRequest));
+            var response = await PostAsync("/checkouts/validate", JsonConvert.SerializeObject(processCheckoutRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ProcessCheckoutResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
         public async Task DeleteCheckoutAsync(string id)
         {
-            var response = await DeleteAsync($"/checkouts/{id}");
+            var response = await DeleteAsync($"/checkouts/{id}").ConfigureAwait(false);
         }
     }
 }
