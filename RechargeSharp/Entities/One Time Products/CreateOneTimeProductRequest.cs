@@ -5,7 +5,7 @@ using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.One_Time_Products
 {
-    class CreateOneTimeProductRequest
+    public class CreateOneTimeProductRequest
     {
         [JsonProperty("next_charge_scheduled_at")]
         public DateTimeOffset NextChargeScheduledAt { get; set; }

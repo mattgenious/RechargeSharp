@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.One_Time_Products
 {
-    class OneTimeProductListResponse
+    public class OneTimeProductListResponse
     {
         [JsonProperty("onetimes")]
         public List<OneTimeProduct> OneTimeProducts { get; set; }

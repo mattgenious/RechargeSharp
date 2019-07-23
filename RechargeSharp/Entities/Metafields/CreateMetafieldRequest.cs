@@ -2,7 +2,7 @@
 
 namespace RechargeSharp.Entities.Metafields
 {
-    class CreateMetafieldRequest
+    public class CreateMetafieldRequest
     {
         [JsonProperty("description")]
         public string Description { get; set; }

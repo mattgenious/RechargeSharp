@@ -2,7 +2,7 @@
 
 namespace RechargeSharp.Entities.Collections
 {
-    class CollectionListResponse
+    public class CollectionListResponse
     {
         [JsonProperty("products")]
         public Collection[] Products { get; set; }

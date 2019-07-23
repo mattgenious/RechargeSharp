@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Collections
 {
-    class Collection
+    public class Collection
     {
         [JsonProperty("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
