@@ -3,18 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.18</Version>
-    <AssemblyVersion>0.0.18.0</AssemblyVersion>
+    <Version>0.0.19</Version>
+    <AssemblyVersion>0.0.19.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>0.0.18.0</FileVersion>
+    <FileVersion>0.0.19.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Fixed accessability bug in WebhookService (constructor was protected instead of public)</PackageReleaseNotes>
+    <PackageReleaseNotes>Throw exception on unhandled http status code.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

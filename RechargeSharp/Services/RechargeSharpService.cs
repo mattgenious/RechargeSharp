@@ -27,12 +27,12 @@ namespace RechargeSharp.Services
                     }
                     else
                     {
-                        return false;
+                        throw new HttpRequestException(x.ReasonPhrase);
                     }
                 }
                 else
                 {
-                    return false;
+                    throw new HttpRequestException(x.ReasonPhrase);
                 }
             }).RetryAsync(3);
         }
