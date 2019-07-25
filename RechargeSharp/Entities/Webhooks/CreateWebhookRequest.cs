@@ -6,7 +6,7 @@ namespace RechargeSharp.Entities.Webhooks
     public class CreateWebhookRequest
     {
         [JsonProperty("address")]
-        public Uri Address { get; set; }
+        public string Address { get; set; }
 
         [JsonProperty("topic")]
         public string Topic { get; set; }
