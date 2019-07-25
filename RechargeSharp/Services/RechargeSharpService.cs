@@ -27,7 +27,7 @@ namespace RechargeSharp.Services
                     }
                     else
                     {
-                        throw new HttpRequestException(x.ReasonPhrase);
+                        throw new HttpRequestException($"{x.Headers.ToString()}\n{x.ReasonPhrase}\n{x.StatusCode}\n{x.Content.ReadAsStringAsync()}");
                     }
                 }
                 else
