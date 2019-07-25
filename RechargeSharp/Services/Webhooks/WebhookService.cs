@@ -10,7 +10,7 @@ namespace RechargeSharp.Services.Webhooks
 {
     public class WebhookService : RechargeSharpService
     {
-        protected WebhookService(string apiKey) : base(apiKey)
+        public WebhookService(string apiKey) : base(apiKey)
         {
         }
 
