@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Polly;
 using Polly.Retry;
 
@@ -48,6 +50,12 @@ namespace RechargeSharp.Services
         protected Task<HttpResponseMessage> PostAsync(string path, string jsonData)
         {
             return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PostAsync(path, new StringContent(jsonData)));
+        }
+        protected Task<HttpResponseMessage> PostAsJsonAsync(string path, object jsonData)
+        {
+            var content = new ByteArrayContent(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(jsonData)));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PostAsync(path, content));
         }
         protected Task<HttpResponseMessage> DeleteAsync(string path)
         {

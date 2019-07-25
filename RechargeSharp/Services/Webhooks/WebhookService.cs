@@ -31,7 +31,7 @@ namespace RechargeSharp.Services.Webhooks
 
         public async Task<WebhookResponse> CreateWebhookAsync(CreateWebhookRequest createWebhookRequest)
         {
-            var response = await PostAsync("/webhooks", JsonConvert.SerializeObject(createWebhookRequest));
+            var response = await PostAsJsonAsync("/webhooks", createWebhookRequest);
             return JsonConvert.DeserializeObject<WebhookResponse>(
                 await response.Content.ReadAsStringAsync());
         }
