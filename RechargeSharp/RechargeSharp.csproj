@@ -3,18 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.16</Version>
-    <AssemblyVersion>0.0.16.0</AssemblyVersion>
+    <Version>0.0.17</Version>
+    <AssemblyVersion>0.0.17.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>0.0.16.0</FileVersion>
+    <FileVersion>0.0.17.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Added CollectionService, MetafieldService and OneTimeProductService and related entities.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added WebhookService and related entities.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,8 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Webhooks\Customers\" />
-    <Folder Include="Entities\Webhooks\Subscriptions\" />
+    <Folder Include="Entities\WebhookResponses\Customers\" />
+    <Folder Include="Entities\WebhookResponses\Subscriptions\" />
   </ItemGroup>
 
 </Project>

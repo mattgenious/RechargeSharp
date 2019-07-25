@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.Webhooks.Charges
+namespace RechargeSharp.Entities.WebhookResponses.Charges
 {
     public class ChargeFailed : Entities.Charges.Charge
     {

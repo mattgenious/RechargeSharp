@@ -43,7 +43,7 @@ foreach (var customer in customers.Customers)
 - ChangeOrderDateRequest
 - ChangeOrderVariantRequest
 - CloneOrdersRequest
-#### Webhooks
+#### WebhookResponses
 - Addresses
 - Subscriptions
 - Charges
