@@ -53,7 +53,7 @@ namespace RechargeSharp.Services
         }
         protected Task<HttpResponseMessage> PostAsJsonAsync(string path, object jsonData)
         {
-            var content = new ByteArrayContent(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(jsonData)));
+            var content = new StringContent(JsonConvert.SerializeObject(jsonData));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PostAsync(path, content));
         }
