@@ -21,7 +21,7 @@ namespace RechargeSharp.Services.Webhooks
                 await response.Content.ReadAsStringAsync());
         }
 
-        public async Task<WebhookListResponse> GetWebhooksAsync(string queryParams)
+        public async Task<WebhookListResponse> GetWebhooksAsync()
         {
             var response = await GetAsync($"/webhooks");
             return JsonConvert.DeserializeObject<WebhookListResponse>(
