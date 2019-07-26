@@ -32,6 +32,6 @@ namespace RechargeSharp.Entities.Shared
         public string Province { get; set; }
 
         [JsonProperty("zip")]
-        public long Zip { get; set; }
+        public string Zip { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace RechargeSharp.Services.Charges
 {
     public class ChargeService : RechargeSharpService
     {
-        protected ChargeService(string apiKey) : base(apiKey)
+        public ChargeService(string apiKey) : base(apiKey)
         {
         }
 

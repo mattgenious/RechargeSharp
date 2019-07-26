@@ -56,7 +56,7 @@ namespace RechargeSharp.Entities.Charges
         public DateTimeOffset ScheduledAt { get; set; }
 
         [JsonProperty("shipments_count")]
-        public long ShipmentsCount { get; set; }
+        public long? ShipmentsCount { get; set; }
 
         [JsonProperty("shipping_address")]
         public Shared.Address ShippingAddress { get; set; }
@@ -65,7 +65,7 @@ namespace RechargeSharp.Entities.Charges
         public List<ShippingLine> ShippingLines { get; set; }
 
         [JsonProperty("shopify_order_id")]
-        public long ShopifyOrderId { get; set; }
+        public long? ShopifyOrderId { get; set; }
 
         [JsonProperty("status")]
         public string Status { get; set; }
@@ -74,7 +74,7 @@ namespace RechargeSharp.Entities.Charges
         public string SubTotal { get; set; }
 
         [JsonProperty("subtotal_price")]
-        public long SubtotalPrice { get; set; }
+        public Decimal? SubtotalPrice { get; set; }
 
         [JsonProperty("tags")]
         public string Tags { get; set; }
