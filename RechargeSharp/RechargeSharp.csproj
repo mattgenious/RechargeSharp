@@ -3,18 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.31</Version>
-    <AssemblyVersion>0.0.31.0</AssemblyVersion>
+    <Version>0.0.32</Version>
+    <AssemblyVersion>0.0.32.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>0.0.31.0</FileVersion>
+    <FileVersion>0.0.32.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>zip in shared.address now a string</PackageReleaseNotes>
+    <PackageReleaseNotes>synchronously getting error content when unhandled http code hit.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

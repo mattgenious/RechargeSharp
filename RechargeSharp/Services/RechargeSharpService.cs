@@ -29,7 +29,7 @@ namespace RechargeSharp.Services
                     }
                     else
                     {
-                        throw new HttpRequestException($"{x.Headers.ToString()}\n{x.ReasonPhrase}\n{x.StatusCode}\n{x.Content.ReadAsStringAsync()}");
+                        throw new HttpRequestException($"{x.Headers.ToString()}\n{x.ReasonPhrase}\n{x.StatusCode}\n{x.Content.ReadAsStringAsync().GetAwaiter().GetResult()}");
                     }
                 }
                 else
