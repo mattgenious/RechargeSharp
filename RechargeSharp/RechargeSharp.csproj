@@ -3,18 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.32</Version>
-    <AssemblyVersion>0.0.32.0</AssemblyVersion>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>0.0.32.0</FileVersion>
+    <FileVersion>0.1.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>synchronously getting error content when unhandled http code hit.</PackageReleaseNotes>
+    <PackageReleaseNotes>As far as I can tell it is now feature complete.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,11 +28,6 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Entities\WebhookResponses\Customers\" />
-    <Folder Include="Entities\WebhookResponses\Subscriptions\" />
   </ItemGroup>
 
 </Project>

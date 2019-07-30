@@ -5,7 +5,7 @@ using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Orders
 {
-    class Order
+    public class Order
     {
         [JsonProperty("address_id")]
         public long AddressId { get; set; }

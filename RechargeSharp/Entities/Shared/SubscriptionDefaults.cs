@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Shared
 {
-    class SubscriptionDefaults
+    public class SubscriptionDefaults
     {
         [JsonProperty("charge_interval_frequency")]
         public long ChargeIntervalFrequency { get; set; }

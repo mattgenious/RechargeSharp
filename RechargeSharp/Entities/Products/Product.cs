@@ -4,7 +4,7 @@ using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Products
 {
-    class Product
+    public class Product
     {
         [JsonProperty("collection_id")]
         public long CollectionId { get; set; }

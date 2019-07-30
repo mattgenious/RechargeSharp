@@ -2,9 +2,9 @@
 
 namespace RechargeSharp.Entities.WebhookResponses.Charges
 {
-    public class ChargeFailedResponse
+    public class ChargeUpdatedResponse
     {
         [JsonProperty("charge")]
-        public WebhookChargeFailed Charge { get; set; }
+        public WebhookChargeUpdated Charge { get; set; }
     }
 }

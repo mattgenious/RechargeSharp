@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Products
 {
-    class ProductListResponse
+    public class ProductListResponse
     {
         [JsonProperty("products")]
-        public List<Products.Product> Products { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

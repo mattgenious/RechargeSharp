@@ -1,7 +1,6 @@
 ﻿# RechargeSharp, a C\# library for RechargePayments
 ### built to work with the api documented at [https://developer.rechargepayments.com/](https://developer.rechargepayments.com/)
 Please feel free to submit pull requests on github
-I am currently prioritizing getting the entities created, services will come afterwards.
 
 ## Quickstart
 ### Subscriptions
@@ -34,24 +33,3 @@ foreach (var customer in customers.Customers)
     Console.WriteLine(customer.HasValidPaymentMethod);
 }
 ```
-
-## Missing items
-### Entities
-#### Orders
-- UpdateOrderRequest
-- UpdateLineItemsRequest
-- ChangeOrderDateRequest
-- ChangeOrderVariantRequest
-- CloneOrdersRequest
-#### WebhookResponses
-- Addresses
-- Subscriptions
-- Charges
-- Orders
-- Products
-- Other
-
-### Services
-- OrderService
-- ProductService
-- ShopService

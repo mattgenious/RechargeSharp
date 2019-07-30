@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.Shops
+namespace RechargeSharp.Entities.Shop
 {
-    class Shop
+    public class Shop
     {
         [JsonProperty("created_at")]
         public string CreatedAt { get; set; }
