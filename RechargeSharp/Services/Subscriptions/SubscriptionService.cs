@@ -72,7 +72,7 @@ namespace RechargeSharp.Services.Subscriptions
             {
                 page++;
                 accumulator.Subscriptions.AddRange(result.Subscriptions);
-                return await GetSubscriptionsRecAsync(queryParams, page, accumulator).ConfigureAwait(false);
+                return await GetSubscriptionsRecAsync(queryParams, page+1, accumulator).ConfigureAwait(false);
             }
         }
 

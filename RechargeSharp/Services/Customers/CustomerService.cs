@@ -69,7 +69,7 @@ namespace RechargeSharp.Services.Customers
             {
                 page++;
                 accumulator.Customers.AddRange(result.Customers);
-                return await GetCustomersRecAsync(queryParams, page, accumulator).ConfigureAwait(false);
+                return await GetCustomersRecAsync(queryParams, page+1, accumulator).ConfigureAwait(false);
             }
         }
 

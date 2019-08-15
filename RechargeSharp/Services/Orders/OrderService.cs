@@ -81,7 +81,7 @@ namespace RechargeSharp.Services.Orders
             {
                 page++;
                 accumulator.Orders.AddRange(result.Orders);
-                return await GetOrdersRecAsync(queryParams, page, accumulator).ConfigureAwait(false);
+                return await GetOrdersRecAsync(queryParams, page+1, accumulator).ConfigureAwait(false);
             }
         }
 
