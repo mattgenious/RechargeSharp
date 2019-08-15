@@ -24,7 +24,7 @@ namespace RechargeSharp.Services
             {
                 if (!x.IsSuccessStatusCode)
                 {
-                    if ((int) x.StatusCode == 429 && (int) x.StatusCode > 499)
+                    if ((int) x.StatusCode == 429 || (int) x.StatusCode > 499)
                     {
                         return true;
                     }
