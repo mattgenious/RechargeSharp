@@ -24,15 +24,7 @@ namespace RechargeSharp.Services
             {
                 if (!x.IsSuccessStatusCode)
                 {
-                    if ((int) x.StatusCode == 429 || (int) x.StatusCode > 499)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        throw new HttpRequestException(
-                            $"{x.Headers.ToString()}\n{x.ReasonPhrase}\n{x.StatusCode}\n{x.Content.ReadAsStringAsync().GetAwaiter().GetResult()}");
-                    }
+                    return true;
                 }
                 else
                 {
