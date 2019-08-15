@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -23,20 +24,28 @@ namespace RechargeSharp.Services
             {
                 if (!x.IsSuccessStatusCode)
                 {
-                    if ((int)x.StatusCode == 429 && (int)x.StatusCode > 499)
+                    if ((int) x.StatusCode == 429 && (int) x.StatusCode > 499)
                     {
                         return true;
                     }
                     else
                     {
-                        throw new HttpRequestException($"{x.Headers.ToString()}\n{x.ReasonPhrase}\n{x.StatusCode}\n{x.Content.ReadAsStringAsync().GetAwaiter().GetResult()}");
+                        throw new HttpRequestException(
+                            $"{x.Headers.ToString()}\n{x.ReasonPhrase}\n{x.StatusCode}\n{x.Content.ReadAsStringAsync().GetAwaiter().GetResult()}");
                     }
                 }
                 else
                 {
                     return false;
                 }
-            }).RetryAsync(3);
+            }).WaitAndRetryAsync(new []
+            {
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(3),
+                TimeSpan.FromSeconds(4),
+                TimeSpan.FromSeconds(5)
+            });
         }
 
         protected Task<HttpResponseMessage> GetAsync(string path)
