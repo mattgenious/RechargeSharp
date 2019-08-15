@@ -79,7 +79,7 @@ namespace RechargeSharp.Services.Charges
             {
                 page++;
                 accumulator.Charges.AddRange(result.Charges);
-                return await GetChargesRecAsync(queryParams, page+1, accumulator).ConfigureAwait(false);
+                return await GetChargesRecAsync(queryParams, page, accumulator).ConfigureAwait(false);
             }
         }
 

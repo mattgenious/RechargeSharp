@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Customers;
@@ -69,7 +70,7 @@ namespace RechargeSharp.Services.Customers
             {
                 page++;
                 accumulator.Customers.AddRange(result.Customers);
-                return await GetCustomersRecAsync(queryParams, page+1, accumulator).ConfigureAwait(false);
+                return await GetCustomersRecAsync(queryParams, page, accumulator).ConfigureAwait(false);
             }
         }
 

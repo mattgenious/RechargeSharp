@@ -60,7 +60,7 @@ namespace RechargeSharp.Services.Products
             {
                 page++;
                 accumulator.Products.AddRange(result.Products);
-                return await GetProductsRecAsync(queryParams, page+1, accumulator).ConfigureAwait(false);
+                return await GetProductsRecAsync(queryParams, page, accumulator).ConfigureAwait(false);
             }
         }
     }
