@@ -28,14 +28,14 @@ namespace RechargeSharp.Services.Charges
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
-        public Task<ChargeListResponse> GetChargesAsync(int page = 1, int limit = 50, string status = null, string customerId = null, string addressId = null, string shopifyOrderId = null, string chargeId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public Task<ChargeListResponse> GetChargesAsync(int page = 1, int limit = 50, string status = null, string customerId = null, string addressId = null, string shopifyOrderId = null, string subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += status != null ? $"&status={status}" : "";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
             queryParams += addressId != null ? $"&address_id={addressId}" : "";
             queryParams += shopifyOrderId != null ? $"&shopify_order_id={shopifyOrderId}" : "";
-            queryParams += chargeId != null ? $"&charge_id={chargeId}" : "";
+            queryParams += subscriptionId != null ? $"&subscription_id={subscriptionId}" : "";
             queryParams += date != null ? $"&date={date?.ToString("s")}" : "";
             queryParams += dateMin != null ? $"&date_min={dateMin?.ToString("s")}" : "";
             queryParams += dateMax != null ? $"&date_max={dateMax?.ToString("s")}" : "";
@@ -47,14 +47,14 @@ namespace RechargeSharp.Services.Charges
             return GetChargesAsync(queryParams);
         }
 
-        public Task<ChargeListResponse> GetAllChargesWithParamsAsync(string status = null, string customerId = null, string addressId = null, string shopifyOrderId = null, string chargeId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public Task<ChargeListResponse> GetAllChargesWithParamsAsync(string status = null, string customerId = null, string addressId = null, string shopifyOrderId = null, string subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
             var queryParams = "";
             queryParams += status != null ? $"&status={status}" : "";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
             queryParams += addressId != null ? $"&address_id={addressId}" : "";
             queryParams += shopifyOrderId != null ? $"&shopify_order_id={shopifyOrderId}" : "";
-            queryParams += chargeId != null ? $"&charge_id={chargeId}" : "";
+            queryParams += subscriptionId != null ? $"&subscription_id={subscriptionId}" : "";
             queryParams += date != null ? $"&date={date?.ToString("s")}" : "";
             queryParams += dateMin != null ? $"&date_min={dateMin?.ToString("s")}" : "";
             queryParams += dateMax != null ? $"&date_max={dateMax?.ToString("s")}" : "";
