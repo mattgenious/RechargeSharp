@@ -74,13 +74,13 @@ namespace RechargeSharp.Entities.Charges
         public string SubTotal { get; set; }
 
         [JsonProperty("subtotal_price")]
-        public Decimal? SubtotalPrice { get; set; }
+        public decimal? SubtotalPrice { get; set; }
 
         [JsonProperty("tags")]
         public string Tags { get; set; }
 
         [JsonProperty("tax_lines")]
-        public long TaxLines { get; set; }
+        public decimal TaxLines { get; set; }
 
         [JsonProperty("total_discounts")]
         public string TotalDiscounts { get; set; }
@@ -95,10 +95,10 @@ namespace RechargeSharp.Entities.Charges
         public string TotalRefunds { get; set; }
 
         [JsonProperty("total_tax")]
-        public long TotalTax { get; set; }
+        public decimal TotalTax { get; set; }
 
         [JsonProperty("total_weight")]
-        public long TotalWeight { get; set; }
+        public decimal TotalWeight { get; set; }
 
         [JsonProperty("transaction_id")]
         public string TransactionId { get; set; }

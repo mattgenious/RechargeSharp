@@ -15,38 +15,38 @@ namespace RechargeSharp.Services.Webhooks
         {
         }
 
-        public async Task<WebhookResponse> GetWebhookAsync(string id)
+        public async Task<Webhook> GetWebhookAsync(string id)
         {
             var response = await GetAsync($"/webhooks/{id}");
             return JsonConvert.DeserializeObject<WebhookResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync()).Webhook;
         }
 
-        public async Task<WebhookListResponse> GetWebhooksAsync()
+        public async Task<IEnumerable<Webhook>> GetWebhooksAsync()
         {
             var response = await GetAsync($"/webhooks");
             return JsonConvert.DeserializeObject<WebhookListResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync()).Webhooks;
         }
 
-        public async Task<WebhookResponse> CreateWebhookAsync(CreateWebhookRequest createWebhookRequest)
+        public async Task<Webhook> CreateWebhookAsync(CreateWebhookRequest createWebhookRequest)
         {
             var response = await PostAsJsonAsync("/webhooks", createWebhookRequest);
             return JsonConvert.DeserializeObject<WebhookResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync()).Webhook;
         }
 
-        public async Task<WebhookResponse> UpdateWebhookAsync(string id, UpdateWebhookRequest updateWebhookRequest)
+        public async Task<Webhook> UpdateWebhookAsync(string id, UpdateWebhookRequest updateWebhookRequest)
         {
             var response = await PutAsync($"/webhooks/{id}", JsonConvert.SerializeObject(updateWebhookRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync()).Webhook;
         }
-        public async Task<WebhookResponse> OverrideShippingLines(string id, OverrideShippingLinesRequest overrideShippingLinesRequest)
+        public async Task<Webhook> OverrideShippingLines(string id, OverrideShippingLinesRequest overrideShippingLinesRequest)
         {
             var response = await PutAsync($"/webhooks/{id}", JsonConvert.SerializeObject(overrideShippingLinesRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync()).Webhook;
         }
 
         public async Task DeleteWebhookAsync(string id)

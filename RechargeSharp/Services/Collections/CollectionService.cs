@@ -14,25 +14,25 @@ namespace RechargeSharp.Services.Collections
         {
         }
 
-        public async Task<CollectionResponse> GetCollectionAsync(string id)
+        public async Task<Collection> GetCollectionAsync(string id)
         {
             var response = await GetAsync($"/collections/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CollectionResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Collection;
         }
 
-        public async Task<CollectionListResponse> GetCollectionsAsync()
+        public async Task<IEnumerable<Collection>> GetCollectionsAsync()
         {
             var response = await GetAsync($"/collections").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CollectionListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Products;
         }
 
-        public async Task<CountResponse> CountCollectionsAsync()
+        public async Task<long> CountCollectionsAsync()
         {
             var response = await GetAsync("/collections/count").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
         }
 
 

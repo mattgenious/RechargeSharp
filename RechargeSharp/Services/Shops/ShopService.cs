@@ -13,17 +13,17 @@ namespace RechargeSharp.Services.Shops
         {
         }
 
-        public async Task<ShopResponse> GetShopAsync(string id)
+        public async Task<Shop> GetShopAsync(string id)
         {
             var response = await GetAsync($"/shop").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ShopResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Shop;
         }
-        public async Task<ShippingCountriesResponse> GetShippingCountries(string id)
+        public async Task<IEnumerable<ShippingCountry>> GetShippingCountries(string id)
         {
             var response = await GetAsync($"/shop/shipping_countries").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ShippingCountriesResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).ShippingCountries;
         }
 
     }

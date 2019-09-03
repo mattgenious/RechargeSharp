@@ -15,21 +15,21 @@ namespace RechargeSharp.Services.Orders
         {
         }
 
-        public async Task<OrderResponse> GetOrderAsync(string id)
+        public async Task<Order> GetOrderAsync(string id)
         {
             var response = await GetAsync($"/orders/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
 
-        private async Task<OrderListResponse> GetOrdersAsync(string queryParams)
+        private async Task<IEnumerable<Order>> GetOrdersAsync(string queryParams)
         {
             var response = await GetAsync($"/orders?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Orders;
         }
 
-        public Task<OrderListResponse> GetOrdersAsync(int page = 1, int limit = 50, string customerId = null, string addressId = null, string subscriptionId = null, string chargeId = null, string status = null, string shopifyOrderId = null, DateTime? scheduledAtMin = null, DateTime? scheduledAtMax = null, DateTime? createdAtMin = null, DateTime? createdAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, DateTime? shippingDate = null)
+        public Task<IEnumerable<Order>> GetOrdersAsync(int page = 1, int limit = 50, string customerId = null, string addressId = null, string subscriptionId = null, string chargeId = null, string status = null, string shopifyOrderId = null, DateTime? scheduledAtMin = null, DateTime? scheduledAtMax = null, DateTime? createdAtMin = null, DateTime? createdAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, DateTime? shippingDate = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
@@ -49,7 +49,7 @@ namespace RechargeSharp.Services.Orders
             return GetOrdersAsync(queryParams);
         }
 
-        public Task<OrderListResponse> GetAllOrdersWithParamsAsync(string customerId = null, string addressId = null, string subscriptionId = null, string chargeId = null, string status = null, string shopifyOrderId = null, DateTime? scheduledAtMin = null, DateTime? scheduledAtMax = null, DateTime? createdAtMin = null, DateTime? createdAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, DateTime? shippingDate = null)
+        public Task<IEnumerable<Order>> GetAllOrdersWithParamsAsync(string customerId = null, string addressId = null, string subscriptionId = null, string chargeId = null, string status = null, string shopifyOrderId = null, DateTime? scheduledAtMin = null, DateTime? scheduledAtMax = null, DateTime? createdAtMin = null, DateTime? createdAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, DateTime? shippingDate = null)
         {
             var queryParams = "";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
@@ -65,65 +65,73 @@ namespace RechargeSharp.Services.Orders
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
             queryParams += shippingDate != null ? $"&shipping_date={shippingDate?.ToString("s")}" : "";
 
-            return GetOrdersRecAsync(queryParams, 1, new OrderListResponse() { Orders = new List<Order>() });
+            return GetAllOrdersAsync(queryParams);
         }
 
-        private async Task<OrderListResponse> GetOrdersRecAsync(string queryParams, int page, OrderListResponse accumulator)
+        private async Task<IEnumerable<Order>> GetAllOrdersAsync(string queryParams)
         {
-            var response = await GetAsync($"/orders?page={page}&limit=250{queryParams}").ConfigureAwait(false);
-            var result = JsonConvert.DeserializeObject<OrderListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
-            if (result.Orders.Count == 0)
+            var count = await CountOrdersAsync();
+
+            var taskList = new List<Task<IEnumerable<Order>>>();
+
+            var pages = Math.Ceiling(Convert.ToDouble(count) / 250d);
+
+            for (int i = 1; i <= Convert.ToInt32(pages); i++)
             {
-                return accumulator;
+                taskList.Add(GetOrdersAsync($"page={i}&limit=250" + queryParams));
             }
-            else
+
+            var computed = await Task.WhenAll(taskList);
+
+            var result = new List<Order>();
+
+            foreach (var charges in computed)
             {
-                page++;
-                accumulator.Orders.AddRange(result.Orders);
-                return await GetOrdersRecAsync(queryParams, page, accumulator).ConfigureAwait(false);
+                result.AddRange(charges);
             }
+
+            return result;
         }
 
-        public async Task<CountResponse> CountOrdersAsync()
+        public async Task<long> CountOrdersAsync()
         {
             var response = await GetAsync("/orders/count").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
         }
 
-        public async Task<OrderResponse> UpdateOrderAsync(string id, UpdateOrderRequest updateOrderRequest)
+        public async Task<Order> UpdateOrderAsync(string id, UpdateOrderRequest updateOrderRequest)
         {
             var response = await PutAsync($"/orders/{id}", JsonConvert.SerializeObject(updateOrderRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
 
-        public async Task<OrderResponse> UpdateLineItemsAsync(string id, UpdateLineItemsRequest updateLineItemsRequest)
+        public async Task<Order> UpdateLineItemsAsync(string id, UpdateLineItemsRequest updateLineItemsRequest)
         {
             var response = await PutAsync($"/orders/{id}", JsonConvert.SerializeObject(updateLineItemsRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
 
-        public async Task<OrderResponse> ChangeOrderDateAsync(string id, ChangeOrderDateRequest changeOrderDateRequest)
+        public async Task<Order> ChangeOrderDateAsync(string id, ChangeOrderDateRequest changeOrderDateRequest)
         {
             var response = await PostAsync($"/orders/{id}/change_date", JsonConvert.SerializeObject(changeOrderDateRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
 
-        public async Task<OrderResponse> ChangeOrderVariant(string orderId, string currentShopifyVariantId, ChangeOrderVariantRequest changeOrderVariantRequest)
+        public async Task<Order> ChangeOrderVariant(string orderId, string currentShopifyVariantId, ChangeOrderVariantRequest changeOrderVariantRequest)
         {
             var response = await PostAsync($"/orders/{orderId}/update_shopify_variant/{currentShopifyVariantId}", JsonConvert.SerializeObject(changeOrderVariantRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
-        public async Task<OrderResponse> CloneOrderAsync(string orderId, string chargeId, CloneOrderRequest cloneOrderRequest)
+        public async Task<Order> CloneOrderAsync(string orderId, string chargeId, CloneOrderRequest cloneOrderRequest)
         {
             var response = await PostAsync($"/orders/clone_order_on_success_charge/{orderId}/charge/{chargeId}", JsonConvert.SerializeObject(cloneOrderRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
 
         public async Task DeleteOrderAsync(string id)
