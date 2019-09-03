@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Discounts
 {
-    class CreateDiscountRequest
+    public class CreateDiscountRequest
     {
         [JsonProperty("code")]
         public string Code { get; set; }

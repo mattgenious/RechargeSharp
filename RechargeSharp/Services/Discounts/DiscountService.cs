@@ -11,9 +11,9 @@ using Address = RechargeSharp.Entities.Addresses.Address;
 
 namespace RechargeSharp.Services.Discounts
 {
-    class DiscountService : RechargeSharpService
+    public class DiscountService : RechargeSharpService
     {
-        protected DiscountService(string apiKey) : base(apiKey)
+        public  DiscountService(string apiKey) : base(apiKey)
         {
         }
         public async Task<Discount> GetDiscountAsync(string id)

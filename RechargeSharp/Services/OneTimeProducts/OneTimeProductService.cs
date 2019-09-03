@@ -9,7 +9,7 @@ namespace RechargeSharp.Services.OneTimeProducts
 {
     public class OneTimeProductService : RechargeSharpService
     {
-        protected OneTimeProductService(string apiKey) : base(apiKey)
+        public OneTimeProductService(string apiKey) : base(apiKey)
         {
         }
 

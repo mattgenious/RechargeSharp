@@ -10,7 +10,7 @@ namespace RechargeSharp.Services.Addresses
 {
     public class AddressService : RechargeSharpService
     {
-        protected AddressService(string apiKey) : base(apiKey)
+        public AddressService(string apiKey) : base(apiKey)
         {
         }
 

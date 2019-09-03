@@ -9,7 +9,7 @@ namespace RechargeSharp.Services.Metafields
 {
     public class MetafieldService : RechargeSharpService
     {
-        protected MetafieldService(string apiKey) : base(apiKey)
+        public MetafieldService(string apiKey) : base(apiKey)
         {
         }
 

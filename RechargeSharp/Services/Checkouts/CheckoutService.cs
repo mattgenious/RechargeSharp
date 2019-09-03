@@ -10,7 +10,7 @@ namespace RechargeSharp.Services.Checkouts
 {
     public class CheckoutService : RechargeSharpService
     {
-        protected CheckoutService(string apiKey) : base(apiKey)
+        public CheckoutService(string apiKey) : base(apiKey)
         {
         }
         public async Task<Checkout> GetCheckoutAsync(string id)
