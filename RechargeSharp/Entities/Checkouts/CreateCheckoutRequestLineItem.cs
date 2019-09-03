@@ -5,70 +5,70 @@ namespace RechargeSharp.Entities.Checkouts
 {
     public class CreateCheckoutRequestLineItem
     {
-        [JsonProperty("charge_interval_frequency")]
-        public long ChargeIntervalFrequency { get; set; }
+        [JsonProperty("charge_interval_frequency", NullValueHandling = NullValueHandling.Ignore)]
+        public long? ChargeIntervalFrequency { get; set; }
 
-        [JsonProperty("cutoff_day_of_month")]
-        public long CutoffDayOfMonth { get; set; }
+        [JsonProperty("cutoff_day_of_month", NullValueHandling = NullValueHandling.Ignore)]
+        public long? CutoffDayOfMonth { get; set; }
 
-        [JsonProperty("cutoff_day_of_week")]
-        public long CutoffDayOfWeek { get; set; }
+        [JsonProperty("cutoff_day_of_week", NullValueHandling = NullValueHandling.Ignore)]
+        public long? CutoffDayOfWeek { get; set; }
 
-        [JsonProperty("expire_after_specific_number_of_charges")]
-        public long ExpireAfterSpecificNumberOfCharges { get; set; }
+        [JsonProperty("expire_after_specific_number_of_charges", NullValueHandling = NullValueHandling.Ignore)]
+        public long? ExpireAfterSpecificNumberOfCharges { get; set; }
 
-        [JsonProperty("fulfillment_service")]
+        [JsonProperty("fulfillment_service", NullValueHandling = NullValueHandling.Ignore)]
         public string FulfillmentService { get; set; }
 
-        [JsonProperty("grams")]
-        public long Grams { get; set; }
+        [JsonProperty("grams", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Grams { get; set; }
 
-        [JsonProperty("line_price")]
+        [JsonProperty("line_price", NullValueHandling = NullValueHandling.Ignore)]
         public string LinePrice { get; set; }
 
-        [JsonProperty("order_day_of_month")]
-        public long OrderDayOfMonth { get; set; }
+        [JsonProperty("order_day_of_month", NullValueHandling = NullValueHandling.Ignore)]
+        public long? OrderDayOfMonth { get; set; }
 
-        [JsonProperty("order_day_of_week")]
-        public long OrderDayOfWeek { get; set; }
+        [JsonProperty("order_day_of_week", NullValueHandling = NullValueHandling.Ignore)]
+        public long? OrderDayOfWeek { get; set; }
 
-        [JsonProperty("order_interval_frequency")]
-        public long OrderIntervalFrequency { get; set; }
+        [JsonProperty("order_interval_frequency", NullValueHandling = NullValueHandling.Ignore)]
+        public long? OrderIntervalFrequency { get; set; }
 
-        [JsonProperty("order_interval_unit")]
+        [JsonProperty("order_interval_unit", NullValueHandling = NullValueHandling.Ignore)]
         public string OrderIntervalUnit { get; set; }
 
-        [JsonProperty("price")]
+        [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
         public string Price { get; set; }
 
-        [JsonProperty("product_id")]
-        public long ProductId { get; set; }
+        [JsonProperty("product_id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? ProductId { get; set; }
 
-        [JsonProperty("properties")]
+        [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
         public Property[] Properties { get; set; }
 
         [JsonProperty("quantity")]
         public long Quantity { get; set; }
 
-        [JsonProperty("requires_shipping")]
-        public bool RequiresShipping { get; set; }
+        [JsonProperty("requires_shipping", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? RequiresShipping { get; set; }
 
-        [JsonProperty("sku")]
+        [JsonProperty("sku", NullValueHandling = NullValueHandling.Ignore)]
         public string Sku { get; set; }
 
-        [JsonProperty("taxable")]
-        public bool Taxable { get; set; }
+        [JsonProperty("taxable", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Taxable { get; set; }
 
-        [JsonProperty("title")]
+        [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
         public string Title { get; set; }
 
         [JsonProperty("variant_id")]
         public long VariantId { get; set; }
 
-        [JsonProperty("variant_title")]
+        [JsonProperty("variant_title", NullValueHandling = NullValueHandling.Ignore)]
         public string VariantTitle { get; set; }
 
-        [JsonProperty("vendor")]
+        [JsonProperty("vendor", NullValueHandling = NullValueHandling.Ignore)]
         public string Vendor { get; set; }
     }
 }
