@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Checkouts
@@ -45,7 +46,7 @@ namespace RechargeSharp.Entities.Checkouts
         public long? ProductId { get; set; }
 
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
-        public Property[] Properties { get; set; }
+        public Dictionary<string,string> Properties { get; set; }
 
         [JsonProperty("quantity")]
         public long Quantity { get; set; }

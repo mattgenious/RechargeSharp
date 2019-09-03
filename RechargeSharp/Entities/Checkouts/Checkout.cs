@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
@@ -16,7 +18,7 @@ namespace RechargeSharp.Entities.Checkouts
         public bool BuyerAcceptsMarketing { get; set; }
 
         [JsonProperty("completed_at")]
-        public DateTimeOffset CompletedAt { get; set; }
+        public DateTimeOffset? CompletedAt { get; set; }
 
         [JsonProperty("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
@@ -28,13 +30,13 @@ namespace RechargeSharp.Entities.Checkouts
         public string Email { get; set; }
 
         [JsonProperty("line_items")]
-        public LineItem[] LineItems { get; set; }
+        public CheckoutLineItem[] LineItems { get; set; }
 
         [JsonProperty("note")]
         public string Note { get; set; }
 
         [JsonProperty("note_attributes")]
-        public Property[] NoteAttributes { get; set; }
+        public Dictionary<string, string> NoteAttributes { get; set; }
 
         [JsonProperty("phone")]
         public string Phone { get; set; }

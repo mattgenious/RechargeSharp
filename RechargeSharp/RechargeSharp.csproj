@@ -3,18 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.2.15</Version>
-    <AssemblyVersion>0.2.15.0</AssemblyVersion>
+    <Version>0.2.23</Version>
+    <AssemblyVersion>0.2.23.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>0.2.15.0</FileVersion>
+    <FileVersion>0.2.23.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>fixed a problem with checkout creation requests.</PackageReleaseNotes>
+    <PackageReleaseNotes>Bug fixes</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
