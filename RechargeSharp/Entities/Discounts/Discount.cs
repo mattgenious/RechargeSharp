@@ -27,7 +27,7 @@ namespace RechargeSharp.Entities.Discounts
         public long UsageLimit { get; set; }
 
         [JsonProperty("applies_to_id")]
-        public long AppliesToId { get; set; }
+        public long? AppliesToId { get; set; }
 
         [JsonProperty("discount_type")]
         public string DiscountType { get; set; }
