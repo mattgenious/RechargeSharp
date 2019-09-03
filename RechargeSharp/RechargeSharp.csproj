@@ -3,18 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.2.7</Version>
-    <AssemblyVersion>0.2.7.0</AssemblyVersion>
+    <Version>0.2.8</Version>
+    <AssemblyVersion>0.2.8.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>0.2.7.0</FileVersion>
+    <FileVersion>0.2.8.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>fixed some bugs with inconsistent scope</PackageReleaseNotes>
+    <PackageReleaseNotes>Nullable parameter made nullable and ignored by json</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

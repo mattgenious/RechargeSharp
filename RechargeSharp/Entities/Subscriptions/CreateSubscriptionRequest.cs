@@ -34,8 +34,8 @@ namespace RechargeSharp.Entities.Subscriptions
         [JsonProperty("order_interval_frequency")]
         public long OrderIntervalFrequency { get; set; }
 
-        [JsonProperty("number_charges_until_expiration")]
-        public long NumberChargesUntilExpiration { get; set; }
+        [JsonProperty("number_charges_until_expiration", NullValueHandling = NullValueHandling.Ignore)]
+        public long? NumberChargesUntilExpiration { get; set; }
 
         [JsonProperty("charge_interval_frequency")]
         public long ChargeIntervalFrequency { get; set; }
