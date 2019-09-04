@@ -95,7 +95,7 @@ namespace RechargeSharp.Services.Subscriptions
 
         public async Task<Subscription> CreateSubscriptionAsync(CreateSubscriptionRequest createSubscriptionRequest)
         {
-            var response = await PostAsync("/subscriptions", JsonConvert.SerializeObject(createSubscriptionRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync("/subscriptions", JsonConvert.SerializeObject(createSubscriptionRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
