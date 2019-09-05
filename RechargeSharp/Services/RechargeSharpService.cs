@@ -20,10 +20,14 @@ namespace RechargeSharp.Services
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpClient.DefaultRequestHeaders.Add("X-Recharge-Access-Token", apiKey);
             HttpClient.BaseAddress = new Uri("https://api.rechargeapps.com/");
-            AsyncRetryPolicy = Policy.HandleResult<HttpResponseMessage>(x =>
+            AsyncRetryPolicy = Policy.HandleResult<HttpResponseMessage>( x =>
             {
                 if (!x.IsSuccessStatusCode)
                 {
+                    if ((int)x.StatusCode == 400 || (int)x.StatusCode == 404 || (int)x.StatusCode == 422 || (int)x.StatusCode > 499)
+                    {
+                        throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                    }
                     return true;
                 }
                 else
