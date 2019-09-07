@@ -9,7 +9,7 @@ namespace RechargeSharp.Entities.Checkouts
     public class Checkout
     {
         [JsonProperty("applied_discount")]
-        public string AppliedDiscount { get; set; }
+        public CheckoutAppliedDiscount AppliedDiscount { get; set; }
 
         [JsonProperty("billing_address")]
         public Address BillingAddress { get; set; }

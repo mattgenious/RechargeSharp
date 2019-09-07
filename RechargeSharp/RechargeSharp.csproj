@@ -3,18 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.2.33</Version>
-    <AssemblyVersion>0.2.33.0</AssemblyVersion>
+    <Version>0.2.35</Version>
+    <AssemblyVersion>0.2.35.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>0.2.33.0</FileVersion>
+    <FileVersion>0.2.35.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Better error handling on requests that are failing</PackageReleaseNotes>
+    <PackageReleaseNotes>fixed applied discount object</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
