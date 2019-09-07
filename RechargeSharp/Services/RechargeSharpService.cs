@@ -24,7 +24,7 @@ namespace RechargeSharp.Services
             {
                 if (!x.IsSuccessStatusCode)
                 {
-                    if ((int)x.StatusCode == 400 || (int)x.StatusCode == 404 || (int)x.StatusCode == 422 || (int)x.StatusCode > 499)
+                    if ((int)x.StatusCode > 399 && (int)x.StatusCode != 429)
                     {
                         throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     }
@@ -34,14 +34,9 @@ namespace RechargeSharp.Services
                 {
                     return false;
                 }
-            }).WaitAndRetryAsync(new []
-            {
-                TimeSpan.FromSeconds(1),
-                TimeSpan.FromSeconds(2),
-                TimeSpan.FromSeconds(3),
-                TimeSpan.FromSeconds(4),
-                TimeSpan.FromSeconds(5)
-            });
+            }).WaitAndRetryForeverAsync(
+                retryAttempt => 
+                    TimeSpan.FromSeconds(3));
         }
 
         protected Task<HttpResponseMessage> GetAsync(string path)
