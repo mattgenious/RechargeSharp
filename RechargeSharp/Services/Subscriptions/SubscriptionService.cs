@@ -119,7 +119,7 @@ namespace RechargeSharp.Services.Subscriptions
         }
         public async Task<Subscription> ActivateSubscriptionAsync(string id)
         {
-            var response = await PostAsync($"/subscriptions/{id}/activate", "{}").ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/subscriptions/{id}/activate", "{}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }

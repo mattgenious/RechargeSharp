@@ -24,6 +24,7 @@ namespace RechargeSharp.Services
             {
                 if (!x.IsSuccessStatusCode)
                 {
+                    Console.WriteLine(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     if ((int)x.StatusCode > 399 && (int)x.StatusCode != 429)
                     {
                         throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
