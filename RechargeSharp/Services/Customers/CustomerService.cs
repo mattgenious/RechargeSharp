@@ -28,10 +28,11 @@ namespace RechargeSharp.Services.Customers
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customers;
         }
 
-        public Task<IEnumerable<Customer>> GetCustomersAsync(int page = 1, int limit = 50, string email = null, string shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, string hash = null)
+        public Task<IEnumerable<Customer>> GetCustomersAsync(int page = 1, int limit = 50, string email = null, string status = null, string shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, string hash = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += email != null ? $"&email={email}" : ""; 
+            queryParams += status != null ? $"&status={status}" : "";
             queryParams += shopifyCustomerId != null ? $"&shopify_customer_id={shopifyCustomerId}" : ""; 
             queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : ""; 
             queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : ""; 
@@ -43,10 +44,11 @@ namespace RechargeSharp.Services.Customers
             return GetCustomersAsync(queryParams);
         }
 
-        public Task<IEnumerable<Customer>> GetAllCustomersWithParamsAsync(string email = null, string shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, string hash = null)
+        public Task<IEnumerable<Customer>> GetAllCustomersWithParamsAsync(string email = null, string status = null, string shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, string hash = null)
         {
             var queryParams = "";
             queryParams += email != null ? $"&email={email}" : "";
+            queryParams += status != null ? $"&status={status}" : "";
             queryParams += shopifyCustomerId != null ? $"&shopify_customer_id={shopifyCustomerId}" : "";
             queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
             queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
