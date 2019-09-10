@@ -13,7 +13,7 @@ var subscriptionService = new SubscriptionService("APIKEY");
 var subscriptions = await subscriptionService.GetAllSubscriptionsWithParamsAsync(status: "ACTIVE", createdAtMin: DateTime.Today.AddMonths(-2));
 
 // iterate results and print subscription Id.
-foreach (var subscription in subscriptions.Subscriptions)
+foreach (var subscription in subscriptions)
 {
     Console.WriteLine(subscription.Id);
 }
@@ -28,7 +28,7 @@ var customerService = new CustomerService("APIKEY");
 var customers = await customerService.GetAllCustomersWithParamsAsync(createdAtMin: DateTime.Now.AddDays(-2));
 
 // iterate results and print whether the customer has a valid payment method.
-foreach (var customer in customers.Customers)
+foreach (var customer in customers)
 {
     Console.WriteLine(customer.HasValidPaymentMethod);
 }
