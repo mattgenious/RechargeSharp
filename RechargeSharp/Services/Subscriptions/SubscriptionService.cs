@@ -120,8 +120,16 @@ namespace RechargeSharp.Services.Subscriptions
         public async Task<Subscription> ActivateSubscriptionAsync(string id)
         {
             var response = await PostAsJsonAsync($"/subscriptions/{id}/activate", "{}").ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<SubscriptionResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
+
+            if ((await response.Content.ReadAsStringAsync()).Contains("item already set to active"))
+            {
+                return await GetSubscriptionAsync(id);
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<SubscriptionResponse>(
+                    await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
+            }
         }
         public async Task<Subscription> UpdateSubscriptionAsync(string id, UpdateSubscriptionRequest updateSubscriptionRequest)
         {
