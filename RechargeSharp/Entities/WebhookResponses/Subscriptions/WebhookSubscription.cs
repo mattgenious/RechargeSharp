@@ -9,13 +9,13 @@ namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
     public class WebhookSubscription
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [JsonProperty("address_id")]
-        public long AddressId { get; set; }
+        public long? AddressId { get; set; }
 
         [JsonProperty("customer_id")]
-        public long CustomerId { get; set; }
+        public long? CustomerId { get; set; }
 
         [JsonProperty("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
@@ -48,10 +48,10 @@ namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
         public long? RechargeProductId { get; set; }
 
         [JsonProperty("shopify_product_id")]
-        public long ShopifyProductId { get; set; }
+        public long? ShopifyProductId { get; set; }
 
         [JsonProperty("shopify_variant_id")]
-        public long ShopifyVariantId { get; set; }
+        public long? ShopifyVariantId { get; set; }
 
         [JsonProperty("sku")]
         public string Sku { get; set; }
@@ -72,21 +72,21 @@ namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
         public string CancellationReasonComments { get; set; }
 
         [JsonProperty("order_day_of_week")]
-        public long OrderDayOfWeek { get; set; }
+        public long? OrderDayOfWeek { get; set; }
 
         [JsonProperty("order_day_of_month")]
-        public long OrderDayOfMonth { get; set; }
+        public long? OrderDayOfMonth { get; set; }
 
         [JsonProperty("properties")]
         public List<Property> Properties { get; set; }
 
         [JsonProperty("expire_after_specific_number_of_charges")]
-        public long ExpireAfterSpecificNumberOfCharges { get; set; }
+        public long? ExpireAfterSpecificNumberOfCharges { get; set; }
 
         [JsonProperty("max_retries_reached")]
-        public long MaxRetriesReached { get; set; }
+        public long? MaxRetriesReached { get; set; }
 
         [JsonProperty("has_queued_charges")]
-        public long HasQueuedCharges { get; set; }
+        public long? HasQueuedCharges { get; set; }
     }
 }
