@@ -25,7 +25,7 @@ namespace RechargeSharp.Entities.Addresses
         public string LastName { get; set; }
 
         [JsonProperty("zip")]
-        public long Zip { get; set; }
+        public string Zip { get; set; }
 
         [JsonProperty("company", NullValueHandling = NullValueHandling.Ignore)]
         public string Company { get; set; }
