@@ -9,7 +9,7 @@ namespace RechargeSharp.Entities.Addresses
         [JsonProperty("address1")]
         public string Address1 { get; set; }
 
-        [JsonProperty("address2")]
+        [JsonProperty("address2", NullValueHandling = NullValueHandling.Ignore)]
         public string Address2 { get; set; }
 
         [JsonProperty("city")]
@@ -27,7 +27,7 @@ namespace RechargeSharp.Entities.Addresses
         [JsonProperty("zip")]
         public long Zip { get; set; }
 
-        [JsonProperty("company")]
+        [JsonProperty("company", NullValueHandling = NullValueHandling.Ignore)]
         public string Company { get; set; }
 
         [JsonProperty("phone")]
@@ -36,10 +36,12 @@ namespace RechargeSharp.Entities.Addresses
         [JsonProperty("country")]
         public string Country { get; set; }
 
-        [JsonProperty("original_shipping_lines")]
+        [JsonProperty("original_shipping_lines", NullValueHandling = NullValueHandling.Ignore)]
         public List<ShippingLine> OriginalShippingLines { get; set; }
 
-        [JsonProperty("shipping_lines_override")]
+        [JsonProperty("shipping_lines_override", NullValueHandling = NullValueHandling.Ignore)]
         public List<ShippingLine> ShippingLinesOverride { get; set; }
+        [JsonProperty("cart_note", NullValueHandling = NullValueHandling.Ignore)]
+        public string CartNote { get; set; }
     }
 }

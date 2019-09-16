@@ -39,9 +39,9 @@ namespace RechargeSharp.Services.Addresses
             return GetAddressesAsync(queryParams);
         }
 
-        public async Task<Address> CreateAddressAsync(CreateAddressRequest createAddressRequest)
+        public async Task<Address> CreateAddressAsync(CreateAddressRequest createAddressRequest, string customerId)
         {
-            var response = await PostAsync("/addresses", JsonConvert.SerializeObject(createAddressRequest)).ConfigureAwait(false);
+            var response = await PostAsync($"/customers/{customerId}/addresses", JsonConvert.SerializeObject(createAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
         }
