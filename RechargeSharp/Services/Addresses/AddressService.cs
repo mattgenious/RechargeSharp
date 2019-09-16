@@ -41,7 +41,7 @@ namespace RechargeSharp.Services.Addresses
 
         public async Task<Address> CreateAddressAsync(CreateAddressRequest createAddressRequest, string customerId)
         {
-            var response = await PostAsync($"/customers/{customerId}/addresses", JsonConvert.SerializeObject(createAddressRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/customers/{customerId}/addresses", JsonConvert.SerializeObject(createAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
         }

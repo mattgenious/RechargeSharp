@@ -93,7 +93,7 @@ namespace RechargeSharp.Services.Customers
 
         public async Task<Customer> CreateCustomerAsync(CreateCustomerRequest createCustomerRequest)
         {
-            var response = await PostAsync("/customers", JsonConvert.SerializeObject(createCustomerRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync("/customers", JsonConvert.SerializeObject(createCustomerRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
         }
