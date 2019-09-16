@@ -63,7 +63,7 @@ namespace RechargeSharp.Services.Subscriptions
 
         private async Task<IEnumerable<Subscription>> GetAllSubscriptionsAsync(string queryParams)
         {
-            var count = await CountSubscriptionsAsync();
+            var count = await CountSubscriptionsAsync(queryParams);
 
             var taskList = new List<Task<IEnumerable<Subscription>>>();
 
@@ -86,9 +86,27 @@ namespace RechargeSharp.Services.Subscriptions
             return result;
         }
 
-        public async Task<long> CountSubscriptionsAsync()
+        public async Task<long> CountSubscriptionsAsync(string customerId = null, string addressId = null, string status = null, string shopifyCustomerId = null, string shopifyVariantId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
-            var response = await GetAsync("/subscriptions/count").ConfigureAwait(false);
+            var queryParams = "";
+            queryParams += customerId != null ? $"&customer_id={customerId}" : "";
+            queryParams += addressId != null ? $"&address_id={addressId}" : "";
+            queryParams += status != null ? $"&status={status}" : "";
+            queryParams += shopifyCustomerId != null ? $"&shopify_customer_id={shopifyCustomerId}" : "";
+            queryParams += shopifyVariantId != null ? $"&shopify_variant_id={shopifyVariantId}" : "";
+            queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
+            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
+            queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
+
+            var response = await GetAsync($"/subscriptions/count?{queryParams}").ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<CountResponse>(
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
+        }
+
+        private async Task<long> CountSubscriptionsAsync(string query = null)
+        {
+            var response = await GetAsync($"/subscriptions/count?{query}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
         }
