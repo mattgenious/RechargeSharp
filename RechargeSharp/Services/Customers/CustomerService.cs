@@ -56,12 +56,19 @@ namespace RechargeSharp.Services.Customers
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
             queryParams += hash != null ? $"&hash={hash}" : "";
 
-            return GetAllCustomersAsync(queryParams);
+            if (!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(shopifyCustomerId) || !string.IsNullOrEmpty(hash))
+            {
+                return GetCustomersAsync(queryParams);
+            }
+            else
+            {
+                return GetAllCustomersAsync(queryParams);
+            }
         }
 
         private async Task<IEnumerable<Customer>> GetAllCustomersAsync(string queryParams)
         {
-            var count = await CountCustomersAsync();
+            var count = await CountCustomersAsync(queryParams);
 
             var taskList = new List<Task<IEnumerable<Customer>>>();
 
@@ -84,9 +91,22 @@ namespace RechargeSharp.Services.Customers
             return result;
         }
 
-        public async Task<long> CountCustomersAsync()
+        public async Task<long> CountCustomersAsync(string status = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
+            var queryParams = "";
+            queryParams += status != null ? $"&status={status}" : "";
+            queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
+            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
+            queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
             var response = await GetAsync("/customers/count").ConfigureAwait(false);
+
+            return await CountCustomersAsync(queryParams);
+        }
+
+        private async Task<long> CountCustomersAsync(string queryParams)
+        {
+            var response = await GetAsync($"/customers/count?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
         }
