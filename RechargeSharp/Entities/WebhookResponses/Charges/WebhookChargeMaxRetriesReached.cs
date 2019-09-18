@@ -10,10 +10,10 @@ namespace RechargeSharp.Entities.WebhookResponses.Charges
     public class WebhookChargeMaxRetriesReached : Charge
     {
         [JsonProperty("last_charge_attempt_date")]
-        public DateTimeOffset LastChargeAttemptDate { get; set; }
+        public DateTime? LastChargeAttemptDate { get; set; }
 
         [JsonProperty("retry_date")]
-        public DateTimeOffset RetryDate { get; set; }
+        public DateTime? RetryDate { get; set; }
 
         [JsonProperty("number_times_tried")]
         public long NumberTimesTried { get; set; }

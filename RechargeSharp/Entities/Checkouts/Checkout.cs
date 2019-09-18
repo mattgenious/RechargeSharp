@@ -18,10 +18,10 @@ namespace RechargeSharp.Entities.Checkouts
         public bool BuyerAcceptsMarketing { get; set; }
 
         [JsonProperty("completed_at")]
-        public DateTimeOffset? CompletedAt { get; set; }
+        public DateTime? CompletedAt { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("discount_code")]
         public string DiscountCode { get; set; }
@@ -72,6 +72,6 @@ namespace RechargeSharp.Entities.Checkouts
         public string TotalTax { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTimeOffset UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

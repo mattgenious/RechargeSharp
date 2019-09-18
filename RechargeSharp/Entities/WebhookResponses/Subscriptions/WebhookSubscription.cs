@@ -18,16 +18,16 @@ namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
         public long? CustomerId { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTimeOffset? CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTimeOffset? UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("next_charge_scheduled_at")]
-        public DateTimeOffset? NextChargeScheduledAt { get; set; }
+        public DateTime? NextChargeScheduledAt { get; set; }
 
         [JsonProperty("cancelled_at")]
-        public DateTimeOffset? CancelledAt { get; set; }
+        public DateTime? CancelledAt { get; set; }
 
         [JsonProperty("product_title")]
         public string ProductTitle { get; set; }

@@ -13,6 +13,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Charges
         public string ProcessorName { get; set; }
 
         [JsonProperty("processed_at")]
-        public DateTimeOffset ProcessedAt { get; set; }
+        public DateTime? ProcessedAt { get; set; }
     }
 }

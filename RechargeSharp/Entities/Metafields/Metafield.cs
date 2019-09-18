@@ -6,7 +6,7 @@ namespace RechargeSharp.Entities.Metafields
     public class Metafield
     {
         [JsonProperty("created_at")]
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -27,7 +27,7 @@ namespace RechargeSharp.Entities.Metafields
         public string OwnerResource { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTimeOffset UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("value")]
         public string Value { get; set; }

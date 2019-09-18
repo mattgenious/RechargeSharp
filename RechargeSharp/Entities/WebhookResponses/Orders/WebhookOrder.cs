@@ -48,16 +48,16 @@ namespace RechargeSharp.Entities.WebhookResponses.Orders
         public string ShopifyCartToken { get; set; }
 
         [JsonProperty("shipping_date")]
-        public DateTimeOffset ShippingDate { get; set; }
+        public DateTime? ShippingDate { get; set; }
 
         [JsonProperty("scheduled_at")]
-        public DateTimeOffset ScheduledAt { get; set; }
+        public DateTime? ScheduledAt { get; set; }
 
         [JsonProperty("shipped_date")]
-        public DateTimeOffset ShippedDate { get; set; }
+        public DateTime? ShippedDate { get; set; }
 
         [JsonProperty("processed_at")]
-        public DateTimeOffset ProcessedAt { get; set; }
+        public DateTime? ProcessedAt { get; set; }
 
         [JsonProperty("customer_id")]
         public long CustomerId { get; set; }
@@ -75,10 +75,10 @@ namespace RechargeSharp.Entities.WebhookResponses.Orders
         public long IsPrepaid { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTimeOffset UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("email")]
         public string Email { get; set; }

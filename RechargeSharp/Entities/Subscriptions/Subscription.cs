@@ -22,16 +22,16 @@ namespace RechargeSharp.Entities.Subscriptions
         public long CustomerId { get; set; }
 
         [JsonProperty("created_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("updated_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("next_charge_scheduled_at", NullValueHandling = NullValueHandling.Include)]
-        public DateTimeOffset? NextChargeScheduledAt { get; set; }
+        public DateTime? NextChargeScheduledAt { get; set; }
 
         [JsonProperty("cancelled_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? CancelledAt { get; set; }
+        public DateTime? CancelledAt { get; set; }
 
         [JsonProperty("product_title")]
         public string ProductTitle { get; set; }

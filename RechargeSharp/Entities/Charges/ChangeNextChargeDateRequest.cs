@@ -8,6 +8,6 @@ namespace RechargeSharp.Entities.Charges
     public class ChangeNextChargeDateRequest
     {
         [JsonProperty("next_charge_date")]
-        public DateTimeOffset NextChargeDate { get; set; }
+        public DateTime? NextChargeDate { get; set; }
     }
 }

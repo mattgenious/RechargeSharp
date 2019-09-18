@@ -17,7 +17,7 @@ namespace RechargeSharp.Entities.Charges
         public ClientDetails ClientDetails { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("customer_hash")]
         public string CustomerHash { get; set; }
@@ -53,7 +53,7 @@ namespace RechargeSharp.Entities.Charges
         public Property[] NoteAttributes { get; set; }
 
         [JsonProperty("scheduled_at")]
-        public DateTimeOffset ScheduledAt { get; set; }
+        public DateTime? ScheduledAt { get; set; }
 
         [JsonProperty("shipments_count")]
         public long? ShipmentsCount { get; set; }
@@ -107,6 +107,6 @@ namespace RechargeSharp.Entities.Charges
         public string Type { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTimeOffset UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

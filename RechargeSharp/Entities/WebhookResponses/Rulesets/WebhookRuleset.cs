@@ -8,10 +8,10 @@ namespace RechargeSharp.Entities.WebhookResponses.Rulesets
     public class WebhookRuleset
     {
         [JsonProperty("updated_at")]
-        public DateTimeOffset UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("id")]
         public long Id { get; set; }

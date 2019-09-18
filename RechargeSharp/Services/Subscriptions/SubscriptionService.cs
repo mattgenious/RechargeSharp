@@ -117,7 +117,7 @@ namespace RechargeSharp.Services.Subscriptions
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
-        public async Task<Subscription> ChangeNextChargeDateAsync(string id, DateTimeOffset date)
+        public async Task<Subscription> ChangeNextChargeDateAsync(string id, DateTime date)
         {
             var response = await PostAsync($"/subscriptions/{id}/set_next_charge_date", JsonConvert.SerializeObject(new ChangeNextChargeDateRequest { Date = date.ToString("yyyy-MM-dd") })).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(

@@ -8,7 +8,7 @@ namespace RechargeSharp.Entities.One_Time_Products
     public class CreateOneTimeProductRequest
     {
         [JsonProperty("next_charge_scheduled_at")]
-        public DateTimeOffset NextChargeScheduledAt { get; set; }
+        public DateTime? NextChargeScheduledAt { get; set; }
 
         [JsonProperty("product_title")]
         public string ProductTitle { get; set; }

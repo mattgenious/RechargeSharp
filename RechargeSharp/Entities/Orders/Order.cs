@@ -23,7 +23,7 @@ namespace RechargeSharp.Entities.Orders
         public string ChargeStatus { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("customer_id")]
         public long CustomerId { get; set; }
@@ -59,19 +59,19 @@ namespace RechargeSharp.Entities.Orders
         public string PaymentProcessor { get; set; }
 
         [JsonProperty("processed_at")]
-        public DateTimeOffset ProcessedAt { get; set; }
+        public DateTime? ProcessedAt { get; set; }
 
         [JsonProperty("scheduled_at")]
-        public DateTimeOffset ScheduledAt { get; set; }
+        public DateTime? ScheduledAt { get; set; }
 
         [JsonProperty("shipped_date")]
-        public DateTimeOffset ShippedDate { get; set; }
+        public DateTime? ShippedDate { get; set; }
 
         [JsonProperty("shipping_address")]
         public Address ShippingAddress { get; set; }
 
         [JsonProperty("shipping_date")]
-        public DateTimeOffset ShippingDate { get; set; }
+        public DateTime? ShippingDate { get; set; }
 
         [JsonProperty("shipping_lines")]
         public List<ShippingLine> ShippingLines { get; set; }
@@ -86,7 +86,7 @@ namespace RechargeSharp.Entities.Orders
         public string ShopifyOrderId { get; set; }
 
         [JsonProperty("shopify_order_number")]
-        public long ShopifyOrderNumber { get; set; }
+        public long? ShopifyOrderNumber { get; set; }
 
         [JsonProperty("status")]
         public string Status { get; set; }
@@ -125,6 +125,6 @@ namespace RechargeSharp.Entities.Orders
         public string Type { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTimeOffset UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

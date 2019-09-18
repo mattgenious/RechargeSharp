@@ -30,9 +30,9 @@ namespace RechargeSharp.Entities.Discounts
         public long UsageLimit { get; set; }
 
         [JsonProperty("starts_at")]
-        public DateTimeOffset StartsAt { get; set; }
+        public DateTime? StartsAt { get; set; }
 
         [JsonProperty("ends_at")]
-        public DateTimeOffset EndsAt { get; set; }
+        public DateTime? EndsAt { get; set; }
     }
 }

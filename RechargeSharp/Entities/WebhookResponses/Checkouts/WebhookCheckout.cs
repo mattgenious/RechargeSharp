@@ -15,7 +15,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Checkouts
         public long StoreId { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTimeOffset UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("shopify_cart_token")]
         public string ShopifyCartToken { get; set; }
