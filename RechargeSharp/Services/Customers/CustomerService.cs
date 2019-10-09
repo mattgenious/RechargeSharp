@@ -99,7 +99,6 @@ namespace RechargeSharp.Services.Customers
             queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
             queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
-            var response = await GetAsync("/customers/count").ConfigureAwait(false);
 
             return await CountCustomersAsync(queryParams);
         }

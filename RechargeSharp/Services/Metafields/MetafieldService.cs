@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Metafields;
+using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Services.Metafields
 {
@@ -27,18 +28,52 @@ namespace RechargeSharp.Services.Metafields
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Metafields;
         }
 
-        public Task<IEnumerable<Metafield>> GetMetafieldsAsync(string owner_resource = "store", string _namespace  = null, string owner_id = null)
+        public Task<IEnumerable<Metafield>> GetMetafieldsAsync(string ownerResource = "store", string _namespace  = null, string ownerId = null)
         {
-            var queryParams = $"owner_resource={owner_resource}";
+            var queryParams = $"owner_resource={ownerResource}";
             queryParams += _namespace != null ? $"&namespace={_namespace}" : "";
-            queryParams += owner_id != null ? $"&owner_id={owner_id}" : "";
+            queryParams += ownerId != null ? $"&owner_id={ownerId}" : "";
 
             return GetMetafieldsAsync(queryParams);
         }
 
+        public Task<IEnumerable<Metafield>> GetAllMetafieldsWithParamsAsync(string ownerResource = "store", string _namespace = null, string ownerId = null)
+        {
+            var queryParams = $"owner_resource={ownerResource}";
+            queryParams += _namespace != null ? $"&namespace={_namespace}" : "";
+            queryParams += ownerId != null ? $"&owner_id={ownerId}" : "";
+
+            return GetAllCustomersAsync(queryParams);
+        }
+
+        private async Task<IEnumerable<Metafield>> GetAllCustomersAsync(string queryParams)
+        {
+            var count = await CountMetafields(queryParams);
+
+            var taskList = new List<Task<IEnumerable<Metafield>>>();
+
+            var pages = Math.Ceiling(Convert.ToDouble(count) / 250d);
+
+            for (int i = 1; i <= Convert.ToInt32(pages); i++)
+            {
+                taskList.Add(GetMetafieldsAsync($"page={i}&limit=250" + queryParams));
+            }
+
+            var computed = await Task.WhenAll(taskList);
+
+            var result = new List<Metafield>();
+
+            foreach (var metafields in computed)
+            {
+                result.AddRange(metafields);
+            }
+
+            return result;
+        }
+
         public async Task<Metafield> CreateMetafieldAsync(CreateMetafieldRequest createMetafieldRequest)
         {
-            var response = await PostAsync("/metafields", JsonConvert.SerializeObject(createMetafieldRequest)).ConfigureAwait(false);
+            var response = await PostAsync($"/metafields?owner_resource={createMetafieldRequest.OwnerResource}", JsonConvert.SerializeObject(createMetafieldRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Metafield;
         }
@@ -53,6 +88,23 @@ namespace RechargeSharp.Services.Metafields
         public async Task DeleteMetafieldAsync(string id)
         {
             var response = await DeleteAsync($"/metafields/{id}").ConfigureAwait(false);
+        }
+
+        public async Task<long> CountMetafields(string ownerResource = "store", string _namespace = null, string owner_id = null)
+        {
+            var queryParams = "";
+            queryParams += ownerResource != null ? $"&owner_resource={ownerResource}" : "";
+            queryParams += _namespace != null ? $"&namespace={_namespace}" : "";
+            queryParams += owner_id != null ? $"&owner_id={owner_id}" : "";
+
+            return await CountMetafields(queryParams);
+        }
+
+        private async Task<long> CountMetafields(string queryParams)
+        {
+            var response = await GetAsync($"/metafields/count?{queryParams}").ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<CountResponse>(
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
         }
     }
 }
