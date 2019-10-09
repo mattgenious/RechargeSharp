@@ -30,7 +30,7 @@ namespace RechargeSharp.Services.Metafields
 
         public Task<IEnumerable<Metafield>> GetMetafieldsAsync(string ownerResource = "store", string _namespace  = null, string ownerId = null)
         {
-            var queryParams = $"owner_resource={ownerResource}";
+            var queryParams = $"&owner_resource={ownerResource}";
             queryParams += _namespace != null ? $"&namespace={_namespace}" : "";
             queryParams += ownerId != null ? $"&owner_id={ownerId}" : "";
 
@@ -39,7 +39,7 @@ namespace RechargeSharp.Services.Metafields
 
         public Task<IEnumerable<Metafield>> GetAllMetafieldsWithParamsAsync(string ownerResource = "store", string _namespace = null, string ownerId = null)
         {
-            var queryParams = $"owner_resource={ownerResource}";
+            var queryParams = $"&owner_resource={ownerResource}";
             queryParams += _namespace != null ? $"&namespace={_namespace}" : "";
             queryParams += ownerId != null ? $"&owner_id={ownerId}" : "";
 
@@ -73,7 +73,7 @@ namespace RechargeSharp.Services.Metafields
 
         public async Task<Metafield> CreateMetafieldAsync(CreateMetafieldRequest createMetafieldRequest)
         {
-            var response = await PostAsync($"/metafields?owner_resource={createMetafieldRequest.OwnerResource}", JsonConvert.SerializeObject(createMetafieldRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/metafields?owner_resource={createMetafieldRequest.MetafieldObject.OwnerResource}", JsonConvert.SerializeObject(createMetafieldRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Metafield;
         }
