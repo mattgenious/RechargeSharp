@@ -16,6 +16,9 @@ namespace RechargeSharp.Entities.Subscriptions
         [JsonProperty("product_title", NullValueHandling = NullValueHandling.Ignore)]
         public string ProductTitle { get; set; }
 
+        [JsonProperty("variant_title", NullValueHandling = NullValueHandling.Ignore)]
+        public string VariantTitle { get; set; }
+
         [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
         public double? Price { get; set; }
 
@@ -28,11 +31,15 @@ namespace RechargeSharp.Entities.Subscriptions
         [JsonProperty("sku_override", NullValueHandling = NullValueHandling.Ignore)]
         public bool? SkuOverride { get; set; }
 
-        [JsonProperty("number_charges_until_expiration", NullValueHandling = NullValueHandling.Ignore)]
-        public long? NumberChargesUntilExpiration { get; set; }
+        [JsonProperty("sku", NullValueHandling = NullValueHandling.Ignore)]
+        public string Sku { get; set; }
+
+        [JsonProperty("expire_after_specific_number_of_charges", NullValueHandling = NullValueHandling.Ignore)]
+        public long? ExpireAfterSpecificNumberOfCharges { get; set; }
 
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
         public List<Property> Properties { get; set; }
+
         [JsonProperty("order_interval_unit")]
         public string OrderIntervalUnit { get; set; }
 
@@ -41,5 +48,11 @@ namespace RechargeSharp.Entities.Subscriptions
 
         [JsonProperty("charge_interval_frequency")]
         public long ChargeIntervalFrequency { get; set; }
+
+        [JsonProperty("order_day_of_week", NullValueHandling = NullValueHandling.Ignore)]
+        public long? OrderDayOfWeek { get; set; }
+
+        [JsonProperty("order_day_of_month", NullValueHandling = NullValueHandling.Ignore)]
+        public long? OrderDayOfMonth { get; set; }
     }
 }
