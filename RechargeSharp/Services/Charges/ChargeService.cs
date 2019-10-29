@@ -15,7 +15,7 @@ namespace RechargeSharp.Services.Charges
         {
         }
 
-        public async Task<Charge> GetChargeAsync(string id)
+        public async Task<Charge> GetChargeAsync(long id)
         {
             var response = await GetAsync($"/charges/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
@@ -29,7 +29,7 @@ namespace RechargeSharp.Services.Charges
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charges;
         }
 
-        public Task<IEnumerable<Charge>> GetChargesAsync(int page = 1, int limit = 50, string status = null, string customerId = null, string addressId = null, string shopifyOrderId = null, string subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public Task<IEnumerable<Charge>> GetChargesAsync(int page = 1, int limit = 50, string status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += status != null ? $"&status={status}" : "";
@@ -48,7 +48,7 @@ namespace RechargeSharp.Services.Charges
             return GetChargesAsync(queryParams);
         }
 
-        public Task<IEnumerable<Charge>> GetAllChargesWithParamsAsync(string status = null, string customerId = null, string addressId = null, string shopifyOrderId = null, string subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public Task<IEnumerable<Charge>> GetAllChargesWithParamsAsync(string status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
             var queryParams = "";
             queryParams += status != null ? $"&status={status}" : "";
@@ -134,7 +134,7 @@ namespace RechargeSharp.Services.Charges
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
         }
 
-        public async Task DeleteChargeAsync(string id)
+        public async Task DeleteChargeAsync(long id)
         {
             var response = await DeleteAsync($"/charges/{id}").ConfigureAwait(false);
         }

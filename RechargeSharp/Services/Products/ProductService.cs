@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Products;
+using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Services.Products
 {
@@ -12,7 +13,7 @@ namespace RechargeSharp.Services.Products
         public ProductService(string apiKey) : base(apiKey)
         {
         }
-        public async Task<Product> GetProductAsync(string id)
+        public async Task<Product> GetProductAsync(long id)
         {
             var response = await GetAsync($"/products/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ProductResponse>(
@@ -26,23 +27,23 @@ namespace RechargeSharp.Services.Products
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Products;
         }
 
-        public Task<IEnumerable<Product>> GetProductsAsync(int page = 1, int limit = 50, List<string> id = null, List<string> shopifyProductId = null, string collectionId = null)
+        public Task<IEnumerable<Product>> GetProductsAsync(int page = 1, int limit = 50, List<long> id = null, List<long> shopifyProductId = null, string collectionId = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += collectionId != null ? $"&collection_id={collectionId}" : "";
-            queryParams += id != null ? $"&ids={string.Join(",", id)}" : "";
-            queryParams += shopifyProductId != null ? $"&shopify_product_ids={string.Join(",", shopifyProductId)}" : "";
+            queryParams += id != null && id.Count != 0 ? $"&ids={string.Join(",", id)}" : "";
+            queryParams += shopifyProductId != null && shopifyProductId.Count != 0 ? $"&shopify_product_ids={string.Join(",", shopifyProductId)}" : "";
 
 
             return GetProductsAsync(queryParams);
         }
 
-        public Task<IEnumerable<Product>> GetAllProductsWithParamsAsync(List<string> id = null, List<string> shopifyProductId = null, string collectionId = null)
+        public Task<IEnumerable<Product>> GetAllProductsWithParamsAsync(List<long> id = null, List<long> shopifyProductId = null, string collectionId = null)
         {
             var queryParams = "";
             queryParams += collectionId != null ? $"&collection_id={collectionId}" : "";
-            queryParams += id != null ? $"&ids={string.Join(",", id)}" : "";
-            queryParams += shopifyProductId != null ? $"&shopify_product_ids={string.Join(",", shopifyProductId)}" : "";
+            queryParams += id != null && id.Count != 0 ? $"&ids={string.Join(",", id)}" : "";
+            queryParams += shopifyProductId != null && shopifyProductId.Count != 0 ? $"&shopify_product_ids={string.Join(",", shopifyProductId)}" : "";
 
             return GetProductsRecAsync(queryParams, 1, new ProductListResponse() { Products = new List<Product>() });
         }
@@ -62,6 +63,22 @@ namespace RechargeSharp.Services.Products
                 accumulator.Products.AddRange(result.Products);
                 return await GetProductsRecAsync(queryParams, page, accumulator).ConfigureAwait(false);
             }
+        }
+
+        public async Task<long> CountProducts(long? collectionId = null, string storefrontPurchaseOptions = null)
+        {
+            var queryParams = $"";
+            queryParams += collectionId != null ? $"&collection_id={collectionId}" : "";
+            queryParams += storefrontPurchaseOptions != null ? $"&storefront_purchase_options={storefrontPurchaseOptions}" : "";
+
+            return await CountProducts(queryParams);
+        }
+
+        private async Task<long> CountProducts(string queryParams)
+        {
+            var response = await GetAsync($"/metafields/count?{queryParams}").ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<CountResponse>(
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
         }
     }
 }

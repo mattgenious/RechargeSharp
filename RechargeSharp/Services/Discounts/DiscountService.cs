@@ -16,7 +16,7 @@ namespace RechargeSharp.Services.Discounts
         public  DiscountService(string apiKey) : base(apiKey)
         {
         }
-        public async Task<Discount> GetDiscountAsync(string id)
+        public async Task<Discount> GetDiscountAsync(long id)
         {
             var response = await GetAsync($"/discounts/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<DiscountResponse>(
@@ -138,14 +138,14 @@ namespace RechargeSharp.Services.Discounts
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Discount;
         }
 
-        public async Task<Discount> UpdateDiscountAsync(string id, UpdateDiscountRequest updateDiscountRequest)
+        public async Task<Discount> UpdateDiscountAsync(long id, UpdateDiscountRequest updateDiscountRequest)
         {
             var response = await PutAsync($"/discounts/{id}", JsonConvert.SerializeObject(updateDiscountRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<DiscountResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Discount;
         }
 
-        public async Task DeleteDiscountAsync(string id)
+        public async Task DeleteDiscountAsync(long id)
         {
             var response = await DeleteAsync($"/discounts/{id}").ConfigureAwait(false);
         }

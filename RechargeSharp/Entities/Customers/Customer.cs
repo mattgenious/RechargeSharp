@@ -3,8 +3,66 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Customers
 {
-    public class Customer
+    public class Customer : IEquatable<Customer>
     {
+        public bool Equals(Customer other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id == other.Id && Hash == other.Hash && ShopifyCustomerId == other.ShopifyCustomerId && Email == other.Email && Nullable.Equals(CreatedAt, other.CreatedAt) && Nullable.Equals(UpdatedAt, other.UpdatedAt) && FirstName == other.FirstName && LastName == other.LastName && BillingAddress1 == other.BillingAddress1 && BillingAddress2 == other.BillingAddress2 && BillingZip == other.BillingZip && BillingCity == other.BillingCity && BillingCompany == other.BillingCompany && BillingProvince == other.BillingProvince && BillingCountry == other.BillingCountry && BillingPhone == other.BillingPhone && ProcessorType == other.ProcessorType && Status == other.Status && StripeCustomerToken == other.StripeCustomerToken && HasValidPaymentMethod == other.HasValidPaymentMethod && ReasonPaymentMethodNotValid == other.ReasonPaymentMethodNotValid && HasCardErrorInDunning == other.HasCardErrorInDunning && NumberActiveSubscriptions == other.NumberActiveSubscriptions && NumberSubscriptions == other.NumberSubscriptions && Nullable.Equals(FirstChargeProcessedAt, other.FirstChargeProcessedAt);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Customer) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Id.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Hash != null ? Hash.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ShopifyCustomerId != null ? ShopifyCustomerId.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Email != null ? Email.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (LastName != null ? LastName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BillingAddress1 != null ? BillingAddress1.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BillingAddress2 != null ? BillingAddress2.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BillingZip != null ? BillingZip.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BillingCity != null ? BillingCity.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BillingCompany != null ? BillingCompany.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BillingProvince != null ? BillingProvince.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BillingCountry != null ? BillingCountry.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BillingPhone != null ? BillingPhone.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ProcessorType != null ? ProcessorType.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (StripeCustomerToken != null ? StripeCustomerToken.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ HasValidPaymentMethod.GetHashCode();
+                hashCode = (hashCode * 397) ^ (ReasonPaymentMethodNotValid != null ? ReasonPaymentMethodNotValid.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ HasCardErrorInDunning.GetHashCode();
+                hashCode = (hashCode * 397) ^ NumberActiveSubscriptions.GetHashCode();
+                hashCode = (hashCode * 397) ^ NumberSubscriptions.GetHashCode();
+                hashCode = (hashCode * 397) ^ FirstChargeProcessedAt.GetHashCode();
+                return hashCode;
+            }
+        }
+
+        public static bool operator ==(Customer left, Customer right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Customer left, Customer right)
+        {
+            return !Equals(left, right);
+        }
+
         [JsonProperty("id")]
         public long Id { get; set; }
 

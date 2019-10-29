@@ -1,13 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.WebhookResponses.Orders
 {
-    public class WebhookOrder
+    public class WebhookOrder : IEquatable<WebhookOrder>
     {
+        public bool Equals(WebhookOrder other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id == other.Id && TransactionId == other.TransactionId && ChargeStatus == other.ChargeStatus && PaymentProcessor == other.PaymentProcessor && AddressIsActive == other.AddressIsActive && Status == other.Status && Type == other.Type && ChargeId == other.ChargeId && AddressId == other.AddressId && ShopifyId == other.ShopifyId && ShopifyOrderId == other.ShopifyOrderId && ShopifyOrderNumber == other.ShopifyOrderNumber && ShopifyCartToken == other.ShopifyCartToken && Nullable.Equals(ShippingDate, other.ShippingDate) && Nullable.Equals(ScheduledAt, other.ScheduledAt) && Nullable.Equals(ShippedDate, other.ShippedDate) && Nullable.Equals(ProcessedAt, other.ProcessedAt) && CustomerId == other.CustomerId && FirstName == other.FirstName && LastName == other.LastName && Hash == other.Hash && IsPrepaid == other.IsPrepaid && Nullable.Equals(CreatedAt, other.CreatedAt) && Nullable.Equals(UpdatedAt, other.UpdatedAt) && Email == other.Email && LineItems.SequenceEqual(other.LineItems) && TotalPrice == other.TotalPrice && Equals(ShippingAddress, other.ShippingAddress) && Equals(BillingAddress, other.BillingAddress);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((WebhookOrder) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Id.GetHashCode();
+                hashCode = (hashCode * 397) ^ (TransactionId != null ? TransactionId.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ChargeStatus != null ? ChargeStatus.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (PaymentProcessor != null ? PaymentProcessor.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ AddressIsActive.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Type != null ? Type.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ChargeId.GetHashCode();
+                hashCode = (hashCode * 397) ^ AddressId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (ShopifyId != null ? ShopifyId.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ShopifyOrderId != null ? ShopifyOrderId.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ShopifyOrderNumber.GetHashCode();
+                hashCode = (hashCode * 397) ^ (ShopifyCartToken != null ? ShopifyCartToken.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ShippingDate.GetHashCode();
+                hashCode = (hashCode * 397) ^ ScheduledAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShippedDate.GetHashCode();
+                hashCode = (hashCode * 397) ^ ProcessedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ CustomerId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (LastName != null ? LastName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Hash != null ? Hash.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ IsPrepaid.GetHashCode();
+                hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Email != null ? Email.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (LineItems != null ? LineItems.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (TotalPrice != null ? TotalPrice.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ShippingAddress != null ? ShippingAddress.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BillingAddress != null ? BillingAddress.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
+
+        public static bool operator ==(WebhookOrder left, WebhookOrder right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(WebhookOrder left, WebhookOrder right)
+        {
+            return !Equals(left, right);
+        }
+
         [JsonProperty("id")]
         public long Id { get; set; }
 

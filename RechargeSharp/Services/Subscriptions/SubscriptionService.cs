@@ -15,7 +15,7 @@ namespace RechargeSharp.Services.Subscriptions
         {
         }
 
-        public async Task<Subscription> GetSubscriptionAsync(string id)
+        public async Task<Subscription> GetSubscriptionAsync(long id)
         {
             var response = await GetAsync($"/subscriptions/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
@@ -29,7 +29,7 @@ namespace RechargeSharp.Services.Subscriptions
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscriptions;
         }
 
-        public Task<IEnumerable<Subscription>> GetSubscriptionsAsync(int page = 1, int limit = 50, string customerId = null, string addressId = null, string status = null, string shopifyCustomerId = null, string shopifyVariantId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public Task<IEnumerable<Subscription>> GetSubscriptionsAsync(int page = 1, int limit = 50, long? customerId = null, long? addressId = null, string status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
@@ -46,7 +46,7 @@ namespace RechargeSharp.Services.Subscriptions
             return GetSubscriptionsAsync(queryParams);
         }
 
-        public Task<IEnumerable<Subscription>> GetAllSubscriptionsWithParamsAsync(string customerId = null, string addressId = null, string status = null, string shopifyCustomerId = null, string shopifyVariantId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public Task<IEnumerable<Subscription>> GetAllSubscriptionsWithParamsAsync(long? customerId = null, long? addressId = null, string status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
             var queryParams = "";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
@@ -86,7 +86,7 @@ namespace RechargeSharp.Services.Subscriptions
             return result;
         }
 
-        public async Task<long> CountSubscriptionsAsync(string customerId = null, string addressId = null, string status = null, string shopifyCustomerId = null, string shopifyVariantId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public async Task<long> CountSubscriptionsAsync(long? customerId = null, long? addressId = null, string status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
             var queryParams = "";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
@@ -117,25 +117,25 @@ namespace RechargeSharp.Services.Subscriptions
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
-        public async Task<Subscription> ChangeNextChargeDateAsync(string id, DateTime date)
+        public async Task<Subscription> ChangeNextChargeDateAsync(long id, DateTime date)
         {
             var response = await PostAsync($"/subscriptions/{id}/set_next_charge_date", JsonConvert.SerializeObject(new ChangeNextChargeDateRequest { Date = date.ToString("yyyy-MM-dd") })).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
-        public async Task<Subscription> ChangeAddressAsync(string id, ChangeAddressRequest changeAddressRequest)
+        public async Task<Subscription> ChangeAddressAsync(long id, ChangeAddressRequest changeAddressRequest)
         {
             var response = await PostAsync($"/subscriptions/{id}/change_address", JsonConvert.SerializeObject(changeAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
-        public async Task<Subscription> CancelSubscriptionAsync(string id, CancelSubscriptionRequest cancelSubscriptionRequest)
+        public async Task<Subscription> CancelSubscriptionAsync(long id, CancelSubscriptionRequest cancelSubscriptionRequest)
         {
             var response = await PostAsync($"/subscriptions/{id}/cancel", JsonConvert.SerializeObject(cancelSubscriptionRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
-        public async Task<Subscription> ActivateSubscriptionAsync(string id)
+        public async Task<Subscription> ActivateSubscriptionAsync(long id)
         {
             var response = await PostAsJsonAsync($"/subscriptions/{id}/activate", "{}").ConfigureAwait(false);
 
@@ -149,20 +149,20 @@ namespace RechargeSharp.Services.Subscriptions
                     await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
             }
         }
-        public async Task<Subscription> UpdateSubscriptionAsync(string id, UpdateSubscriptionRequest updateSubscriptionRequest)
+        public async Task<Subscription> UpdateSubscriptionAsync(long id, UpdateSubscriptionRequest updateSubscriptionRequest)
         {
             var response = await PutAsync($"/subscriptions/{id}", JsonConvert.SerializeObject(updateSubscriptionRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
-        public async Task<Subscription> DelayChargeRegenAsync(string id, DelayChargeRegenRequest delayChargeRegenRequest)
+        public async Task<Subscription> DelayChargeRegenAsync(long id, DelayChargeRegenRequest delayChargeRegenRequest)
         {
             var response = await PutAsync($"/subscriptions/{id}", JsonConvert.SerializeObject(delayChargeRegenRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
 
-        public async Task DeleteSubscriptionAsync(string id)
+        public async Task DeleteSubscriptionAsync(long id)
         {
             var response = await DeleteAsync($"/subscriptions/{id}").ConfigureAwait(false);
         }

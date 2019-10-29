@@ -1,11 +1,56 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Checkouts
 {
-    public class CreateCheckoutRequestCheckout
+    public class CreateCheckoutRequestCheckout : IEquatable<CreateCheckoutRequestCheckout>
     {
+        public bool Equals(CreateCheckoutRequestCheckout other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return LineItems.SequenceEqual(other.LineItems) && Equals(ShippingAddress, other.ShippingAddress) && Equals(BillingAddress, other.BillingAddress) && Email == other.Email && Note == other.Note && NoteAttributes.SequenceEqual(other.NoteAttributes) && ShippingLine.SequenceEqual(other.ShippingLine) && DiscountCode == other.DiscountCode && Phone == other.Phone && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((CreateCheckoutRequestCheckout) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (LineItems != null ? LineItems.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ShippingAddress != null ? ShippingAddress.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BillingAddress != null ? BillingAddress.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Email != null ? Email.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Note != null ? Note.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (NoteAttributes != null ? NoteAttributes.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ShippingLine != null ? ShippingLine.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (DiscountCode != null ? DiscountCode.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Phone != null ? Phone.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ BuyerAcceptsMarketing.GetHashCode();
+                return hashCode;
+            }
+        }
+
+        public static bool operator ==(CreateCheckoutRequestCheckout left, CreateCheckoutRequestCheckout right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(CreateCheckoutRequestCheckout left, CreateCheckoutRequestCheckout right)
+        {
+            return !Equals(left, right);
+        }
+
         [JsonProperty("line_items")]
         public List<CreateCheckoutRequestLineItem> LineItems { get; set; }
 

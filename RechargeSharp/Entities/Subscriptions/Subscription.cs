@@ -1,11 +1,74 @@
 ﻿using System;
+using System.Linq;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Subscriptions
 {
-    public class Subscription
+    public class Subscription : IEquatable<Subscription>
     {
+        public bool Equals(Subscription other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return RechargeProductId == other.RechargeProductId && SkuOverride == other.SkuOverride && Id == other.Id && AddressId == other.AddressId && CustomerId == other.CustomerId && Nullable.Equals(CreatedAt, other.CreatedAt) && Nullable.Equals(UpdatedAt, other.UpdatedAt) && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Nullable.Equals(CancelledAt, other.CancelledAt) && ProductTitle == other.ProductTitle && VariantTitle == other.VariantTitle && Price == other.Price && Quantity == other.Quantity && Status == other.Status && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && OrderIntervalUnit == other.OrderIntervalUnit && OrderIntervalFrequency == other.OrderIntervalFrequency && ChargeIntervalFrequency == other.ChargeIntervalFrequency && CancellationReason == other.CancellationReason && CancellationReasonComments == other.CancellationReasonComments && OrderDayOfWeek == other.OrderDayOfWeek && OrderDayOfMonth == other.OrderDayOfMonth && Properties.SequenceEqual(other.Properties) && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && MaxRetriesReached == other.MaxRetriesReached && HasQueuedCharges == other.HasQueuedCharges && CommitUpdate == other.CommitUpdate;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Subscription) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = RechargeProductId.GetHashCode();
+                hashCode = (hashCode * 397) ^ SkuOverride.GetHashCode();
+                hashCode = (hashCode * 397) ^ Id.GetHashCode();
+                hashCode = (hashCode * 397) ^ AddressId.GetHashCode();
+                hashCode = (hashCode * 397) ^ CustomerId.GetHashCode();
+                hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ NextChargeScheduledAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ CancelledAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ (ProductTitle != null ? ProductTitle.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (VariantTitle != null ? VariantTitle.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Price.GetHashCode();
+                hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ShopifyProductId.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShopifyVariantId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Sku != null ? Sku.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (OrderIntervalUnit != null ? OrderIntervalUnit.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (OrderIntervalFrequency != null ? OrderIntervalFrequency.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ChargeIntervalFrequency != null ? ChargeIntervalFrequency.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CancellationReason != null ? CancellationReason.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CancellationReasonComments != null ? CancellationReasonComments.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ OrderDayOfWeek.GetHashCode();
+                hashCode = (hashCode * 397) ^ OrderDayOfMonth.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Properties != null ? Properties.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ExpireAfterSpecificNumberOfCharges.GetHashCode();
+                hashCode = (hashCode * 397) ^ MaxRetriesReached.GetHashCode();
+                hashCode = (hashCode * 397) ^ HasQueuedCharges.GetHashCode();
+                hashCode = (hashCode * 397) ^ CommitUpdate.GetHashCode();
+                return hashCode;
+            }
+        }
+
+        public static bool operator ==(Subscription left, Subscription right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Subscription left, Subscription right)
+        {
+            return !Equals(left, right);
+        }
+
         [JsonProperty("recharge_product_id")]
         public long RechargeProductId { get; set; }
 

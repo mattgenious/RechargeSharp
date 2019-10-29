@@ -14,7 +14,7 @@ namespace RechargeSharp.Services.Customers
         {
         }
 
-        public async Task<Customer> GetCustomerAsync(string id)
+        public async Task<Customer> GetCustomerAsync(long id)
         {
             var response = await GetAsync($"/customers/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
@@ -28,7 +28,7 @@ namespace RechargeSharp.Services.Customers
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customers;
         }
 
-        public Task<IEnumerable<Customer>> GetCustomersAsync(int page = 1, int limit = 50, string email = null, string status = null, string shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, string hash = null)
+        public Task<IEnumerable<Customer>> GetCustomersAsync(int page = 1, int limit = 50, string email = null, string status = null, long? shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, string hash = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += email != null ? $"&email={email}" : ""; 
@@ -44,7 +44,7 @@ namespace RechargeSharp.Services.Customers
             return GetCustomersAsync(queryParams);
         }
 
-        public Task<IEnumerable<Customer>> GetAllCustomersWithParamsAsync(string email = null, string status = null, string shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, string hash = null)
+        public Task<IEnumerable<Customer>> GetAllCustomersWithParamsAsync(string email = null, string status = null, long? shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, string hash = null)
         {
             var queryParams = "";
             queryParams += email != null ? $"&email={email}" : "";
@@ -56,7 +56,7 @@ namespace RechargeSharp.Services.Customers
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
             queryParams += hash != null ? $"&hash={hash}" : "";
 
-            if (!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(shopifyCustomerId) || !string.IsNullOrEmpty(hash))
+            if (!string.IsNullOrEmpty(email) || shopifyCustomerId != null || !string.IsNullOrEmpty(hash))
             {
                 return GetCustomersAsync(queryParams);
             }
@@ -117,26 +117,26 @@ namespace RechargeSharp.Services.Customers
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
         }
 
-        public async Task<Customer> UpdateCustomerAsync(string id, UpdateCustomerRequest updateCustomerRequest)
+        public async Task<Customer> UpdateCustomerAsync(long id, UpdateCustomerRequest updateCustomerRequest)
         {
             var response = await PutAsync($"/customers/{id}", JsonConvert.SerializeObject(updateCustomerRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
         }
 
-        public async Task<Customer> UpdateCustomerPaymentTokenAsync(string id, UpdateCustomerPaymentTokenRequest customerPaymentTokenRequest)
+        public async Task<Customer> UpdateCustomerPaymentTokenAsync(long id, UpdateCustomerPaymentTokenRequest customerPaymentTokenRequest)
         {
             var response = await PutAsync($"/customers/{id}", JsonConvert.SerializeObject(customerPaymentTokenRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
         }
 
-        public async Task DeleteCustomerAsync(string id)
+        public async Task DeleteCustomerAsync(long id)
         {
             var response = await DeleteAsync($"/customers/{id}").ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<PaymentSource>> GetCustomerPaymentSourcesAsync(string id)
+        public async Task<IEnumerable<PaymentSource>> GetCustomerPaymentSourcesAsync(long id)
         {
             var response = await GetAsync($"/customers/{id}/payment_sources").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<PaymentSourceListResponse>(

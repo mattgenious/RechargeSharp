@@ -15,7 +15,7 @@ namespace RechargeSharp.Services.Webhooks
         {
         }
 
-        public async Task<Webhook> GetWebhookAsync(string id)
+        public async Task<Webhook> GetWebhookAsync(long id)
         {
             var response = await GetAsync($"/webhooks/{id}");
             return JsonConvert.DeserializeObject<WebhookResponse>(
@@ -36,20 +36,20 @@ namespace RechargeSharp.Services.Webhooks
                 await response.Content.ReadAsStringAsync()).Webhook;
         }
 
-        public async Task<Webhook> UpdateWebhookAsync(string id, UpdateWebhookRequest updateWebhookRequest)
+        public async Task<Webhook> UpdateWebhookAsync(long id, UpdateWebhookRequest updateWebhookRequest)
         {
             var response = await PutAsync($"/webhooks/{id}", JsonConvert.SerializeObject(updateWebhookRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
                 await response.Content.ReadAsStringAsync()).Webhook;
         }
-        public async Task<Webhook> OverrideShippingLines(string id, OverrideShippingLinesRequest overrideShippingLinesRequest)
+        public async Task<Webhook> OverrideShippingLines(long id, OverrideShippingLinesRequest overrideShippingLinesRequest)
         {
             var response = await PutAsync($"/webhooks/{id}", JsonConvert.SerializeObject(overrideShippingLinesRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
                 await response.Content.ReadAsStringAsync()).Webhook;
         }
 
-        public async Task DeleteWebhookAsync(string id)
+        public async Task DeleteWebhookAsync(long id)
         {
             var response = await DeleteAsync($"/webhooks/{id}");
         }

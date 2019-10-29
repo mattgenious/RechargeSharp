@@ -13,9 +13,9 @@ namespace RechargeSharp.Services.Checkouts
         public CheckoutService(string apiKey) : base(apiKey)
         {
         }
-        public async Task<Checkout> GetCheckoutAsync(string id)
+        public async Task<Checkout> GetCheckoutAsync(string token)
         {
-            var response = await GetAsync($"/checkouts/{id}").ConfigureAwait(false);
+            var response = await GetAsync($"/checkouts/{token}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Checkout;
         }
@@ -27,15 +27,15 @@ namespace RechargeSharp.Services.Checkouts
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Checkout;
         }
 
-        public async Task<Checkout> UpdateCheckoutAsync(string id, UpdateCheckoutRequest updateCheckoutRequest)
+        public async Task<Checkout> UpdateCheckoutAsync(string token, UpdateCheckoutRequest updateCheckoutRequest)
         {
-            var response = await PutAsync($"/checkouts/{id}", JsonConvert.SerializeObject(updateCheckoutRequest)).ConfigureAwait(false);
+            var response = await PutAsync($"/checkouts/{token}", JsonConvert.SerializeObject(updateCheckoutRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Checkout;
         }
-        public async Task<IEnumerable<ShippingRate>> RetrieveShippingRatesAsync(string id, OverrideShippingLinesRequest overrideShippingLinesRequest)
+        public async Task<IEnumerable<ShippingRate>> RetrieveShippingRatesAsync(string token, OverrideShippingLinesRequest overrideShippingLinesRequest)
         {
-            var response = await GetAsync($"/checkouts/{id}/shipping_rates").ConfigureAwait(false);
+            var response = await GetAsync($"/checkouts/{token}/shipping_rates").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ShippingRateListResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).ShippingRates;
         }
@@ -45,11 +45,6 @@ namespace RechargeSharp.Services.Checkouts
             var response = await PostAsync("/checkouts/validate", JsonConvert.SerializeObject(processCheckoutRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ProcessCheckoutResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).CheckoutCharge;
-        }
-
-        public async Task DeleteCheckoutAsync(string id)
-        {
-            var response = await DeleteAsync($"/checkouts/{id}").ConfigureAwait(false);
         }
     }
 }

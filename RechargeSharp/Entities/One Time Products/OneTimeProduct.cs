@@ -1,12 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.One_Time_Products
 {
-    public class OneTimeProduct
+    public class OneTimeProduct : IEquatable<OneTimeProduct>
     {
+        public bool Equals(OneTimeProduct other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return AddressId == other.AddressId && Nullable.Equals(CreatedAt, other.CreatedAt) && CustomerId == other.CustomerId && Id == other.Id && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Price == other.Price && ProductTitle == other.ProductTitle && Properties.SequenceEqual(other.Properties) && Quantity == other.Quantity && RechargeProductId == other.RechargeProductId && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && Status == other.Status && Nullable.Equals(UpdatedAt, other.UpdatedAt) && VariantTitle == other.VariantTitle;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((OneTimeProduct) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = AddressId.GetHashCode();
+                hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ CustomerId.GetHashCode();
+                hashCode = (hashCode * 397) ^ Id.GetHashCode();
+                hashCode = (hashCode * 397) ^ NextChargeScheduledAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ Price.GetHashCode();
+                hashCode = (hashCode * 397) ^ (ProductTitle != null ? ProductTitle.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Properties != null ? Properties.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
+                hashCode = (hashCode * 397) ^ RechargeProductId.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShopifyProductId.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShopifyVariantId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Sku != null ? Sku.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ (VariantTitle != null ? VariantTitle.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
+
+        public static bool operator ==(OneTimeProduct left, OneTimeProduct right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(OneTimeProduct left, OneTimeProduct right)
+        {
+            return !Equals(left, right);
+        }
+
         [JsonProperty("address_id")]
         public long AddressId { get; set; }
 

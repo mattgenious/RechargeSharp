@@ -13,7 +13,7 @@ namespace RechargeSharp.Services.OneTimeProducts
         {
         }
 
-        public async Task<OneTimeProduct> GetOneTimeProductAsync(string id)
+        public async Task<OneTimeProduct> GetOneTimeProductAsync(long id)
         {
             var response = await GetAsync($"/onetimes/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OneTimeProductResponse>(
@@ -27,11 +27,16 @@ namespace RechargeSharp.Services.OneTimeProducts
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProducts;
         }
 
-        public Task<IEnumerable<OneTimeProduct>> GetOneTimeProductsAsync(string owner_resource = "store", string _namespace = null, string owner_id = null)
+        public Task<IEnumerable<OneTimeProduct>> GetOneTimeProductsAsync(long limit = 50, long page = 1, long? customerId = null, long? addressId = null, long? shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
-            var queryParams = $"owner_resource={owner_resource}";
-            queryParams += _namespace != null ? $"&namespace={_namespace}" : "";
-            queryParams += owner_id != null ? $"&owner_id={owner_id}" : "";
+            var queryParams = $"page={page}&limit={limit}";
+            queryParams += customerId != null ? $"&customer_id={customerId}" : "";
+            queryParams += addressId != null ? $"&address_id={addressId}" : "";
+            queryParams += shopifyCustomerId != null ? $"&shopify_customer_id={shopifyCustomerId}" : "";
+            queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
+            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
+            queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
 
             return GetOneTimeProductsAsync(queryParams);
         }
@@ -43,14 +48,14 @@ namespace RechargeSharp.Services.OneTimeProducts
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProduct;
         }
 
-        public async Task<OneTimeProduct> UpdateOneTimeProductAsync(string id, UpdateOneTimeProductRequest updateOneTimeProductRequest)
+        public async Task<OneTimeProduct> UpdateOneTimeProductAsync(long id, UpdateOneTimeProductRequest updateOneTimeProductRequest)
         {
             var response = await PutAsync($"/onetimes/{id}", JsonConvert.SerializeObject(updateOneTimeProductRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OneTimeProductResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProduct;
         }
 
-        public async Task DeleteOneTimeProductAsync(string id)
+        public async Task DeleteOneTimeProductAsync(long id)
         {
             var response = await DeleteAsync($"/onetimes/{id}").ConfigureAwait(false);
         }

@@ -14,7 +14,7 @@ namespace RechargeSharp.Services.Collections
         {
         }
 
-        public async Task<Collection> GetCollectionAsync(string id)
+        public async Task<Collection> GetCollectionAsync(long id)
         {
             var response = await GetAsync($"/collections/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CollectionResponse>(
