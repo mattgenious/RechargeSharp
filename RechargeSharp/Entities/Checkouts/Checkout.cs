@@ -13,7 +13,7 @@ namespace RechargeSharp.Entities.Checkouts
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return AppliedDiscount == other.AppliedDiscount && BillingAddress == other.BillingAddress && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing && Nullable.Equals(CompletedAt, other.CompletedAt) && Nullable.Equals(CreatedAt, other.CreatedAt) && DiscountCode == other.DiscountCode && Email == other.Email && LineItems.SequenceEqual(other.LineItems) && Note == other.Note && NoteAttributes.SequenceEqual(other.NoteAttributes) && Phone == other.Phone && RequiresShipping == other.RequiresShipping && ShippingAddress == other.ShippingAddress && ShippingLine == other.ShippingLine && ShippingRate.SequenceEqual(other.ShippingRate) && SubtotalPrice == other.SubtotalPrice && TaxLines.SequenceEqual(other.TaxLines) && TaxesIncluded == other.TaxesIncluded && Token == other.Token && TotalPrice == other.TotalPrice && TotalTax == other.TotalTax && Nullable.Equals(UpdatedAt, other.UpdatedAt);
+            return Equals(AppliedDiscount, other.AppliedDiscount) && Equals(BillingAddress, other.BillingAddress) && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing && Nullable.Equals(CompletedAt, other.CompletedAt) && Nullable.Equals(CreatedAt, other.CreatedAt) && DiscountCode == other.DiscountCode && Email == other.Email && Note == other.Note && Phone == other.Phone && RequiresShipping == other.RequiresShipping && Equals(ShippingAddress, other.ShippingAddress) && Equals(ShippingLine, other.ShippingLine) && SubtotalPrice == other.SubtotalPrice && TaxesIncluded == other.TaxesIncluded && Token == other.Token && TotalPrice == other.TotalPrice && TotalTax == other.TotalTax && Nullable.Equals(UpdatedAt, other.UpdatedAt);
         }
 
         public override bool Equals(object obj)
@@ -35,16 +35,12 @@ namespace RechargeSharp.Entities.Checkouts
                 hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
                 hashCode = (hashCode * 397) ^ (DiscountCode != null ? DiscountCode.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Email != null ? Email.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (LineItems != null ? LineItems.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Note != null ? Note.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (NoteAttributes != null ? NoteAttributes.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Phone != null ? Phone.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ RequiresShipping.GetHashCode();
                 hashCode = (hashCode * 397) ^ (ShippingAddress != null ? ShippingAddress.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ShippingLine != null ? ShippingLine.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (ShippingRate != null ? ShippingRate.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (SubtotalPrice != null ? SubtotalPrice.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (TaxLines != null ? TaxLines.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ TaxesIncluded.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Token != null ? Token.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (TotalPrice != null ? TotalPrice.GetHashCode() : 0);
@@ -63,6 +59,7 @@ namespace RechargeSharp.Entities.Checkouts
         {
             return !Equals(left, right);
         }
+
 
         [JsonProperty("applied_discount")]
         public CheckoutAppliedDiscount AppliedDiscount { get; set; }

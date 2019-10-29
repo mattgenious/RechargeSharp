@@ -13,7 +13,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Addresses
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Id == other.Id && CustomerId == other.CustomerId && Nullable.Equals(CreatedAt, other.CreatedAt) && Nullable.Equals(UpdatedAt, other.UpdatedAt) && Address1 == other.Address1 && Address2 == other.Address2 && City == other.City && Province == other.Province && FirstName == other.FirstName && LastName == other.LastName && Zip == other.Zip && Company == other.Company && Phone == other.Phone && Country == other.Country && CartNote == other.CartNote && OriginalShippingLines.SequenceEqual(other.OriginalShippingLines) && CartAttributes.SequenceEqual(other.CartAttributes) && NoteAttributes.SequenceEqual(other.NoteAttributes) && DiscountId == other.DiscountId;
+            return Id == other.Id && CustomerId == other.CustomerId && Nullable.Equals(CreatedAt, other.CreatedAt) && Nullable.Equals(UpdatedAt, other.UpdatedAt) && Address1 == other.Address1 && Address2 == other.Address2 && City == other.City && Province == other.Province && FirstName == other.FirstName && LastName == other.LastName && Zip == other.Zip && Company == other.Company && Phone == other.Phone && Country == other.Country && CartNote == other.CartNote && DiscountId == other.DiscountId;
         }
 
         public override bool Equals(object obj)
@@ -43,9 +43,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Addresses
                 hashCode = (hashCode * 397) ^ (Phone != null ? Phone.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Country != null ? Country.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (CartNote != null ? CartNote.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (OriginalShippingLines != null ? OriginalShippingLines.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (CartAttributes != null ? CartAttributes.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (NoteAttributes != null ? NoteAttributes.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ DiscountId.GetHashCode();
                 return hashCode;
             }

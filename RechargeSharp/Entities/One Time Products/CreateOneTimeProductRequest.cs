@@ -12,7 +12,7 @@ namespace RechargeSharp.Entities.One_Time_Products
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && ProductTitle == other.ProductTitle && Price == other.Price && Quantity == other.Quantity && ShopifyVariantId == other.ShopifyVariantId && Properties.SequenceEqual(other.Properties);
+            return Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && ProductTitle == other.ProductTitle && Price == other.Price && Quantity == other.Quantity && ShopifyVariantId == other.ShopifyVariantId;
         }
 
         public override bool Equals(object obj)
@@ -32,7 +32,6 @@ namespace RechargeSharp.Entities.One_Time_Products
                 hashCode = (hashCode * 397) ^ Price.GetHashCode();
                 hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShopifyVariantId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Properties != null ? Properties.GetHashCode() : 0);
                 return hashCode;
             }
         }

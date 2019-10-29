@@ -12,7 +12,7 @@ namespace RechargeSharp.Entities.Orders
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return AddressId == other.AddressId && AddressIsActive == other.AddressIsActive && Equals(BillingAddress, other.BillingAddress) && ChargeId == other.ChargeId && ChargeStatus == other.ChargeStatus && Nullable.Equals(CreatedAt, other.CreatedAt) && CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName && Hash == other.Hash && Id == other.Id && IsPrepaid == other.IsPrepaid && LastName == other.LastName && LineItems.SequenceEqual(other.LineItems) && Note == other.Note && NoteAttributes.SequenceEqual(other.NoteAttributes) && PaymentProcessor == other.PaymentProcessor && Nullable.Equals(ProcessedAt, other.ProcessedAt) && Nullable.Equals(ScheduledAt, other.ScheduledAt) && Nullable.Equals(ShippedDate, other.ShippedDate) && Equals(ShippingAddress, other.ShippingAddress) && Nullable.Equals(ShippingDate, other.ShippingDate) && ShippingLines.SequenceEqual(other.ShippingLines) && ShopifyCartToken == other.ShopifyCartToken && ShopifyId == other.ShopifyId && ShopifyOrderId == other.ShopifyOrderId && ShopifyOrderNumber == other.ShopifyOrderNumber && Status == other.Status && SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TaxLines.SequenceEqual(other.TaxLines) && TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice && TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax && TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type && Nullable.Equals(UpdatedAt, other.UpdatedAt);
+            return AddressId == other.AddressId && AddressIsActive == other.AddressIsActive && Equals(BillingAddress, other.BillingAddress) && ChargeId == other.ChargeId && ChargeStatus == other.ChargeStatus && Nullable.Equals(CreatedAt, other.CreatedAt) && CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName && Hash == other.Hash && Id == other.Id && IsPrepaid == other.IsPrepaid && LastName == other.LastName && Note == other.Note && PaymentProcessor == other.PaymentProcessor && Nullable.Equals(ProcessedAt, other.ProcessedAt) && Nullable.Equals(ScheduledAt, other.ScheduledAt) && Nullable.Equals(ShippedDate, other.ShippedDate) && Equals(ShippingAddress, other.ShippingAddress) && Nullable.Equals(ShippingDate, other.ShippingDate) && ShopifyCartToken == other.ShopifyCartToken && ShopifyId == other.ShopifyId && ShopifyOrderId == other.ShopifyOrderId && ShopifyOrderNumber == other.ShopifyOrderNumber && Status == other.Status && SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice && TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax && TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type && Nullable.Equals(UpdatedAt, other.UpdatedAt);
         }
 
         public override bool Equals(object obj)
@@ -40,16 +40,13 @@ namespace RechargeSharp.Entities.Orders
                 hashCode = (hashCode * 397) ^ Id.GetHashCode();
                 hashCode = (hashCode * 397) ^ IsPrepaid.GetHashCode();
                 hashCode = (hashCode * 397) ^ (LastName != null ? LastName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (LineItems != null ? LineItems.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Note != null ? Note.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (NoteAttributes != null ? NoteAttributes.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (PaymentProcessor != null ? PaymentProcessor.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ ProcessedAt.GetHashCode();
                 hashCode = (hashCode * 397) ^ ScheduledAt.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShippedDate.GetHashCode();
                 hashCode = (hashCode * 397) ^ (ShippingAddress != null ? ShippingAddress.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ ShippingDate.GetHashCode();
-                hashCode = (hashCode * 397) ^ (ShippingLines != null ? ShippingLines.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ShopifyCartToken != null ? ShopifyCartToken.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ShopifyId != null ? ShopifyId.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ShopifyOrderId != null ? ShopifyOrderId.GetHashCode() : 0);
@@ -57,7 +54,6 @@ namespace RechargeSharp.Entities.Orders
                 hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ SubtotalPrice.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Tags != null ? Tags.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (TaxLines != null ? TaxLines.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ TotalDiscounts.GetHashCode();
                 hashCode = (hashCode * 397) ^ TotalLineItemsPrice.GetHashCode();
                 hashCode = (hashCode * 397) ^ TotalPrice.GetHashCode();
@@ -80,6 +76,7 @@ namespace RechargeSharp.Entities.Orders
         {
             return !Equals(left, right);
         }
+
 
         [JsonProperty("address_id")]
         public long AddressId { get; set; }

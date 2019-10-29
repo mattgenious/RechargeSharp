@@ -12,7 +12,7 @@ namespace RechargeSharp.Entities.Shared
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(Checkout, other.Checkout) && Code == other.Code && DeliveryRange.SequenceEqual(other.DeliveryRange) && Handle == other.Handle && Name == other.Name && PhoneRequired == other.PhoneRequired && Price == other.Price && Title == other.Title;
+            return Equals(Checkout, other.Checkout) && Code == other.Code && Handle == other.Handle && Name == other.Name && PhoneRequired == other.PhoneRequired && Price == other.Price && Title == other.Title;
         }
 
         public override bool Equals(object obj)
@@ -29,7 +29,6 @@ namespace RechargeSharp.Entities.Shared
             {
                 var hashCode = (Checkout != null ? Checkout.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Code != null ? Code.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (DeliveryRange != null ? DeliveryRange.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Handle != null ? Handle.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ PhoneRequired.GetHashCode();

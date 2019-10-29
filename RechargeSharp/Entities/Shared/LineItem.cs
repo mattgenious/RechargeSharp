@@ -11,7 +11,7 @@ namespace RechargeSharp.Entities.Shared
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Grams == other.Grams && Images == other.Images && Price == other.Price && Properties.SequenceEqual(other.Properties) && Quantity == other.Quantity && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && SubscriptionId == other.SubscriptionId && Title == other.Title && VariantTitle == other.VariantTitle;
+            return Grams == other.Grams && Equals(Images, other.Images) && Price == other.Price && Quantity == other.Quantity && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && SubscriptionId == other.SubscriptionId && Title == other.Title && VariantTitle == other.VariantTitle;
         }
 
         public override bool Equals(object obj)
@@ -29,7 +29,6 @@ namespace RechargeSharp.Entities.Shared
                 var hashCode = Grams.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Images != null ? Images.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Price != null ? Price.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Properties != null ? Properties.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShopifyProductId.GetHashCode();
                 hashCode = (hashCode * 397) ^ (ShopifyVariantId != null ? ShopifyVariantId.GetHashCode() : 0);
@@ -50,6 +49,7 @@ namespace RechargeSharp.Entities.Shared
         {
             return !Equals(left, right);
         }
+
 
         [JsonProperty("grams")]
         public long Grams { get; set; }

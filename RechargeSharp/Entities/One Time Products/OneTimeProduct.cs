@@ -12,7 +12,7 @@ namespace RechargeSharp.Entities.One_Time_Products
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return AddressId == other.AddressId && Nullable.Equals(CreatedAt, other.CreatedAt) && CustomerId == other.CustomerId && Id == other.Id && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Price == other.Price && ProductTitle == other.ProductTitle && Properties.SequenceEqual(other.Properties) && Quantity == other.Quantity && RechargeProductId == other.RechargeProductId && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && Status == other.Status && Nullable.Equals(UpdatedAt, other.UpdatedAt) && VariantTitle == other.VariantTitle;
+            return AddressId == other.AddressId && Nullable.Equals(CreatedAt, other.CreatedAt) && CustomerId == other.CustomerId && Id == other.Id && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Price == other.Price && ProductTitle == other.ProductTitle && Quantity == other.Quantity && RechargeProductId == other.RechargeProductId && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && Status == other.Status && Nullable.Equals(UpdatedAt, other.UpdatedAt) && VariantTitle == other.VariantTitle;
         }
 
         public override bool Equals(object obj)
@@ -34,7 +34,6 @@ namespace RechargeSharp.Entities.One_Time_Products
                 hashCode = (hashCode * 397) ^ NextChargeScheduledAt.GetHashCode();
                 hashCode = (hashCode * 397) ^ Price.GetHashCode();
                 hashCode = (hashCode * 397) ^ (ProductTitle != null ? ProductTitle.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Properties != null ? Properties.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
                 hashCode = (hashCode * 397) ^ RechargeProductId.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShopifyProductId.GetHashCode();

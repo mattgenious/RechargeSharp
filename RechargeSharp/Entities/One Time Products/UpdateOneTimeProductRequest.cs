@@ -13,7 +13,7 @@ namespace RechargeSharp.Entities.One_Time_Products
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Quantity == other.Quantity && ProductTitle == other.ProductTitle && VariantTitle == other.VariantTitle && NextChargeScheduledAt == other.NextChargeScheduledAt && Price == other.Price && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && Properties.SequenceEqual(other.Properties);
+            return Quantity == other.Quantity && ProductTitle == other.ProductTitle && VariantTitle == other.VariantTitle && NextChargeScheduledAt == other.NextChargeScheduledAt && Price == other.Price && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku;
         }
 
         public override bool Equals(object obj)
@@ -21,7 +21,7 @@ namespace RechargeSharp.Entities.One_Time_Products
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((UpdateOneTimeProductRequest)obj);
+            return Equals((UpdateOneTimeProductRequest) obj);
         }
 
         public override int GetHashCode()
@@ -35,7 +35,6 @@ namespace RechargeSharp.Entities.One_Time_Products
                 hashCode = (hashCode * 397) ^ Price.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShopifyVariantId.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Sku != null ? Sku.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Properties != null ? Properties.GetHashCode() : 0);
                 return hashCode;
             }
         }

@@ -13,7 +13,7 @@ namespace RechargeSharp.Entities.Addresses
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Address1 == other.Address1 && Address2 == other.Address2 && City == other.City && Province == other.Province && FirstName == other.FirstName && LastName == other.LastName && Zip == other.Zip && Company == other.Company && Phone == other.Phone && Country == other.Country && OriginalShippingLines.SequenceEqual(other.OriginalShippingLines) && ShippingLinesOverride.SequenceEqual(other.ShippingLinesOverride);
+            return Address1 == other.Address1 && Address2 == other.Address2 && City == other.City && Province == other.Province && FirstName == other.FirstName && LastName == other.LastName && Zip == other.Zip && Company == other.Company && Phone == other.Phone && Country == other.Country;
         }
 
         public override bool Equals(object obj)
@@ -38,8 +38,6 @@ namespace RechargeSharp.Entities.Addresses
                 hashCode = (hashCode * 397) ^ (Company != null ? Company.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Phone != null ? Phone.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Country != null ? Country.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (OriginalShippingLines != null ? OriginalShippingLines.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (ShippingLinesOverride != null ? ShippingLinesOverride.GetHashCode() : 0);
                 return hashCode;
             }
         }
@@ -53,6 +51,7 @@ namespace RechargeSharp.Entities.Addresses
         {
             return !Equals(left, right);
         }
+
 
         [JsonProperty("address1", NullValueHandling = NullValueHandling.Ignore)]
         public string Address1 { get; set; }

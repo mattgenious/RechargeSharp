@@ -13,7 +13,7 @@ namespace RechargeSharp.Entities.Orders
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Price == other.Price && ProductTitle == other.ProductTitle && Properties.SequenceEqual(other.Properties) && Quantity == other.Quantity && ProductId == other.ProductId && VariantId == other.VariantId && Sku == other.Sku && SubscriptionId == other.SubscriptionId && Title == other.Title && VariantTitle == other.VariantTitle && Grams == other.Grams && Vendor == other.Vendor;
+            return Price == other.Price && ProductTitle == other.ProductTitle && Quantity == other.Quantity && ProductId == other.ProductId && VariantId == other.VariantId && Sku == other.Sku && SubscriptionId == other.SubscriptionId && Title == other.Title && VariantTitle == other.VariantTitle && Grams == other.Grams && Vendor == other.Vendor;
         }
 
         public override bool Equals(object obj)
@@ -30,7 +30,6 @@ namespace RechargeSharp.Entities.Orders
             {
                 var hashCode = (Price != null ? Price.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ProductTitle != null ? ProductTitle.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Properties != null ? Properties.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
                 hashCode = (hashCode * 397) ^ ProductId.GetHashCode();
                 hashCode = (hashCode * 397) ^ VariantId.GetHashCode();

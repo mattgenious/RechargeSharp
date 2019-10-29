@@ -12,7 +12,7 @@ namespace RechargeSharp.Entities.Checkouts
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return LineItems.SequenceEqual(other.LineItems) && Equals(ShippingAddress, other.ShippingAddress) && Equals(BillingAddress, other.BillingAddress) && Email == other.Email && Note == other.Note && NoteAttributes.SequenceEqual(other.NoteAttributes) && ShippingLine.SequenceEqual(other.ShippingLine) && DiscountCode == other.DiscountCode && Phone == other.Phone && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing;
+            return Equals(LineItems, other.LineItems) && Equals(ShippingAddress, other.ShippingAddress) && Equals(BillingAddress, other.BillingAddress) && Email == other.Email && Note == other.Note && DiscountCode == other.DiscountCode && Phone == other.Phone && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing;
         }
 
         public override bool Equals(object obj)
@@ -32,8 +32,6 @@ namespace RechargeSharp.Entities.Checkouts
                 hashCode = (hashCode * 397) ^ (BillingAddress != null ? BillingAddress.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Email != null ? Email.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Note != null ? Note.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (NoteAttributes != null ? NoteAttributes.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (ShippingLine != null ? ShippingLine.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (DiscountCode != null ? DiscountCode.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Phone != null ? Phone.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ BuyerAcceptsMarketing.GetHashCode();
@@ -50,6 +48,7 @@ namespace RechargeSharp.Entities.Checkouts
         {
             return !Equals(left, right);
         }
+
 
         [JsonProperty("line_items")]
         public List<CreateCheckoutRequestLineItem> LineItems { get; set; }
