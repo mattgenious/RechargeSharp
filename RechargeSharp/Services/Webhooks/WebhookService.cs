@@ -31,6 +31,8 @@ namespace RechargeSharp.Services.Webhooks
 
         public async Task<Webhook> CreateWebhookAsync(CreateWebhookRequest createWebhookRequest)
         {
+            ValidateModel(createWebhookRequest);
+
             var response = await PostAsJsonAsync("/webhooks", JsonConvert.SerializeObject(createWebhookRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
                 await response.Content.ReadAsStringAsync()).Webhook;
@@ -38,12 +40,16 @@ namespace RechargeSharp.Services.Webhooks
 
         public async Task<Webhook> UpdateWebhookAsync(long id, UpdateWebhookRequest updateWebhookRequest)
         {
+            ValidateModel(updateWebhookRequest);
+
             var response = await PutAsync($"/webhooks/{id}", JsonConvert.SerializeObject(updateWebhookRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
                 await response.Content.ReadAsStringAsync()).Webhook;
         }
         public async Task<Webhook> OverrideShippingLines(long id, OverrideShippingLinesRequest overrideShippingLinesRequest)
         {
+            ValidateModel(overrideShippingLinesRequest);
+
             var response = await PutAsync($"/webhooks/{id}", JsonConvert.SerializeObject(overrideShippingLinesRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
                 await response.Content.ReadAsStringAsync()).Webhook;

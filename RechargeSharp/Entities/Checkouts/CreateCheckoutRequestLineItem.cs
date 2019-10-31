@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
@@ -62,6 +63,7 @@ namespace RechargeSharp.Entities.Checkouts
             return !Equals(left, right);
         }
 
+
         [JsonProperty("charge_interval_frequency", NullValueHandling = NullValueHandling.Ignore)]
         public long? ChargeIntervalFrequency { get; set; }
 
@@ -104,8 +106,9 @@ namespace RechargeSharp.Entities.Checkouts
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string,string> Properties { get; set; }
 
+        [Required]
         [JsonProperty("quantity")]
-        public long Quantity { get; set; }
+        public long? Quantity { get; set; }
 
         [JsonProperty("requires_shipping", NullValueHandling = NullValueHandling.Ignore)]
         public bool? RequiresShipping { get; set; }
@@ -119,8 +122,9 @@ namespace RechargeSharp.Entities.Checkouts
         [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
         public string Title { get; set; }
 
+        [Required]
         [JsonProperty("variant_id")]
-        public long VariantId { get; set; }
+        public long? VariantId { get; set; }
 
         [JsonProperty("variant_title", NullValueHandling = NullValueHandling.Ignore)]
         public string VariantTitle { get; set; }

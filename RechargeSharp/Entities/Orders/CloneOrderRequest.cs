@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -37,6 +38,7 @@ namespace RechargeSharp.Entities.Orders
             return !Equals(left, right);
         }
 
+        [Required]
         [JsonProperty("scheduled_at")]
         public DateTime? ScheduledAt { get; set; }
     }

@@ -1,11 +1,11 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.Shared
+namespace RechargeSharp.Entities.Charges
 {
-    public class ClientDetails : IEquatable<ClientDetails>
+    public class ChargeClientDetails : IEquatable<ChargeClientDetails>
     {
-        public bool Equals(ClientDetails other)
+        public bool Equals(ChargeClientDetails other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -17,7 +17,7 @@ namespace RechargeSharp.Entities.Shared
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((ClientDetails) obj);
+            return Equals((ChargeClientDetails) obj);
         }
 
         public override int GetHashCode()
@@ -28,12 +28,12 @@ namespace RechargeSharp.Entities.Shared
             }
         }
 
-        public static bool operator ==(ClientDetails left, ClientDetails right)
+        public static bool operator ==(ChargeClientDetails left, ChargeClientDetails right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(ClientDetails left, ClientDetails right)
+        public static bool operator !=(ChargeClientDetails left, ChargeClientDetails right)
         {
             return !Equals(left, right);
         }

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.Shared
+namespace RechargeSharp.Entities.Charges
 {
-    public class DiscountCode : IEquatable<DiscountCode>
+    public class ChargeDiscountCode : IEquatable<ChargeDiscountCode>
     {
-        public bool Equals(DiscountCode other)
+        public bool Equals(ChargeDiscountCode other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -19,7 +17,7 @@ namespace RechargeSharp.Entities.Shared
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((DiscountCode) obj);
+            return Equals((ChargeDiscountCode) obj);
         }
 
         public override int GetHashCode()
@@ -33,12 +31,12 @@ namespace RechargeSharp.Entities.Shared
             }
         }
 
-        public static bool operator ==(DiscountCode left, DiscountCode right)
+        public static bool operator ==(ChargeDiscountCode left, ChargeDiscountCode right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(DiscountCode left, DiscountCode right)
+        public static bool operator !=(ChargeDiscountCode left, ChargeDiscountCode right)
         {
             return !Equals(left, right);
         }

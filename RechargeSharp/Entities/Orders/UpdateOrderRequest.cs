@@ -45,12 +45,12 @@ namespace RechargeSharp.Entities.Orders
         }
 
         [JsonProperty("customer", NullValueHandling = NullValueHandling.Ignore)]
-        public OptionalCustomer Customer { get; set; }
+        public OrderCustomer Customer { get; set; }
 
         [JsonProperty("billing_address", NullValueHandling = NullValueHandling.Ignore)]
-        public OptionalAddress BillingAddress { get; set; }
+        public OrderAddress BillingAddress { get; set; }
 
         [JsonProperty("shipping_address", NullValueHandling = NullValueHandling.Ignore)]
-        public OptionalAddress ShippingAddress { get; set; }
+        public OrderAddress ShippingAddress { get; set; }
     }
 }

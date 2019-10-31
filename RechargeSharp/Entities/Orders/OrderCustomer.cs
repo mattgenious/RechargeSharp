@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.Shared
+namespace RechargeSharp.Entities.Orders
 {
-    public class OptionalCustomer : IEquatable<OptionalCustomer>
+    public class OrderCustomer : IEquatable<OrderCustomer>
     {
-        public bool Equals(OptionalCustomer other)
+        public bool Equals(OrderCustomer other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -19,7 +17,7 @@ namespace RechargeSharp.Entities.Shared
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((OptionalCustomer) obj);
+            return Equals((OrderCustomer) obj);
         }
 
         public override int GetHashCode()
@@ -33,12 +31,12 @@ namespace RechargeSharp.Entities.Shared
             }
         }
 
-        public static bool operator ==(OptionalCustomer left, OptionalCustomer right)
+        public static bool operator ==(OrderCustomer left, OrderCustomer right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(OptionalCustomer left, OptionalCustomer right)
+        public static bool operator !=(OrderCustomer left, OrderCustomer right)
         {
             return !Equals(left, right);
         }

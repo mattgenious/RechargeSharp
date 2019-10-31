@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -37,6 +38,8 @@ namespace RechargeSharp.Entities.Charges
             return !Equals(left, right);
         }
 
+
+        [Required]
         [JsonProperty("next_charge_date")]
         public DateTime? NextChargeDate { get; set; }
     }

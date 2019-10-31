@@ -102,6 +102,8 @@ namespace RechargeSharp.Services.Orders
 
         public async Task<Order> UpdateOrderAsync(long id, UpdateOrderRequest updateOrderRequest)
         {
+            ValidateModel(updateOrderRequest);
+
             var response = await PutAsync($"/orders/{id}", JsonConvert.SerializeObject(updateOrderRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
@@ -109,6 +111,8 @@ namespace RechargeSharp.Services.Orders
 
         public async Task<Order> UpdateLineItemsAsync(long id, UpdateLineItemsRequest updateLineItemsRequest)
         {
+            ValidateModel(updateLineItemsRequest);
+
             var response = await PutAsync($"/orders/{id}", JsonConvert.SerializeObject(updateLineItemsRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
@@ -116,6 +120,8 @@ namespace RechargeSharp.Services.Orders
 
         public async Task<Order> ChangeOrderDateAsync(long id, ChangeOrderDateRequest changeOrderDateRequest)
         {
+            ValidateModel(changeOrderDateRequest);
+
             var response = await PostAsync($"/orders/{id}/change_date", JsonConvert.SerializeObject(changeOrderDateRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
@@ -123,12 +129,16 @@ namespace RechargeSharp.Services.Orders
 
         public async Task<Order> ChangeOrderVariant(long orderId, long currentShopifyVariantId, ChangeOrderVariantRequest changeOrderVariantRequest)
         {
+            ValidateModel(changeOrderVariantRequest);
+
             var response = await PostAsync($"/orders/{orderId}/update_shopify_variant/{currentShopifyVariantId}", JsonConvert.SerializeObject(changeOrderVariantRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
         public async Task<Order> CloneOrderAsync(long orderId, long chargeId, CloneOrderRequest cloneOrderRequest)
         {
+            ValidateModel(cloneOrderRequest);
+
             var response = await PostAsync($"/orders/clone_order_on_success_charge/{orderId}/charge/{chargeId}", JsonConvert.SerializeObject(cloneOrderRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;

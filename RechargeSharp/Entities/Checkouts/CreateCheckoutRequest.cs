@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Checkouts
@@ -35,6 +36,7 @@ namespace RechargeSharp.Entities.Checkouts
             return !Equals(left, right);
         }
 
+        [Required]
         [JsonProperty("checkout")]
         public CreateCheckoutRequestCheckout Checkout { get; set; }
 

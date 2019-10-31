@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.Shared
+namespace RechargeSharp.Entities.Orders
 {
-    public class OptionalAddress : IEquatable<OptionalAddress>
+    public class OrderAddress : IEquatable<OrderAddress>
     {
-        public bool Equals(OptionalAddress other)
+        public bool Equals(OrderAddress other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -19,7 +18,7 @@ namespace RechargeSharp.Entities.Shared
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((OptionalAddress) obj);
+            return Equals((OrderAddress) obj);
         }
 
         public override int GetHashCode()
@@ -40,12 +39,12 @@ namespace RechargeSharp.Entities.Shared
             }
         }
 
-        public static bool operator ==(OptionalAddress left, OptionalAddress right)
+        public static bool operator ==(OrderAddress left, OrderAddress right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(OptionalAddress left, OptionalAddress right)
+        public static bool operator !=(OrderAddress left, OrderAddress right)
         {
             return !Equals(left, right);
         }
@@ -74,6 +73,7 @@ namespace RechargeSharp.Entities.Shared
         [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
         public string Phone { get; set; }
 
+        [Required(AllowEmptyStrings = true)]
         [JsonProperty("province")]
         public string Province { get; set; }
 

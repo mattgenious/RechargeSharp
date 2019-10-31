@@ -13,7 +13,7 @@ namespace RechargeSharp.Entities.One_Time_Products
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Quantity == other.Quantity && ProductTitle == other.ProductTitle && VariantTitle == other.VariantTitle && NextChargeScheduledAt == other.NextChargeScheduledAt && Price == other.Price && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku;
+            return ProductTitle == other.ProductTitle && VariantTitle == other.VariantTitle && NextChargeScheduledAt == other.NextChargeScheduledAt && Price == other.Price && Quantity == other.Quantity && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku;
         }
 
         public override bool Equals(object obj)
@@ -28,11 +28,11 @@ namespace RechargeSharp.Entities.One_Time_Products
         {
             unchecked
             {
-                var hashCode = Quantity.GetHashCode();
-                hashCode = (hashCode * 397) ^ (ProductTitle != null ? ProductTitle.GetHashCode() : 0);
+                var hashCode = (ProductTitle != null ? ProductTitle.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (VariantTitle != null ? VariantTitle.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (NextChargeScheduledAt != null ? NextChargeScheduledAt.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Price.GetHashCode();
+                hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShopifyVariantId.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Sku != null ? Sku.GetHashCode() : 0);
                 return hashCode;
@@ -49,9 +49,6 @@ namespace RechargeSharp.Entities.One_Time_Products
             return !Equals(left, right);
         }
 
-        [JsonProperty("quantity", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Quantity { get; set; }
-
         [JsonProperty("product_title", NullValueHandling = NullValueHandling.Ignore)]
         public string ProductTitle { get; set; }
 
@@ -63,6 +60,9 @@ namespace RechargeSharp.Entities.One_Time_Products
 
         [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
         public long? Price { get; set; }
+
+        [JsonProperty("quantity", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Quantity { get; set; }
 
         [JsonProperty("shopify_variant_id", NullValueHandling = NullValueHandling.Ignore)]
         public long? ShopifyVariantId { get; set; }

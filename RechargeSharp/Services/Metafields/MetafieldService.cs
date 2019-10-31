@@ -73,6 +73,8 @@ namespace RechargeSharp.Services.Metafields
 
         public async Task<Metafield> CreateMetafieldAsync(CreateMetafieldRequest createMetafieldRequest)
         {
+            ValidateModel(createMetafieldRequest);
+
             var response = await PostAsJsonAsync($"/metafields?owner_resource={createMetafieldRequest.MetafieldObject.OwnerResource}", JsonConvert.SerializeObject(createMetafieldRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Metafield;
@@ -80,6 +82,8 @@ namespace RechargeSharp.Services.Metafields
 
         public async Task<Metafield> UpdateMetafieldAsync(long id, UpdateMetafieldRequest updateMetafieldRequest)
         {
+            ValidateModel(updateMetafieldRequest);
+
             var response = await PutAsync($"/metafields/{id}", JsonConvert.SerializeObject(updateMetafieldRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Metafield;

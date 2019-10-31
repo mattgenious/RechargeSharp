@@ -113,6 +113,8 @@ namespace RechargeSharp.Services.Subscriptions
 
         public async Task<Subscription> CreateSubscriptionAsync(CreateSubscriptionRequest createSubscriptionRequest)
         {
+            ValidateModel(createSubscriptionRequest);
+
             var response = await PostAsJsonAsync("/subscriptions", JsonConvert.SerializeObject(createSubscriptionRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
@@ -125,12 +127,16 @@ namespace RechargeSharp.Services.Subscriptions
         }
         public async Task<Subscription> ChangeAddressAsync(long id, ChangeAddressRequest changeAddressRequest)
         {
+            ValidateModel(changeAddressRequest);
+
             var response = await PostAsync($"/subscriptions/{id}/change_address", JsonConvert.SerializeObject(changeAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
         public async Task<Subscription> CancelSubscriptionAsync(long id, CancelSubscriptionRequest cancelSubscriptionRequest)
         {
+            ValidateModel(cancelSubscriptionRequest);
+
             var response = await PostAsync($"/subscriptions/{id}/cancel", JsonConvert.SerializeObject(cancelSubscriptionRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
@@ -151,12 +157,16 @@ namespace RechargeSharp.Services.Subscriptions
         }
         public async Task<Subscription> UpdateSubscriptionAsync(long id, UpdateSubscriptionRequest updateSubscriptionRequest)
         {
+            ValidateModel(updateSubscriptionRequest);
+
             var response = await PutAsync($"/subscriptions/{id}", JsonConvert.SerializeObject(updateSubscriptionRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
         public async Task<Subscription> DelayChargeRegenAsync(long id, DelayChargeRegenRequest delayChargeRegenRequest)
         {
+            ValidateModel(delayChargeRegenRequest);
+
             var response = await PutAsync($"/subscriptions/{id}", JsonConvert.SerializeObject(delayChargeRegenRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;

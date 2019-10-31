@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
+using RechargeSharp.Validation;
 
 namespace RechargeSharp.Entities.Checkouts
 {
@@ -38,9 +40,12 @@ namespace RechargeSharp.Entities.Checkouts
             return !Equals(left, right);
         }
 
+        [Required]
+        [StringValues(AllowableValues = new []{ "stripe", "braintree" })]
         [JsonProperty("payment_processor")]
         public string PaymentProcessor { get; set; }
 
+        [Required]
         [JsonProperty("payment_token")]
         public string PaymentToken { get; set; }
     }

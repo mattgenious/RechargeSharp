@@ -9,7 +9,7 @@ namespace RechargeSharp.Entities.Customers
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return StripeCustomerToken == other.StripeCustomerToken;
+            return StripeCustomerToken == other.StripeCustomerToken && PaypalCustomerToken == other.PaypalCustomerToken && AuthorizeDotnetCustomerToken == other.AuthorizeDotnetCustomerToken;
         }
 
         public override bool Equals(object obj)
@@ -22,7 +22,13 @@ namespace RechargeSharp.Entities.Customers
 
         public override int GetHashCode()
         {
-            return (StripeCustomerToken != null ? StripeCustomerToken.GetHashCode() : 0);
+            unchecked
+            {
+                var hashCode = (StripeCustomerToken != null ? StripeCustomerToken.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (PaypalCustomerToken != null ? PaypalCustomerToken.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (AuthorizeDotnetCustomerToken != null ? AuthorizeDotnetCustomerToken.GetHashCode() : 0);
+                return hashCode;
+            }
         }
 
         public static bool operator ==(UpdateCustomerPaymentTokenRequest left, UpdateCustomerPaymentTokenRequest right)
@@ -35,7 +41,14 @@ namespace RechargeSharp.Entities.Customers
             return !Equals(left, right);
         }
 
-        [JsonProperty("stripe_customer_token")]
+
+        [JsonProperty("stripe_customer_token", NullValueHandling = NullValueHandling.Ignore)]
         public string StripeCustomerToken { get; set; }
+
+        [JsonProperty("paypal_customer_token", NullValueHandling = NullValueHandling.Ignore)]
+        public string PaypalCustomerToken { get; set; }
+
+        [JsonProperty("authorizedotnet_customer_token", NullValueHandling = NullValueHandling.Ignore)]
+        public string AuthorizeDotnetCustomerToken { get; set; }
     }
 }

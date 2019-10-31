@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using RechargeSharp.Validation;
 
 namespace RechargeSharp.Entities.Discounts
 {
@@ -50,6 +51,7 @@ namespace RechargeSharp.Entities.Discounts
         [JsonProperty("usage_limit", NullValueHandling = NullValueHandling.Ignore)]
         public long? UsageLimit { get; set; }
 
+        [StringValues(AllowableValues = new[] { "enabled", "disabled", "fully_disabled" })]
         [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public string Status { get; set; }
 

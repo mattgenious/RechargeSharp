@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -44,15 +45,20 @@ namespace RechargeSharp.Entities.Addresses
             return !Equals(left, right);
         }
 
+
+        [Required]
         [JsonProperty("address1")]
         public string Address1 { get; set; }
 
+        [Required]
         [JsonProperty("state")]
         public string State { get; set; }
 
+        [Required]
         [JsonProperty("zipcode")]
         public string Zipcode { get; set; }
 
+        [Required]
         [JsonProperty("city")]
         public string City { get; set; }
     }

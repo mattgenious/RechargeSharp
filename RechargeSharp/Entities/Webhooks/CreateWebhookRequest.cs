@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Webhooks
@@ -38,9 +39,11 @@ namespace RechargeSharp.Entities.Webhooks
             return !Equals(left, right);
         }
 
+        [Required]
         [JsonProperty("address")]
         public string Address { get; set; }
 
+        [Required]
         [JsonProperty("topic")]
         public string Topic { get; set; }
     }

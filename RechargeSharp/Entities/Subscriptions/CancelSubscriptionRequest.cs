@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -43,8 +44,10 @@ namespace RechargeSharp.Entities.Subscriptions
             return !Equals(left, right);
         }
 
+        [Required]
         [JsonProperty("cancellation_reason")]
         public string CancellationReason { get; set; }
+
         [JsonProperty("cancellation_reason_comments", NullValueHandling = NullValueHandling.Ignore)]
         public string CancellationReasonComments { get; set; }
 

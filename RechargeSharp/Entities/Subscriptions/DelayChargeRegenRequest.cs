@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -40,9 +41,11 @@ namespace RechargeSharp.Entities.Subscriptions
             return !Equals(left, right);
         }
 
-        [JsonProperty("commit_update")]
+        [JsonProperty("commit_update", NullValueHandling = NullValueHandling.Ignore)]
         public bool CommitUpdate { get; set; }
 
+        [Required]
+        [Range(5, 30)]
         [JsonProperty("quantity")]
         public long Quantity { get; set; }
     }

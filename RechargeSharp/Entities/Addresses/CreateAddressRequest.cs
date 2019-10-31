@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
@@ -12,7 +13,7 @@ namespace RechargeSharp.Entities.Addresses
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Address1 == other.Address1 && Address2 == other.Address2 && City == other.City && Province == other.Province && FirstName == other.FirstName && LastName == other.LastName && Zip == other.Zip && Company == other.Company && Phone == other.Phone && Country == other.Country && CartNote == other.CartNote;
+            return Address1 == other.Address1 && Address2 == other.Address2 && City == other.City && Province == other.Province && FirstName == other.FirstName && LastName == other.LastName && Zip == other.Zip && Company == other.Company && Phone == other.Phone && CartNote == other.CartNote && Country == other.Country;
         }
 
         public override bool Equals(object obj)
@@ -36,8 +37,8 @@ namespace RechargeSharp.Entities.Addresses
                 hashCode = (hashCode * 397) ^ (Zip != null ? Zip.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Company != null ? Company.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Phone != null ? Phone.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Country != null ? Country.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (CartNote != null ? CartNote.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Country != null ? Country.GetHashCode() : 0);
                 return hashCode;
             }
         }
@@ -52,34 +53,44 @@ namespace RechargeSharp.Entities.Addresses
             return !Equals(left, right);
         }
 
-
+        [Required]
         [JsonProperty("address1")]
         public string Address1 { get; set; }
 
         [JsonProperty("address2", NullValueHandling = NullValueHandling.Ignore)]
         public string Address2 { get; set; }
 
+        [Required]
         [JsonProperty("city")]
         public string City { get; set; }
 
+        [Required(AllowEmptyStrings = true)]
         [JsonProperty("province")]
         public string Province { get; set; }
 
+        [Required]
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
 
+        [Required]
         [JsonProperty("last_name")]
         public string LastName { get; set; }
 
+        [Required]
         [JsonProperty("zip")]
         public string Zip { get; set; }
 
         [JsonProperty("company", NullValueHandling = NullValueHandling.Ignore)]
         public string Company { get; set; }
 
+        [Required]
         [JsonProperty("phone")]
         public string Phone { get; set; }
 
+        [JsonProperty("cart_note", NullValueHandling = NullValueHandling.Ignore)]
+        public string CartNote { get; set; }
+
+        [Required]
         [JsonProperty("country")]
         public string Country { get; set; }
 
@@ -88,7 +99,5 @@ namespace RechargeSharp.Entities.Addresses
 
         [JsonProperty("shipping_lines_override", NullValueHandling = NullValueHandling.Ignore)]
         public List<ShippingLine> ShippingLinesOverride { get; set; }
-        [JsonProperty("cart_note", NullValueHandling = NullValueHandling.Ignore)]
-        public string CartNote { get; set; }
     }
 }

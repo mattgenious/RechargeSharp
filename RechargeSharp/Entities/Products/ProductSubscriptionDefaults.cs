@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.Shared
+namespace RechargeSharp.Entities.Products
 {
-    public class SubscriptionDefaults : IEquatable<SubscriptionDefaults>
+    public class ProductSubscriptionDefaults : IEquatable<ProductSubscriptionDefaults>
     {
-        public bool Equals(SubscriptionDefaults other)
+        public bool Equals(ProductSubscriptionDefaults other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return ChargeIntervalFrequency == other.ChargeIntervalFrequency && CutoffDayOfMonth == other.CutoffDayOfMonth && CutoffDayOfWeek == other.CutoffDayOfWeek && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && Handle == other.Handle && NumberChargesUntilExpiration == other.NumberChargesUntilExpiration && OrderDayOfMonth == other.OrderDayOfMonth && OrderDayOfWeek == other.OrderDayOfWeek && OrderIntervalFrequency == other.OrderIntervalFrequency && Equals(OrderIntervalFrequencyOptions, other.OrderIntervalFrequencyOptions) && OrderIntervalUnit == other.OrderIntervalUnit && StorefrontPurchaseOptions == other.StorefrontPurchaseOptions;
+            return ChargeIntervalFrequency == other.ChargeIntervalFrequency && CutoffDayOfMonth == other.CutoffDayOfMonth && CutoffDayOfWeek == other.CutoffDayOfWeek && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && Handle == other.Handle && NumberChargesUntilExpiration == other.NumberChargesUntilExpiration && OrderDayOfMonth == other.OrderDayOfMonth && OrderDayOfWeek == other.OrderDayOfWeek && OrderIntervalFrequency == other.OrderIntervalFrequency && OrderIntervalUnit == other.OrderIntervalUnit && StorefrontPurchaseOptions == other.StorefrontPurchaseOptions;
         }
 
         public override bool Equals(object obj)
@@ -19,7 +18,7 @@ namespace RechargeSharp.Entities.Shared
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((SubscriptionDefaults) obj);
+            return Equals((ProductSubscriptionDefaults) obj);
         }
 
         public override int GetHashCode()
@@ -35,19 +34,18 @@ namespace RechargeSharp.Entities.Shared
                 hashCode = (hashCode * 397) ^ OrderDayOfMonth.GetHashCode();
                 hashCode = (hashCode * 397) ^ (OrderDayOfWeek != null ? OrderDayOfWeek.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ OrderIntervalFrequency.GetHashCode();
-                hashCode = (hashCode * 397) ^ (OrderIntervalFrequencyOptions != null ? OrderIntervalFrequencyOptions.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (OrderIntervalUnit != null ? OrderIntervalUnit.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (StorefrontPurchaseOptions != null ? StorefrontPurchaseOptions.GetHashCode() : 0);
                 return hashCode;
             }
         }
 
-        public static bool operator ==(SubscriptionDefaults left, SubscriptionDefaults right)
+        public static bool operator ==(ProductSubscriptionDefaults left, ProductSubscriptionDefaults right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(SubscriptionDefaults left, SubscriptionDefaults right)
+        public static bool operator !=(ProductSubscriptionDefaults left, ProductSubscriptionDefaults right)
         {
             return !Equals(left, right);
         }

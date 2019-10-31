@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Shared
 {
-    public class ShippingRateCheckout : IEquatable<ShippingRateCheckout>
+    public class CheckoutShippingRate : IEquatable<CheckoutShippingRate>
     {
-        public bool Equals(ShippingRateCheckout other)
+        public bool Equals(CheckoutShippingRate other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -17,7 +17,7 @@ namespace RechargeSharp.Entities.Shared
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((ShippingRateCheckout) obj);
+            return Equals((CheckoutShippingRate) obj);
         }
 
         public override int GetHashCode()
@@ -31,12 +31,12 @@ namespace RechargeSharp.Entities.Shared
             }
         }
 
-        public static bool operator ==(ShippingRateCheckout left, ShippingRateCheckout right)
+        public static bool operator ==(CheckoutShippingRate left, CheckoutShippingRate right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(ShippingRateCheckout left, ShippingRateCheckout right)
+        public static bool operator !=(CheckoutShippingRate left, CheckoutShippingRate right)
         {
             return !Equals(left, right);
         }

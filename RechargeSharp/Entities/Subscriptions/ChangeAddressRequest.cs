@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -11,7 +12,7 @@ namespace RechargeSharp.Entities.Subscriptions
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return AddressId == other.AddressId;
+            return AddressId == other.AddressId && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt);
         }
 
         public override bool Equals(object obj)
@@ -24,7 +25,10 @@ namespace RechargeSharp.Entities.Subscriptions
 
         public override int GetHashCode()
         {
-            return AddressId.GetHashCode();
+            unchecked
+            {
+                return (AddressId.GetHashCode() * 397) ^ NextChargeScheduledAt.GetHashCode();
+            }
         }
 
         public static bool operator ==(ChangeAddressRequest left, ChangeAddressRequest right)
@@ -37,7 +41,11 @@ namespace RechargeSharp.Entities.Subscriptions
             return !Equals(left, right);
         }
 
+        [Required]
         [JsonProperty("address_id")]
-        public long AddressId { get; set; }
+        public long? AddressId { get; set; }
+
+        [JsonProperty("next_charge_scheduled_at", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? NextChargeScheduledAt { get; set; }
     }
 }

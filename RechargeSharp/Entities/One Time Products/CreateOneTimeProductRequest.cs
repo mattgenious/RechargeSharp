@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
@@ -12,7 +13,7 @@ namespace RechargeSharp.Entities.One_Time_Products
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && ProductTitle == other.ProductTitle && Price == other.Price && Quantity == other.Quantity && ShopifyVariantId == other.ShopifyVariantId;
+            return Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Price == other.Price && Quantity == other.Quantity && ShopifyVariantId == other.ShopifyVariantId && ProductTitle == other.ProductTitle && ShopifyProductId == other.ShopifyProductId;
         }
 
         public override bool Equals(object obj)
@@ -28,10 +29,11 @@ namespace RechargeSharp.Entities.One_Time_Products
             unchecked
             {
                 var hashCode = NextChargeScheduledAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ (ProductTitle != null ? ProductTitle.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Price.GetHashCode();
                 hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShopifyVariantId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (ProductTitle != null ? ProductTitle.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ShopifyProductId.GetHashCode();
                 return hashCode;
             }
         }
@@ -46,22 +48,29 @@ namespace RechargeSharp.Entities.One_Time_Products
             return !Equals(left, right);
         }
 
+        [Required]
         [JsonProperty("next_charge_scheduled_at")]
         public DateTime? NextChargeScheduledAt { get; set; }
 
-        [JsonProperty("product_title")]
+        [Required]
+        [JsonProperty("price")]
+        public long? Price { get; set; }
+
+        [Required]
+        [JsonProperty("quantity")]
+        public long? Quantity { get; set; }
+
+        [Required]
+        [JsonProperty("shopify_variant_id")]
+        public long? ShopifyVariantId { get; set; }
+
+        [JsonProperty("product_title", NullValueHandling = NullValueHandling.Ignore)]
         public string ProductTitle { get; set; }
 
-        [JsonProperty("price")]
-        public long Price { get; set; }
+        [JsonProperty("shopify_product_id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? ShopifyProductId { get; set; }
 
-        [JsonProperty("quantity")]
-        public long Quantity { get; set; }
-
-        [JsonProperty("shopify_variant_id")]
-        public long ShopifyVariantId { get; set; }
-
-        [JsonProperty("properties")]
+        [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
         public List<Property> Properties { get; set; }
     }
 }

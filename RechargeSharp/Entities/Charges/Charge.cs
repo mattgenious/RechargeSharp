@@ -71,7 +71,6 @@ namespace RechargeSharp.Entities.Charges
             return !Equals(left, right);
         }
 
-
         [JsonProperty("address_id")]
         public long AddressId { get; set; }
 
@@ -79,7 +78,7 @@ namespace RechargeSharp.Entities.Charges
         public Shared.Address BillingAddress { get; set; }
 
         [JsonProperty("client_details")]
-        public ClientDetails ClientDetails { get; set; }
+        public ChargeClientDetails ClientDetails { get; set; }
 
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
@@ -91,7 +90,7 @@ namespace RechargeSharp.Entities.Charges
         public long CustomerId { get; set; }
 
         [JsonProperty("discount_codes")]
-        public List<DiscountCode> DiscountCodes { get; set; }
+        public List<ChargeDiscountCode> DiscountCodes { get; set; }
 
         [JsonProperty("email")]
         public string Email { get; set; }

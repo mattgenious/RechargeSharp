@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -69,6 +70,17 @@ namespace RechargeSharp.Services
         protected Task<HttpResponseMessage> DeleteAsync(string path)
         {
             return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.DeleteAsync(path));
+        }
+
+        protected void ValidateModel(object objectToValidate)
+        {
+            var context = new ValidationContext(objectToValidate);
+            var results = new List<ValidationResult>();
+
+            if (!Validator.TryValidateObject(objectToValidate, context, results, true))
+            {
+                throw new ArgumentException(string.Join(", ", results), nameof(objectToValidate));
+            }
         }
     }
 }

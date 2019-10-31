@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using RechargeSharp.Validation;
 
 namespace RechargeSharp.Entities.Metafields
 {
@@ -45,19 +46,22 @@ namespace RechargeSharp.Entities.Metafields
             return !Equals(left, right);
         }
 
-        [JsonProperty("owner_id")]
-        public long OwnerId { get; set; }
 
-        [JsonProperty("owner_resource")]
+        [JsonProperty("owner_id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? OwnerId { get; set; }
+
+        [StringValues(AllowableValues = new[] { "store", "customer", "subscription" })]
+        [JsonProperty("owner_resource", NullValueHandling = NullValueHandling.Ignore)]
         public string OwnerResource { get; set; }
 
-        [JsonProperty("value")]
+        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
 
-        [JsonProperty("value_type")]
+        [StringValues(AllowableValues = new[] { "string", "integer" })]
+        [JsonProperty("value_type", NullValueHandling = NullValueHandling.Ignore)]
         public string ValueType { get; set; }
 
-        [JsonProperty("description")]
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
         public string Description { get; set; }
     }
 }

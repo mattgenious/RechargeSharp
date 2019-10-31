@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Newtonsoft.Json;
+using RechargeSharp.Entities.Shared;
 
-namespace RechargeSharp.Entities.Shared
+namespace RechargeSharp.Entities.Checkouts
 {
-    public class ShippingRateListResponse : IEquatable<ShippingRateListResponse>
+    public class CheckoutShippingRateListResponse : IEquatable<CheckoutShippingRateListResponse>
     {
-        public bool Equals(ShippingRateListResponse other)
+        public bool Equals(CheckoutShippingRateListResponse other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -20,7 +20,7 @@ namespace RechargeSharp.Entities.Shared
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((ShippingRateListResponse) obj);
+            return Equals((CheckoutShippingRateListResponse) obj);
         }
 
         public override int GetHashCode()
@@ -28,12 +28,12 @@ namespace RechargeSharp.Entities.Shared
             return (ShippingRates != null ? ShippingRates.GetHashCode() : 0);
         }
 
-        public static bool operator ==(ShippingRateListResponse left, ShippingRateListResponse right)
+        public static bool operator ==(CheckoutShippingRateListResponse left, CheckoutShippingRateListResponse right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(ShippingRateListResponse left, ShippingRateListResponse right)
+        public static bool operator !=(CheckoutShippingRateListResponse left, CheckoutShippingRateListResponse right)
         {
             return !Equals(left, right);
         }

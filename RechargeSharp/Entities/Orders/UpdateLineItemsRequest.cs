@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
@@ -39,6 +40,7 @@ namespace RechargeSharp.Entities.Orders
             return !Equals(left, right);
         }
 
+        [Required]
         [JsonProperty("line_items")]
         public List<UpdateLineItemRequestLineItem> LineItems { get; set; }
     }

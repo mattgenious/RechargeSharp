@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -37,7 +38,7 @@ namespace RechargeSharp.Entities.Charges
             return !Equals(left, right);
         }
 
-        [JsonProperty("full_refund")]
-        public bool FullRefund { get; set; }
+        [JsonProperty("full_refund", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? FullRefund { get; set; }
     }
 }

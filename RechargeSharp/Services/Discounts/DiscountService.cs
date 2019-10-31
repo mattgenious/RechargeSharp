@@ -133,6 +133,8 @@ namespace RechargeSharp.Services.Discounts
 
         public async Task<Discount> CreateDiscountAsync(CreateDiscountRequest createDiscountRequest)
         {
+            ValidateModel(createDiscountRequest);
+
             var response = await PostAsync("/discounts", JsonConvert.SerializeObject(createDiscountRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<DiscountResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Discount;
@@ -140,6 +142,8 @@ namespace RechargeSharp.Services.Discounts
 
         public async Task<Discount> UpdateDiscountAsync(long id, UpdateDiscountRequest updateDiscountRequest)
         {
+            ValidateModel(updateDiscountRequest);
+
             var response = await PutAsync($"/discounts/{id}", JsonConvert.SerializeObject(updateDiscountRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<DiscountResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Discount;

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
+using RechargeSharp.Entities.Shared;
 
-namespace RechargeSharp.Entities.Shared
+namespace RechargeSharp.Entities.Checkouts
 {
     public class CheckoutLineItem : IEquatable<CheckoutLineItem>
     {

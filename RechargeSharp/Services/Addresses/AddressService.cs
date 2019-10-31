@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Addresses;
@@ -107,6 +108,8 @@ namespace RechargeSharp.Services.Addresses
 
         public async Task<Address> CreateAddressAsync(CreateAddressRequest createAddressRequest, long customerId)
         {
+            ValidateModel(createAddressRequest);
+
             var response = await PostAsJsonAsync($"/customers/{customerId}/addresses", JsonConvert.SerializeObject(createAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
@@ -114,12 +117,16 @@ namespace RechargeSharp.Services.Addresses
 
         public async Task<Address> UpdateAddressAsync(long id, UpdateAddressRequest updateAddressRequest)
         {
+            ValidateModel(updateAddressRequest);
+
             var response = await PutAsync($"/addresses/{id}", JsonConvert.SerializeObject(updateAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
         }
         public async Task<Address> OverrideShippingLines(long id, OverrideShippingLinesRequest overrideShippingLinesRequest)
         {
+            ValidateModel(overrideShippingLinesRequest);
+
             var response = await PutAsync($"/addresses/{id}", JsonConvert.SerializeObject(overrideShippingLinesRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
@@ -127,6 +134,8 @@ namespace RechargeSharp.Services.Addresses
 
         public async Task<ValidateAddressResponse> ValidateAddress(ValidateAddressRequest validateAddressRequest)
         {
+            ValidateModel(validateAddressRequest);
+
             var response = await PostAsync("/addresses/validate", JsonConvert.SerializeObject(validateAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ValidateAddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false));

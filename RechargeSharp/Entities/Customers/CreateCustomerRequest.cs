@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Customers
@@ -9,7 +10,7 @@ namespace RechargeSharp.Entities.Customers
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Email == other.Email && FirstName == other.FirstName && LastName == other.LastName && BillingFirstName == other.BillingFirstName && BillingLastName == other.BillingLastName && BillingAddress1 == other.BillingAddress1 && BillingZip == other.BillingZip && BillingCity == other.BillingCity && BillingProvince == other.BillingProvince && BillingCountry == other.BillingCountry && BillingPhone == other.BillingPhone && StripeCustomerToken == other.StripeCustomerToken;
+            return Email == other.Email && FirstName == other.FirstName && LastName == other.LastName && BillingFirstName == other.BillingFirstName && BillingLastName == other.BillingLastName && BillingAddress1 == other.BillingAddress1 && BillingAddress2 == other.BillingAddress2 && BillingZip == other.BillingZip && BillingCity == other.BillingCity && BillingProvince == other.BillingProvince && BillingCountry == other.BillingCountry && BillingPhone == other.BillingPhone && StripeCustomerToken == other.StripeCustomerToken;
         }
 
         public override bool Equals(object obj)
@@ -30,6 +31,7 @@ namespace RechargeSharp.Entities.Customers
                 hashCode = (hashCode * 397) ^ (BillingFirstName != null ? BillingFirstName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingLastName != null ? BillingLastName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingAddress1 != null ? BillingAddress1.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BillingAddress2 != null ? BillingAddress2.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingZip != null ? BillingZip.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingCity != null ? BillingCity.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingProvince != null ? BillingProvince.GetHashCode() : 0);
@@ -50,38 +52,52 @@ namespace RechargeSharp.Entities.Customers
             return !Equals(left, right);
         }
 
+        [Required]
         [JsonProperty("email")]
         public string Email { get; set; }
 
+        [Required]
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
 
+        [Required]
         [JsonProperty("last_name")]
         public string LastName { get; set; }
 
+        [Required]
         [JsonProperty("billing_first_name")]
         public string BillingFirstName { get; set; }
 
+        [Required]
         [JsonProperty("billing_last_name")]
         public string BillingLastName { get; set; }
 
+        [Required]
         [JsonProperty("billing_address1")]
         public string BillingAddress1 { get; set; }
 
+        [JsonProperty("billing_address2", NullValueHandling = NullValueHandling.Ignore)]
+        public string BillingAddress2 { get; set; }
+
+        [Required]
         [JsonProperty("billing_zip")]
         public string BillingZip { get; set; }
 
+        [Required]
         [JsonProperty("billing_city")]
         public string BillingCity { get; set; }
 
         [JsonProperty("billing_province")]
         public string BillingProvince { get; set; }
 
+        [Required]
         [JsonProperty("billing_country")]
         public string BillingCountry { get; set; }
 
+        [Required]
         [JsonProperty("billing_phone")]
         public string BillingPhone { get; set; }
+
         [JsonProperty("stripe_customer_token", NullValueHandling = NullValueHandling.Ignore)]
         public string StripeCustomerToken { get; set; }
     }

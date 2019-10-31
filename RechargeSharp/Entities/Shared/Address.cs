@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Shared
@@ -48,33 +49,41 @@ namespace RechargeSharp.Entities.Shared
             return !Equals(left, right);
         }
 
+        [Required]
         [JsonProperty("address1")]
         public string Address1 { get; set; }
 
-        [JsonProperty("address2")]
+        [JsonProperty("address2", NullValueHandling = NullValueHandling.Ignore)]
         public string Address2 { get; set; }
 
+        [Required]
         [JsonProperty("city")]
         public string City { get; set; }
 
         [JsonProperty("company")]
         public string Company { get; set; }
 
+        [Required]
         [JsonProperty("country")]
         public string Country { get; set; }
 
+        [Required]
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
 
+        [Required]
         [JsonProperty("last_name")]
         public string LastName { get; set; }
 
+        [Required]
         [JsonProperty("phone")]
         public string Phone { get; set; }
 
+        [Required(AllowEmptyStrings = true)]
         [JsonProperty("province")]
         public string Province { get; set; }
 
+        [Required]
         [JsonProperty("zip")]
         public string Zip { get; set; }
     }

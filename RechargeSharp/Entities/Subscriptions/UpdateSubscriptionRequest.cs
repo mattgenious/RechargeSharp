@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
@@ -11,7 +12,7 @@ namespace RechargeSharp.Entities.Subscriptions
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return OrderIntervalUnit == other.OrderIntervalUnit && OrderIntervalFrequency == other.OrderIntervalFrequency && ChargeIntervalFrequency == other.ChargeIntervalFrequency && ProductTitle == other.ProductTitle && VariantTitle == other.VariantTitle && Nullable.Equals(Price, other.Price) && Quantity == other.Quantity && ShopifyVariantId == other.ShopifyVariantId && OrderDayOfWeek == other.OrderDayOfWeek && OrderDayOfMonth == other.OrderDayOfMonth && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && Equals(Properties, other.Properties) && Sku == other.Sku && SkuOverride == other.SkuOverride;
+            return OrderIntervalUnit == other.OrderIntervalUnit && OrderIntervalFrequency == other.OrderIntervalFrequency && ChargeIntervalFrequency == other.ChargeIntervalFrequency && ProductTitle == other.ProductTitle && VariantTitle == other.VariantTitle && Nullable.Equals(Price, other.Price) && Quantity == other.Quantity && ShopifyVariantId == other.ShopifyVariantId && OrderDayOfWeek == other.OrderDayOfWeek && OrderDayOfMonth == other.OrderDayOfMonth && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && Sku == other.Sku && SkuOverride == other.SkuOverride;
         }
 
         public override bool Equals(object obj)
@@ -37,7 +38,6 @@ namespace RechargeSharp.Entities.Subscriptions
                 hashCode = (hashCode * 397) ^ OrderDayOfWeek.GetHashCode();
                 hashCode = (hashCode * 397) ^ OrderDayOfMonth.GetHashCode();
                 hashCode = (hashCode * 397) ^ ExpireAfterSpecificNumberOfCharges.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Properties != null ? Properties.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Sku != null ? Sku.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ SkuOverride.GetHashCode();
                 return hashCode;
@@ -54,12 +54,15 @@ namespace RechargeSharp.Entities.Subscriptions
             return !Equals(left, right);
         }
 
+        [Required]
         [JsonProperty("order_interval_unit")]
         public string OrderIntervalUnit { get; set; }
 
+        [Required]
         [JsonProperty("order_interval_frequency")]
         public long OrderIntervalFrequency { get; set; }
 
+        [Required]
         [JsonProperty("charge_interval_frequency")]
         public long ChargeIntervalFrequency { get; set; }
 

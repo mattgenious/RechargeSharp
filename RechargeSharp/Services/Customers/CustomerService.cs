@@ -112,6 +112,8 @@ namespace RechargeSharp.Services.Customers
 
         public async Task<Customer> CreateCustomerAsync(CreateCustomerRequest createCustomerRequest)
         {
+            ValidateModel(createCustomerRequest);
+
             var response = await PostAsJsonAsync("/customers", JsonConvert.SerializeObject(createCustomerRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
@@ -119,6 +121,8 @@ namespace RechargeSharp.Services.Customers
 
         public async Task<Customer> UpdateCustomerAsync(long id, UpdateCustomerRequest updateCustomerRequest)
         {
+            ValidateModel(updateCustomerRequest);
+
             var response = await PutAsync($"/customers/{id}", JsonConvert.SerializeObject(updateCustomerRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
@@ -126,6 +130,8 @@ namespace RechargeSharp.Services.Customers
 
         public async Task<Customer> UpdateCustomerPaymentTokenAsync(long id, UpdateCustomerPaymentTokenRequest customerPaymentTokenRequest)
         {
+            ValidateModel(customerPaymentTokenRequest);
+
             var response = await PutAsync($"/customers/{id}", JsonConvert.SerializeObject(customerPaymentTokenRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;

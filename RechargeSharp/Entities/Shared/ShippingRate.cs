@@ -49,7 +49,7 @@ namespace RechargeSharp.Entities.Shared
         }
 
         [JsonProperty("checkout")]
-        public ShippingRateCheckout Checkout { get; set; }
+        public CheckoutShippingRate Checkout { get; set; }
 
         [JsonProperty("code")]
         public string Code { get; set; }

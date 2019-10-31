@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
+using RechargeSharp.Validation;
 
 namespace RechargeSharp.Entities.Metafields
 {
@@ -9,7 +11,7 @@ namespace RechargeSharp.Entities.Metafields
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Description == other.Description && Namespace == other.Namespace && Value == other.Value && ValueType == other.ValueType && Key == other.Key && OwnerResource == other.OwnerResource && OwnerId == other.OwnerId;
+            return Namespace == other.Namespace && Value == other.Value && ValueType == other.ValueType && Key == other.Key && OwnerResource == other.OwnerResource && OwnerId == other.OwnerId && Description == other.Description;
         }
 
         public override bool Equals(object obj)
@@ -24,13 +26,13 @@ namespace RechargeSharp.Entities.Metafields
         {
             unchecked
             {
-                var hashCode = (Description != null ? Description.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Namespace != null ? Namespace.GetHashCode() : 0);
+                var hashCode = (Namespace != null ? Namespace.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Value != null ? Value.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ValueType != null ? ValueType.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Key != null ? Key.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (OwnerResource != null ? OwnerResource.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ OwnerId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
                 return hashCode;
             }
         }
@@ -45,25 +47,33 @@ namespace RechargeSharp.Entities.Metafields
             return !Equals(left, right);
         }
 
-        [JsonProperty("description")]
-        public string Description { get; set; }
-
+        [Required]
         [JsonProperty("namespace")]
         public string Namespace { get; set; }
 
+        [Required]
         [JsonProperty("value")]
         public string Value { get; set; }
 
+        [Required]
+        [StringValues(AllowableValues = new[] { "string", "integer" })]
         [JsonProperty("value_type")]
         public string ValueType { get; set; }
 
+        [Required]
         [JsonProperty("key")]
         public string Key { get; set; }
 
+        [Required]
+        [StringValues(AllowableValues = new[] { "store", "customer", "subscription" })]
         [JsonProperty("owner_resource")]
         public string OwnerResource { get; set; }
 
+        [Required]
         [JsonProperty("owner_id")]
-        public long OwnerId { get; set; }
+        public long? OwnerId { get; set; }
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; }
     }
 }

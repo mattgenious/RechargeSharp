@@ -75,7 +75,7 @@ namespace RechargeSharp.Entities.Products
         public long ShopifyProductId { get; set; }
 
         [JsonProperty("subscription_defaults")]
-        public SubscriptionDefaults SubscriptionDefaults { get; set; }
+        public ProductSubscriptionDefaults SubscriptionDefaults { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }

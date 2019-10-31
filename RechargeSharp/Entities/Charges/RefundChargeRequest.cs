@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -37,7 +38,9 @@ namespace RechargeSharp.Entities.Charges
             return !Equals(left, right);
         }
 
+
+        [Required]
         [JsonProperty("amount")]
-        public decimal Amount { get; set; }
+        public decimal? Amount { get; set; }
     }
 }
