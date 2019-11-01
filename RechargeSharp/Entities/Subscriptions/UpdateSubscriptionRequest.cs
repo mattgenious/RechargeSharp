@@ -54,17 +54,14 @@ namespace RechargeSharp.Entities.Subscriptions
             return !Equals(left, right);
         }
 
-        [Required]
-        [JsonProperty("order_interval_unit")]
+        [JsonProperty("order_interval_unit", NullValueHandling = NullValueHandling.Ignore)]
         public string OrderIntervalUnit { get; set; }
 
-        [Required]
-        [JsonProperty("order_interval_frequency")]
-        public long OrderIntervalFrequency { get; set; }
+        [JsonProperty("order_interval_frequency", NullValueHandling = NullValueHandling.Ignore)]
+        public long? OrderIntervalFrequency { get; set; }
 
-        [Required]
-        [JsonProperty("charge_interval_frequency")]
-        public long ChargeIntervalFrequency { get; set; }
+        [JsonProperty("charge_interval_frequency", NullValueHandling = NullValueHandling.Ignore)]
+        public long? ChargeIntervalFrequency { get; set; }
 
         [JsonProperty("product_title", NullValueHandling = NullValueHandling.Ignore)]
         public string ProductTitle { get; set; }
