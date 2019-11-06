@@ -34,7 +34,7 @@ namespace RechargeSharp.Entities.Addresses
                 hashCode = (hashCode * 397) ^ (Province != null ? Province.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (LastName != null ? LastName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Zip.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Zip != null ? Zip.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Company != null ? Company.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Phone != null ? Phone.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Country != null ? Country.GetHashCode() : 0);
@@ -72,7 +72,7 @@ namespace RechargeSharp.Entities.Addresses
         public string LastName { get; set; }
 
         [JsonProperty("zip", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Zip { get; set; }
+        public string Zip { get; set; }
 
         [JsonProperty("company", NullValueHandling = NullValueHandling.Ignore)]
         public string Company { get; set; }

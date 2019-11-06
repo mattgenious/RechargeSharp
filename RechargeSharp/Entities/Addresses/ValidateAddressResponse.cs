@@ -11,7 +11,7 @@ namespace RechargeSharp.Entities.Addresses
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return City == other.City && Errors == other.Errors && State == other.State && StateName == other.StateName && Zipcode == other.Zipcode;
+            return City == other.City && Equals(Errors, other.Errors) && State == other.State && StateName == other.StateName && Zipcode == other.Zipcode;
         }
 
         public override bool Equals(object obj)
@@ -30,7 +30,7 @@ namespace RechargeSharp.Entities.Addresses
                 hashCode = (hashCode * 397) ^ (Errors != null ? Errors.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (State != null ? State.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (StateName != null ? StateName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Zipcode.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Zipcode != null ? Zipcode.GetHashCode() : 0);
                 return hashCode;
             }
         }
@@ -58,6 +58,6 @@ namespace RechargeSharp.Entities.Addresses
         public string StateName { get; set; }
 
         [JsonProperty("zipcode")]
-        public long Zipcode { get; set; }
+        public string Zipcode { get; set; }
     }
 }
