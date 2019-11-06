@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
+using RechargeSharp.Validation;
 
 namespace RechargeSharp.Entities.Customers
 {
@@ -10,7 +11,7 @@ namespace RechargeSharp.Entities.Customers
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Email == other.Email && FirstName == other.FirstName && LastName == other.LastName && BillingFirstName == other.BillingFirstName && BillingLastName == other.BillingLastName && BillingAddress1 == other.BillingAddress1 && BillingAddress2 == other.BillingAddress2 && BillingZip == other.BillingZip && BillingCity == other.BillingCity && BillingProvince == other.BillingProvince && BillingCountry == other.BillingCountry && BillingPhone == other.BillingPhone && StripeCustomerToken == other.StripeCustomerToken;
+            return Email == other.Email && FirstName == other.FirstName && LastName == other.LastName && ShopifyCustomerId == other.ShopifyCustomerId && BillingFirstName == other.BillingFirstName && BillingLastName == other.BillingLastName && BillingAddress1 == other.BillingAddress1 && BillingAddress2 == other.BillingAddress2 && BillingZip == other.BillingZip && BillingCity == other.BillingCity && BillingProvince == other.BillingProvince && BillingCountry == other.BillingCountry && BillingPhone == other.BillingPhone && ProcessorType == other.ProcessorType && StripeCustomerToken == other.StripeCustomerToken && PaypalCustomerToken == other.PaypalCustomerToken && AuthorizeDotnetCustomerToken == other.AuthorizeDotnetCustomerToken;
         }
 
         public override bool Equals(object obj)
@@ -28,6 +29,7 @@ namespace RechargeSharp.Entities.Customers
                 var hashCode = (Email != null ? Email.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (LastName != null ? LastName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ShopifyCustomerId.GetHashCode();
                 hashCode = (hashCode * 397) ^ (BillingFirstName != null ? BillingFirstName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingLastName != null ? BillingLastName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingAddress1 != null ? BillingAddress1.GetHashCode() : 0);
@@ -37,7 +39,10 @@ namespace RechargeSharp.Entities.Customers
                 hashCode = (hashCode * 397) ^ (BillingProvince != null ? BillingProvince.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingCountry != null ? BillingCountry.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingPhone != null ? BillingPhone.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ProcessorType != null ? ProcessorType.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (StripeCustomerToken != null ? StripeCustomerToken.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (PaypalCustomerToken != null ? PaypalCustomerToken.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (AuthorizeDotnetCustomerToken != null ? AuthorizeDotnetCustomerToken.GetHashCode() : 0);
                 return hashCode;
             }
         }
@@ -63,6 +68,9 @@ namespace RechargeSharp.Entities.Customers
         [Required]
         [JsonProperty("last_name")]
         public string LastName { get; set; }
+
+        [JsonProperty("shopify_customer_id", NullValueHandling = NullValueHandling.Ignore)]
+        public long ShopifyCustomerId { get; set; }
 
         [Required]
         [JsonProperty("billing_first_name")]
@@ -98,7 +106,17 @@ namespace RechargeSharp.Entities.Customers
         [JsonProperty("billing_phone")]
         public string BillingPhone { get; set; }
 
+        [StringValues(AllowableValues = new[] { "stripe", "paypal", "authorizedotnet" })]
+        [JsonProperty("processor_type", NullValueHandling = NullValueHandling.Ignore)]
+        public string ProcessorType { get; set; }
+
         [JsonProperty("stripe_customer_token", NullValueHandling = NullValueHandling.Ignore)]
         public string StripeCustomerToken { get; set; }
+
+        [JsonProperty("paypal_customer_token", NullValueHandling = NullValueHandling.Ignore)]
+        public string PaypalCustomerToken { get; set; }
+
+        [JsonProperty("authorizedotnet_customer_token", NullValueHandling = NullValueHandling.Ignore)]
+        public string AuthorizeDotnetCustomerToken { get; set; }
     }
 }
