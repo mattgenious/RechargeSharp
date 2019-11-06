@@ -70,7 +70,7 @@ namespace RechargeSharp.Entities.Customers
         public string LastName { get; set; }
 
         [JsonProperty("shopify_customer_id", NullValueHandling = NullValueHandling.Ignore)]
-        public long ShopifyCustomerId { get; set; }
+        public long? ShopifyCustomerId { get; set; }
 
         [Required]
         [JsonProperty("billing_first_name")]

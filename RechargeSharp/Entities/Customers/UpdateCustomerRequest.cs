@@ -57,7 +57,7 @@ namespace RechargeSharp.Entities.Customers
         public string Email { get; set; }
 
         [JsonProperty("shopify_customer_id", NullValueHandling = NullValueHandling.Ignore)]
-        public long ShopifyCustomerId { get; set; }
+        public long? ShopifyCustomerId { get; set; }
 
         [JsonProperty("first_name", NullValueHandling = NullValueHandling.Ignore)]
         public string FirstName { get; set; }
