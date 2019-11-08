@@ -3,18 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.2.4</Version>
-    <AssemblyVersion>2.2.4.0</AssemblyVersion>
+    <Version>2.2.5</Version>
+    <AssemblyVersion>2.2.5.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>2.2.4.0</FileVersion>
+    <FileVersion>2.2.5.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Removed processor_type from createCustomerRequest.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed type for address2 on WebhookAddress type.</PackageReleaseNotes>
     <PackageIconUrl>https://user-images.githubusercontent.com/3007300/64613121-ab7b7380-d3d5-11e9-9703-126f3448863b.png</PackageIconUrl>
   </PropertyGroup>
 

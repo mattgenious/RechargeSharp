@@ -33,7 +33,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Addresses
                 hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
                 hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Address1 != null ? Address1.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Address2.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Address2 != null ? Address2.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (City != null ? City.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Province != null ? Province.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
@@ -74,7 +74,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Addresses
         public string Address1 { get; set; }
 
         [JsonProperty("address2")]
-        public long Address2 { get; set; }
+        public string Address2 { get; set; }
 
         [JsonProperty("city")]
         public string City { get; set; }
