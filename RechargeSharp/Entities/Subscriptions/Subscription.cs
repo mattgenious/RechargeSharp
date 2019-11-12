@@ -69,7 +69,7 @@ namespace RechargeSharp.Entities.Subscriptions
         }
 
         [JsonProperty("recharge_product_id")]
-        public long RechargeProductId { get; set; }
+        public long? RechargeProductId { get; set; }
 
         [JsonProperty("sku_override")]
         public bool SkuOverride { get; set; }
