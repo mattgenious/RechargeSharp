@@ -103,11 +103,11 @@ namespace RechargeSharp.Services.Discounts
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
         }
 
-        public async Task<Charge> RemoveDiscountFromAddress(long chargeId)
+        public async Task<Address> RemoveDiscountFromAddress(long addressId)
         {
-            var response = await PostAsync($"/addresses/{chargeId}/remove_discount", $"{{}}").ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
+            var response = await PostAsync($"/addresses/{addressId}/remove_discount", $"{{}}").ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<AddressResponse>(
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
         }
 
         public async Task<Charge> AddDiscountToChargeByIdAsync(long discountId, long chargeId)
