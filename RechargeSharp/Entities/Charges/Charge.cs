@@ -12,7 +12,7 @@ namespace RechargeSharp.Entities.Charges
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return AddressId == other.AddressId && Equals(BillingAddress, other.BillingAddress) && Equals(ClientDetails, other.ClientDetails) && Nullable.Equals(CreatedAt, other.CreatedAt) && CustomerHash == other.CustomerHash && CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName && HasUncommitedChanges == other.HasUncommitedChanges && Id == other.Id && LastName == other.LastName && Note == other.Note && Nullable.Equals(ScheduledAt, other.ScheduledAt) && ShipmentsCount == other.ShipmentsCount && Equals(ShippingAddress, other.ShippingAddress) && ShopifyOrderId == other.ShopifyOrderId && Status == other.Status && SubTotal == other.SubTotal && SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TaxLines == other.TaxLines && TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice && TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax && TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type && Nullable.Equals(UpdatedAt, other.UpdatedAt);
+            return AddressId == other.AddressId && Equals(BillingAddress, other.BillingAddress) && Equals(ClientDetails, other.ClientDetails) && Nullable.Equals(CreatedAt, other.CreatedAt) && CustomerHash == other.CustomerHash && CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName && HasUncommitedChanges == other.HasUncommitedChanges && Id == other.Id && LastName == other.LastName && Note == other.Note && Nullable.Equals(ProcessedAt, other.ProcessedAt) && ProcessorName == other.ProcessorName && Nullable.Equals(ScheduledAt, other.ScheduledAt) && ShipmentsCount == other.ShipmentsCount && Equals(ShippingAddress, other.ShippingAddress) && ShopifyOrderId == other.ShopifyOrderId && Status == other.Status && SubTotal == other.SubTotal && SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TaxLines == other.TaxLines && TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice && TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax && TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type && Nullable.Equals(UpdatedAt, other.UpdatedAt);
         }
 
         public override bool Equals(object obj)
@@ -39,6 +39,8 @@ namespace RechargeSharp.Entities.Charges
                 hashCode = (hashCode * 397) ^ Id.GetHashCode();
                 hashCode = (hashCode * 397) ^ (LastName != null ? LastName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Note != null ? Note.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ProcessedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ (ProcessorName != null ? ProcessorName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ ScheduledAt.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShipmentsCount.GetHashCode();
                 hashCode = (hashCode * 397) ^ (ShippingAddress != null ? ShippingAddress.GetHashCode() : 0);
@@ -73,6 +75,9 @@ namespace RechargeSharp.Entities.Charges
 
         [JsonProperty("address_id")]
         public long AddressId { get; set; }
+
+        [JsonProperty("analytics_data")]
+        public ChargeAnalyticsData AnalyticsData { get; set; }
 
         [JsonProperty("billing_address")]
         public Shared.Address BillingAddress { get; set; }
@@ -115,6 +120,12 @@ namespace RechargeSharp.Entities.Charges
 
         [JsonProperty("note_attributes")]
         public Property[] NoteAttributes { get; set; }
+
+        [JsonProperty("processed_at")]
+        public DateTime? ProcessedAt { get; set; }
+
+        [JsonProperty("processor_name")]
+        public string ProcessorName { get; set; }
 
         [JsonProperty("scheduled_at")]
         public DateTime? ScheduledAt { get; set; }
