@@ -29,9 +29,11 @@ namespace RechargeSharp.Services.Charges
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charges;
         }
 
-        public Task<IEnumerable<Charge>> GetChargesAsync(int page = 1, int limit = 50, string status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public Task<IEnumerable<Charge>> GetChargesAsync(int page = 1, int limit = 50, long? discountId = null, string discountCode = null, string status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
             var queryParams = $"page={page}&limit={limit}";
+            queryParams += discountId != null ? $"&discount_id={discountId}" : "";
+            queryParams += discountCode != null ? $"&discount_code={discountCode}" : "";
             queryParams += status != null ? $"&status={status}" : "";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
             queryParams += addressId != null ? $"&address_id={addressId}" : "";
@@ -48,9 +50,11 @@ namespace RechargeSharp.Services.Charges
             return GetChargesAsync(queryParams);
         }
 
-        public Task<IEnumerable<Charge>> GetAllChargesWithParamsAsync(string status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public Task<IEnumerable<Charge>> GetAllChargesWithParamsAsync(long? discountId = null, string discountCode = null, string status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
             var queryParams = "";
+            queryParams += discountId != null ? $"&discount_id={discountId}" : "";
+            queryParams += discountCode != null ? $"&discount_code={discountCode}" : "";
             queryParams += status != null ? $"&status={status}" : "";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
             queryParams += addressId != null ? $"&address_id={addressId}" : "";
@@ -69,7 +73,7 @@ namespace RechargeSharp.Services.Charges
 
         private async Task<IEnumerable<Charge>> GetAllChargesAsync(string queryParams)
         {
-            var count = await CountChargesAsync();
+            var count = await CountChargesAsync(queryParams);
 
             var taskList = new List<Task<IEnumerable<Charge>>>();
 
@@ -77,7 +81,7 @@ namespace RechargeSharp.Services.Charges
 
             for (int i = 1; i <= Convert.ToInt32(pages); i++)
             {
-                taskList.Add(GetChargesAsync($"page={i}&limit=250"+ queryParams));
+                taskList.Add(GetChargesAsync($"page={i}&limit=250" + queryParams));
             }
 
             var computed = await Task.WhenAll(taskList);
@@ -92,9 +96,30 @@ namespace RechargeSharp.Services.Charges
             return result;
         }
 
-        public async Task<long> CountChargesAsync()
+        public async Task<long> CountChargesAsync(long? discountId = null, string discountCode = null, string status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
-            var response = await GetAsync("/charges/count").ConfigureAwait(false);
+            var queryParams = "";
+            queryParams += discountId != null ? $"&discount_id={discountId}" : "";
+            queryParams += discountCode != null ? $"&discount_code={discountCode}" : "";
+            queryParams += status != null ? $"&status={status}" : "";
+            queryParams += customerId != null ? $"&customer_id={customerId}" : "";
+            queryParams += addressId != null ? $"&address_id={addressId}" : "";
+            queryParams += shopifyOrderId != null ? $"&shopify_order_id={shopifyOrderId}" : "";
+            queryParams += subscriptionId != null ? $"&subscription_id={subscriptionId}" : "";
+            queryParams += date != null ? $"&date={date?.ToString("s")}" : "";
+            queryParams += dateMin != null ? $"&date_min={dateMin?.ToString("s")}" : "";
+            queryParams += dateMax != null ? $"&date_max={dateMax?.ToString("s")}" : "";
+            queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
+            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
+            queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
+
+            return await CountChargesAsync(queryParams).ConfigureAwait(false);
+        }
+
+        private async Task<long> CountChargesAsync(string queryParams)
+        {
+            var response = await GetAsync($"/charges/count?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
         }
