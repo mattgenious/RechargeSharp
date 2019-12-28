@@ -89,7 +89,7 @@ namespace RechargeSharp.Entities.Checkouts
         public string Note { get; set; }
 
         [JsonProperty("note_attributes")]
-        public Dictionary<string, string> NoteAttributes { get; set; }
+        public Property[] NoteAttributes { get; set; }
 
         [JsonProperty("phone")]
         public string Phone { get; set; }
