@@ -79,7 +79,6 @@ namespace RechargeSharp.Entities.Shared
         [JsonProperty("phone")]
         public string Phone { get; set; }
 
-        [Required(AllowEmptyStrings = true)]
         [JsonProperty("province")]
         public string Province { get; set; }
 
