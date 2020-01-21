@@ -102,7 +102,7 @@ namespace RechargeSharp.Entities.Subscriptions
         public string VariantTitle { get; set; }
 
         [JsonProperty("price")]
-        public long Price { get; set; }
+        public decimal Price { get; set; }
 
         [JsonProperty("quantity")]
         public long Quantity { get; set; }
