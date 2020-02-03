@@ -57,7 +57,7 @@ namespace RechargeSharp.Entities.Orders
                 hashCode = (hashCode * 397) ^ TotalDiscounts.GetHashCode();
                 hashCode = (hashCode * 397) ^ TotalLineItemsPrice.GetHashCode();
                 hashCode = (hashCode * 397) ^ TotalPrice.GetHashCode();
-                hashCode = (hashCode * 397) ^ (TotalRefunds != null ? TotalRefunds.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ TotalRefunds.GetHashCode();
                 hashCode = (hashCode * 397) ^ TotalTax.GetHashCode();
                 hashCode = (hashCode * 397) ^ TotalWeight.GetHashCode();
                 hashCode = (hashCode * 397) ^ (TransactionId != null ? TransactionId.GetHashCode() : 0);
