@@ -163,7 +163,7 @@ namespace RechargeSharp.Entities.Orders
         public string Status { get; set; }
 
         [JsonProperty("subtotal_price")]
-        public decimal SubtotalPrice { get; set; }
+        public decimal? SubtotalPrice { get; set; }
 
         [JsonProperty("tags")]
         public string Tags { get; set; }
@@ -172,22 +172,22 @@ namespace RechargeSharp.Entities.Orders
         public List<TaxLine> TaxLines { get; set; }
 
         [JsonProperty("total_discounts")]
-        public decimal TotalDiscounts { get; set; }
+        public decimal? TotalDiscounts { get; set; }
 
         [JsonProperty("total_line_items_price")]
-        public decimal TotalLineItemsPrice { get; set; }
+        public decimal? TotalLineItemsPrice { get; set; }
 
         [JsonProperty("total_price")]
-        public decimal TotalPrice { get; set; }
+        public decimal? TotalPrice { get; set; }
 
         [JsonProperty("total_refunds")]
-        public decimal TotalRefunds { get; set; }
+        public decimal? TotalRefunds { get; set; }
 
         [JsonProperty("total_tax")]
-        public decimal TotalTax { get; set; }
+        public decimal? TotalTax { get; set; }
 
         [JsonProperty("total_weight")]
-        public decimal TotalWeight { get; set; }
+        public decimal? TotalWeight { get; set; }
 
         [JsonProperty("transaction_id")]
         public string TransactionId { get; set; }
