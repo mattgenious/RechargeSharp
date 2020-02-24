@@ -76,7 +76,7 @@ namespace RechargeSharp.Entities.Subscriptions
         public bool SkuOverride { get; set; }
 
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Id { get; set; }
+        public long Id { get; set; }
 
         [JsonProperty("address_id")]
         public long? AddressId { get; set; }

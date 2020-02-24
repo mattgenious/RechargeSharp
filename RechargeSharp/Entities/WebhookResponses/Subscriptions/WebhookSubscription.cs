@@ -69,7 +69,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
         }
 
         [JsonProperty("id")]
-        public long? Id { get; set; }
+        public long Id { get; set; }
 
         [JsonProperty("address_id")]
         public long? AddressId { get; set; }
