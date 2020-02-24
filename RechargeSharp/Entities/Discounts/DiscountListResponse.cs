@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
@@ -37,6 +38,6 @@ namespace RechargeSharp.Entities.Discounts
         }
 
         [JsonProperty("discounts")]
-        public Discount[] Discounts { get; set; }
+        public IEnumerable<Discount> Discounts { get; set; }
     }
 }

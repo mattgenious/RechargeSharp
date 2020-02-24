@@ -124,7 +124,7 @@ namespace RechargeSharp.Entities.Orders
         public string Note { get; set; }
 
         [JsonProperty("note_attributes")]
-        public Property[] NoteAttributes { get; set; }
+        public IEnumerable<Property> NoteAttributes { get; set; }
 
         [JsonProperty("payment_processor")]
         public string PaymentProcessor { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
@@ -37,6 +38,6 @@ namespace RechargeSharp.Entities.Metafields
         }
 
         [JsonProperty("metafields")]
-        public Metafield[] Metafields { get; set; }
+        public IEnumerable<Metafield> Metafields { get; set; }
     }
 }

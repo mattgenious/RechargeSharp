@@ -3,23 +3,23 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.0.6</Version>
-    <AssemblyVersion>3.0.6.0</AssemblyVersion>
+    <Version>3.0.7</Version>
+    <AssemblyVersion>3.0.7.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>3.0.6.0</FileVersion>
+    <FileVersion>3.0.7.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Order decimals now nullable.</PackageReleaseNotes>
+    <PackageReleaseNotes>Collections now IEnumerable&lt;T&gt; instead of arrays, updated Microsoft.Extensions.Http to 3.1.2</PackageReleaseNotes>
     <PackageIconUrl>https://user-images.githubusercontent.com/3007300/64613121-ab7b7380-d3d5-11e9-9703-126f3448863b.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NuGet.Versioning" Version="5.4.0" />
     <PackageReference Include="Polly" Version="7.2.0" />

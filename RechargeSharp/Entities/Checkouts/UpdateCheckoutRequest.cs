@@ -64,7 +64,7 @@ namespace RechargeSharp.Entities.Checkouts
         public string Note { get; set; }
 
         [JsonProperty("note_attributes", NullValueHandling = NullValueHandling.Ignore)]
-        public Property[] NoteAttributes { get; set; }
+        public IEnumerable<Property> NoteAttributes { get; set; }
 
         [JsonProperty("shipping_line", NullValueHandling = NullValueHandling.Ignore)]
         public List<ShippingLine> ShippingLine { get; set; }

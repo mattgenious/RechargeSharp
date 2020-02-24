@@ -65,7 +65,7 @@ namespace RechargeSharp.Entities.Addresses
         public string Address2 { get; set; }
 
         [JsonProperty("cart_attributes")]
-        public Property[] CartAttributes { get; set; }
+        public IEnumerable<Property> CartAttributes { get; set; }
 
         [JsonProperty("cart_note")]
         public string CartNote { get; set; }
@@ -98,13 +98,13 @@ namespace RechargeSharp.Entities.Addresses
         public string LastName { get; set; }
 
         [JsonProperty("note_attributes")]
-        public Property[] NoteAttributes { get; set; }
+        public IEnumerable<Property> NoteAttributes { get; set; }
 
         [JsonProperty("original_shipping_lines")]
         public List<ShippingLine> OriginalShippingLines { get; set; }
 
         [JsonProperty("shipping_lines_override")]
-        public ShippingLine[] ShippingLinesOverride { get; set; }
+        public IEnumerable<ShippingLine> ShippingLinesOverride { get; set; }
 
         [JsonProperty("phone")]
         public string Phone { get; set; }

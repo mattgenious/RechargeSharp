@@ -71,6 +71,6 @@ namespace RechargeSharp.Entities.One_Time_Products
         public string Sku { get; set; }
 
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
-        public Property[] Properties { get; set; }
+        public IEnumerable<Property> Properties { get; set; }
     }
 }

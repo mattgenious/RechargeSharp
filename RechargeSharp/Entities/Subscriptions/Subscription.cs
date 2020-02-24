@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
@@ -141,7 +142,7 @@ namespace RechargeSharp.Entities.Subscriptions
         public long? OrderDayOfMonth { get; set; }
 
         [JsonProperty("properties")]
-        public Property[] Properties { get; set; }
+        public IEnumerable<Property> Properties { get; set; }
 
         [JsonProperty("expire_after_specific_number_of_charges", NullValueHandling = NullValueHandling.Ignore)]
         public long? ExpireAfterSpecificNumberOfCharges { get; set; }

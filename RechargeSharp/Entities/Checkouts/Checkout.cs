@@ -83,13 +83,13 @@ namespace RechargeSharp.Entities.Checkouts
         public string Email { get; set; }
 
         [JsonProperty("line_items")]
-        public CheckoutLineItem[] LineItems { get; set; }
+        public IEnumerable<CheckoutLineItem> LineItems { get; set; }
 
         [JsonProperty("note")]
         public string Note { get; set; }
 
         [JsonProperty("note_attributes")]
-        public Property[] NoteAttributes { get; set; }
+        public IEnumerable<Property> NoteAttributes { get; set; }
 
         [JsonProperty("phone")]
         public string Phone { get; set; }
@@ -104,13 +104,13 @@ namespace RechargeSharp.Entities.Checkouts
         public ShippingLine ShippingLine { get; set; }
 
         [JsonProperty("shipping_rate")]
-        public ShippingRate[] ShippingRate { get; set; }
+        public IEnumerable<ShippingRate> ShippingRate { get; set; }
 
         [JsonProperty("subtotal_price")]
         public string SubtotalPrice { get; set; }
 
         [JsonProperty("tax_lines")]
-        public TaxLine[] TaxLines { get; set; }
+        public IEnumerable<TaxLine> TaxLines { get; set; }
 
         [JsonProperty("taxes_included")]
         public bool TaxesIncluded { get; set; }

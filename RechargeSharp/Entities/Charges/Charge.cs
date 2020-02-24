@@ -119,7 +119,7 @@ namespace RechargeSharp.Entities.Charges
         public string Note { get; set; }
 
         [JsonProperty("note_attributes")]
-        public Property[] NoteAttributes { get; set; }
+        public IEnumerable<Property> NoteAttributes { get; set; }
 
         [JsonProperty("processed_at")]
         public DateTime? ProcessedAt { get; set; }

@@ -8,6 +8,6 @@ namespace RechargeSharp.Entities.Charges
     public class ChargeAnalyticsData
     {
         [JsonProperty("utm_params")] 
-        public object[] UtmParams { get; set; }
+        public IEnumerable<object> UtmParams { get; set; }
     }
 }

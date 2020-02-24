@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
@@ -37,6 +38,6 @@ namespace RechargeSharp.Entities.Customers
         }
 
         [JsonProperty("payment_sources")]
-        public PaymentSource[] PaymentSources { get; set; }
+        public IEnumerable<PaymentSource> PaymentSources { get; set; }
     }
 }

@@ -55,7 +55,7 @@ namespace RechargeSharp.Entities.Shared
         public string Code { get; set; }
 
         [JsonProperty("delivery_range")]
-        public string[] DeliveryRange { get; set; }
+        public IEnumerable<string> DeliveryRange { get; set; }
 
         [JsonProperty("handle")]
         public string Handle { get; set; }
