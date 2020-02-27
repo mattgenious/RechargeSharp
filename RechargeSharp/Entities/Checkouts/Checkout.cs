@@ -13,7 +13,7 @@ namespace RechargeSharp.Entities.Checkouts
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(AppliedDiscount, other.AppliedDiscount) && Equals(BillingAddress, other.BillingAddress) && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing && Nullable.Equals(CompletedAt, other.CompletedAt) && Nullable.Equals(CreatedAt, other.CreatedAt) && DiscountCode == other.DiscountCode && Email == other.Email && Note == other.Note && Phone == other.Phone && RequiresShipping == other.RequiresShipping && Equals(ShippingAddress, other.ShippingAddress) && Equals(ShippingLine, other.ShippingLine) && SubtotalPrice == other.SubtotalPrice && TaxesIncluded == other.TaxesIncluded && Token == other.Token && TotalPrice == other.TotalPrice && TotalTax == other.TotalTax && Nullable.Equals(UpdatedAt, other.UpdatedAt);
+            return Equals(AppliedDiscount, other.AppliedDiscount) && Equals(BillingAddress, other.BillingAddress) && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing && Nullable.Equals(CompletedAt, other.CompletedAt) && CreatedAt.Equals(other.CreatedAt) && DiscountCode == other.DiscountCode && Email == other.Email && Note == other.Note && Phone == other.Phone && RequiresShipping == other.RequiresShipping && Equals(ShippingAddress, other.ShippingAddress) && Equals(ShippingLine, other.ShippingLine) && SubtotalPrice == other.SubtotalPrice && TaxesIncluded == other.TaxesIncluded && Token == other.Token && TotalPrice == other.TotalPrice && TotalTax == other.TotalTax && UpdatedAt.Equals(other.UpdatedAt);
         }
 
         public override bool Equals(object obj)
@@ -74,7 +74,7 @@ namespace RechargeSharp.Entities.Checkouts
         public DateTime? CompletedAt { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("discount_code")]
         public string DiscountCode { get; set; }
@@ -125,6 +125,6 @@ namespace RechargeSharp.Entities.Checkouts
         public string TotalTax { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

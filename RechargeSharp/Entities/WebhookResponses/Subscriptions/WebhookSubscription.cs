@@ -13,7 +13,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Id == other.Id && AddressId == other.AddressId && CustomerId == other.CustomerId && Nullable.Equals(CreatedAt, other.CreatedAt) && Nullable.Equals(UpdatedAt, other.UpdatedAt) && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Nullable.Equals(CancelledAt, other.CancelledAt) && ProductTitle == other.ProductTitle && VariantTitle == other.VariantTitle && Price == other.Price && Quantity == other.Quantity && Status == other.Status && RechargeProductId == other.RechargeProductId && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && OrderIntervalUnit == other.OrderIntervalUnit && OrderIntervalFrequency == other.OrderIntervalFrequency && ChargeIntervalFrequency == other.ChargeIntervalFrequency && CancellationReason == other.CancellationReason && CancellationReasonComments == other.CancellationReasonComments && OrderDayOfWeek == other.OrderDayOfWeek && OrderDayOfMonth == other.OrderDayOfMonth && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && MaxRetriesReached == other.MaxRetriesReached && HasQueuedCharges == other.HasQueuedCharges;
+            return Id == other.Id && AddressId == other.AddressId && CustomerId == other.CustomerId && CreatedAt.Equals(other.CreatedAt) && UpdatedAt.Equals(other.UpdatedAt) && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Nullable.Equals(CancelledAt, other.CancelledAt) && ProductTitle == other.ProductTitle && VariantTitle == other.VariantTitle && Price == other.Price && Quantity == other.Quantity && Status == other.Status && RechargeProductId == other.RechargeProductId && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && OrderIntervalUnit == other.OrderIntervalUnit && OrderIntervalFrequency == other.OrderIntervalFrequency && ChargeIntervalFrequency == other.ChargeIntervalFrequency && CancellationReason == other.CancellationReason && CancellationReasonComments == other.CancellationReasonComments && OrderDayOfWeek == other.OrderDayOfWeek && OrderDayOfMonth == other.OrderDayOfMonth && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && MaxRetriesReached == other.MaxRetriesReached && HasQueuedCharges == other.HasQueuedCharges;
         }
 
         public override bool Equals(object obj)
@@ -78,10 +78,10 @@ namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
         public long? CustomerId { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("next_charge_scheduled_at")]
         public DateTime? NextChargeScheduledAt { get; set; }
@@ -138,7 +138,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
         public long? OrderDayOfMonth { get; set; }
 
         [JsonProperty("properties")]
-        public List<Property> Properties { get; set; }
+        public IEnumerable<Property> Properties { get; set; }
 
         [JsonProperty("expire_after_specific_number_of_charges")]
         public long? ExpireAfterSpecificNumberOfCharges { get; set; }

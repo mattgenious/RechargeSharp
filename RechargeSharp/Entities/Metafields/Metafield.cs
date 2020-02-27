@@ -9,7 +9,7 @@ namespace RechargeSharp.Entities.Metafields
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Nullable.Equals(CreatedAt, other.CreatedAt) && Description == other.Description && Id == other.Id && Key == other.Key && Namespace == other.Namespace && OwnerId == other.OwnerId && OwnerResource == other.OwnerResource && Nullable.Equals(UpdatedAt, other.UpdatedAt) && Value == other.Value && ValueType == other.ValueType;
+            return CreatedAt.Equals(other.CreatedAt) && Description == other.Description && Id == other.Id && Key == other.Key && Namespace == other.Namespace && OwnerId == other.OwnerId && OwnerResource == other.OwnerResource && UpdatedAt.Equals(other.UpdatedAt) && Value == other.Value && ValueType == other.ValueType;
         }
 
         public override bool Equals(object obj)
@@ -49,7 +49,7 @@ namespace RechargeSharp.Entities.Metafields
         }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -70,7 +70,7 @@ namespace RechargeSharp.Entities.Metafields
         public string OwnerResource { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("value")]
         public string Value { get; set; }

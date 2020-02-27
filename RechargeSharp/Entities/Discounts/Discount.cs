@@ -9,7 +9,7 @@ namespace RechargeSharp.Entities.Discounts
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Id == other.Id && Code == other.Code && Value == other.Value && Nullable.Equals(EndsAt, other.EndsAt) && Nullable.Equals(StartsAt, other.StartsAt) && Status == other.Status && UsageLimit == other.UsageLimit && AppliesToId == other.AppliesToId && DiscountType == other.DiscountType && AppliesTo == other.AppliesTo && AppliesToResource == other.AppliesToResource && TimesUsed == other.TimesUsed && Duration == other.Duration && DurationUsageLimit == other.DurationUsageLimit && AppliesToProductType == other.AppliesToProductType && Nullable.Equals(CreatedAt, other.CreatedAt) && Nullable.Equals(UpdatedAt, other.UpdatedAt) && OncePerCustomer == other.OncePerCustomer;
+            return Id == other.Id && Code == other.Code && Value == other.Value && Nullable.Equals(EndsAt, other.EndsAt) && Nullable.Equals(StartsAt, other.StartsAt) && Status == other.Status && UsageLimit == other.UsageLimit && AppliesToId == other.AppliesToId && DiscountType == other.DiscountType && AppliesTo == other.AppliesTo && AppliesToResource == other.AppliesToResource && TimesUsed == other.TimesUsed && Duration == other.Duration && DurationUsageLimit == other.DurationUsageLimit && AppliesToProductType == other.AppliesToProductType && CreatedAt.Equals(other.CreatedAt) && UpdatedAt.Equals(other.UpdatedAt) && OncePerCustomer == other.OncePerCustomer;
         }
 
         public override bool Equals(object obj)
@@ -102,10 +102,10 @@ namespace RechargeSharp.Entities.Discounts
         public string AppliesToProductType { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("once_per_customer")]
         public bool OncePerCustomer { get; set; }

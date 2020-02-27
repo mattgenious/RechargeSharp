@@ -11,7 +11,7 @@ namespace RechargeSharp.Entities.Discounts
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Code == other.Code && DiscountType == other.DiscountType && Value == other.Value && AppliesToResource == other.AppliesToResource && AppliesToId == other.AppliesToId && AppliesToProductType == other.AppliesToProductType && Nullable.Equals(CreatedAt, other.CreatedAt) && Duration == other.Duration && DurationUsageLimit == other.DurationUsageLimit && Nullable.Equals(EndsAt, other.EndsAt) && Nullable.Equals(StartsAt, other.StartsAt) && OncePerCustomer == other.OncePerCustomer && Status == other.Status && UsageLimit == other.UsageLimit && PrerequisiteSubtotalMin == other.PrerequisiteSubtotalMin;
+            return Code == other.Code && DiscountType == other.DiscountType && Value == other.Value && AppliesToResource == other.AppliesToResource && AppliesToId == other.AppliesToId && AppliesToProductType == other.AppliesToProductType && CreatedAt.Equals(other.CreatedAt) && Duration == other.Duration && DurationUsageLimit == other.DurationUsageLimit && Nullable.Equals(EndsAt, other.EndsAt) && Nullable.Equals(StartsAt, other.StartsAt) && OncePerCustomer == other.OncePerCustomer && Status == other.Status && UsageLimit == other.UsageLimit && PrerequisiteSubtotalMin == other.PrerequisiteSubtotalMin;
         }
 
         public override bool Equals(object obj)
@@ -80,7 +80,7 @@ namespace RechargeSharp.Entities.Discounts
         public string AppliesToProductType { get; set; }
 
         [JsonProperty("created_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [Required]
         [StringValues(AllowableValues = new[] { "forever", "usage_limit", "single_use" })]

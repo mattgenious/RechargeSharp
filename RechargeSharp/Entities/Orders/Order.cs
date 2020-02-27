@@ -12,7 +12,7 @@ namespace RechargeSharp.Entities.Orders
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return AddressId == other.AddressId && AddressIsActive == other.AddressIsActive && Equals(BillingAddress, other.BillingAddress) && ChargeId == other.ChargeId && ChargeStatus == other.ChargeStatus && Nullable.Equals(CreatedAt, other.CreatedAt) && CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName && Hash == other.Hash && Id == other.Id && IsPrepaid == other.IsPrepaid && LastName == other.LastName && Note == other.Note && PaymentProcessor == other.PaymentProcessor && Nullable.Equals(ProcessedAt, other.ProcessedAt) && Nullable.Equals(ScheduledAt, other.ScheduledAt) && Nullable.Equals(ShippedDate, other.ShippedDate) && Equals(ShippingAddress, other.ShippingAddress) && Nullable.Equals(ShippingDate, other.ShippingDate) && ShopifyCartToken == other.ShopifyCartToken && ShopifyId == other.ShopifyId && ShopifyOrderId == other.ShopifyOrderId && ShopifyOrderNumber == other.ShopifyOrderNumber && Status == other.Status && SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice && TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax && TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type && Nullable.Equals(UpdatedAt, other.UpdatedAt);
+            return AddressId == other.AddressId && AddressIsActive == other.AddressIsActive && Equals(BillingAddress, other.BillingAddress) && ChargeId == other.ChargeId && ChargeStatus == other.ChargeStatus && CreatedAt.Equals(other.CreatedAt) && CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName && Hash == other.Hash && Id == other.Id && IsPrepaid == other.IsPrepaid && LastName == other.LastName && Note == other.Note && PaymentProcessor == other.PaymentProcessor && Nullable.Equals(ProcessedAt, other.ProcessedAt) && Nullable.Equals(ScheduledAt, other.ScheduledAt) && Nullable.Equals(ShippedDate, other.ShippedDate) && Equals(ShippingAddress, other.ShippingAddress) && Nullable.Equals(ShippingDate, other.ShippingDate) && ShopifyCartToken == other.ShopifyCartToken && ShopifyId == other.ShopifyId && ShopifyOrderId == other.ShopifyOrderId && ShopifyOrderNumber == other.ShopifyOrderNumber && Status == other.Status && SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice && TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax && TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type && UpdatedAt.Equals(other.UpdatedAt);
         }
 
         public override bool Equals(object obj)
@@ -77,7 +77,6 @@ namespace RechargeSharp.Entities.Orders
             return !Equals(left, right);
         }
 
-
         [JsonProperty("address_id")]
         public long AddressId { get; set; }
 
@@ -94,7 +93,7 @@ namespace RechargeSharp.Entities.Orders
         public string ChargeStatus { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("customer_id")]
         public long CustomerId { get; set; }
@@ -118,7 +117,7 @@ namespace RechargeSharp.Entities.Orders
         public string LastName { get; set; }
 
         [JsonProperty("line_items")]
-        public List<LineItem> LineItems { get; set; }
+        public IEnumerable<LineItem> LineItems { get; set; }
 
         [JsonProperty("note")]
         public string Note { get; set; }
@@ -145,7 +144,7 @@ namespace RechargeSharp.Entities.Orders
         public DateTime? ShippingDate { get; set; }
 
         [JsonProperty("shipping_lines")]
-        public List<ShippingLine> ShippingLines { get; set; }
+        public IEnumerable<ShippingLine> ShippingLines { get; set; }
 
         [JsonProperty("shopify_cart_token")]
         public string ShopifyCartToken { get; set; }
@@ -169,7 +168,7 @@ namespace RechargeSharp.Entities.Orders
         public string Tags { get; set; }
 
         [JsonProperty("tax_lines")]
-        public List<TaxLine> TaxLines { get; set; }
+        public IEnumerable<TaxLine> TaxLines { get; set; }
 
         [JsonProperty("total_discounts")]
         public decimal? TotalDiscounts { get; set; }
@@ -196,6 +195,6 @@ namespace RechargeSharp.Entities.Orders
         public string Type { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

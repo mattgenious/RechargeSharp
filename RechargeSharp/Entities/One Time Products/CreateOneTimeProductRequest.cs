@@ -71,6 +71,6 @@ namespace RechargeSharp.Entities.One_Time_Products
         public long? ShopifyProductId { get; set; }
 
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Property> Properties { get; set; }
+        public IEnumerable<Property> Properties { get; set; }
     }
 }

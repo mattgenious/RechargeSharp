@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -50,17 +51,20 @@ namespace RechargeSharp.Services.Products
 
         private async Task<IEnumerable<Product>> GetProductsRecAsync(string queryParams, int page, ProductListResponse accumulator)
         {
+            var accumulatorProducts = accumulator.Products.ToList();
+
             var response = await GetAsync($"/products?page={page}&limit=250{queryParams}").ConfigureAwait(false);
             var result = JsonConvert.DeserializeObject<ProductListResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false));
-            if (result.Products.Count == 0)
+            if (!result.Products.Any())
             {
                 return accumulator.Products;
             }
             else
             {
                 page++;
-                accumulator.Products.AddRange(result.Products);
+                accumulatorProducts.AddRange(result.Products);
+                accumulator.Products = accumulatorProducts;
                 return await GetProductsRecAsync(queryParams, page, accumulator).ConfigureAwait(false);
             }
         }

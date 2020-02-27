@@ -39,6 +39,6 @@ namespace RechargeSharp.Entities.Checkouts
         }
 
         [JsonProperty("shipping_rates")]
-        public List<ShippingRate> ShippingRates { get; set; }
+        public IEnumerable<ShippingRate> ShippingRates { get; set; }
     }
 }

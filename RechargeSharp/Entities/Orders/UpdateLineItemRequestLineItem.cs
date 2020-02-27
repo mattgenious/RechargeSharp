@@ -68,7 +68,7 @@ namespace RechargeSharp.Entities.Orders
         public string Price { get; set; }
 
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Property> Properties { get; set; }
+        public IEnumerable<Property> Properties { get; set; }
 
         [JsonProperty("product_title", NullValueHandling = NullValueHandling.Ignore)]
         public string ProductTitle { get; set; }

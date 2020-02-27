@@ -78,7 +78,7 @@ namespace RechargeSharp.Entities.Products
         public long OrderIntervalFrequency { get; set; }
 
         [JsonProperty("order_interval_frequency_options")]
-        public List<long> OrderIntervalFrequencyOptions { get; set; }
+        public IEnumerable<long> OrderIntervalFrequencyOptions { get; set; }
 
         [JsonProperty("order_interval_unit")]
         public string OrderIntervalUnit { get; set; }

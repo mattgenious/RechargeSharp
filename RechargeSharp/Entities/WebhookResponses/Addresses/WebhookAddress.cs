@@ -13,7 +13,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Addresses
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Id == other.Id && CustomerId == other.CustomerId && Nullable.Equals(CreatedAt, other.CreatedAt) && Nullable.Equals(UpdatedAt, other.UpdatedAt) && Address1 == other.Address1 && Address2 == other.Address2 && City == other.City && Province == other.Province && FirstName == other.FirstName && LastName == other.LastName && Zip == other.Zip && Company == other.Company && Phone == other.Phone && Country == other.Country && CartNote == other.CartNote && DiscountId == other.DiscountId;
+            return Id == other.Id && CustomerId == other.CustomerId && CreatedAt.Equals(other.CreatedAt) && UpdatedAt.Equals(other.UpdatedAt) && Address1 == other.Address1 && Address2 == other.Address2 && City == other.City && Province == other.Province && FirstName == other.FirstName && LastName == other.LastName && Zip == other.Zip && Company == other.Company && Phone == other.Phone && Country == other.Country && CartNote == other.CartNote && DiscountId == other.DiscountId;
         }
 
         public override bool Equals(object obj)
@@ -65,10 +65,10 @@ namespace RechargeSharp.Entities.WebhookResponses.Addresses
         public long CustomerId { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("address1")]
         public string Address1 { get; set; }
@@ -104,13 +104,13 @@ namespace RechargeSharp.Entities.WebhookResponses.Addresses
         public string CartNote { get; set; }
 
         [JsonProperty("original_shipping_lines")]
-        public List<ShippingLine> OriginalShippingLines { get; set; }
+        public IEnumerable<ShippingLine> OriginalShippingLines { get; set; }
 
         [JsonProperty("cart_attributes")]
-        public List<Property> CartAttributes { get; set; }
+        public IEnumerable<Property> CartAttributes { get; set; }
 
         [JsonProperty("note_attributes")]
-        public List<Property> NoteAttributes { get; set; }
+        public IEnumerable<Property> NoteAttributes { get; set; }
 
         [JsonProperty("discount_id")]
         public long? DiscountId { get; set; }

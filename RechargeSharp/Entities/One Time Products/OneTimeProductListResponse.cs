@@ -38,6 +38,6 @@ namespace RechargeSharp.Entities.One_Time_Products
         }
 
         [JsonProperty("onetimes")]
-        public List<OneTimeProduct> OneTimeProducts { get; set; }
+        public IEnumerable<OneTimeProduct> OneTimeProducts { get; set; }
     }
 }

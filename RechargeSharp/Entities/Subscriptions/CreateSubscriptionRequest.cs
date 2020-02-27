@@ -106,6 +106,6 @@ namespace RechargeSharp.Entities.Subscriptions
         public long? OrderDayOfWeek { get; set; }
 
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Property> Properties { get; set; }
+        public IEnumerable<Property> Properties { get; set; }
     }
 }

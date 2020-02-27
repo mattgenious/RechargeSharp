@@ -49,7 +49,7 @@ namespace RechargeSharp.Entities.Checkouts
         }
 
         [JsonProperty("line_items", NullValueHandling = NullValueHandling.Ignore)]
-        public List<CreateCheckoutRequestLineItem> LineItems { get; set; }
+        public IEnumerable<CreateCheckoutRequestLineItem> LineItems { get; set; }
 
         [JsonProperty("shipping_address", NullValueHandling = NullValueHandling.Ignore)]
         public Address ShippingAddress { get; set; }
@@ -67,7 +67,7 @@ namespace RechargeSharp.Entities.Checkouts
         public IEnumerable<Property> NoteAttributes { get; set; }
 
         [JsonProperty("shipping_line", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ShippingLine> ShippingLine { get; set; }
+        public IEnumerable<ShippingLine> ShippingLine { get; set; }
 
         [JsonProperty("discount_code", NullValueHandling = NullValueHandling.Ignore)]
         public string DiscountCode { get; set; }

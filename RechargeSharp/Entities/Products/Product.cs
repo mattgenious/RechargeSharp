@@ -10,7 +10,7 @@ namespace RechargeSharp.Entities.Products
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return CollectionId == other.CollectionId && Nullable.Equals(CreatedAt, other.CreatedAt) && DiscountAmount == other.DiscountAmount && DiscountType == other.DiscountType && Id == other.Id && Equals(Images, other.Images) && ProductId == other.ProductId && ShopifyProductId == other.ShopifyProductId && Equals(SubscriptionDefaults, other.SubscriptionDefaults) && Title == other.Title && Nullable.Equals(UpdatedAt, other.UpdatedAt);
+            return CollectionId == other.CollectionId && CreatedAt.Equals(other.CreatedAt) && DiscountAmount == other.DiscountAmount && DiscountType == other.DiscountType && Id == other.Id && Equals(Images, other.Images) && ProductId == other.ProductId && ShopifyProductId == other.ShopifyProductId && Equals(SubscriptionDefaults, other.SubscriptionDefaults) && Title == other.Title && UpdatedAt.Equals(other.UpdatedAt);
         }
 
         public override bool Equals(object obj)
@@ -54,7 +54,7 @@ namespace RechargeSharp.Entities.Products
         public long CollectionId { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("discount_amount")]
         public long DiscountAmount { get; set; }
@@ -81,6 +81,6 @@ namespace RechargeSharp.Entities.Products
         public string Title { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

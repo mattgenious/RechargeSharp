@@ -38,6 +38,6 @@ namespace RechargeSharp.Entities.Webhooks
         }
 
         [JsonProperty("webhooks")]
-        public List<Webhook> Webhooks { get; set; }
+        public IEnumerable<Webhook> Webhooks { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace RechargeSharp.Entities.One_Time_Products
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return AddressId == other.AddressId && Nullable.Equals(CreatedAt, other.CreatedAt) && CustomerId == other.CustomerId && Id == other.Id && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Price == other.Price && ProductTitle == other.ProductTitle && Quantity == other.Quantity && RechargeProductId == other.RechargeProductId && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && Status == other.Status && Nullable.Equals(UpdatedAt, other.UpdatedAt) && VariantTitle == other.VariantTitle;
+            return AddressId == other.AddressId && CreatedAt.Equals(other.CreatedAt) && CustomerId == other.CustomerId && Id == other.Id && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Price == other.Price && ProductTitle == other.ProductTitle && Quantity == other.Quantity && RechargeProductId == other.RechargeProductId && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && Status == other.Status && UpdatedAt.Equals(other.UpdatedAt) && VariantTitle == other.VariantTitle;
         }
 
         public override bool Equals(object obj)
@@ -60,7 +60,7 @@ namespace RechargeSharp.Entities.One_Time_Products
         public long AddressId { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("customer_id")]
         public long CustomerId { get; set; }
@@ -78,7 +78,7 @@ namespace RechargeSharp.Entities.One_Time_Products
         public string ProductTitle { get; set; }
 
         [JsonProperty("properties")]
-        public List<Property> Properties { get; set; }
+        public IEnumerable<Property> Properties { get; set; }
 
         [JsonProperty("quantity")]
         public long Quantity { get; set; }
@@ -99,7 +99,7 @@ namespace RechargeSharp.Entities.One_Time_Products
         public string Status { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("variant_title")]
         public string VariantTitle { get; set; }

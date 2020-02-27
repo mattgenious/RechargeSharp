@@ -38,6 +38,6 @@ namespace RechargeSharp.Entities.Charges
         }
 
         [JsonProperty("charges")]
-        public List<Charge> Charges { get; set; }
+        public IEnumerable<Charge> Charges { get; set; }
     }
 }

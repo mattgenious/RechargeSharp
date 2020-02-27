@@ -12,7 +12,7 @@ namespace RechargeSharp.Entities.Addresses
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Address1 == other.Address1 && Address2 == other.Address2 && CartNote == other.CartNote && City == other.City && Company == other.Company && Country == other.Country && Nullable.Equals(CreatedAt, other.CreatedAt) && CustomerId == other.CustomerId && DiscountId == other.DiscountId && FirstName == other.FirstName && Id == other.Id && LastName == other.LastName && Phone == other.Phone && Province == other.Province && Nullable.Equals(UpdatedAt, other.UpdatedAt) && Zip == other.Zip;
+            return Address1 == other.Address1 && Address2 == other.Address2 && CartNote == other.CartNote && City == other.City && Company == other.Company && Country == other.Country && CreatedAt.Equals(other.CreatedAt) && CustomerId == other.CustomerId && DiscountId == other.DiscountId && FirstName == other.FirstName && Id == other.Id && LastName == other.LastName && Phone == other.Phone && Province == other.Province && UpdatedAt.Equals(other.UpdatedAt) && Zip == other.Zip;
         }
 
         public override bool Equals(object obj)
@@ -80,7 +80,7 @@ namespace RechargeSharp.Entities.Addresses
         public string Country { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("customer_id")]
         public long CustomerId { get; set; }
@@ -101,7 +101,7 @@ namespace RechargeSharp.Entities.Addresses
         public IEnumerable<Property> NoteAttributes { get; set; }
 
         [JsonProperty("original_shipping_lines")]
-        public List<ShippingLine> OriginalShippingLines { get; set; }
+        public IEnumerable<ShippingLine> OriginalShippingLines { get; set; }
 
         [JsonProperty("shipping_lines_override")]
         public IEnumerable<ShippingLine> ShippingLinesOverride { get; set; }
@@ -113,7 +113,7 @@ namespace RechargeSharp.Entities.Addresses
         public string Province { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("zip")]
         public string Zip { get; set; }

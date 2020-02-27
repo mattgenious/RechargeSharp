@@ -42,6 +42,6 @@ namespace RechargeSharp.Entities.Orders
 
         [Required]
         [JsonProperty("line_items")]
-        public List<UpdateLineItemRequestLineItem> LineItems { get; set; }
+        public IEnumerable<UpdateLineItemRequestLineItem> LineItems { get; set; }
     }
 }

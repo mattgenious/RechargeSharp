@@ -9,7 +9,7 @@ namespace RechargeSharp.Entities.Collections
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Nullable.Equals(CreatedAt, other.CreatedAt) && Id == other.Id && Name == other.Name && Nullable.Equals(UpdatedAt, other.UpdatedAt);
+            return CreatedAt.Equals(other.CreatedAt) && Id == other.Id && Name == other.Name && UpdatedAt.Equals(other.UpdatedAt);
         }
 
         public override bool Equals(object obj)
@@ -43,7 +43,7 @@ namespace RechargeSharp.Entities.Collections
         }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("id")]
         public long Id { get; set; }
@@ -52,6 +52,6 @@ namespace RechargeSharp.Entities.Collections
         public string Name { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

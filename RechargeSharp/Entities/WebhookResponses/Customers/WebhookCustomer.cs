@@ -11,7 +11,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Customers
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Id == other.Id && Hash == other.Hash && ShopifyCustomerId == other.ShopifyCustomerId && Email == other.Email && Nullable.Equals(CreatedAt, other.CreatedAt) && Nullable.Equals(UpdatedAt, other.UpdatedAt) && FirstName == other.FirstName && LastName == other.LastName && BillingAddress1 == other.BillingAddress1 && BillingAddress2 == other.BillingAddress2 && BillingZip == other.BillingZip && BillingCity == other.BillingCity && BillingCompany == other.BillingCompany && BillingProvince == other.BillingProvince && BillingCountry == other.BillingCountry && BillingPhone == other.BillingPhone && ProcessorType == other.ProcessorType && Status == other.Status && HasValidPaymentMethod == other.HasValidPaymentMethod && ReasonPaymentMethodNotValid == other.ReasonPaymentMethodNotValid && HasCardErrorInDunning == other.HasCardErrorInDunning && NumberActiveSubscriptions == other.NumberActiveSubscriptions && NumberSubscriptions == other.NumberSubscriptions && FirstChargeProcessedAt == other.FirstChargeProcessedAt;
+            return Id == other.Id && Hash == other.Hash && ShopifyCustomerId == other.ShopifyCustomerId && Email == other.Email && CreatedAt.Equals(other.CreatedAt) && UpdatedAt.Equals(other.UpdatedAt) && FirstName == other.FirstName && LastName == other.LastName && BillingAddress1 == other.BillingAddress1 && BillingAddress2 == other.BillingAddress2 && BillingZip == other.BillingZip && BillingCity == other.BillingCity && BillingCompany == other.BillingCompany && BillingProvince == other.BillingProvince && BillingCountry == other.BillingCountry && BillingPhone == other.BillingPhone && ProcessorType == other.ProcessorType && Status == other.Status && HasValidPaymentMethod == other.HasValidPaymentMethod && ReasonPaymentMethodNotValid == other.ReasonPaymentMethodNotValid && HasCardErrorInDunning == other.HasCardErrorInDunning && NumberActiveSubscriptions == other.NumberActiveSubscriptions && NumberSubscriptions == other.NumberSubscriptions && FirstChargeProcessedAt == other.FirstChargeProcessedAt;
         }
 
         public override bool Equals(object obj)
@@ -77,10 +77,10 @@ namespace RechargeSharp.Entities.WebhookResponses.Customers
         public string Email { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("first_name")]
         public string FirstName { get; set; }

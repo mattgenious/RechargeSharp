@@ -12,7 +12,7 @@ namespace RechargeSharp.Entities.Subscriptions
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return RechargeProductId == other.RechargeProductId && SkuOverride == other.SkuOverride && Id == other.Id && AddressId == other.AddressId && CustomerId == other.CustomerId && Nullable.Equals(CreatedAt, other.CreatedAt) && Nullable.Equals(UpdatedAt, other.UpdatedAt) && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Nullable.Equals(CancelledAt, other.CancelledAt) && ProductTitle == other.ProductTitle && VariantTitle == other.VariantTitle && Price == other.Price && Quantity == other.Quantity && Status == other.Status && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && OrderIntervalUnit == other.OrderIntervalUnit && OrderIntervalFrequency == other.OrderIntervalFrequency && ChargeIntervalFrequency == other.ChargeIntervalFrequency && CancellationReason == other.CancellationReason && CancellationReasonComments == other.CancellationReasonComments && OrderDayOfWeek == other.OrderDayOfWeek && OrderDayOfMonth == other.OrderDayOfMonth && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && MaxRetriesReached == other.MaxRetriesReached && HasQueuedCharges == other.HasQueuedCharges && CommitUpdate == other.CommitUpdate;
+            return RechargeProductId == other.RechargeProductId && SkuOverride == other.SkuOverride && Id == other.Id && AddressId == other.AddressId && CustomerId == other.CustomerId && CreatedAt.Equals(other.CreatedAt) && UpdatedAt.Equals(other.UpdatedAt) && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Nullable.Equals(CancelledAt, other.CancelledAt) && ProductTitle == other.ProductTitle && VariantTitle == other.VariantTitle && Price == other.Price && Quantity == other.Quantity && Status == other.Status && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && OrderIntervalUnit == other.OrderIntervalUnit && OrderIntervalFrequency == other.OrderIntervalFrequency && ChargeIntervalFrequency == other.ChargeIntervalFrequency && CancellationReason == other.CancellationReason && CancellationReasonComments == other.CancellationReasonComments && OrderDayOfWeek == other.OrderDayOfWeek && OrderDayOfMonth == other.OrderDayOfMonth && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && MaxRetriesReached == other.MaxRetriesReached && HasQueuedCharges == other.HasQueuedCharges && CommitUpdate == other.CommitUpdate;
         }
 
         public override bool Equals(object obj)
@@ -85,10 +85,10 @@ namespace RechargeSharp.Entities.Subscriptions
         public long CustomerId { get; set; }
 
         [JsonProperty("created_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("updated_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("next_charge_scheduled_at", NullValueHandling = NullValueHandling.Include)]
         public DateTime? NextChargeScheduledAt { get; set; }

@@ -61,7 +61,7 @@ namespace RechargeSharp.Entities.Shared
         public string Price { get; set; }
 
         [JsonProperty("properties")]
-        public List<Property> Properties { get; set; }
+        public IEnumerable<Property> Properties { get; set; }
 
         [JsonProperty("quantity")]
         public long Quantity { get; set; }

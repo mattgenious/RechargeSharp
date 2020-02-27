@@ -39,6 +39,6 @@ namespace RechargeSharp.Entities.Shop
         }
 
         [JsonProperty("shipping_countries")]
-        public List<ShippingCountry> ShippingCountries { get; set; }
+        public IEnumerable<ShippingCountry> ShippingCountries { get; set; }
     }
 }

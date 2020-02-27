@@ -84,9 +84,9 @@ namespace RechargeSharp.Entities.Addresses
         public string Country { get; set; }
 
         [JsonProperty("original_shipping_lines", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ShippingLine> OriginalShippingLines { get; set; }
+        public IEnumerable<ShippingLine> OriginalShippingLines { get; set; }
 
         [JsonProperty("shipping_lines_override", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ShippingLine> ShippingLinesOverride { get; set; }
+        public IEnumerable<ShippingLine> ShippingLinesOverride { get; set; }
     }
 }

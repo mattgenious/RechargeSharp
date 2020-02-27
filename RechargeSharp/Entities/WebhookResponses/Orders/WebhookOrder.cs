@@ -13,7 +13,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Orders
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Id == other.Id && TransactionId == other.TransactionId && ChargeStatus == other.ChargeStatus && PaymentProcessor == other.PaymentProcessor && AddressIsActive == other.AddressIsActive && Status == other.Status && Type == other.Type && ChargeId == other.ChargeId && AddressId == other.AddressId && ShopifyId == other.ShopifyId && ShopifyOrderId == other.ShopifyOrderId && ShopifyOrderNumber == other.ShopifyOrderNumber && ShopifyCartToken == other.ShopifyCartToken && Nullable.Equals(ShippingDate, other.ShippingDate) && Nullable.Equals(ScheduledAt, other.ScheduledAt) && Nullable.Equals(ShippedDate, other.ShippedDate) && Nullable.Equals(ProcessedAt, other.ProcessedAt) && CustomerId == other.CustomerId && FirstName == other.FirstName && LastName == other.LastName && Hash == other.Hash && IsPrepaid == other.IsPrepaid && Nullable.Equals(CreatedAt, other.CreatedAt) && Nullable.Equals(UpdatedAt, other.UpdatedAt) && Email == other.Email && TotalPrice == other.TotalPrice && Equals(ShippingAddress, other.ShippingAddress) && Equals(BillingAddress, other.BillingAddress);
+            return Id == other.Id && TransactionId == other.TransactionId && ChargeStatus == other.ChargeStatus && PaymentProcessor == other.PaymentProcessor && AddressIsActive == other.AddressIsActive && Status == other.Status && Type == other.Type && ChargeId == other.ChargeId && AddressId == other.AddressId && ShopifyId == other.ShopifyId && ShopifyOrderId == other.ShopifyOrderId && ShopifyOrderNumber == other.ShopifyOrderNumber && ShopifyCartToken == other.ShopifyCartToken && Nullable.Equals(ShippingDate, other.ShippingDate) && Nullable.Equals(ScheduledAt, other.ScheduledAt) && Nullable.Equals(ShippedDate, other.ShippedDate) && Nullable.Equals(ProcessedAt, other.ProcessedAt) && CustomerId == other.CustomerId && FirstName == other.FirstName && LastName == other.LastName && Hash == other.Hash && IsPrepaid == other.IsPrepaid && CreatedAt.Equals(other.CreatedAt) && UpdatedAt.Equals(other.UpdatedAt) && Email == other.Email && TotalPrice == other.TotalPrice && Equals(ShippingAddress, other.ShippingAddress) && Equals(BillingAddress, other.BillingAddress);
         }
 
         public override bool Equals(object obj)
@@ -137,16 +137,16 @@ namespace RechargeSharp.Entities.WebhookResponses.Orders
         public long IsPrepaid { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("email")]
         public string Email { get; set; }
 
         [JsonProperty("line_items")]
-        public List<LineItem> LineItems { get; set; }
+        public IEnumerable<LineItem> LineItems { get; set; }
 
         [JsonProperty("total_price")]
         public string TotalPrice { get; set; }

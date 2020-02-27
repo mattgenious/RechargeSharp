@@ -11,7 +11,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Rulesets
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Nullable.Equals(UpdatedAt, other.UpdatedAt) && Nullable.Equals(CreatedAt, other.CreatedAt) && Id == other.Id && Name == other.Name;
+            return UpdatedAt.Equals(other.UpdatedAt) && CreatedAt.Equals(other.CreatedAt) && Id == other.Id && Name == other.Name;
         }
 
         public override bool Equals(object obj)
@@ -45,10 +45,10 @@ namespace RechargeSharp.Entities.WebhookResponses.Rulesets
         }
 
         [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("id")]
         public long Id { get; set; }
