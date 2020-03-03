@@ -1,6 +1,7 @@
 ﻿# RechargeSharp, a C\# library for RechargePayments
-### built to work with the api documented at [https://developer.rechargepayments.com/](https://developer.rechargepayments.com/)
-Please feel free to submit pull requests on github
+### Get it here [https://www.nuget.org/packages/RechargeSharp/](https://www.nuget.org/packages/RechargeSharp/)
+### Built to work with the api documented at [https://developer.rechargepayments.com/](https://developer.rechargepayments.com/)
+Please feel free to submit issues and pull requests on github
 
 ## Quickstart
 ### Subscriptions
