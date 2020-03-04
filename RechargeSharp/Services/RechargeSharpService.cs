@@ -55,6 +55,11 @@ namespace RechargeSharp.Services
                     {
                         throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     }
+
+                    if (x.StatusCode == HttpStatusCode.NotFound && x.RequestMessage.Method == HttpMethod.Get)
+                    {
+                        return false;
+                    }
                     return true;
                 }
                 else

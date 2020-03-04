@@ -4,21 +4,20 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.2.0</Version>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <Version>3.2.3</Version>
+    <AssemblyVersion>3.2.3.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>3.2.0.0</FileVersion>
+    <FileVersion>3.2.3.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Added ExistsAsync methods to all services.</PackageReleaseNotes>
+    <PackageReleaseNotes>Disabled nullable reference types again as it is impropable to know what is nullable and what is not.</PackageReleaseNotes>
     <PackageIconUrl>https://user-images.githubusercontent.com/3007300/64613121-ab7b7380-d3d5-11e9-9703-126f3448863b.png</PackageIconUrl>
     <LangVersion>8.0</LangVersion>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

@@ -16,7 +16,7 @@ namespace RechargeSharp.Services.Customers
 
         public async Task<bool> CustomerExistsAsync(long id)
         {
-            var response = await GetAsync($"/customers/{id}").ConfigureAwait(false);
+            var response = await GetAllowNotFoundAsync($"/customers/{id}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
 
