@@ -123,7 +123,7 @@ namespace RechargeSharp.Services.Customers
         {
             ValidateModel(updateCustomerRequest);
 
-            var response = await PutAsync($"/customers/{id}", JsonConvert.SerializeObject(updateCustomerRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/customers/{id}", JsonConvert.SerializeObject(updateCustomerRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
         }
@@ -132,7 +132,7 @@ namespace RechargeSharp.Services.Customers
         {
             ValidateModel(customerPaymentTokenRequest);
 
-            var response = await PutAsync($"/customers/{id}", JsonConvert.SerializeObject(customerPaymentTokenRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/customers/{id}", JsonConvert.SerializeObject(customerPaymentTokenRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
         }

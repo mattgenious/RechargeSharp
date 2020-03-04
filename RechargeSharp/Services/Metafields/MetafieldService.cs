@@ -84,7 +84,7 @@ namespace RechargeSharp.Services.Metafields
         {
             ValidateModel(updateMetafieldRequest);
 
-            var response = await PutAsync($"/metafields/{id}", JsonConvert.SerializeObject(updateMetafieldRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/metafields/{id}", JsonConvert.SerializeObject(updateMetafieldRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Metafield;
         }

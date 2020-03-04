@@ -128,7 +128,7 @@ namespace RechargeSharp.Services.Charges
         {
             ValidateModel(changeNextChargeDateRequest);
 
-            var response = await PostAsync($"/charges/{chargeId}/change_next_charge_date", JsonConvert.SerializeObject(changeNextChargeDateRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/charges/{chargeId}/change_next_charge_date", JsonConvert.SerializeObject(changeNextChargeDateRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
         }
@@ -137,7 +137,7 @@ namespace RechargeSharp.Services.Charges
         {
             ValidateModel(skipNextChargeRequest);
 
-            var response = await PostAsync($"/charges/{chargeId}/skip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/charges/{chargeId}/skip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
         }
@@ -146,7 +146,7 @@ namespace RechargeSharp.Services.Charges
         {
             ValidateModel(skipNextChargeRequest);
 
-            var response = await PostAsync($"/charges/{chargeId}/unskip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/charges/{chargeId}/unskip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
         }
@@ -155,7 +155,7 @@ namespace RechargeSharp.Services.Charges
         {
             ValidateModel(refundChargeRequest);
 
-            var response = await PostAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(refundChargeRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(refundChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
         }
@@ -164,7 +164,7 @@ namespace RechargeSharp.Services.Charges
         {
             ValidateModel(totalRefundChargeRequest);
 
-            var response = await PostAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(totalRefundChargeRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(totalRefundChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
         }

@@ -121,7 +121,7 @@ namespace RechargeSharp.Services.Subscriptions
         }
         public async Task<Subscription> ChangeNextChargeDateAsync(long id, DateTime date)
         {
-            var response = await PostAsync($"/subscriptions/{id}/set_next_charge_date", JsonConvert.SerializeObject(new ChangeNextChargeDateRequest { Date = date.ToString("yyyy-MM-dd") })).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/subscriptions/{id}/set_next_charge_date", JsonConvert.SerializeObject(new ChangeNextChargeDateRequest { Date = date.ToString("yyyy-MM-dd") })).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
@@ -129,7 +129,7 @@ namespace RechargeSharp.Services.Subscriptions
         {
             ValidateModel(changeAddressRequest);
 
-            var response = await PostAsync($"/subscriptions/{id}/change_address", JsonConvert.SerializeObject(changeAddressRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/subscriptions/{id}/change_address", JsonConvert.SerializeObject(changeAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
@@ -137,7 +137,7 @@ namespace RechargeSharp.Services.Subscriptions
         {
             ValidateModel(cancelSubscriptionRequest);
 
-            var response = await PostAsync($"/subscriptions/{id}/cancel", JsonConvert.SerializeObject(cancelSubscriptionRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/subscriptions/{id}/cancel", JsonConvert.SerializeObject(cancelSubscriptionRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
@@ -159,7 +159,7 @@ namespace RechargeSharp.Services.Subscriptions
         {
             ValidateModel(updateSubscriptionRequest);
 
-            var response = await PutAsync($"/subscriptions/{id}", JsonConvert.SerializeObject(updateSubscriptionRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/subscriptions/{id}", JsonConvert.SerializeObject(updateSubscriptionRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }
@@ -167,7 +167,7 @@ namespace RechargeSharp.Services.Subscriptions
         {
             ValidateModel(delayChargeRegenRequest);
 
-            var response = await PutAsync($"/subscriptions/{id}", JsonConvert.SerializeObject(delayChargeRegenRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/subscriptions/{id}", JsonConvert.SerializeObject(delayChargeRegenRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Subscription;
         }

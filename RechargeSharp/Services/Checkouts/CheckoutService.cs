@@ -24,7 +24,7 @@ namespace RechargeSharp.Services.Checkouts
         {
             ValidateModel(createCheckoutRequest);
 
-            var response = await PostAsync("/checkouts", JsonConvert.SerializeObject(createCheckoutRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync("/checkouts", JsonConvert.SerializeObject(createCheckoutRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Checkout;
         }
@@ -33,14 +33,14 @@ namespace RechargeSharp.Services.Checkouts
         {
             ValidateModel(updateCheckoutRequest);
 
-            var response = await PutAsync($"/checkouts/{token}", JsonConvert.SerializeObject(updateCheckoutRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/checkouts/{token}", JsonConvert.SerializeObject(updateCheckoutRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Checkout;
         }
 
         public async Task<Checkout> UpdateCheckoutShippingLine(string token, string shippingRateHandle)
         {
-            var response = await PutAsync($"/checkouts/{token}", $"{{\"checkout\":{{\"shipping_line\":{{\"handle\":\"{shippingRateHandle}\"}}}}}}").ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/checkouts/{token}", $"{{\"checkout\":{{\"shipping_line\":{{\"handle\":\"{shippingRateHandle}\"}}}}}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Checkout;
         }
@@ -58,7 +58,7 @@ namespace RechargeSharp.Services.Checkouts
         {
             ValidateModel(processCheckoutRequest);
 
-            var response = await PostAsync("/checkouts/validate", JsonConvert.SerializeObject(processCheckoutRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync("/checkouts/validate", JsonConvert.SerializeObject(processCheckoutRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ProcessCheckoutResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).CheckoutCharge;
         }

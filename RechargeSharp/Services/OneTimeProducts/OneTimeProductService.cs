@@ -45,7 +45,7 @@ namespace RechargeSharp.Services.OneTimeProducts
         {
             ValidateModel(createOneTimeProductRequest);
 
-            var response = await PostAsync("/onetimes", JsonConvert.SerializeObject(createOneTimeProductRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync("/onetimes", JsonConvert.SerializeObject(createOneTimeProductRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OneTimeProductResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProduct;
         }
@@ -54,7 +54,7 @@ namespace RechargeSharp.Services.OneTimeProducts
         {
             ValidateModel(updateOneTimeProductRequest);
 
-            var response = await PutAsync($"/onetimes/{id}", JsonConvert.SerializeObject(updateOneTimeProductRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/onetimes/{id}", JsonConvert.SerializeObject(updateOneTimeProductRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OneTimeProductResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProduct;
         }

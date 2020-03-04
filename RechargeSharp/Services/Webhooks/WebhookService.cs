@@ -42,7 +42,7 @@ namespace RechargeSharp.Services.Webhooks
         {
             ValidateModel(updateWebhookRequest);
 
-            var response = await PutAsync($"/webhooks/{id}", JsonConvert.SerializeObject(updateWebhookRequest));
+            var response = await PutAsJsonAsync($"/webhooks/{id}", JsonConvert.SerializeObject(updateWebhookRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
                 await response.Content.ReadAsStringAsync()).Webhook;
         }
@@ -50,7 +50,7 @@ namespace RechargeSharp.Services.Webhooks
         {
             ValidateModel(overrideShippingLinesRequest);
 
-            var response = await PutAsync($"/webhooks/{id}", JsonConvert.SerializeObject(overrideShippingLinesRequest));
+            var response = await PutAsJsonAsync($"/webhooks/{id}", JsonConvert.SerializeObject(overrideShippingLinesRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
                 await response.Content.ReadAsStringAsync()).Webhook;
         }

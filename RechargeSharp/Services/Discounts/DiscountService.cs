@@ -91,42 +91,42 @@ namespace RechargeSharp.Services.Discounts
 
         public async Task<Address> AddDiscountToAddressByIdAsync(long discountId, long addressId)
         {
-            var response = await PostAsync($"/addresses/{addressId}/apply_discount", $"{{ \"discount_id\":\"{discountId}\"}}").ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/addresses/{addressId}/apply_discount", $"{{ \"discount_id\":\"{discountId}\"}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
         }
 
         public async Task<Address> AddDiscountToAddressByCodeAsync(string discountCode, long addressId)
         {
-            var response = await PostAsync($"/addresses/{addressId}/apply_discount", $"{{ \"discount_code\":\"{discountCode}\"}}").ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/addresses/{addressId}/apply_discount", $"{{ \"discount_code\":\"{discountCode}\"}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
         }
 
         public async Task<Address> RemoveDiscountFromAddress(long addressId)
         {
-            var response = await PostAsync($"/addresses/{addressId}/remove_discount", $"{{}}").ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/addresses/{addressId}/remove_discount", $"{{}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
         }
 
         public async Task<Charge> AddDiscountToChargeByIdAsync(long discountId, long chargeId)
         {
-            var response = await PostAsync($"/charges/{chargeId}/apply_discount", $"{{ \"discount_id\":\"{discountId}\"}}").ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/charges/{chargeId}/apply_discount", $"{{ \"discount_id\":\"{discountId}\"}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
         }
 
         public async Task<Charge> AddDiscountToChargeByCodeAsync(string discountCode, long chargeId)
         {
-            var response = await PostAsync($"/charges/{chargeId}/apply_discount", $"{{ \"discount_code\":\"{discountCode}\"}}").ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/charges/{chargeId}/apply_discount", $"{{ \"discount_code\":\"{discountCode}\"}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
         }
 
         public async Task<Charge> RemoveDiscountFromCharge(long chargeId)
         {
-            var response = await PostAsync($"/charges/{chargeId}/remove_discount", $"{{}}").ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/charges/{chargeId}/remove_discount", $"{{}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
         }
@@ -135,7 +135,7 @@ namespace RechargeSharp.Services.Discounts
         {
             ValidateModel(createDiscountRequest);
 
-            var response = await PostAsync("/discounts", JsonConvert.SerializeObject(createDiscountRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync("/discounts", JsonConvert.SerializeObject(createDiscountRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<DiscountResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Discount;
         }
@@ -144,7 +144,7 @@ namespace RechargeSharp.Services.Discounts
         {
             ValidateModel(updateDiscountRequest);
 
-            var response = await PutAsync($"/discounts/{id}", JsonConvert.SerializeObject(updateDiscountRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/discounts/{id}", JsonConvert.SerializeObject(updateDiscountRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<DiscountResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Discount;
         }

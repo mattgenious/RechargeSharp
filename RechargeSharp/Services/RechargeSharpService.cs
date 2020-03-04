@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Polly;
 using Polly.Retry;
@@ -15,8 +16,11 @@ namespace RechargeSharp.Services
     {
         protected readonly HttpClient HttpClient;
         protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicy;
-        protected RechargeSharpService(string apiKey)
+        protected readonly ILogger<RechargeSharpService>? Logger;
+        protected RechargeSharpService(string apiKey, ILogger<RechargeSharpService>? logger)
         {
+            Logger = logger;
+
             HttpClient = new HttpClient();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpClient.DefaultRequestHeaders.Add("X-Recharge-Access-Token", apiKey);
@@ -25,7 +29,7 @@ namespace RechargeSharp.Services
             {
                 if (!x.IsSuccessStatusCode)
                 {
-                    Console.WriteLine(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                    Logger?.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     if ((int)x.StatusCode > 399 && (int)x.StatusCode != 429)
                     {
                         throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
@@ -38,28 +42,22 @@ namespace RechargeSharp.Services
                 }
             }).WaitAndRetryForeverAsync(
                 retryAttempt => 
-                    TimeSpan.FromSeconds(3));
+                    TimeSpan.FromSeconds(1));
+        }
+
+        protected RechargeSharpService(string apiKey) : this(apiKey, null)
+        {
         }
 
         protected Task<HttpResponseMessage> GetAsync(string path)
         {
             return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.GetAsync(path));
         }
-        protected Task<HttpResponseMessage> PutAsync(string path, string jsonData)
-        {
-            return PutAsJsonAsync(path, jsonData);
-            //return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PutAsync(path, new StringContent(jsonData)));
-        }
         protected Task<HttpResponseMessage> PutAsJsonAsync(string path, string jsonData)
         {
             var content = new StringContent(jsonData);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PutAsync(path, content));
-        }
-        protected Task<HttpResponseMessage> PostAsync(string path, string jsonData)
-        {
-            return PostAsJsonAsync(path, jsonData);
-            //return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PostAsync(path, new StringContent(jsonData)));
         }
         protected Task<HttpResponseMessage> PostAsJsonAsync(string path, string jsonData)
         {

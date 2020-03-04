@@ -119,7 +119,7 @@ namespace RechargeSharp.Services.Addresses
         {
             ValidateModel(updateAddressRequest);
 
-            var response = await PutAsync($"/addresses/{id}", JsonConvert.SerializeObject(updateAddressRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/addresses/{id}", JsonConvert.SerializeObject(updateAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
         }
@@ -127,7 +127,7 @@ namespace RechargeSharp.Services.Addresses
         {
             ValidateModel(overrideShippingLinesRequest);
 
-            var response = await PutAsync($"/addresses/{id}", JsonConvert.SerializeObject(overrideShippingLinesRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/addresses/{id}", JsonConvert.SerializeObject(overrideShippingLinesRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
         }
@@ -136,7 +136,7 @@ namespace RechargeSharp.Services.Addresses
         {
             ValidateModel(validateAddressRequest);
 
-            var response = await PostAsync("/addresses/validate", JsonConvert.SerializeObject(validateAddressRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync("/addresses/validate", JsonConvert.SerializeObject(validateAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ValidateAddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }

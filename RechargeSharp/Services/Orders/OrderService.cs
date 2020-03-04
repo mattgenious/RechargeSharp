@@ -104,7 +104,7 @@ namespace RechargeSharp.Services.Orders
         {
             ValidateModel(updateOrderRequest);
 
-            var response = await PutAsync($"/orders/{id}", JsonConvert.SerializeObject(updateOrderRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/orders/{id}", JsonConvert.SerializeObject(updateOrderRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
@@ -113,7 +113,7 @@ namespace RechargeSharp.Services.Orders
         {
             ValidateModel(updateLineItemsRequest);
 
-            var response = await PutAsync($"/orders/{id}", JsonConvert.SerializeObject(updateLineItemsRequest)).ConfigureAwait(false);
+            var response = await PutAsJsonAsync($"/orders/{id}", JsonConvert.SerializeObject(updateLineItemsRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
@@ -122,7 +122,7 @@ namespace RechargeSharp.Services.Orders
         {
             ValidateModel(changeOrderDateRequest);
 
-            var response = await PostAsync($"/orders/{id}/change_date", JsonConvert.SerializeObject(changeOrderDateRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/orders/{id}/change_date", JsonConvert.SerializeObject(changeOrderDateRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
@@ -131,7 +131,7 @@ namespace RechargeSharp.Services.Orders
         {
             ValidateModel(changeOrderVariantRequest);
 
-            var response = await PostAsync($"/orders/{orderId}/update_shopify_variant/{currentShopifyVariantId}", JsonConvert.SerializeObject(changeOrderVariantRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/orders/{orderId}/update_shopify_variant/{currentShopifyVariantId}", JsonConvert.SerializeObject(changeOrderVariantRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
@@ -139,7 +139,7 @@ namespace RechargeSharp.Services.Orders
         {
             ValidateModel(cloneOrderRequest);
 
-            var response = await PostAsync($"/orders/clone_order_on_success_charge/{orderId}/charge/{chargeId}", JsonConvert.SerializeObject(cloneOrderRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/orders/clone_order_on_success_charge/{orderId}/charge/{chargeId}", JsonConvert.SerializeObject(cloneOrderRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OrderResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Order;
         }
