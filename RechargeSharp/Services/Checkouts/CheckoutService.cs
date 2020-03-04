@@ -13,6 +13,13 @@ namespace RechargeSharp.Services.Checkouts
         public CheckoutService(string apiKey) : base(apiKey)
         {
         }
+
+        public async Task<bool> CheckoutExistsAsync(string token)
+        {
+            var response = await GetAllowNotFoundAsync($"/checkouts/{token}").ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<Checkout> GetCheckoutAsync(string token)
         {
             var response = await GetAsync($"/checkouts/{token}").ConfigureAwait(false);

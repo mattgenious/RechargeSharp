@@ -13,6 +13,12 @@ namespace RechargeSharp.Services.Shops
         {
         }
 
+        public async Task<bool> ShopExistsAsync()
+        {
+            var response = await GetAllowNotFoundAsync($"/shop").ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<Shop> GetShopAsync()
         {
             var response = await GetAsync($"/shop").ConfigureAwait(false);

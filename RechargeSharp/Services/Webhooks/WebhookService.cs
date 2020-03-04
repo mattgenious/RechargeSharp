@@ -15,6 +15,12 @@ namespace RechargeSharp.Services.Webhooks
         {
         }
 
+        public async Task<bool> WebhookExistsAsync(long id)
+        {
+            var response = await GetAllowNotFoundAsync($"/webhooks/{id}");
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<Webhook> GetWebhookAsync(long id)
         {
             var response = await GetAsync($"/webhooks/{id}");

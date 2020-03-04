@@ -15,6 +15,12 @@ namespace RechargeSharp.Services.Subscriptions
         {
         }
 
+        public async Task<bool> SubscriptionExistsAsync(long id)
+        {
+            var response = await GetAllowNotFoundAsync($"/subscriptions/{id}").ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<Subscription> GetSubscriptionAsync(long id)
         {
             var response = await GetAsync($"/subscriptions/{id}").ConfigureAwait(false);

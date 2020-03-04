@@ -15,6 +15,12 @@ namespace RechargeSharp.Services.Charges
         {
         }
 
+        public async Task<bool> ChargeExistsAsync(long id)
+        {
+            var response = await GetAllowNotFoundAsync($"/charges/{id}").ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<Charge> GetChargeAsync(long id)
         {
             var response = await GetAsync($"/charges/{id}").ConfigureAwait(false);

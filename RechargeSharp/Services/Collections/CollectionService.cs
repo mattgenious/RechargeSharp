@@ -14,6 +14,12 @@ namespace RechargeSharp.Services.Collections
         {
         }
 
+        public async Task<bool> CollectionExistsAsync(long id)
+        {
+            var response = await GetAllowNotFoundAsync($"/collections/{id}").ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<Collection> GetCollectionAsync(long id)
         {
             var response = await GetAsync($"/collections/{id}").ConfigureAwait(false);

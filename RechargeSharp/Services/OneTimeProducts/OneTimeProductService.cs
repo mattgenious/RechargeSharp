@@ -13,6 +13,12 @@ namespace RechargeSharp.Services.OneTimeProducts
         {
         }
 
+        public async Task<bool> OneTimeProductExistsAsync(long id)
+        {
+            var response = await GetAllowNotFoundAsync($"/onetimes/{id}").ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<OneTimeProduct> GetOneTimeProductAsync(long id)
         {
             var response = await GetAsync($"/onetimes/{id}").ConfigureAwait(false);

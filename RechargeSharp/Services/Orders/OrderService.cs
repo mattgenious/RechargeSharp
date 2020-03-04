@@ -15,6 +15,11 @@ namespace RechargeSharp.Services.Orders
         {
         }
 
+        public async Task<bool> OrderExistsAsync(long id)
+        {
+            var response = await GetAsync($"/orders/{id}").ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
         public async Task<Order> GetOrderAsync(long id)
         {
             var response = await GetAsync($"/orders/{id}").ConfigureAwait(false);

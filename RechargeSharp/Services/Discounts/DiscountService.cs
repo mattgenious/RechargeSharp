@@ -16,6 +16,12 @@ namespace RechargeSharp.Services.Discounts
         public  DiscountService(string apiKey) : base(apiKey)
         {
         }
+
+        public async Task<bool> DiscountExistsAsync(long id)
+        {
+            var response = await GetAllowNotFoundAsync($"/discounts/{id}").ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
         public async Task<Discount> GetDiscountAsync(long id)
         {
             var response = await GetAsync($"/discounts/{id}").ConfigureAwait(false);

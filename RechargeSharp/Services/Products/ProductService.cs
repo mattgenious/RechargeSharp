@@ -14,6 +14,12 @@ namespace RechargeSharp.Services.Products
         public ProductService(string apiKey) : base(apiKey)
         {
         }
+
+        public async Task<bool> ProductExistsAsync(long id)
+        {
+            var response = await GetAllowNotFoundAsync($"/products/{id}").ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
         public async Task<Product> GetProductAsync(long id)
         {
             var response = await GetAsync($"/products/{id}").ConfigureAwait(false);

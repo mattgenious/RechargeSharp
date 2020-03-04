@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Addresses;
@@ -15,9 +16,17 @@ namespace RechargeSharp.Services.Addresses
         {
         }
 
+        public async Task<bool> AddressExistsAsync(long id)
+        {
+            var response = await GetAllowNotFoundAsync($"/addresses/{id}").ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<Address> GetAddressAsync(long id)
         {
             var response = await GetAsync($"/addresses/{id}").ConfigureAwait(false);
+            if(!response.IsSuccessStatusCode)
+                throw new Exception(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
             return JsonConvert.DeserializeObject<AddressResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
         }

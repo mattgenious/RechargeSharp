@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -16,6 +17,7 @@ namespace RechargeSharp.Services
     {
         protected readonly HttpClient HttpClient;
         protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicy;
+        protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicyAllowNotFound;
         protected readonly ILogger<RechargeSharpService>? Logger;
         protected RechargeSharpService(string apiKey, ILogger<RechargeSharpService>? logger)
         {
@@ -30,7 +32,7 @@ namespace RechargeSharp.Services
                 if (!x.IsSuccessStatusCode)
                 {
                     Logger?.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                    if ((int)x.StatusCode > 399 && (int)x.StatusCode != 429)
+                    if ((int)x.StatusCode > 399 && x.StatusCode != HttpStatusCode.TooManyRequests)
                     {
                         throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     }
@@ -43,12 +45,34 @@ namespace RechargeSharp.Services
             }).WaitAndRetryForeverAsync(
                 retryAttempt => 
                     TimeSpan.FromSeconds(1));
+
+            AsyncRetryPolicyAllowNotFound = Policy.HandleResult<HttpResponseMessage>(x =>
+            {
+                if (!x.IsSuccessStatusCode)
+                {
+                    Logger?.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                    if ((int)x.StatusCode > 399 && x.StatusCode != HttpStatusCode.TooManyRequests && (x.StatusCode != HttpStatusCode.NotFound && x.RequestMessage.Method != HttpMethod.Get))
+                    {
+                        throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }).WaitAndRetryForeverAsync(
+                retryAttempt =>
+                    TimeSpan.FromSeconds(1));
         }
 
         protected RechargeSharpService(string apiKey) : this(apiKey, null)
         {
         }
-
+        protected Task<HttpResponseMessage> GetAllowNotFoundAsync(string path)
+        {
+            return AsyncRetryPolicyAllowNotFound.ExecuteAsync(async () => await HttpClient.GetAsync(path));
+        }
         protected Task<HttpResponseMessage> GetAsync(string path)
         {
             return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.GetAsync(path));

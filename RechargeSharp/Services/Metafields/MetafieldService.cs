@@ -13,6 +13,11 @@ namespace RechargeSharp.Services.Metafields
         public MetafieldService(string apiKey) : base(apiKey)
         {
         }
+        public async Task<bool> MetafieldExistsAsync(long id)
+        {
+            var response = await GetAllowNotFoundAsync($"/metafields/{id}").ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
 
         public async Task<Metafield> GetMetafieldAsync(long id)
         {
