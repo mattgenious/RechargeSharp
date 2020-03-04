@@ -18,7 +18,7 @@ namespace RechargeSharp.Services
         protected readonly HttpClient HttpClient;
         protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicy;
         protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicyAllowNotFound;
-        protected readonly ILogger<RechargeSharpService>? Logger;
+        protected readonly ILogger<RechargeSharpService> Logger;
         protected RechargeSharpService(string apiKey, ILogger<RechargeSharpService>? logger)
         {
             Logger = logger;
@@ -31,7 +31,10 @@ namespace RechargeSharp.Services
             {
                 if (!x.IsSuccessStatusCode)
                 {
-                    Logger?.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                    if (Logger != null)
+                    {
+                        Logger.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                    }
                     if ((int)x.StatusCode > 399 && x.StatusCode != HttpStatusCode.TooManyRequests)
                     {
                         throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
