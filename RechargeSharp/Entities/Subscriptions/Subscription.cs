@@ -70,7 +70,7 @@ namespace RechargeSharp.Entities.Subscriptions
         }
 
         [JsonProperty("recharge_product_id")]
-        public long? RechargeProductId { get; set; }
+        public long RechargeProductId { get; set; }
 
         [JsonProperty("sku_override")]
         public bool SkuOverride { get; set; }
@@ -79,7 +79,7 @@ namespace RechargeSharp.Entities.Subscriptions
         public long Id { get; set; }
 
         [JsonProperty("address_id")]
-        public long? AddressId { get; set; }
+        public long AddressId { get; set; }
 
         [JsonProperty("customer_id", NullValueHandling = NullValueHandling.Ignore)]
         public long CustomerId { get; set; }
@@ -112,7 +112,7 @@ namespace RechargeSharp.Entities.Subscriptions
         public string Status { get; set; }
 
         [JsonProperty("shopify_product_id", NullValueHandling = NullValueHandling.Ignore)]
-        public long? ShopifyProductId { get; set; }
+        public long ShopifyProductId { get; set; }
 
         [JsonProperty("shopify_variant_id")]
         public long ShopifyVariantId { get; set; }
