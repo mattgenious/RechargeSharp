@@ -71,7 +71,7 @@ namespace RechargeSharp.Services
                 }
             }).WaitAndRetryForeverAsync(
                 retryAttempt =>
-                    TimeSpan.FromSeconds(1));
+                    TimeSpan.FromSeconds(3));
         }
 
         protected RechargeSharpService(string apiKey) : this(apiKey, null)
