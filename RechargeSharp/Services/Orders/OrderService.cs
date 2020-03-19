@@ -75,7 +75,7 @@ namespace RechargeSharp.Services.Orders
 
         private async Task<IEnumerable<Order>> GetAllOrdersAsync(string queryParams)
         {
-            var count = await CountOrdersAsync();
+            var count = await CountOrdersAsync(queryParams);
 
             var taskList = new List<Task<IEnumerable<Order>>>();
 
@@ -98,9 +98,9 @@ namespace RechargeSharp.Services.Orders
             return result;
         }
 
-        public async Task<long> CountOrdersAsync()
+        public async Task<long> CountOrdersAsync(string queryParams)
         {
-            var response = await GetAsync("/orders/count").ConfigureAwait(false);
+            var response = await GetAsync($"/orders/count?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
         }
