@@ -4,18 +4,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.2.7</Version>
-    <AssemblyVersion>3.2.7.0</AssemblyVersion>
+    <Version>3.2.8</Version>
+    <AssemblyVersion>3.2.8.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>3.2.7.0</FileVersion>
+    <FileVersion>3.2.8.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Fixed bug where getallorderswithparamsasync would count all orders instead of using queryParameters</PackageReleaseNotes>
+    <PackageReleaseNotes>Made AddressIsActive in order nullable as it was discovered to be nullable by a serialization error.</PackageReleaseNotes>
     <PackageIconUrl>https://user-images.githubusercontent.com/3007300/64613121-ab7b7380-d3d5-11e9-9703-126f3448863b.png</PackageIconUrl>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
@@ -23,7 +23,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NuGet.Versioning" Version="5.4.0" />
+    <PackageReference Include="NuGet.Versioning" Version="5.5.0" />
     <PackageReference Include="Polly" Version="7.2.0" />
   </ItemGroup>
 
