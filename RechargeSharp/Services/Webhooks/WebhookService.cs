@@ -1,20 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
 using System.Net.Http;
-using System.Text;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Polly;
+using Polly.Retry;
 using RechargeSharp.Entities.Addresses;
 using RechargeSharp.Entities.Webhooks;
 
 namespace RechargeSharp.Services.Webhooks
 {
-    public class WebhookService : RechargeSharpService
+    public class WebhookService
     {
-        public WebhookService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
+        protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicy;
+
+        private readonly ILogger<RechargeSharpService> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly RechargeServiceOptions _rechargeServiceOptions;
+        private readonly HttpClient _client;
+        public WebhookService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions)
         {
+            _logger = logger;
+            _httpClientFactory = httpClientFactory;
+            _rechargeServiceOptions = rechargeServiceOptions.Value;
+
+            _client = _httpClientFactory.CreateClient("RechargeSharpWebhookClient");
+            _client.DefaultRequestHeaders.Remove("X-Recharge-Access-Token");
+            _client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", _rechargeServiceOptions.GetWebhookApiKey());
+
+            AsyncRetryPolicy = Policy.HandleResult<HttpResponseMessage>(x =>
+            {
+                if (!x.IsSuccessStatusCode)
+                {
+                    _logger.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                    if ((int)x.StatusCode > 399 && x.StatusCode != HttpStatusCode.TooManyRequests && (x.StatusCode != HttpStatusCode.NotFound && x.RequestMessage.Method != HttpMethod.Get))
+                    {
+                        throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                    }
+
+                    if (x.StatusCode == HttpStatusCode.NotFound && x.RequestMessage.Method == HttpMethod.Get)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }).WaitAndRetryForeverAsync(
+                retryAttempt =>
+                    TimeSpan.FromSeconds(3));
         }
 
         public async Task<bool> WebhookExistsAsync(long id)
@@ -66,6 +107,42 @@ namespace RechargeSharp.Services.Webhooks
         public async Task DeleteWebhookAsync(long id)
         {
             var response = await DeleteAsync($"/webhooks/{id}");
+        }
+
+        private Task<HttpResponseMessage> GetAsync(string path)
+        {
+            _logger.LogInformation($"RechargeSharp GET: {path}");
+            return AsyncRetryPolicy.ExecuteAsync(async () => await _client.GetAsync(path));
+        }
+        private Task<HttpResponseMessage> PutAsJsonAsync(string path, string jsonData)
+        {
+            _logger.LogInformation($"RechargeSharp PUT: {path}\r\nJSONDATA: {jsonData}");
+            var content = new StringContent(jsonData);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            return AsyncRetryPolicy.ExecuteAsync(async () => await _client.PutAsync(path, content));
+        }
+        private Task<HttpResponseMessage> PostAsJsonAsync(string path, string jsonData)
+        {
+            _logger.LogInformation($"RechargeSharp POST: {path}\r\nJSONDATA: {jsonData}");
+            var content = new StringContent(jsonData);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            return AsyncRetryPolicy.ExecuteAsync(async () => await _client.PostAsync(path, content));
+        }
+        private Task<HttpResponseMessage> DeleteAsync(string path)
+        {
+            _logger.LogInformation($"RechargeSharp DELETE: {path}");
+            return AsyncRetryPolicy.ExecuteAsync(async () => await _client.DeleteAsync(path));
+        }
+
+        protected void ValidateModel(object objectToValidate)
+        {
+            var context = new ValidationContext(objectToValidate);
+            var results = new List<ValidationResult>();
+
+            if (!Validator.TryValidateObject(objectToValidate, context, results, true))
+            {
+                throw new ArgumentException(string.Join(", ", results), nameof(objectToValidate));
+            }
         }
     }
 }

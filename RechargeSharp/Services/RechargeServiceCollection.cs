@@ -29,6 +29,12 @@ namespace Microsoft.Extensions.DependencyInjection
                 opts.BaseAddress = new Uri("https://api.rechargeapps.com/");
             });
 
+            services.AddHttpClient("RechargeSharpWebhookClient", (services, opts) =>
+            {
+                opts.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                opts.BaseAddress = new Uri("https://api.rechargeapps.com/");
+            });
+
             services.AddTransient(x => options);
             services.AddLogging();
 

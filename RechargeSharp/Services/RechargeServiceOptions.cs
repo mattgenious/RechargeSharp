@@ -8,9 +8,15 @@ namespace RechargeSharp.Services
     public class RechargeServiceOptions
     {
         public IEnumerable<string> ApiKeyArray;
+        public string WebhookApiKey;
         private int _index = 0;
         private bool _ordered = false;
         private int _count = 0;
+
+        public string GetWebhookApiKey()
+        {
+            return WebhookApiKey;
+        }
 
         public string GetApiKey()
         {
