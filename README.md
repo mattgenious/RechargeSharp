@@ -6,19 +6,44 @@ Please feel free to submit issues and pull requests on github
 ## Quickstart
 
 ### Dependency injection
+
+If you set up your appsettings.json like this:
+```json
+{  
+    "RechargeConfiguration": {
+    "ApiKey": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "Url": "https://api.rechargeapps.com/"
+  }
+}
+
+```
+
 Add RechargeSharp to dependency injection.
 After that the services will be constructor injected.
+
+
 
 ```cs
 // this example shows how you can get a list of api keys from configuration that the services will swap between automatically when encountering throttling.
 services.AddRechargeSharp(opts =>
                 {
                     opts.ApiKeyArray = _configuration.GetSection("RechargeConfiguration:ApiKey").GetChildren().Select(x => x.Value).ToArray();
+                    opts.WebhookApiKey = _configuration["RechargeConfiguration:ApiKey:0"];
                 })
 ```
+
 ```cs
 // if you only have 1 api key you wish to work with you can do the following.
-services.AddRechargeSharp(opts => opts.ApiKeyArray = new[] { "apikey" })
+services.AddRechargeSharp(opts => 
+                {
+                    opts.ApiKeyArray = new[] { "apikey" });
+                    opts.WebhookApiKey = "apikey";
+                }
 ```
 
 
