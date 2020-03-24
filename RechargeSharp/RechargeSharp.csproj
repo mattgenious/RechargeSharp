@@ -4,18 +4,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.2.8</Version>
-    <AssemblyVersion>3.2.8.0</AssemblyVersion>
+    <Version>4.0.0-alpha.7</Version>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>3.2.8.0</FileVersion>
+    <FileVersion>4.0.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Made AddressIsActive in order nullable as it was discovered to be nullable by a serialization error.</PackageReleaseNotes>
+    <PackageReleaseNotes>Remade targeting dependency injection with a single extension method called AddRechargeSharp and RechargeServiceOptions containing a list of apikeys allowing for automatic swapping of api keys on throttling(429) responses from recharge.</PackageReleaseNotes>
     <PackageIconUrl>https://user-images.githubusercontent.com/3007300/64613121-ab7b7380-d3d5-11e9-9703-126f3448863b.png</PackageIconUrl>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>

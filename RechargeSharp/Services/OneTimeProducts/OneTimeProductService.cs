@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.One_Time_Products;
 
@@ -9,13 +12,13 @@ namespace RechargeSharp.Services.OneTimeProducts
 {
     public class OneTimeProductService : RechargeSharpService
     {
-        public OneTimeProductService(string apiKey) : base(apiKey)
+        public OneTimeProductService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
         }
 
         public async Task<bool> OneTimeProductExistsAsync(long id)
         {
-            var response = await GetAllowNotFoundAsync($"/onetimes/{id}").ConfigureAwait(false);
+            var response = await GetAsync($"/onetimes/{id}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
 

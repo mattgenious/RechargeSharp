@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Addresses;
 using RechargeSharp.Entities.Shared;
@@ -12,13 +15,13 @@ namespace RechargeSharp.Services.Addresses
 {
     public class AddressService : RechargeSharpService
     {
-        public AddressService(string apiKey) : base(apiKey)
+        public AddressService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
         }
 
         public async Task<bool> AddressExistsAsync(long id)
         {
-            var response = await GetAllowNotFoundAsync($"/addresses/{id}").ConfigureAwait(false);
+            var response = await GetAsync($"/addresses/{id}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
 
@@ -154,5 +157,7 @@ namespace RechargeSharp.Services.Addresses
         {
             var response = await DeleteAsync($"/addresses/{id}").ConfigureAwait(false);
         }
+
+
     }
 }

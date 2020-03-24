@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Metafields;
 using RechargeSharp.Entities.Shared;
@@ -10,12 +13,13 @@ namespace RechargeSharp.Services.Metafields
 {
     public class MetafieldService : RechargeSharpService
     {
-        public MetafieldService(string apiKey) : base(apiKey)
+        public MetafieldService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
         }
+
         public async Task<bool> MetafieldExistsAsync(long id)
         {
-            var response = await GetAllowNotFoundAsync($"/metafields/{id}").ConfigureAwait(false);
+            var response = await GetAsync($"/metafields/{id}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
 

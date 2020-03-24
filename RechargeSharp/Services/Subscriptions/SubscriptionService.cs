@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Orders;
 using RechargeSharp.Entities.Shared;
@@ -11,13 +14,13 @@ namespace RechargeSharp.Services.Subscriptions
 {
     public class SubscriptionService : RechargeSharpService
     {
-        public SubscriptionService(string apiKey) : base(apiKey)
+        public SubscriptionService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
         }
 
         public async Task<bool> SubscriptionExistsAsync(long id)
         {
-            var response = await GetAllowNotFoundAsync($"/subscriptions/{id}").ConfigureAwait(false);
+            var response = await GetAsync($"/subscriptions/{id}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
 

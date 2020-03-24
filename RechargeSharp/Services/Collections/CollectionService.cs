@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Collections;
 using RechargeSharp.Entities.Shared;
@@ -10,13 +13,13 @@ namespace RechargeSharp.Services.Collections
 {
     public class CollectionService : RechargeSharpService
     {
-        public CollectionService(string apiKey) : base(apiKey)
+        public CollectionService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
         }
 
         public async Task<bool> CollectionExistsAsync(long id)
         {
-            var response = await GetAllowNotFoundAsync($"/collections/{id}").ConfigureAwait(false);
+            var response = await GetAsync($"/collections/{id}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
 

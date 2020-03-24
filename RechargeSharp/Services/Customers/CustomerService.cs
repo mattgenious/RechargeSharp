@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Customers;
 using RechargeSharp.Entities.Shared;
@@ -10,13 +13,13 @@ namespace RechargeSharp.Services.Customers
 {
     public class CustomerService : RechargeSharpService
     {
-        public CustomerService(string apiKey) : base(apiKey)
+        public CustomerService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
         }
 
         public async Task<bool> CustomerExistsAsync(long id)
         {
-            var response = await GetAllowNotFoundAsync($"/customers/{id}").ConfigureAwait(false);
+            var response = await GetAsync($"/customers/{id}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
 

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Addresses;
 using RechargeSharp.Entities.Checkouts;
@@ -10,13 +13,13 @@ namespace RechargeSharp.Services.Checkouts
 {
     public class CheckoutService : RechargeSharpService
     {
-        public CheckoutService(string apiKey) : base(apiKey)
+        public CheckoutService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
         }
 
         public async Task<bool> CheckoutExistsAsync(string token)
         {
-            var response = await GetAllowNotFoundAsync($"/checkouts/{token}").ConfigureAwait(false);
+            var response = await GetAsync($"/checkouts/{token}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
 

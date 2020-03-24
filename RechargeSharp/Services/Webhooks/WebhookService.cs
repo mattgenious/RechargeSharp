@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Addresses;
 using RechargeSharp.Entities.Webhooks;
@@ -11,13 +13,13 @@ namespace RechargeSharp.Services.Webhooks
 {
     public class WebhookService : RechargeSharpService
     {
-        public WebhookService(string apiKey) : base(apiKey)
+        public WebhookService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
         }
 
         public async Task<bool> WebhookExistsAsync(long id)
         {
-            var response = await GetAllowNotFoundAsync($"/webhooks/{id}");
+            var response = await GetAsync($"/webhooks/{id}");
             return response.IsSuccessStatusCode;
         }
 

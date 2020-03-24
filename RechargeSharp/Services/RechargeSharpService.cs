@@ -4,10 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 using Polly;
 using Polly.Retry;
 
@@ -15,45 +14,35 @@ namespace RechargeSharp.Services
 {
     public class RechargeSharpService
     {
-        protected readonly HttpClient HttpClient;
         protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicy;
-        protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicyAllowNotFound;
-        protected readonly ILogger<RechargeSharpService> Logger;
-        protected RechargeSharpService(string apiKey, ILogger<RechargeSharpService>? logger)
+
+        private readonly ILogger<RechargeSharpService> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly RechargeServiceOptions _rechargeServiceOptions;
+        private readonly HttpClient _client;
+        protected RechargeSharpService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions)
         {
-            Logger = logger;
+            _logger = logger;
+            _httpClientFactory = httpClientFactory;
+            _rechargeServiceOptions = rechargeServiceOptions.Value;
 
-            HttpClient = new HttpClient();
-            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpClient.DefaultRequestHeaders.Add("X-Recharge-Access-Token", apiKey);
-            HttpClient.BaseAddress = new Uri("https://api.rechargeapps.com/");
-            AsyncRetryPolicy = Policy.HandleResult<HttpResponseMessage>( x =>
+            _client = _httpClientFactory.CreateClient("RechargeSharpClient");
+            _client.DefaultRequestHeaders.Remove("X-Recharge-Access-Token");
+            _client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", _rechargeServiceOptions.GetApiKey());
+
+            AsyncRetryPolicy = Policy.HandleResult<HttpResponseMessage>(x =>
             {
                 if (!x.IsSuccessStatusCode)
                 {
-                    if (Logger != null)
+                    _logger.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                    if (x.StatusCode == HttpStatusCode.TooManyRequests)
                     {
-                        Logger.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                        var newApiKey = _rechargeServiceOptions.GetApiKey();
+                        _client.DefaultRequestHeaders.Remove("X-Recharge-Access-Token");
+                        _client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", newApiKey);
+                        _logger.LogInformation($"changed apikey to: {newApiKey}");
+                        return true;
                     }
-                    if ((int)x.StatusCode > 399 && x.StatusCode != HttpStatusCode.TooManyRequests)
-                    {
-                        throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                    }
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }).WaitAndRetryForeverAsync(
-                retryAttempt => 
-                    TimeSpan.FromSeconds(1));
-
-            AsyncRetryPolicyAllowNotFound = Policy.HandleResult<HttpResponseMessage>(x =>
-            {
-                if (!x.IsSuccessStatusCode)
-                {
-                    Logger?.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     if ((int)x.StatusCode > 399 && x.StatusCode != HttpStatusCode.TooManyRequests && (x.StatusCode != HttpStatusCode.NotFound && x.RequestMessage.Method != HttpMethod.Get))
                     {
                         throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
@@ -74,32 +63,29 @@ namespace RechargeSharp.Services
                     TimeSpan.FromSeconds(3));
         }
 
-        protected RechargeSharpService(string apiKey) : this(apiKey, null)
-        {
-        }
-        protected Task<HttpResponseMessage> GetAllowNotFoundAsync(string path)
-        {
-            return AsyncRetryPolicyAllowNotFound.ExecuteAsync(async () => await HttpClient.GetAsync(path));
-        }
         protected Task<HttpResponseMessage> GetAsync(string path)
         {
-            return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.GetAsync(path));
+            _logger.LogInformation($"RechargeSharp GET: {path}");
+            return AsyncRetryPolicy.ExecuteAsync(async () => await _client.GetAsync(path));
         }
         protected Task<HttpResponseMessage> PutAsJsonAsync(string path, string jsonData)
         {
+            _logger.LogInformation($"RechargeSharp PUT: {path}\r\nJSONDATA: {jsonData}");
             var content = new StringContent(jsonData);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PutAsync(path, content));
+            return AsyncRetryPolicy.ExecuteAsync(async () => await _client.PutAsync(path, content));
         }
         protected Task<HttpResponseMessage> PostAsJsonAsync(string path, string jsonData)
         {
+            _logger.LogInformation($"RechargeSharp POST: {path}\r\nJSONDATA: {jsonData}");
             var content = new StringContent(jsonData);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.PostAsync(path, content));
+            return AsyncRetryPolicy.ExecuteAsync(async () => await _client.PostAsync(path, content));
         }
         protected Task<HttpResponseMessage> DeleteAsync(string path)
         {
-            return AsyncRetryPolicy.ExecuteAsync(async () => await HttpClient.DeleteAsync(path));
+            _logger.LogInformation($"RechargeSharp DELETE: {path}");
+            return AsyncRetryPolicy.ExecuteAsync(async () => await _client.DeleteAsync(path));
         }
 
         protected void ValidateModel(object objectToValidate)

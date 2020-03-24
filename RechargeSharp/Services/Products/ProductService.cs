@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Products;
 using RechargeSharp.Entities.Shared;
@@ -11,13 +14,13 @@ namespace RechargeSharp.Services.Products
 {
     public class ProductService : RechargeSharpService
     {
-        public ProductService(string apiKey) : base(apiKey)
+        public ProductService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
         }
 
         public async Task<bool> ProductExistsAsync(long id)
         {
-            var response = await GetAllowNotFoundAsync($"/products/{id}").ConfigureAwait(false);
+            var response = await GetAsync($"/products/{id}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
         public async Task<Product> GetProductAsync(long id)

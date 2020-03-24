@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Addresses;
 using RechargeSharp.Entities.Charges;
@@ -13,13 +16,13 @@ namespace RechargeSharp.Services.Discounts
 {
     public class DiscountService : RechargeSharpService
     {
-        public  DiscountService(string apiKey) : base(apiKey)
+        public DiscountService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
         }
 
         public async Task<bool> DiscountExistsAsync(long id)
         {
-            var response = await GetAllowNotFoundAsync($"/discounts/{id}").ConfigureAwait(false);
+            var response = await GetAsync($"/discounts/{id}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
         public async Task<Discount> GetDiscountAsync(long id)
