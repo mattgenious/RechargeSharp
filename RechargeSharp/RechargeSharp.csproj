@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.0.0-beta.2</Version>
+    <Version>4.0.0</Version>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
@@ -15,7 +15,7 @@
     <FileVersion>4.0.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Jensen</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Added specific webhook and webhook implementation of rechargesharpservice as webhooks are registered related to the api key that registers it and will only be visible for said api key, therefore it is important that the api key used for webhooks is always the same even if throttled.</PackageReleaseNotes>
+    <PackageReleaseNotes>Full release.</PackageReleaseNotes>
     <PackageIconUrl>https://user-images.githubusercontent.com/3007300/64613121-ab7b7380-d3d5-11e9-9703-126f3448863b.png</PackageIconUrl>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
