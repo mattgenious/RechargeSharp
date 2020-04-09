@@ -44,6 +44,10 @@ namespace RechargeSharp.Services
             {
                 var returnVal = ApiKeyArray.Skip(_index).First();
                 _index++;
+                if (string.IsNullOrEmpty(returnVal))
+                {
+                    return GetApiKey();
+                }
                 return returnVal;
             }
             else

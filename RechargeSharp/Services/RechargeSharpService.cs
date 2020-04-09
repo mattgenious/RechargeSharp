@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -26,15 +27,21 @@ namespace RechargeSharp.Services
             _httpClientFactory = httpClientFactory;
             _rechargeServiceOptions = rechargeServiceOptions.Value;
 
+            var apiKey = _rechargeServiceOptions.GetApiKey();
+
             _client = _httpClientFactory.CreateClient("RechargeSharpClient");
             _client.DefaultRequestHeaders.Remove("X-Recharge-Access-Token");
-            _client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", _rechargeServiceOptions.GetApiKey());
+            _client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", apiKey);
 
             AsyncRetryPolicy = Policy.HandleResult<HttpResponseMessage>(x =>
             {
                 if (!x.IsSuccessStatusCode)
                 {
                     _logger.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                    if ((int)x.StatusCode == 401)
+                    {
+                        throw new UnauthorizedAccessException($"Api key starts with: {apiKey.Take(4)} was unauthorized");
+                    }
                     if (x.StatusCode == HttpStatusCode.TooManyRequests)
                     {
                         var newApiKey = _rechargeServiceOptions.GetApiKey();
