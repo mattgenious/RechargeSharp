@@ -37,6 +37,7 @@ namespace RechargeSharp.Services
             {
                 if (!x.IsSuccessStatusCode)
                 {
+                    _logger.LogError("X-Request-Id:" + string.Join(",", x.Headers.GetValues("X-Request-Id")));
                     _logger.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     if ((int)x.StatusCode == 401)
                     {
