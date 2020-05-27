@@ -25,44 +25,46 @@ namespace RechargeSharp.Entities.Orders
 
         public override int GetHashCode()
         {
-            var hashCode = new HashCode();
-            hashCode.Add(AddressId);
-            hashCode.Add(AddressIsActive);
-            hashCode.Add(BillingAddress);
-            hashCode.Add(ChargeId);
-            hashCode.Add(ChargeStatus);
-            hashCode.Add(CreatedAt);
-            hashCode.Add(CustomerId);
-            hashCode.Add(Email);
-            hashCode.Add(FirstName);
-            hashCode.Add(Hash);
-            hashCode.Add(Id);
-            hashCode.Add(IsPrepaid);
-            hashCode.Add(LastName);
-            hashCode.Add(Note);
-            hashCode.Add(PaymentProcessor);
-            hashCode.Add(ProcessedAt);
-            hashCode.Add(ScheduledAt);
-            hashCode.Add(ShippedDate);
-            hashCode.Add(ShippingAddress);
-            hashCode.Add(ShippingDate);
-            hashCode.Add(ShopifyCartToken);
-            hashCode.Add(ShopifyId);
-            hashCode.Add(ShopifyOrderId);
-            hashCode.Add(ShopifyOrderNumber);
-            hashCode.Add(Status);
-            hashCode.Add(SubtotalPrice);
-            hashCode.Add(Tags);
-            hashCode.Add(TotalDiscounts);
-            hashCode.Add(TotalLineItemsPrice);
-            hashCode.Add(TotalPrice);
-            hashCode.Add(TotalRefunds);
-            hashCode.Add(TotalTax);
-            hashCode.Add(TotalWeight);
-            hashCode.Add(TransactionId);
-            hashCode.Add(Type);
-            hashCode.Add(UpdatedAt);
-            return hashCode.ToHashCode();
+            unchecked
+            {
+                var hashCode = AddressId.GetHashCode();
+                hashCode = (hashCode * 397) ^ AddressIsActive.GetHashCode();
+                hashCode = (hashCode * 397) ^ (BillingAddress != null ? BillingAddress.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ChargeId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (ChargeStatus != null ? ChargeStatus.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ CustomerId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Email != null ? Email.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Hash != null ? Hash.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Id.GetHashCode();
+                hashCode = (hashCode * 397) ^ IsPrepaid.GetHashCode();
+                hashCode = (hashCode * 397) ^ (LastName != null ? LastName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Note != null ? Note.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (PaymentProcessor != null ? PaymentProcessor.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ProcessedAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ ScheduledAt.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShippedDate.GetHashCode();
+                hashCode = (hashCode * 397) ^ (ShippingAddress != null ? ShippingAddress.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ShippingDate.GetHashCode();
+                hashCode = (hashCode * 397) ^ (ShopifyCartToken != null ? ShopifyCartToken.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ShopifyId != null ? ShopifyId.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ShopifyOrderId != null ? ShopifyOrderId.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ShopifyOrderNumber.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ SubtotalPrice.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Tags != null ? Tags.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ TotalDiscounts.GetHashCode();
+                hashCode = (hashCode * 397) ^ TotalLineItemsPrice.GetHashCode();
+                hashCode = (hashCode * 397) ^ TotalPrice.GetHashCode();
+                hashCode = (hashCode * 397) ^ TotalRefunds.GetHashCode();
+                hashCode = (hashCode * 397) ^ TotalTax.GetHashCode();
+                hashCode = (hashCode * 397) ^ TotalWeight.GetHashCode();
+                hashCode = (hashCode * 397) ^ (TransactionId != null ? TransactionId.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Type != null ? Type.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
+                return hashCode;
+            }
         }
 
         [JsonProperty("address_id")]

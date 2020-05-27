@@ -38,7 +38,7 @@ namespace RechargeSharp.Services.Webhooks
                 if (!x.IsSuccessStatusCode)
                 {
                     _logger.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                    if ((int)x.StatusCode > 399 && x.StatusCode != HttpStatusCode.TooManyRequests && (x.StatusCode != HttpStatusCode.NotFound && x.RequestMessage.Method != HttpMethod.Get))
+                    if ((int)x.StatusCode > 399 && (int)x.StatusCode != 429 && (x.StatusCode != HttpStatusCode.NotFound && x.RequestMessage.Method != HttpMethod.Get))
                     {
                         throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     }
