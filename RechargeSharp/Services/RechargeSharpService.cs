@@ -43,7 +43,7 @@ namespace RechargeSharp.Services
                     {
                         throw new UnauthorizedAccessException($"Api key starts with: {apiKey.Take(4)} was unauthorized");
                     }
-                    if ((int)x.StatusCode == 429)
+                    if (x.StatusCode == HttpStatusCode.TooManyRequests)
                     {
                         var newApiKey = _rechargeServiceOptions.GetApiKey();
                         _client.DefaultRequestHeaders.Remove("X-Recharge-Access-Token");
@@ -51,7 +51,7 @@ namespace RechargeSharp.Services
                         _logger.LogInformation($"changed apikey to: {newApiKey}");
                         return true;
                     }
-                    if ((int)x.StatusCode > 399 && (int)x.StatusCode != 429 && (x.StatusCode != HttpStatusCode.NotFound && x.RequestMessage.Method != HttpMethod.Get))
+                    if ((int)x.StatusCode > 399 && x.StatusCode != HttpStatusCode.TooManyRequests && (x.StatusCode != HttpStatusCode.NotFound && x.RequestMessage.Method != HttpMethod.Get))
                     {
                         throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     }
