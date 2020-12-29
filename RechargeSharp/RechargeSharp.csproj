@@ -4,20 +4,21 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.1.2</Version>
-    <AssemblyVersion>4.1.2.0</AssemblyVersion>
+    <Version>4.1.3</Version>
+    <AssemblyVersion>4.1.3.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>4.1.2.0</FileVersion>
-    <Authors>Matt Luccas Phaure Jensen</Authors>
+    <FileVersion>4.1.3.0</FileVersion>
+    <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
     <PackageReleaseNotes>fixed bug where order can have a null as charge_id</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
+    <Company>Matt Luccas Phaure MinetMatt Luccas Phaure Minet</Company>
   </PropertyGroup>
 
   <ItemGroup>
