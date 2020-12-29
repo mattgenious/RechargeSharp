@@ -55,19 +55,19 @@ namespace RechargeSharp.Entities.Customers
         public Address BillingAddress { get; set; }
 
         [JsonProperty("cardholder_name")]
-        public object CardholderName { get; set; }
+        public string CardholderName { get; set; }
 
         [JsonProperty("card_brand")]
-        public object CardBrand { get; set; }
+        public string CardBrand { get; set; }
 
         [JsonProperty("card_exp_month")]
-        public object CardExpMonth { get; set; }
+        public long? CardExpMonth { get; set; }
 
         [JsonProperty("card_exp_year")]
-        public object CardExpYear { get; set; }
+        public long? CardExpYear { get; set; }
 
         [JsonProperty("card_last4")]
-        public object CardLast4 { get; set; }
+        public string CardLast4 { get; set; }
 
         [JsonProperty("customer_id")]
         public long? CustomerId { get; set; }
@@ -88,6 +88,6 @@ namespace RechargeSharp.Entities.Customers
         public string Status { get; set; }
 
         [JsonProperty("status_reason")]
-        public object StatusReason { get; set; }
+        public string StatusReason { get; set; }
     }
 }
