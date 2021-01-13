@@ -78,7 +78,7 @@ namespace RechargeSharp.Entities.Charges
         public long AddressId { get; set; }
 
         [JsonProperty("analytics_data")]
-        public ChargeAnalyticsData AnalyticsData { get; set; }
+        public AnalyticsData AnalyticsData { get; set; }
 
         [JsonProperty("billing_address")]
         public Address BillingAddress { get; set; }
