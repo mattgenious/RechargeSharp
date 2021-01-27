@@ -68,7 +68,7 @@ namespace RechargeSharp.Entities.Discounts
         [JsonProperty("value")]
         public long? Value { get; set; }
 
-        [StringValues(AllowableValues = new[] { "shopify_product", "shopify_collection_id" })]
+        [StringValues(AllowableValues = new[] { "shopify_product", "shopify_collection_id", null })]
         [JsonProperty("applies_to_resource", NullValueHandling = NullValueHandling.Ignore)]
         public string AppliesToResource { get; set; }
 
@@ -86,8 +86,8 @@ namespace RechargeSharp.Entities.Discounts
         [StringValues(AllowableValues = new[] { "forever", "usage_limit", "single_use" })]
         [JsonProperty("duration")]
         public string Duration { get; set; }
-
-        [Required]
+        
+        // is required when duration has value usage_limit
         [JsonProperty("duration_usage_limit")]
         public long? DurationUsageLimit { get; set; }
 
