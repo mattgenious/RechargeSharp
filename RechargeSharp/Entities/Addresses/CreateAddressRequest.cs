@@ -9,49 +9,7 @@ namespace RechargeSharp.Entities.Addresses
 {
     public class CreateAddressRequest : IEquatable<CreateAddressRequest>
     {
-        public bool Equals(CreateAddressRequest other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Address1 == other.Address1 && Address2 == other.Address2 && City == other.City && Province == other.Province && FirstName == other.FirstName && LastName == other.LastName && Zip == other.Zip && Company == other.Company && Phone == other.Phone && CartNote == other.CartNote && Country == other.Country;
-        }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((CreateAddressRequest) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = (Address1 != null ? Address1.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Address2 != null ? Address2.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (City != null ? City.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Province != null ? Province.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (LastName != null ? LastName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Zip != null ? Zip.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Company != null ? Company.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Phone != null ? Phone.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (CartNote != null ? CartNote.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Country != null ? Country.GetHashCode() : 0);
-                return hashCode;
-            }
-        }
-
-        public static bool operator ==(CreateAddressRequest left, CreateAddressRequest right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(CreateAddressRequest left, CreateAddressRequest right)
-        {
-            return !Equals(left, right);
-        }
 
         [Required]
         [JsonProperty("address1")]
@@ -67,9 +25,8 @@ namespace RechargeSharp.Entities.Addresses
         [Required(AllowEmptyStrings = true)]
         [JsonProperty("province")]
         public string Province { get; set; }
-
-        [Required]
-        [JsonProperty("first_name")]
+        
+        [JsonProperty("first_name", NullValueHandling = NullValueHandling.Ignore)]
         public string FirstName { get; set; }
 
         [Required]
@@ -94,10 +51,49 @@ namespace RechargeSharp.Entities.Addresses
         [JsonProperty("country")]
         public string Country { get; set; }
 
-        [JsonProperty("original_shipping_lines", NullValueHandling = NullValueHandling.Ignore)]
-        public IEnumerable<ShippingLine> OriginalShippingLines { get; set; }
-
         [JsonProperty("shipping_lines_override", NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<ShippingLine> ShippingLinesOverride { get; set; }
+
+        public bool Equals(CreateAddressRequest other)
+        {
+	        if (ReferenceEquals(null, other)) return false;
+	        if (ReferenceEquals(this, other)) return true;
+	        return Address1 == other.Address1 && Address2 == other.Address2 && City == other.City && Province == other.Province && FirstName == other.FirstName && LastName == other.LastName && Zip == other.Zip && Company == other.Company && Phone == other.Phone && CartNote == other.CartNote && Country == other.Country;
+        }
+
+        public override bool Equals(object obj)
+        {
+	        if (ReferenceEquals(null, obj)) return false;
+	        if (ReferenceEquals(this, obj)) return true;
+	        if (obj.GetType() != this.GetType()) return false;
+	        return Equals((CreateAddressRequest) obj);
+        }
+
+        public override int GetHashCode()
+        {
+	        var hashCode = new HashCode();
+	        hashCode.Add(Address1);
+	        hashCode.Add(Address2);
+	        hashCode.Add(City);
+	        hashCode.Add(Province);
+	        hashCode.Add(FirstName);
+	        hashCode.Add(LastName);
+	        hashCode.Add(Zip);
+	        hashCode.Add(Company);
+	        hashCode.Add(Phone);
+	        hashCode.Add(CartNote);
+	        hashCode.Add(Country);
+	        return hashCode.ToHashCode();
+        }
+
+        public static bool operator ==(CreateAddressRequest left, CreateAddressRequest right)
+        {
+	        return Equals(left, right);
+        }
+
+        public static bool operator !=(CreateAddressRequest left, CreateAddressRequest right)
+        {
+	        return !Equals(left, right);
+        }
     }
 }
