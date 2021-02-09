@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using RechargeSharp.Entities.Subscriptions;
 
 namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
 {
@@ -38,6 +39,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
         }
 
         [JsonProperty("subscription")]
-        public WebhookSubscription Subscription { get; set; }
+        public Subscription Subscription { get; set; }
     }
 }
