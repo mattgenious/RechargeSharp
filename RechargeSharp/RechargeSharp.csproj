@@ -15,7 +15,7 @@
     <FileVersion>4.4.2.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Replaced WebhookSubscription with Subscription as it was essentially the same structure.</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated newtonsoft, fixed api key snippet when reporting unauthorized response</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
     <Company>Matt Luccas Phaure MinetMatt Luccas Phaure Minet</Company>
