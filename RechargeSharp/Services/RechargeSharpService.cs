@@ -41,7 +41,7 @@ namespace RechargeSharp.Services
                     _logger.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     if ((int)x.StatusCode == 401)
                     {
-                        throw new UnauthorizedAccessException($"Api key starts with: {apiKey.Take(4)} was unauthorized");
+                        throw new UnauthorizedAccessException($"Api key starts with: {apiKey.Take(4).ToArray()} was unauthorized");
                     }
                     if (x.StatusCode == HttpStatusCode.TooManyRequests)
                     {
