@@ -1,0 +1,40 @@
+using RechargeSharp.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
+
+namespace RechargeSharpTests
+{
+    public class RechargeSharpOptionsTest
+    {
+        private RechargeServiceOptions _sut;
+
+        public RechargeSharpOptionsTest()
+        {
+            var guidStringList = new List<string>();
+            for (int i = 0; i < 10; i++)
+            {
+                guidStringList.Add(Guid.NewGuid().ToString());
+            }
+            
+            guidStringList.Add("");
+
+            _sut = new RechargeServiceOptions()
+            {
+                ApiKeyArray = guidStringList,
+                WebhookApiKey = guidStringList.First()
+            };
+        }
+
+        [Fact]
+        public void Test1()
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                var token = _sut.GetApiKey();
+                Assert.True(!string.IsNullOrEmpty(token));
+            }
+        }
+    }
+}
