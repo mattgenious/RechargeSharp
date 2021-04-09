@@ -4,15 +4,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.4.3</Version>
-    <AssemblyVersion>4.4.3.0</AssemblyVersion>
+    <Version>4.4.4</Version>
+    <AssemblyVersion>4.4.4.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>4.4.3.0</FileVersion>
+    <FileVersion>4.4.4.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
     <PackageReleaseNotes>This time really fixed apikey snippet in unauthorized message</PackageReleaseNotes>

@@ -37,6 +37,8 @@ namespace RechargeSharp.Services
             {
                 if (!x.IsSuccessStatusCode)
                 {
+                    _logger.LogError(x.RequestMessage.ToString());
+                    _logger.LogError(x.ToString());
                     _logger.LogError("X-Request-Id:" + string.Join(",", x.Headers.GetValues("X-Request-Id")));
                     _logger.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     if ((int)x.StatusCode == 401)
@@ -45,10 +47,10 @@ namespace RechargeSharp.Services
                     }
                     if (x.StatusCode == HttpStatusCode.TooManyRequests)
                     {
-                        var newApiKey = _rechargeServiceOptions.GetApiKey();
+                        apiKey = _rechargeServiceOptions.GetApiKey();
                         _client.DefaultRequestHeaders.Remove("X-Recharge-Access-Token");
-                        _client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", newApiKey);
-                        _logger.LogInformation($"changed apikey to: {newApiKey}");
+                        _client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", apiKey);
+                        _logger.LogInformation($"changed apikey to: {apiKey}");
                         return true;
                     }
                     if ((int)x.StatusCode > 399 && x.StatusCode != HttpStatusCode.TooManyRequests && (x.StatusCode != HttpStatusCode.NotFound && x.RequestMessage.Method != HttpMethod.Get))
