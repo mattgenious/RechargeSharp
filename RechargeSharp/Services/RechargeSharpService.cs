@@ -27,6 +27,7 @@ namespace RechargeSharp.Services
             _httpClientFactory = httpClientFactory;
             _rechargeServiceOptions = rechargeServiceOptions.Value;
             _random = new Random();
+            _clients = new List<HttpClient>();
 
             foreach (var apiKey in _rechargeServiceOptions.ApiKeyArray)
             {
