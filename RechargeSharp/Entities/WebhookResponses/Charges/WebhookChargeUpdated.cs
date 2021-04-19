@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
-using RechargeSharp.Entities.Charges;
-using RechargeSharp.Entities.Shared;
+﻿using RechargeSharp.Entities.Charges;
 
 namespace RechargeSharp.Entities.WebhookResponses.Charges
 {

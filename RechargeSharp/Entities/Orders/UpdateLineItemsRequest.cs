@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using Newtonsoft.Json;
-using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Orders
 {

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Checkouts;
-using RechargeSharp.Entities.Customers;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.WebhookResponses.Checkouts

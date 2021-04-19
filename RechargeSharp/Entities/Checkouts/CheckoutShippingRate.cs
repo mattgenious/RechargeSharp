@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.Shared
+namespace RechargeSharp.Entities.Checkouts
 {
     public class CheckoutShippingRate : IEquatable<CheckoutShippingRate>
     {

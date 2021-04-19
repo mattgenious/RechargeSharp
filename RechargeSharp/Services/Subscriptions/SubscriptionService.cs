@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using RechargeSharp.Entities.Orders;
 using RechargeSharp.Entities.Shared;
 using RechargeSharp.Entities.Subscriptions;
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -68,7 +67,7 @@ namespace RechargeSharp.Services.Checkouts
         {
             ValidateModel(processCheckoutRequest);
 
-            var response = await PostAsJsonAsync("/checkouts/validate", JsonConvert.SerializeObject(processCheckoutRequest)).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/checkouts/{token}/process", JsonConvert.SerializeObject(processCheckoutRequest), true).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ProcessCheckoutResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).CheckoutCharge;
         }

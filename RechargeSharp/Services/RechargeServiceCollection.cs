@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net.Http.Headers;
-using RechargeSharp.Services;
+using Microsoft.Extensions.DependencyInjection;
 using RechargeSharp.Services.Addresses;
 using RechargeSharp.Services.Charges;
 using RechargeSharp.Services.Checkouts;
@@ -15,7 +15,7 @@ using RechargeSharp.Services.Shops;
 using RechargeSharp.Services.Subscriptions;
 using RechargeSharp.Services.Webhooks;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace RechargeSharp.Services
 {
     public static class RechargeServiceCollection
     {
