@@ -35,7 +35,7 @@ namespace RechargeSharp.Utilities
                 case { } s when s.Equals(ProcessCheckoutErrorMessages.CannotUseMoreThanOnce, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
-                        throw new PaymentException(message);
+                        throw new CheckoutAlreadyProcessedException(message);
                     }
                     break;
                 case { } s when s.Equals(ProcessCheckoutErrorMessages.CardDeclinedDoNotHonor, StringComparison.InvariantCultureIgnoreCase):
