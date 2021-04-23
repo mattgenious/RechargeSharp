@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.5.0-beta.2</Version>
+    <Version>4.5.0-beta.3</Version>
     <AssemblyVersion>4.5.0.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
@@ -15,7 +15,7 @@
     <FileVersion>4.5.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Changed cannot use token more than once exception to checkout already processed exception as it is more fitting.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added fields to checkoutcharge type to accomodate manual SCA.</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
     <Company>Matt Luccas Phaure MinetMatt Luccas Phaure Minet</Company>
