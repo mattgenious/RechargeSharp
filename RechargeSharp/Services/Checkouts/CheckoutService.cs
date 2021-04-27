@@ -67,7 +67,7 @@ namespace RechargeSharp.Services.Checkouts
         {
             ValidateModel(processCheckoutRequest);
 
-            var response = await PostAsJsonAsync($"/checkouts/{token}/process", JsonConvert.SerializeObject(processCheckoutRequest), true).ConfigureAwait(false);
+            var response = await PostAsJsonAsync($"/checkouts/{token}/charge", JsonConvert.SerializeObject(processCheckoutRequest), true).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ProcessCheckoutResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).CheckoutCharge;
         }
