@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.5.0-beta.4</Version>
+    <Version>4.5.0-beta.5</Version>
     <AssemblyVersion>4.5.0.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
@@ -15,7 +15,7 @@
     <FileVersion>4.5.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Changed url for processing checkouts as it was wrong.</PackageReleaseNotes>
+    <PackageReleaseNotes>Since there is a unique request ID in response to failed charges in checkouts we need to use contains instead of equals. Also, updated packages.</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
     <Company>Matt Luccas Phaure MinetMatt Luccas Phaure Minet</Company>
@@ -24,8 +24,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NuGet.Versioning" Version="5.9.0" />
-    <PackageReference Include="Polly" Version="7.2.1" />
+    <PackageReference Include="NuGet.Versioning" Version="5.9.1" />
+    <PackageReference Include="Polly" Version="7.2.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 

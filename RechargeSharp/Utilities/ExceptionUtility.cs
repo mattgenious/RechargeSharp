@@ -14,79 +14,79 @@ namespace RechargeSharp.Utilities
 
             switch (message)
             {
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.AlreadyProcessing, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.AlreadyProcessing, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.Conflict)
                     {
                         throw new ConflictException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.AuthorizationRequired, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.AuthorizationRequired, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
                         throw new ScaException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.CallToRouteAlreadyInProgress, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CallToRouteAlreadyInProgress, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.Conflict)
                     {
                         throw new ConflictException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.CannotUseMoreThanOnce, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CannotUseMoreThanOnce, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
                         throw new CheckoutAlreadyProcessedException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.CardDeclinedDoNotHonor, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CardDeclinedDoNotHonor, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
                         throw new PaymentException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.CardDeclinedGenericDecline, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CardDeclinedGenericDecline, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
                         throw new PaymentException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.CardDeclinedPickupCard, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CardDeclinedPickupCard, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
                         throw new PaymentException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.CardNumberIncorrect, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CardNumberIncorrect, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
                         throw new PaymentException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.CheckoutAlreadyProcessed, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CheckoutAlreadyProcessed, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
                         throw new CheckoutAlreadyProcessedException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.CvcIncorrect, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CvcIncorrect, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
                         throw new PaymentException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.ErrorOccurredTryAgainLater, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.ErrorOccurredTryAgainLater, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
                         throw new TransientErrorException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.InsufficientFunds, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.InsufficientFunds, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
                         throw new PaymentException(message);
                     }
                     break;
-                case { } s when s.Equals(ProcessCheckoutErrorMessages.MaxDeclinesIn24HoursReached, StringComparison.InvariantCultureIgnoreCase):
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.MaxDeclinesIn24HoursReached, StringComparison.InvariantCultureIgnoreCase):
                     if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
                     {
                         throw new PaymentException(message);
