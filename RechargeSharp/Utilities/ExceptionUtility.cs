@@ -92,6 +92,30 @@ namespace RechargeSharp.Utilities
                         throw new PaymentException(message);
                     }
                     break;
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CardExpired, StringComparison.InvariantCultureIgnoreCase):
+                    if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
+                    {
+                        throw new PaymentException(message);
+                    }
+                    break;
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CardLost, StringComparison.InvariantCultureIgnoreCase):
+                    if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
+                    {
+                        throw new PaymentException(message);
+                    }
+                    break;
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CardStolen, StringComparison.InvariantCultureIgnoreCase):
+                    if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
+                    {
+                        throw new PaymentException(message);
+                    }
+                    break;
+                case { } s when s.Contains(ProcessCheckoutErrorMessages.CardDeclinedNonSpecific, StringComparison.InvariantCultureIgnoreCase):
+                    if (responseMessage.StatusCode == HttpStatusCode.UnprocessableEntity)
+                    {
+                        throw new PaymentException(message);
+                    }
+                    break;
             }
 
             if (responseMessage.StatusCode == HttpStatusCode.NotFound)

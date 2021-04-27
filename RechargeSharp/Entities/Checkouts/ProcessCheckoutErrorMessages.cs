@@ -19,5 +19,9 @@ namespace RechargeSharp.Entities.Checkouts
         public static string CheckoutAlreadyProcessed => "Checkout has already been processed.";
         public static string ErrorOccurredTryAgainLater => "An error occurred while processing your card. Try again in a little bit.";
         public static string MaxDeclinesIn24HoursReached => "You have exceeded the maximum number of declines on this card in the last 24 hour period. Please contact us via https://support.stripe.com/contact if you need further assistance.";
+        public static string CardExpired => "Your card has expired.";
+        public static string CardLost => "Your card was declined. decline_code = lost_card";
+        public static string CardStolen => "Your card was declined. decline_code = stolen_card";
+        public static string CardDeclinedNonSpecific => "Your card was declined.";
     }
 }

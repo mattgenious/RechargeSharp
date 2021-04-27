@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.5.0-beta.5</Version>
+    <Version>4.5.0-beta.6</Version>
     <AssemblyVersion>4.5.0.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
@@ -15,7 +15,7 @@
     <FileVersion>4.5.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Since there is a unique request ID in response to failed charges in checkouts we need to use contains instead of equals. Also, updated packages.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added 3 new card decline reasons and a non specific card decline reason.</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
     <Company>Matt Luccas Phaure MinetMatt Luccas Phaure Minet</Company>
