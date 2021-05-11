@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security;
 using Newtonsoft.Json;
-using RechargeSharp.Entities.Charges;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Checkouts

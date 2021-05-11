@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using RechargeSharp.Validation;
 
 namespace RechargeSharp.Entities.Customers
 {

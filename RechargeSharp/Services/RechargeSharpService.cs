@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
 using Polly.Retry;
+using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services
 {
@@ -27,6 +28,7 @@ namespace RechargeSharp.Services
             _httpClientFactory = httpClientFactory;
             _rechargeServiceOptions = rechargeServiceOptions.Value;
             _random = new Random();
+            _clients = new List<HttpClient>();
 
             foreach (var apiKey in _rechargeServiceOptions.ApiKeyArray)
             {
@@ -35,62 +37,35 @@ namespace RechargeSharp.Services
                 _clients.Add(client);
             }
 
-            AsyncRetryPolicy = Policy.HandleResult<HttpResponseMessage>(x =>
-            {
-                if (!x.IsSuccessStatusCode)
-                {
-                    _logger.LogError(x.RequestMessage.ToString());
-                    _logger.LogError(x.ToString());
-                    _logger.LogError("X-Request-Id:" + string.Join(",", x.Headers.GetValues("X-Request-Id")));
-                    _logger.LogError(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-
-                    if ((int)x.StatusCode == 401)
-                    {
-                        throw new UnauthorizedAccessException(x.RequestMessage.ToString());
-                    }
-                    if ((int)x.StatusCode > 399 && x.StatusCode != HttpStatusCode.TooManyRequests && (x.StatusCode != HttpStatusCode.NotFound && x.RequestMessage.Method != HttpMethod.Get))
-                    {
-                        throw new Exception(x.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                    }
-
-                    if (x.StatusCode == HttpStatusCode.NotFound)
-                    {
-                        throw new Exception("Returned 404");
-                    }
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }).WaitAndRetryForeverAsync(
+            AsyncRetryPolicy = Policy.HandleResult<HttpResponseMessage>(HandleHttpResponseMessage).WaitAndRetryForeverAsync(
                 retryAttempt =>
                     TimeSpan.FromSeconds(3));
+
         }
 
-        protected Task<HttpResponseMessage> GetAsync(string path)
+        protected Task<HttpResponseMessage> GetAsync(string path, bool noRetry = false)
         {
             _logger.LogInformation($"RechargeSharp GET: {path}");
-            return AsyncRetryPolicy.ExecuteAsync(async () => await _clients[_random.Next(_clients.Count)].GetAsync(path));
+            return noRetry ? ExecuteSingleRequest(() => GetRandomHttpClient().GetAsync(path)) : AsyncRetryPolicy.ExecuteAsync(() => GetRandomHttpClient().GetAsync(path));
         }
-        protected Task<HttpResponseMessage> PutAsJsonAsync(string path, string jsonData)
+        protected Task<HttpResponseMessage> PutAsJsonAsync(string path, string jsonData, bool noRetry = false)
         {
             _logger.LogInformation($"RechargeSharp PUT: {path}\r\nJSONDATA: {jsonData}");
             var content = new StringContent(jsonData);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            return AsyncRetryPolicy.ExecuteAsync(async () => await _clients[_random.Next(_clients.Count)].PutAsync(path, content));
+            return noRetry ? ExecuteSingleRequest(() => GetRandomHttpClient().PutAsync(path, content)) : AsyncRetryPolicy.ExecuteAsync(() => GetRandomHttpClient().PutAsync(path, content));
         }
-        protected Task<HttpResponseMessage> PostAsJsonAsync(string path, string jsonData)
+        protected Task<HttpResponseMessage> PostAsJsonAsync(string path, string jsonData, bool noRetry = false)
         {
             _logger.LogInformation($"RechargeSharp POST: {path}\r\nJSONDATA: {jsonData}");
             var content = new StringContent(jsonData);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            return AsyncRetryPolicy.ExecuteAsync(async () => await _clients[_random.Next(_clients.Count)].PostAsync(path, content));
+            return noRetry ? ExecuteSingleRequest(() => GetRandomHttpClient().PostAsync(path, content)) : AsyncRetryPolicy.ExecuteAsync(() => GetRandomHttpClient().PostAsync(path, content));
         }
-        protected Task<HttpResponseMessage> DeleteAsync(string path)
+        protected Task<HttpResponseMessage> DeleteAsync(string path, bool noRetry = false)
         {
             _logger.LogInformation($"RechargeSharp DELETE: {path}");
-            return AsyncRetryPolicy.ExecuteAsync(async () => await _clients[_random.Next(_clients.Count)].DeleteAsync(path));
+            return noRetry ? ExecuteSingleRequest(() => GetRandomHttpClient().DeleteAsync(path)) : AsyncRetryPolicy.ExecuteAsync(() => GetRandomHttpClient().DeleteAsync(path));
         }
 
         protected void ValidateModel(object objectToValidate)
@@ -102,6 +77,39 @@ namespace RechargeSharp.Services
             {
                 throw new ArgumentException(string.Join(", ", results), nameof(objectToValidate));
             }
+        }
+
+        private HttpClient GetRandomHttpClient()
+        {
+            return _clients[_random.Next(_clients.Count)];
+        }
+
+        private async Task<HttpResponseMessage> ExecuteSingleRequest(Func<Task<HttpResponseMessage>> funky)
+        {
+            var response = await funky.Invoke();
+
+            HandleHttpResponseMessage(response); 
+
+            return response;
+        }
+
+        private bool HandleHttpResponseMessage(HttpResponseMessage httpResponseMessage)
+        {
+            if (httpResponseMessage.IsSuccessStatusCode) return false;
+
+            LogErrors(httpResponseMessage);
+
+            ExceptionUtility.ThrowIfSuitableExceptionFound(httpResponseMessage);
+
+            return true;
+        }
+
+        private void LogErrors(HttpResponseMessage httpResponseMessage)
+        {
+            _logger.LogError(httpResponseMessage.RequestMessage.ToString());
+            _logger.LogError(httpResponseMessage.ToString());
+            _logger.LogError("X-Request-Id:" + string.Join(",", httpResponseMessage.Headers.GetValues("X-Request-Id")));
+            _logger.LogError(httpResponseMessage.Content.ReadAsStringAsync().GetAwaiter().GetResult());
         }
     }
 }

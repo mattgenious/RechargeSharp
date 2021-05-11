@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Newtonsoft.Json;
-using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Checkouts
 {

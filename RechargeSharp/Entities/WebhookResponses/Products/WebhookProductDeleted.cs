@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.WebhookResponses
+namespace RechargeSharp.Entities.WebhookResponses.Products
 {
     public class WebhookProductDeleted : IEquatable<WebhookProductDeleted>
     {

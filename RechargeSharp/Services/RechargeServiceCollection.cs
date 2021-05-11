@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
-using RechargeSharp.Services;
+using Microsoft.Extensions.DependencyInjection;
 using RechargeSharp.Services.Addresses;
 using RechargeSharp.Services.Charges;
 using RechargeSharp.Services.Checkouts;
@@ -15,7 +16,7 @@ using RechargeSharp.Services.Shops;
 using RechargeSharp.Services.Subscriptions;
 using RechargeSharp.Services.Webhooks;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace RechargeSharp.Services
 {
     public static class RechargeServiceCollection
     {
@@ -27,13 +28,13 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 opts.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 opts.BaseAddress = new Uri("https://api.rechargeapps.com/");
-            });
+            }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() {MaxConnectionsPerServer = 256});
 
             services.AddHttpClient("RechargeSharpWebhookClient", (services, opts) =>
             {
                 opts.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 opts.BaseAddress = new Uri("https://api.rechargeapps.com/");
-            });
+            }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() { MaxConnectionsPerServer = 256 });
 
             services.AddTransient(x => options);
             services.AddLogging();
