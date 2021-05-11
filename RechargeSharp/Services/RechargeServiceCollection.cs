@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.DependencyInjection;
 using RechargeSharp.Services.Addresses;
@@ -27,13 +28,13 @@ namespace RechargeSharp.Services
             {
                 opts.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 opts.BaseAddress = new Uri("https://api.rechargeapps.com/");
-            });
+            }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() {MaxConnectionsPerServer = 256});
 
             services.AddHttpClient("RechargeSharpWebhookClient", (services, opts) =>
             {
                 opts.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 opts.BaseAddress = new Uri("https://api.rechargeapps.com/");
-            });
+            }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() { MaxConnectionsPerServer = 256 });
 
             services.AddTransient(x => options);
             services.AddLogging();
