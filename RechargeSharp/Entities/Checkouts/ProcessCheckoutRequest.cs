@@ -48,5 +48,12 @@ namespace RechargeSharp.Entities.Checkouts
         [Required]
         [JsonProperty("payment_token")]
         public string PaymentToken { get; set; }
+
+        [Required]
+        [JsonProperty("authorization_token", NullValueHandling = NullValueHandling.Ignore)]
+        public string AuthorizationToken { get; set; }
+        
+        [JsonProperty("free", NullValueHandling = NullValueHandling.Ignore)]
+        public bool Free { get; set; }
     }
 }
