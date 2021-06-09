@@ -4,18 +4,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.6.0</Version>
-    <AssemblyVersion>4.6.0.0</AssemblyVersion>
+    <Version>5.0.0-alpha.1</Version>
+    <AssemblyVersion>5.0.0.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>4.6.0.0</FileVersion>
+    <FileVersion>5.0.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Bumped to full version since no problems have been observed.</PackageReleaseNotes>
+    <PackageReleaseNotes>Changed how onetimes work, added the field "add_to_next_charge" to create onetimes request.</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
     <Company>Matt Luccas Phaure MinetMatt Luccas Phaure Minet</Company>
