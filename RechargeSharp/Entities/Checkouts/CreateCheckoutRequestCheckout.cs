@@ -12,7 +12,7 @@ namespace RechargeSharp.Entities.Checkouts
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(ShippingAddress, other.ShippingAddress) && Equals(BillingAddress, other.BillingAddress) && Email == other.Email && Note == other.Note && DiscountCode == other.DiscountCode && Phone == other.Phone && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing;
+            return Equals(ShippingAddress, other.ShippingAddress) && Equals(BillingAddress, other.BillingAddress) && Equals(AnalyticsData, other.AnalyticsData) && Email == other.Email && Note == other.Note && DiscountCode == other.DiscountCode && Phone == other.Phone && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing;
         }
 
         public override bool Equals(object obj)
@@ -29,6 +29,7 @@ namespace RechargeSharp.Entities.Checkouts
             {
                 var hashCode = (ShippingAddress != null ? ShippingAddress.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingAddress != null ? BillingAddress.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (AnalyticsData != null ? AnalyticsData.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Email != null ? Email.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Note != null ? Note.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (DiscountCode != null ? DiscountCode.GetHashCode() : 0);
@@ -78,5 +79,8 @@ namespace RechargeSharp.Entities.Checkouts
 
         [JsonProperty("buyer_accepts_marketing", NullValueHandling = NullValueHandling.Ignore)]
         public bool BuyerAcceptsMarketing { get; set; }
+
+        [JsonProperty("analytics_data", NullValueHandling = NullValueHandling.Ignore)]
+        public AnalyticsData AnalyticsData { get; set; }
     }
 }
