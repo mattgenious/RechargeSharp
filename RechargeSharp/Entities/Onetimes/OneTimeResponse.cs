@@ -1,11 +1,11 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.One_Time_Products
+namespace RechargeSharp.Entities.Onetimes
 {
-    public class OneTimeProductResponse : IEquatable<OneTimeProductResponse>
+    public class OneTimeResponse : IEquatable<OneTimeResponse>
     {
-        public bool Equals(OneTimeProductResponse other)
+        public bool Equals(OneTimeResponse other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -17,7 +17,7 @@ namespace RechargeSharp.Entities.One_Time_Products
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((OneTimeProductResponse) obj);
+            return Equals((OneTimeResponse) obj);
         }
 
         public override int GetHashCode()
@@ -25,17 +25,17 @@ namespace RechargeSharp.Entities.One_Time_Products
             return (OneTimeProduct != null ? OneTimeProduct.GetHashCode() : 0);
         }
 
-        public static bool operator ==(OneTimeProductResponse left, OneTimeProductResponse right)
+        public static bool operator ==(OneTimeResponse left, OneTimeResponse right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(OneTimeProductResponse left, OneTimeProductResponse right)
+        public static bool operator !=(OneTimeResponse left, OneTimeResponse right)
         {
             return !Equals(left, right);
         }
 
         [JsonProperty("onetime")]
-        public OneTimeProduct OneTimeProduct { get; set; }
+        public OneTime OneTimeProduct { get; set; }
     }
 }

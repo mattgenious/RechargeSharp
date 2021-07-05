@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
-namespace RechargeSharp.Entities.One_Time_Products
+namespace RechargeSharp.Entities.Onetimes
 {
-    public class UpdateOneTimeProductRequest : IEquatable<UpdateOneTimeProductRequest>
+    public class UpdateOneTimeRequest : IEquatable<UpdateOneTimeRequest>
     {
-        public bool Equals(UpdateOneTimeProductRequest other)
+        public bool Equals(UpdateOneTimeRequest other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -19,7 +19,7 @@ namespace RechargeSharp.Entities.One_Time_Products
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((UpdateOneTimeProductRequest) obj);
+            return Equals((UpdateOneTimeRequest) obj);
         }
 
         public override int GetHashCode()
@@ -37,12 +37,12 @@ namespace RechargeSharp.Entities.One_Time_Products
             }
         }
 
-        public static bool operator ==(UpdateOneTimeProductRequest left, UpdateOneTimeProductRequest right)
+        public static bool operator ==(UpdateOneTimeRequest left, UpdateOneTimeRequest right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(UpdateOneTimeProductRequest left, UpdateOneTimeProductRequest right)
+        public static bool operator !=(UpdateOneTimeRequest left, UpdateOneTimeRequest right)
         {
             return !Equals(left, right);
         }

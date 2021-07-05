@@ -46,7 +46,7 @@ namespace RechargeSharp.Services
                 .AddTransient<CustomerService>()
                 .AddTransient<DiscountService>()
                 .AddTransient<MetafieldService>()
-                .AddTransient<OneTimeProductService>()
+                .AddTransient<OneTimeService>()
                 .AddTransient<OrderService>()
                 .AddTransient<ProductService>()
                 .AddTransient<ShopService>()

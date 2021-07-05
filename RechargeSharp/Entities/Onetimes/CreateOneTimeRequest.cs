@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
-namespace RechargeSharp.Entities.One_Time_Products
+namespace RechargeSharp.Entities.Onetimes
 {
-    public class CreateOneTimeProductRequest : IEquatable<CreateOneTimeProductRequest>
+    public class CreateOneTimeRequest : IEquatable<CreateOneTimeRequest>
     {
-        public bool Equals(CreateOneTimeProductRequest other)
+        public bool Equals(CreateOneTimeRequest other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -20,7 +20,7 @@ namespace RechargeSharp.Entities.One_Time_Products
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((CreateOneTimeProductRequest) obj);
+            return Equals((CreateOneTimeRequest) obj);
         }
 
         public override int GetHashCode()
@@ -37,15 +37,19 @@ namespace RechargeSharp.Entities.One_Time_Products
             }
         }
 
-        public static bool operator ==(CreateOneTimeProductRequest left, CreateOneTimeProductRequest right)
+        public static bool operator ==(CreateOneTimeRequest left, CreateOneTimeRequest right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(CreateOneTimeProductRequest left, CreateOneTimeProductRequest right)
+        public static bool operator !=(CreateOneTimeRequest left, CreateOneTimeRequest right)
         {
             return !Equals(left, right);
         }
+
+        [Required]
+        [JsonProperty("add_to_next_charge")]
+        public bool? AddToNextCharge { get; set; }
 
         [Required]
         [JsonProperty("next_charge_scheduled_at")]

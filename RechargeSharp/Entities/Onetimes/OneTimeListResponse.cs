@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace RechargeSharp.Entities.One_Time_Products
+namespace RechargeSharp.Entities.Onetimes
 {
-    public class OneTimeProductListResponse : IEquatable<OneTimeProductListResponse>
+    public class OneTimeListResponse : IEquatable<OneTimeListResponse>
     {
-        public bool Equals(OneTimeProductListResponse other)
+        public bool Equals(OneTimeListResponse other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -19,7 +19,7 @@ namespace RechargeSharp.Entities.One_Time_Products
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((OneTimeProductListResponse) obj);
+            return Equals((OneTimeListResponse) obj);
         }
 
         public override int GetHashCode()
@@ -27,17 +27,17 @@ namespace RechargeSharp.Entities.One_Time_Products
             return (OneTimeProducts != null ? OneTimeProducts.GetHashCode() : 0);
         }
 
-        public static bool operator ==(OneTimeProductListResponse left, OneTimeProductListResponse right)
+        public static bool operator ==(OneTimeListResponse left, OneTimeListResponse right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(OneTimeProductListResponse left, OneTimeProductListResponse right)
+        public static bool operator !=(OneTimeListResponse left, OneTimeListResponse right)
         {
             return !Equals(left, right);
         }
 
         [JsonProperty("onetimes")]
-        public IEnumerable<OneTimeProduct> OneTimeProducts { get; set; }
+        public IEnumerable<OneTime> OneTimeProducts { get; set; }
     }
 }
