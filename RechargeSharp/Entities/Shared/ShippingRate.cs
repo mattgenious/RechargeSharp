@@ -63,7 +63,7 @@ namespace RechargeSharp.Entities.Shared
         public string Name { get; set; }
 
         [JsonProperty("phone_required")]
-        public bool PhoneRequired { get; set; }
+        public bool? PhoneRequired { get; set; }
 
         [JsonProperty("price")]
         public string Price { get; set; }
