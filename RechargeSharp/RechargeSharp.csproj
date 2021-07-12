@@ -4,18 +4,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.1.0</Version>
-    <AssemblyVersion>5.1.0.0</AssemblyVersion>
+    <Version>6.0.0</Version>
+    <AssemblyVersion>6.0.0.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>5.1.0.0</FileVersion>
+    <FileVersion>6.0.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Added @jrummels fix for analytics_data in create checkout requests.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added @jonmckinley's fix for phonerequired occasionally returning as null from recharge.</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
     <Company>Matt Luccas Phaure MinetMatt Luccas Phaure Minet</Company>
