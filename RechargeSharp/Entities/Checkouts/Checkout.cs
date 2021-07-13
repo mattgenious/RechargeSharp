@@ -81,7 +81,7 @@ namespace RechargeSharp.Entities.Checkouts
         public ShippingLine ShippingLine { get; set; }
 
         [JsonProperty("shipping_rate")]
-        public List<ShippingRate> ShippingRate { get; set; }
+        public ShippingRate ShippingRate { get; set; }
 
         [JsonProperty("subtotal_price", NullValueHandling = NullValueHandling.Ignore)]
         public string SubtotalPrice { get; set; }
