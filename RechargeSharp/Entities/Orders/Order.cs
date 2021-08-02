@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Orders
@@ -89,7 +90,8 @@ namespace RechargeSharp.Entities.Orders
         public long? ShopifyOrderNumber { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public OrderStatus Status { get; set; }
 
         [JsonProperty("subtotal_price")]
         public decimal? SubtotalPrice { get; set; }

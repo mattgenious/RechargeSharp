@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using RechargeSharp.Entities.Addresses;
 
 namespace RechargeSharp.Entities.WebhookResponses.Addresses
 {
@@ -36,6 +37,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Addresses
         }
 
         [JsonProperty("address")]
-        public WebhookAddress Address { get; set; }
+        public Address Address { get; set; }
     }
 }

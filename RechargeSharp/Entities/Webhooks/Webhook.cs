@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace RechargeSharp.Entities.Webhooks
 {
@@ -26,7 +27,7 @@ namespace RechargeSharp.Entities.Webhooks
             {
                 var hashCode = (Address != null ? Address.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Topic != null ? Topic.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Topic.GetHashCode();
                 return hashCode;
             }
         }
@@ -48,6 +49,7 @@ namespace RechargeSharp.Entities.Webhooks
         public long Id { get; set; }
 
         [JsonProperty("topic")]
-        public string Topic { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public WebhookTopic Topic { get; set; }
     }
 }

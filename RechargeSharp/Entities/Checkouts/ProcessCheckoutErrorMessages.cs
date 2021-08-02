@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RechargeSharp.Entities.Checkouts
+﻿namespace RechargeSharp.Entities.Checkouts
 {
     public static class ProcessCheckoutErrorMessages
     {

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Discounts
 {
-    class DiscountListResponse : IEquatable<DiscountListResponse>
+    public class DiscountListResponse : IEquatable<DiscountListResponse>
     {
         public bool Equals(DiscountListResponse other)
         {

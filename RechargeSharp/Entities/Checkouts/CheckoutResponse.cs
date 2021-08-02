@@ -22,7 +22,7 @@ namespace RechargeSharp.Entities.Checkouts
 
         public override int GetHashCode()
         {
-            return (Checkout != null ? Checkout.GetHashCode() : 0);
+            return Checkout != null ? Checkout.GetHashCode() : 0;
         }
 
         public static bool operator ==(CheckoutResponse left, CheckoutResponse right)

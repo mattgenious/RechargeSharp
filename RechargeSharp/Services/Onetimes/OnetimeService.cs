@@ -7,35 +7,35 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Onetimes;
 
-namespace RechargeSharp.Services.OneTimeProducts
+namespace RechargeSharp.Services.Onetimes
 {
-    public class OneTimeService : RechargeSharpService
+    public class OnetimeService : RechargeSharpService
     {
-        public OneTimeService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
+        public OnetimeService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
         }
 
-        public async Task<bool> OneTimeProductExistsAsync(long id)
+        public async Task<bool> OnetimeExistsAsync(long id)
         {
             var response = await GetAsync($"/onetimes/{id}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<OneTime> GetOneTimeProductAsync(long id)
+        public async Task<Onetime> GetOnetimeAsync(long id)
         {
             var response = await GetAsync($"/onetimes/{id}").ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<OneTimeResponse>(
+            return JsonConvert.DeserializeObject<OnetimeResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProduct;
         }
 
-        private async Task<IEnumerable<OneTime>> GetOneTimeProductsAsync(string queryParams)
+        private async Task<IEnumerable<Onetime>> GetOnetimesAsync(string queryParams)
         {
             var response = await GetAsync($"/onetimes?{queryParams}").ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<OneTimeListResponse>(
+            return JsonConvert.DeserializeObject<OnetimeListResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProducts;
         }
 
-        public Task<IEnumerable<OneTime>> GetOneTimeProductsAsync(long limit = 50, long page = 1, long? customerId = null, long? addressId = null, long? shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public Task<IEnumerable<Onetime>> GetOnetimesAsync(long limit = 50, long page = 1, long? customerId = null, long? addressId = null, long? shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
@@ -46,28 +46,28 @@ namespace RechargeSharp.Services.OneTimeProducts
             queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
 
-            return GetOneTimeProductsAsync(queryParams);
+            return GetOnetimesAsync(queryParams);
         }
 
-        public async Task<OneTime> CreateOneTimeProductAsync(CreateOneTimeRequest createOneTimeProductRequest, long addressId)
+        public async Task<Onetime> CreateOnetimeAsync(CreateOnetimeRequest createOneTimeProductRequest, long addressId)
         {
             ValidateModel(createOneTimeProductRequest);
 
             var response = await PostAsJsonAsync($"/addresses/{addressId}/onetimes", JsonConvert.SerializeObject(createOneTimeProductRequest)).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<OneTimeResponse>(
+            return JsonConvert.DeserializeObject<OnetimeResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProduct;
         }
 
-        public async Task<OneTime> UpdateOneTimeProductAsync(long id, UpdateOneTimeRequest updateOneTimeProductRequest)
+        public async Task<Onetime> UpdateOnetimeAsync(long id, UpdateOnetimeRequest updateOneTimeProductRequest)
         {
             ValidateModel(updateOneTimeProductRequest);
 
             var response = await PutAsJsonAsync($"/onetimes/{id}", JsonConvert.SerializeObject(updateOneTimeProductRequest)).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<OneTimeResponse>(
+            return JsonConvert.DeserializeObject<OnetimeResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProduct;
         }
 
-        public async Task DeleteOneTimeProductAsync(long id)
+        public async Task DeleteOnetimeAsync(long id)
         {
             var response = await DeleteAsync($"/onetimes/{id}").ConfigureAwait(false);
         }

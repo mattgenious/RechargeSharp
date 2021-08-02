@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using RechargeSharp.Entities.Orders;
 
 namespace RechargeSharp.Entities.WebhookResponses.Orders
 {
@@ -36,6 +37,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Orders
         }
 
         [JsonProperty("order")]
-        public WebhookOrder Order { get; set; }
+        public Order Order { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace RechargeSharp.Entities.Metafields
 {
@@ -30,7 +31,7 @@ namespace RechargeSharp.Entities.Metafields
                 hashCode = (hashCode * 397) ^ (Key != null ? Key.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Namespace != null ? Namespace.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ OwnerId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (OwnerResource != null ? OwnerResource.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ OwnerResource.GetHashCode();
                 hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Value != null ? Value.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ValueType != null ? ValueType.GetHashCode() : 0);
@@ -67,7 +68,8 @@ namespace RechargeSharp.Entities.Metafields
         public long OwnerId { get; set; }
 
         [JsonProperty("owner_resource")]
-        public string OwnerResource { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public OwnerResource OwnerResource { get; set; }
 
         [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }

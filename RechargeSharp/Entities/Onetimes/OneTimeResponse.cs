@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Onetimes
 {
-    public class OneTimeResponse : IEquatable<OneTimeResponse>
+    public class OnetimeResponse : IEquatable<OnetimeResponse>
     {
-        public bool Equals(OneTimeResponse other)
+        public bool Equals(OnetimeResponse other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -17,7 +17,7 @@ namespace RechargeSharp.Entities.Onetimes
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((OneTimeResponse) obj);
+            return Equals((OnetimeResponse) obj);
         }
 
         public override int GetHashCode()
@@ -25,17 +25,17 @@ namespace RechargeSharp.Entities.Onetimes
             return (OneTimeProduct != null ? OneTimeProduct.GetHashCode() : 0);
         }
 
-        public static bool operator ==(OneTimeResponse left, OneTimeResponse right)
+        public static bool operator ==(OnetimeResponse left, OnetimeResponse right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(OneTimeResponse left, OneTimeResponse right)
+        public static bool operator !=(OnetimeResponse left, OnetimeResponse right)
         {
             return !Equals(left, right);
         }
 
         [JsonProperty("onetime")]
-        public OneTime OneTimeProduct { get; set; }
+        public Onetime OneTimeProduct { get; set; }
     }
 }

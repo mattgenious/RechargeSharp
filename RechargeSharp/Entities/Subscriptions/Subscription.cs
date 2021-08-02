@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Subscriptions
@@ -120,7 +121,8 @@ namespace RechargeSharp.Entities.Subscriptions
 		[JsonProperty("quantity")] public long Quantity { get; set; }
 
 		[JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
-		public string Status { get; set; }
+		[JsonConverter(typeof(StringEnumConverter))]
+		public SubscriptionStatus Status { get; set; }
 
 		[JsonProperty("shopify_product_id", NullValueHandling = NullValueHandling.Ignore)]
 		public long ShopifyProductId { get; set; }

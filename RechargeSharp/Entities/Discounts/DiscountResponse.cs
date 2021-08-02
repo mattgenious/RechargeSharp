@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Discounts
 {
-    class DiscountResponse : IEquatable<DiscountResponse>
+    public class DiscountResponse : IEquatable<DiscountResponse>
     {
         public bool Equals(DiscountResponse other)
         {

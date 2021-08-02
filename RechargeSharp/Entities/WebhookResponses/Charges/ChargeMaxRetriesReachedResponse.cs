@@ -36,6 +36,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Charges
         }
 
         [JsonProperty("charge")]
-        public WebhookChargeMaxRetriesReached Charge { get; set; }
+        public WebhookChargeFailed Charge { get; set; }
     }
 }
