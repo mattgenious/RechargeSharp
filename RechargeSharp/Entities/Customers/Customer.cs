@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace RechargeSharp.Entities.Customers
 {
@@ -41,7 +42,7 @@ namespace RechargeSharp.Entities.Customers
                 hashCode = (hashCode * 397) ^ (BillingCountry != null ? BillingCountry.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingPhone != null ? BillingPhone.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ProcessorType != null ? ProcessorType.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Status.GetHashCode();
                 hashCode = (hashCode * 397) ^ (StripeCustomerToken != null ? StripeCustomerToken.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ HasValidPaymentMethod.GetHashCode();
                 hashCode = (hashCode * 397) ^ (ReasonPaymentMethodNotValid != null ? ReasonPaymentMethodNotValid.GetHashCode() : 0);
@@ -115,7 +116,8 @@ namespace RechargeSharp.Entities.Customers
         public string ProcessorType { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public CustomerStatus Status { get; set; }
 
         [JsonProperty("stripe_customer_token")]
         public string StripeCustomerToken { get; set; }

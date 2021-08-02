@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>7.0.0-alpha.1</Version>
+    <Version>7.0.0-alpha.2</Version>
     <AssemblyVersion>7.0.0.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
@@ -15,7 +15,7 @@
     <FileVersion>7.0.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Major refactor, introduced enums for all specific string values, created serialize deserialize tests for most entities, removed unnecessary entities, fixed some scope issues with a couple of charge types.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added missing CustomerStatus enum.</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
     <Company>Matt Luccas Phaure MinetMatt Luccas Phaure Minet</Company>
