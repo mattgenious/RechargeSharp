@@ -4,18 +4,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>6.0.1</Version>
-    <AssemblyVersion>6.0.1.0</AssemblyVersion>
+    <Version>7.0.0-alpha.1</Version>
+    <AssemblyVersion>7.0.0.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>6.0.1.0</FileVersion>
+    <FileVersion>7.0.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Added @jonpmckinley's fix for shipping_rate, from now on that type of entity fixed will warrant only patch version bumps as they are technically just bug fixes for types that would have never worked.</PackageReleaseNotes>
+    <PackageReleaseNotes>Major refactor, introduced enums for all specific string values, created serialize deserialize tests for most entities, removed unnecessary entities, fixed some scope issues with a couple of charge types.</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
     <Company>Matt Luccas Phaure MinetMatt Luccas Phaure Minet</Company>
