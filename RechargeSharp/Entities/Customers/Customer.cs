@@ -117,7 +117,7 @@ namespace RechargeSharp.Entities.Customers
 
         [JsonProperty("status")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public CustomerStatus Status { get; set; }
+        public CustomerStatus? Status { get; set; }
 
         [JsonProperty("stripe_customer_token")]
         public string StripeCustomerToken { get; set; }

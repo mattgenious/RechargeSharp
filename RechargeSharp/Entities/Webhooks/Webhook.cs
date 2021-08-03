@@ -50,6 +50,6 @@ namespace RechargeSharp.Entities.Webhooks
 
         [JsonProperty("topic")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public WebhookTopic Topic { get; set; }
+        public WebhookTopic? Topic { get; set; }
     }
 }

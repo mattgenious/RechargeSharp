@@ -15,7 +15,7 @@
     <FileVersion>7.0.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>Added missing CustomerStatus enum.</PackageReleaseNotes>
+    <PackageReleaseNotes>All enums nullable</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
     <Company>Matt Luccas Phaure MinetMatt Luccas Phaure Minet</Company>

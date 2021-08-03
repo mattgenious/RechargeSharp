@@ -91,7 +91,7 @@ namespace RechargeSharp.Entities.Orders
 
         [JsonProperty("status")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public OrderStatus Status { get; set; }
+        public OrderStatus? Status { get; set; }
 
         [JsonProperty("subtotal_price")]
         public decimal? SubtotalPrice { get; set; }

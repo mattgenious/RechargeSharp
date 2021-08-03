@@ -86,6 +86,6 @@ namespace RechargeSharp.Entities.Products
 
         [JsonProperty("storefront_purchase_options")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public StorefrontPurchaseOptions StorefrontPurchaseOptions { get; set; }
+        public StorefrontPurchaseOptions? StorefrontPurchaseOptions { get; set; }
     }
 }

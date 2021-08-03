@@ -144,7 +144,7 @@ namespace RechargeSharp.Entities.Charges
 
         [JsonProperty("status")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public ChargeStatus Status { get; set; }
+        public ChargeStatus? Status { get; set; }
 
         [JsonProperty("sub_total")]
         public string SubTotal { get; set; }
