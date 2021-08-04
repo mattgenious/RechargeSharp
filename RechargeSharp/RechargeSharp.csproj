@@ -15,10 +15,10 @@
     <FileVersion>7.0.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes>All enums nullable</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed jsonconverter attributes that were placed in the wrong locations</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
-    <Company>Matt Luccas Phaure MinetMatt Luccas Phaure Minet</Company>
+    <Company>Matt Luccas Phaure Minet</Company>
   </PropertyGroup>
 
   <ItemGroup>
