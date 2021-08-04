@@ -90,7 +90,6 @@ namespace RechargeSharp.Entities.Orders
         public long? ShopifyOrderNumber { get; set; }
 
         [JsonProperty("status")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public OrderStatus? Status { get; set; }
 
         [JsonProperty("subtotal_price")]

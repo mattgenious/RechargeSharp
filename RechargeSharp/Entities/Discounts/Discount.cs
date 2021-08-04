@@ -73,7 +73,6 @@ namespace RechargeSharp.Entities.Discounts
         public DateTime? StartsAt { get; set; }
 
         [JsonProperty("status")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public DiscountStatus? Status { get; set; }
 
         [JsonProperty("usage_limit")]
@@ -83,28 +82,24 @@ namespace RechargeSharp.Entities.Discounts
         public long? AppliesToId { get; set; }
 
         [JsonProperty("discount_type")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public DiscountType? DiscountType { get; set; }
 
         [JsonProperty("applies_to")]
         public string AppliesTo { get; set; }
 
         [JsonProperty("applies_to_resource")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public AppliesToResource? AppliesToResource { get; set; }
 
         [JsonProperty("times_used")]
         public long TimesUsed { get; set; }
 
         [JsonProperty("duration")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public Duration? Duration { get; set; }
 
         [JsonProperty("duration_usage_limit")]
         public long? DurationUsageLimit { get; set; }
 
         [JsonProperty("applies_to_product_type")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public AppliesToProductType? AppliesToProductType { get; set; }
 
         [JsonProperty("created_at")]

@@ -68,7 +68,6 @@ namespace RechargeSharp.Entities.Metafields
         public long OwnerId { get; set; }
 
         [JsonProperty("owner_resource")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public OwnerResource? OwnerResource { get; set; }
 
         [JsonProperty("updated_at")]

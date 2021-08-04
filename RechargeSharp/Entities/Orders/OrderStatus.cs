@@ -1,7 +1,10 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace RechargeSharp.Entities.Orders
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum OrderStatus
     {
         [EnumMember(Value = "SUCCESS")]

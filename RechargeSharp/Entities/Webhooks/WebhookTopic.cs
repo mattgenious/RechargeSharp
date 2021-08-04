@@ -1,7 +1,10 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace RechargeSharp.Entities.Webhooks
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum WebhookTopic
     {
         [EnumMember(Value = "subscription/created")]

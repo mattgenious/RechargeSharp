@@ -116,7 +116,6 @@ namespace RechargeSharp.Entities.Customers
         public string ProcessorType { get; set; }
 
         [JsonProperty("status")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public CustomerStatus? Status { get; set; }
 
         [JsonProperty("stripe_customer_token")]

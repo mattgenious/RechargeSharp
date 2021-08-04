@@ -85,7 +85,6 @@ namespace RechargeSharp.Entities.Products
         public string OrderIntervalUnit { get; set; }
 
         [JsonProperty("storefront_purchase_options")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public StorefrontPurchaseOptions? StorefrontPurchaseOptions { get; set; }
     }
 }

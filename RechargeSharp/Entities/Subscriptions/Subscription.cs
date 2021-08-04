@@ -121,7 +121,6 @@ namespace RechargeSharp.Entities.Subscriptions
         [JsonProperty("quantity")] public long Quantity { get; set; }
 
         [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
-        [JsonConverter(typeof(StringEnumConverter))]
         public SubscriptionStatus? Status { get; set; }
 
         [JsonProperty("shopify_product_id", NullValueHandling = NullValueHandling.Ignore)]
