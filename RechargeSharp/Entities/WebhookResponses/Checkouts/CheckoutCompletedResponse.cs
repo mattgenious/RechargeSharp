@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using RechargeSharp.Entities.Checkouts;
 
 namespace RechargeSharp.Entities.WebhookResponses.Checkouts
 {
@@ -36,6 +37,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Checkouts
         }
 
         [JsonProperty("checkout")]
-        public WebhookCheckout Checkout { get; set; }
+        public Checkout Checkout { get; set; }
     }
 }

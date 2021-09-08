@@ -1,9 +1,10 @@
 ﻿using System;
 using Newtonsoft.Json;
+using RechargeSharp.Entities.Charges;
 
 namespace RechargeSharp.Entities.WebhookResponses.Charges
 {
-    public class WebhookChargeFailed : Entities.Charges.Charge, IEquatable<WebhookChargeFailed>
+    public class WebhookChargeFailed : Charge, IEquatable<WebhookChargeFailed>
     {
         public bool Equals(WebhookChargeFailed other)
         {

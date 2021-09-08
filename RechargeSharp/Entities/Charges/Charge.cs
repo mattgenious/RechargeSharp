@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Charges
@@ -11,7 +12,7 @@ namespace RechargeSharp.Entities.Charges
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return AddressId == other.AddressId && Equals(AnalyticsData, other.AnalyticsData) && Equals(BillingAddress, other.BillingAddress) && Equals(ClientDetails, other.ClientDetails) && CreatedAt.Equals(other.CreatedAt) && CustomerHash == other.CustomerHash && CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName && HasUncommitedChanges == other.HasUncommitedChanges && Id == other.Id && LastName == other.LastName && Note == other.Note && Nullable.Equals(ProcessedAt, other.ProcessedAt) && ProcessorName == other.ProcessorName && Nullable.Equals(ScheduledAt, other.ScheduledAt) && ShipmentsCount == other.ShipmentsCount && Equals(ShippingAddress, other.ShippingAddress) && ShopifyOrderId == other.ShopifyOrderId && Status == other.Status && SubTotal == other.SubTotal && SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TaxLines == other.TaxLines && TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice && TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax && TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type && UpdatedAt.Equals(other.UpdatedAt);
+            return AddressId == other.AddressId && Equals(BillingAddress, other.BillingAddress) && Equals(ClientDetails, other.ClientDetails) && CreatedAt.Equals(other.CreatedAt) && CustomerHash == other.CustomerHash && CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName && HasUncommitedChanges == other.HasUncommitedChanges && Id == other.Id && LastName == other.LastName && Note == other.Note && Nullable.Equals(ProcessedAt, other.ProcessedAt) && ProcessorName == other.ProcessorName && Nullable.Equals(ScheduledAt, other.ScheduledAt) && ShipmentsCount == other.ShipmentsCount && Equals(ShippingAddress, other.ShippingAddress) && ShopifyOrderId == other.ShopifyOrderId && Status == other.Status && SubTotal == other.SubTotal && SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TaxLines == other.TaxLines && TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice && TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax && TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type && UpdatedAt.Equals(other.UpdatedAt);
         }
 
         public override bool Equals(object obj)
@@ -27,7 +28,6 @@ namespace RechargeSharp.Entities.Charges
             unchecked
             {
                 var hashCode = AddressId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (AnalyticsData != null ? AnalyticsData.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingAddress != null ? BillingAddress.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ClientDetails != null ? ClientDetails.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
@@ -45,7 +45,7 @@ namespace RechargeSharp.Entities.Charges
                 hashCode = (hashCode * 397) ^ ShipmentsCount.GetHashCode();
                 hashCode = (hashCode * 397) ^ (ShippingAddress != null ? ShippingAddress.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ ShopifyOrderId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Status.GetHashCode();
                 hashCode = (hashCode * 397) ^ (SubTotal != null ? SubTotal.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ SubtotalPrice.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Tags != null ? Tags.GetHashCode() : 0);
@@ -143,7 +143,7 @@ namespace RechargeSharp.Entities.Charges
         public long? ShopifyOrderId { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public ChargeStatus? Status { get; set; }
 
         [JsonProperty("sub_total")]
         public string SubTotal { get; set; }

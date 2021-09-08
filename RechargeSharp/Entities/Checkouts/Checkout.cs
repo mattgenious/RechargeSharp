@@ -45,7 +45,7 @@ namespace RechargeSharp.Entities.Checkouts
         public string ExternalCheckoutSource { get; set; }
 
         [JsonProperty("external_customer_id")]
-        public object ExternalCustomerId { get; set; }
+        public string ExternalCustomerId { get; set; }
 
         [JsonProperty("line_items", NullValueHandling = NullValueHandling.Ignore)]
         public List<CheckoutLineItem> LineItems { get; set; }
@@ -108,7 +108,7 @@ namespace RechargeSharp.Entities.Checkouts
         {
 	        if (ReferenceEquals(null, other)) return false;
 	        if (ReferenceEquals(this, other)) return true;
-	        return Equals(AnalyticsData, other.AnalyticsData) && Equals(AppliedDiscount, other.AppliedDiscount) && Equals(BillingAddress, other.BillingAddress) && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing && ChargeId == other.ChargeId && Nullable.Equals(CompletedAt, other.CompletedAt) && Nullable.Equals(CreatedAt, other.CreatedAt) && Currency == other.Currency && DiscountCode == other.DiscountCode && Email == other.Email && ExternalCheckoutId == other.ExternalCheckoutId && ExternalCheckoutSource == other.ExternalCheckoutSource && Equals(ExternalCustomerId, other.ExternalCustomerId) && Note == other.Note && PaymentProcessor == other.PaymentProcessor && PaymentProcessorCustomerId == other.PaymentProcessorCustomerId && PaymentProcessorTransactionId == other.PaymentProcessorTransactionId && Phone == other.Phone && RequiresShipping == other.RequiresShipping && Equals(ShippingAddress, other.ShippingAddress) && Equals(ShippingAddressValidations, other.ShippingAddressValidations) && Equals(ShippingLine, other.ShippingLine) && SubtotalPrice == other.SubtotalPrice && TaxesIncluded == other.TaxesIncluded && Token == other.Token && TotalPrice == other.TotalPrice && TotalTax == other.TotalTax && Nullable.Equals(UpdatedAt, other.UpdatedAt);
+	        return Equals(AppliedDiscount, other.AppliedDiscount) && Equals(BillingAddress, other.BillingAddress) && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing && ChargeId == other.ChargeId && Nullable.Equals(CompletedAt, other.CompletedAt) && Nullable.Equals(CreatedAt, other.CreatedAt) && Currency == other.Currency && DiscountCode == other.DiscountCode && Email == other.Email && ExternalCheckoutId == other.ExternalCheckoutId && ExternalCheckoutSource == other.ExternalCheckoutSource && Equals(ExternalCustomerId, other.ExternalCustomerId) && Note == other.Note && PaymentProcessor == other.PaymentProcessor && PaymentProcessorCustomerId == other.PaymentProcessorCustomerId && PaymentProcessorTransactionId == other.PaymentProcessorTransactionId && Phone == other.Phone && RequiresShipping == other.RequiresShipping && Equals(ShippingAddress, other.ShippingAddress) && Equals(ShippingAddressValidations, other.ShippingAddressValidations) && Equals(ShippingLine, other.ShippingLine) && SubtotalPrice == other.SubtotalPrice && TaxesIncluded == other.TaxesIncluded && Token == other.Token && TotalPrice == other.TotalPrice && TotalTax == other.TotalTax && Nullable.Equals(UpdatedAt, other.UpdatedAt);
         }
 
         public override bool Equals(object obj)
@@ -122,7 +122,6 @@ namespace RechargeSharp.Entities.Checkouts
         public override int GetHashCode()
         {
 	        var hashCode = new HashCode();
-	        hashCode.Add(AnalyticsData);
 	        hashCode.Add(AppliedDiscount);
 	        hashCode.Add(BillingAddress);
 	        hashCode.Add(BuyerAcceptsMarketing);

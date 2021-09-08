@@ -5,9 +5,9 @@ using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Onetimes
 {
-    public class UpdateOneTimeRequest : IEquatable<UpdateOneTimeRequest>
+    public class UpdateOnetimeRequest : IEquatable<UpdateOnetimeRequest>
     {
-        public bool Equals(UpdateOneTimeRequest other)
+        public bool Equals(UpdateOnetimeRequest other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -19,7 +19,7 @@ namespace RechargeSharp.Entities.Onetimes
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((UpdateOneTimeRequest) obj);
+            return Equals((UpdateOnetimeRequest) obj);
         }
 
         public override int GetHashCode()
@@ -37,12 +37,12 @@ namespace RechargeSharp.Entities.Onetimes
             }
         }
 
-        public static bool operator ==(UpdateOneTimeRequest left, UpdateOneTimeRequest right)
+        public static bool operator ==(UpdateOnetimeRequest left, UpdateOnetimeRequest right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(UpdateOneTimeRequest left, UpdateOneTimeRequest right)
+        public static bool operator !=(UpdateOnetimeRequest left, UpdateOnetimeRequest right)
         {
             return !Equals(left, right);
         }

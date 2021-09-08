@@ -9,7 +9,7 @@ using RechargeSharp.Services.Collections;
 using RechargeSharp.Services.Customers;
 using RechargeSharp.Services.Discounts;
 using RechargeSharp.Services.Metafields;
-using RechargeSharp.Services.OneTimeProducts;
+using RechargeSharp.Services.Onetimes;
 using RechargeSharp.Services.Orders;
 using RechargeSharp.Services.Products;
 using RechargeSharp.Services.Shops;
@@ -46,7 +46,7 @@ namespace RechargeSharp.Services
                 .AddTransient<CustomerService>()
                 .AddTransient<DiscountService>()
                 .AddTransient<MetafieldService>()
-                .AddTransient<OneTimeService>()
+                .AddTransient<OnetimeService>()
                 .AddTransient<OrderService>()
                 .AddTransient<ProductService>()
                 .AddTransient<ShopService>()

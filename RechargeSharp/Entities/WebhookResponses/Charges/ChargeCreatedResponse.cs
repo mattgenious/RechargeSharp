@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using RechargeSharp.Entities.Charges;
 
 namespace RechargeSharp.Entities.WebhookResponses.Charges
 {
@@ -36,6 +37,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Charges
         }
 
         [JsonProperty("charge")]
-        public WebhookChargeCreated Charge { get; set; }
+        public Charge Charge { get; set; }
     }
 }

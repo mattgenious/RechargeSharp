@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using RechargeSharp.Entities.Customers;
 
 namespace RechargeSharp.Entities.WebhookResponses.Customers
 {
@@ -36,6 +37,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Customers
         }
 
         [JsonProperty("customer")]
-        public WebhookCustomer Customer { get; set; }
+        public Customer Customer { get; set; }
     }
 }

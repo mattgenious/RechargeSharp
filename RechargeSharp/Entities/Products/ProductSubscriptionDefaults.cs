@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace RechargeSharp.Entities.Products
 {
@@ -35,7 +36,7 @@ namespace RechargeSharp.Entities.Products
                 hashCode = (hashCode * 397) ^ (OrderDayOfWeek != null ? OrderDayOfWeek.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ OrderIntervalFrequency.GetHashCode();
                 hashCode = (hashCode * 397) ^ (OrderIntervalUnit != null ? OrderIntervalUnit.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (StorefrontPurchaseOptions != null ? StorefrontPurchaseOptions.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ StorefrontPurchaseOptions.GetHashCode();
                 return hashCode;
             }
         }
@@ -84,6 +85,6 @@ namespace RechargeSharp.Entities.Products
         public string OrderIntervalUnit { get; set; }
 
         [JsonProperty("storefront_purchase_options")]
-        public string StorefrontPurchaseOptions { get; set; }
+        public StorefrontPurchaseOptions? StorefrontPurchaseOptions { get; set; }
     }
 }

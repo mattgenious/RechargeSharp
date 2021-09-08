@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace RechargeSharp.Entities.Discounts
 {
@@ -29,16 +30,16 @@ namespace RechargeSharp.Entities.Discounts
                 hashCode = (hashCode * 397) ^ Value.GetHashCode();
                 hashCode = (hashCode * 397) ^ EndsAt.GetHashCode();
                 hashCode = (hashCode * 397) ^ StartsAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Status.GetHashCode();
                 hashCode = (hashCode * 397) ^ UsageLimit.GetHashCode();
                 hashCode = (hashCode * 397) ^ AppliesToId.GetHashCode();
                 hashCode = (hashCode * 397) ^ (DiscountType != null ? DiscountType.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (AppliesTo != null ? AppliesTo.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (AppliesToResource != null ? AppliesToResource.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ AppliesToResource.GetHashCode();
                 hashCode = (hashCode * 397) ^ TimesUsed.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Duration != null ? Duration.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Duration.GetHashCode();
                 hashCode = (hashCode * 397) ^ DurationUsageLimit.GetHashCode();
-                hashCode = (hashCode * 397) ^ (AppliesToProductType != null ? AppliesToProductType.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ AppliesToProductType.GetHashCode();
                 hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
                 hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
                 hashCode = (hashCode * 397) ^ OncePerCustomer.GetHashCode();
@@ -72,7 +73,7 @@ namespace RechargeSharp.Entities.Discounts
         public DateTime? StartsAt { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public DiscountStatus? Status { get; set; }
 
         [JsonProperty("usage_limit")]
         public long? UsageLimit { get; set; }
@@ -81,25 +82,25 @@ namespace RechargeSharp.Entities.Discounts
         public long? AppliesToId { get; set; }
 
         [JsonProperty("discount_type")]
-        public string DiscountType { get; set; }
+        public DiscountType? DiscountType { get; set; }
 
         [JsonProperty("applies_to")]
         public string AppliesTo { get; set; }
 
         [JsonProperty("applies_to_resource")]
-        public string AppliesToResource { get; set; }
+        public AppliesToResource? AppliesToResource { get; set; }
 
         [JsonProperty("times_used")]
         public long TimesUsed { get; set; }
 
         [JsonProperty("duration")]
-        public string Duration { get; set; }
+        public Duration? Duration { get; set; }
 
         [JsonProperty("duration_usage_limit")]
         public long? DurationUsageLimit { get; set; }
 
         [JsonProperty("applies_to_product_type")]
-        public string AppliesToProductType { get; set; }
+        public AppliesToProductType? AppliesToProductType { get; set; }
 
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }

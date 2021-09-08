@@ -28,7 +28,7 @@ namespace RechargeSharpTests
         }
 
         [Fact]
-        public void Test1()
+        public void GetApiKeyFlakeTest()
         {
             for (int i = 0; i < 1000; i++)
             {
