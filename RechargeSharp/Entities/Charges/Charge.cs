@@ -8,71 +8,6 @@ namespace RechargeSharp.Entities.Charges
 {
     public class Charge : IEquatable<Charge>
     {
-        public bool Equals(Charge other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return AddressId == other.AddressId && Equals(BillingAddress, other.BillingAddress) && Equals(ClientDetails, other.ClientDetails) && CreatedAt.Equals(other.CreatedAt) && CustomerHash == other.CustomerHash && CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName && HasUncommitedChanges == other.HasUncommitedChanges && Id == other.Id && LastName == other.LastName && Note == other.Note && Nullable.Equals(ProcessedAt, other.ProcessedAt) && ProcessorName == other.ProcessorName && Nullable.Equals(ScheduledAt, other.ScheduledAt) && ShipmentsCount == other.ShipmentsCount && Equals(ShippingAddress, other.ShippingAddress) && ShopifyOrderId == other.ShopifyOrderId && Status == other.Status && SubTotal == other.SubTotal && SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TaxLines == other.TaxLines && TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice && TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax && TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type && UpdatedAt.Equals(other.UpdatedAt);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((Charge) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = AddressId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (BillingAddress != null ? BillingAddress.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (ClientDetails != null ? ClientDetails.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ (CustomerHash != null ? CustomerHash.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ CustomerId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Email != null ? Email.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ HasUncommitedChanges.GetHashCode();
-                hashCode = (hashCode * 397) ^ Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ (LastName != null ? LastName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Note != null ? Note.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ ProcessedAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ (ProcessorName != null ? ProcessorName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ ScheduledAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ ShipmentsCount.GetHashCode();
-                hashCode = (hashCode * 397) ^ (ShippingAddress != null ? ShippingAddress.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ ShopifyOrderId.GetHashCode();
-                hashCode = (hashCode * 397) ^ Status.GetHashCode();
-                hashCode = (hashCode * 397) ^ (SubTotal != null ? SubTotal.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ SubtotalPrice.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Tags != null ? Tags.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ TaxLines.GetHashCode();
-                hashCode = (hashCode * 397) ^ (TotalDiscounts != null ? TotalDiscounts.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (TotalLineItemsPrice != null ? TotalLineItemsPrice.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (TotalPrice != null ? TotalPrice.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (TotalRefunds != null ? TotalRefunds.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ TotalTax.GetHashCode();
-                hashCode = (hashCode * 397) ^ TotalWeight.GetHashCode();
-                hashCode = (hashCode * 397) ^ (TransactionId != null ? TransactionId.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Type != null ? Type.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        public static bool operator ==(Charge left, Charge right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(Charge left, Charge right)
-        {
-            return !Equals(left, right);
-        }
-
         [JsonProperty("address_id")]
         public long AddressId { get; set; }
 
@@ -183,5 +118,118 @@ namespace RechargeSharp.Entities.Charges
 
         [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }
+
+        /// <summary>
+        /// only present for failed charges
+        /// </summary>
+        [JsonProperty("last_charge_attempt_date", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? LastChargeAttemptDate { get; set; }
+
+        /// <summary>
+        /// only present for failed charges
+        /// </summary>
+        [JsonProperty("retry_date", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? RetryDate { get; set; }
+
+        /// <summary>
+        /// only present for failed charges
+        /// </summary>
+        [JsonProperty("number_times_tried", NullValueHandling = NullValueHandling.Ignore)]
+        public long? NumberTimesTried { get; set; }
+
+        /// <summary>
+        /// only present for failed charges
+        /// </summary>
+        [JsonProperty("shopify_variant_id_not_found", NullValueHandling = NullValueHandling.Ignore)]
+        public string ShopifyVariantIdNotFound { get; set; }
+
+        /// <summary>
+        /// only present for failed charges
+        /// </summary>
+        [JsonProperty("error_type", NullValueHandling = NullValueHandling.Ignore)]
+        public string ErrorType { get; set; }
+
+        /// <summary>
+        /// only present for failed charges
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public string Error { get; set; }
+
+        public bool Equals(Charge other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return AddressId == other.AddressId && Equals(AnalyticsData, other.AnalyticsData) &&
+                   Equals(BillingAddress, other.BillingAddress) && Equals(ClientDetails, other.ClientDetails) &&
+                   CreatedAt.Equals(other.CreatedAt) && CustomerHash == other.CustomerHash &&
+                   CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName &&
+                   HasUncommitedChanges == other.HasUncommitedChanges && Id == other.Id && LastName == other.LastName &&
+                   Note == other.Note && Nullable.Equals(ProcessedAt, other.ProcessedAt) &&
+                   ProcessorName == other.ProcessorName && Nullable.Equals(ScheduledAt, other.ScheduledAt) &&
+                   ShipmentsCount == other.ShipmentsCount && Equals(ShippingAddress, other.ShippingAddress) &&
+                   ShopifyOrderId == other.ShopifyOrderId && Status == other.Status && SubTotal == other.SubTotal &&
+                   SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TaxLines == other.TaxLines &&
+                   TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice &&
+                   TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax &&
+                   TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type &&
+                   UpdatedAt.Equals(other.UpdatedAt) &&
+                   Nullable.Equals(LastChargeAttemptDate, other.LastChargeAttemptDate) &&
+                   Nullable.Equals(RetryDate, other.RetryDate) && NumberTimesTried == other.NumberTimesTried &&
+                   ShopifyVariantIdNotFound == other.ShopifyVariantIdNotFound && ErrorType == other.ErrorType &&
+                   Error == other.Error;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Charge)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = new HashCode();
+            hashCode.Add(AddressId);
+            hashCode.Add(AnalyticsData);
+            hashCode.Add(BillingAddress);
+            hashCode.Add(ClientDetails);
+            hashCode.Add(CreatedAt);
+            hashCode.Add(CustomerHash);
+            hashCode.Add(CustomerId);
+            hashCode.Add(Email);
+            hashCode.Add(FirstName);
+            hashCode.Add(HasUncommitedChanges);
+            hashCode.Add(Id);
+            hashCode.Add(LastName);
+            hashCode.Add(Note);
+            hashCode.Add(ProcessedAt);
+            hashCode.Add(ProcessorName);
+            hashCode.Add(ScheduledAt);
+            hashCode.Add(ShipmentsCount);
+            hashCode.Add(ShippingAddress);
+            hashCode.Add(ShopifyOrderId);
+            hashCode.Add(Status);
+            hashCode.Add(SubTotal);
+            hashCode.Add(SubtotalPrice);
+            hashCode.Add(Tags);
+            hashCode.Add(TaxLines);
+            hashCode.Add(TotalDiscounts);
+            hashCode.Add(TotalLineItemsPrice);
+            hashCode.Add(TotalPrice);
+            hashCode.Add(TotalRefunds);
+            hashCode.Add(TotalTax);
+            hashCode.Add(TotalWeight);
+            hashCode.Add(TransactionId);
+            hashCode.Add(Type);
+            hashCode.Add(UpdatedAt);
+            hashCode.Add(LastChargeAttemptDate);
+            hashCode.Add(RetryDate);
+            hashCode.Add(NumberTimesTried);
+            hashCode.Add(ShopifyVariantIdNotFound);
+            hashCode.Add(ErrorType);
+            hashCode.Add(Error);
+            return hashCode.ToHashCode();
+        }
     }
 }

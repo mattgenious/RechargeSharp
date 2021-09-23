@@ -4,18 +4,19 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>7.0.0</Version>
-    <AssemblyVersion>7.0.0.0</AssemblyVersion>
+    <Version>8.0.0</Version>
+    <AssemblyVersion>8.0.0.0</AssemblyVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>7.0.0.0</FileVersion>
+    <FileVersion>8.0.0.0</FileVersion>
     <Authors>Matt Luccas Phaure Minet</Authors>
     <Description>A C# library for RechargePayments</Description>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>Replaced webhookfailedcharge with charge and expanded charge object.
+This will break usage for anyone who uses failed charge webhooks.</PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
     <Company>Matt Luccas Phaure Minet</Company>
