@@ -155,22 +155,22 @@ namespace RechargeSharp.Entities.Charges
         [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
         public string Error { get; set; }
 
+
         public bool Equals(Charge other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return AddressId == other.AddressId && Equals(AnalyticsData, other.AnalyticsData) &&
-                   Equals(BillingAddress, other.BillingAddress) && Equals(ClientDetails, other.ClientDetails) &&
-                   CreatedAt.Equals(other.CreatedAt) && CustomerHash == other.CustomerHash &&
-                   CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName &&
-                   HasUncommitedChanges == other.HasUncommitedChanges && Id == other.Id && LastName == other.LastName &&
-                   Note == other.Note && Nullable.Equals(ProcessedAt, other.ProcessedAt) &&
-                   ProcessorName == other.ProcessorName && Nullable.Equals(ScheduledAt, other.ScheduledAt) &&
-                   ShipmentsCount == other.ShipmentsCount && Equals(ShippingAddress, other.ShippingAddress) &&
-                   ShopifyOrderId == other.ShopifyOrderId && Status == other.Status && SubTotal == other.SubTotal &&
-                   SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TaxLines == other.TaxLines &&
-                   TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice &&
-                   TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax &&
+            return AddressId == other.AddressId && CreatedAt.Equals(other.CreatedAt) &&
+                   CustomerHash == other.CustomerHash && CustomerId == other.CustomerId && Email == other.Email &&
+                   FirstName == other.FirstName && HasUncommitedChanges == other.HasUncommitedChanges &&
+                   Id == other.Id && LastName == other.LastName && Note == other.Note &&
+                   Nullable.Equals(ProcessedAt, other.ProcessedAt) && ProcessorName == other.ProcessorName &&
+                   Nullable.Equals(ScheduledAt, other.ScheduledAt) && ShipmentsCount == other.ShipmentsCount && 
+                   ShopifyOrderId == other.ShopifyOrderId &&
+                   Status == other.Status && SubTotal == other.SubTotal && SubtotalPrice == other.SubtotalPrice &&
+                   Tags == other.Tags && TaxLines == other.TaxLines && TotalDiscounts == other.TotalDiscounts &&
+                   TotalLineItemsPrice == other.TotalLineItemsPrice && TotalPrice == other.TotalPrice &&
+                   TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax &&
                    TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type &&
                    UpdatedAt.Equals(other.UpdatedAt) &&
                    Nullable.Equals(LastChargeAttemptDate, other.LastChargeAttemptDate) &&
@@ -191,9 +191,6 @@ namespace RechargeSharp.Entities.Charges
         {
             var hashCode = new HashCode();
             hashCode.Add(AddressId);
-            hashCode.Add(AnalyticsData);
-            hashCode.Add(BillingAddress);
-            hashCode.Add(ClientDetails);
             hashCode.Add(CreatedAt);
             hashCode.Add(CustomerHash);
             hashCode.Add(CustomerId);
@@ -207,7 +204,6 @@ namespace RechargeSharp.Entities.Charges
             hashCode.Add(ProcessorName);
             hashCode.Add(ScheduledAt);
             hashCode.Add(ShipmentsCount);
-            hashCode.Add(ShippingAddress);
             hashCode.Add(ShopifyOrderId);
             hashCode.Add(Status);
             hashCode.Add(SubTotal);
