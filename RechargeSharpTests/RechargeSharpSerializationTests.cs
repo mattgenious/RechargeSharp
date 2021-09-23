@@ -146,7 +146,10 @@ namespace RechargeSharpTests
         {
             var jsonString = JsonConvert.SerializeObject(sut);
 
-            Assert.Equal(sut, JsonConvert.DeserializeObject<ChargeResponse>(jsonString));
+            var result = JsonConvert.DeserializeObject<ChargeResponse>(jsonString);
+
+
+            Assert.Equal(sut, result);
         }
 
         [Theory]
