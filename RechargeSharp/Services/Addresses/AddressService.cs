@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Addresses;
 using RechargeSharp.Entities.Shared;
+using RechargeSharp.Utilities;
 using Address = RechargeSharp.Entities.Addresses.Address;
 
 namespace RechargeSharp.Services.Addresses
@@ -29,21 +30,21 @@ namespace RechargeSharp.Services.Addresses
             if(!response.IsSuccessStatusCode)
                 throw new Exception(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
             return JsonConvert.DeserializeObject<AddressResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Address;
         }
 
         public async Task<IEnumerable<Address>> GetAllAddressesForCustomerAsync(long customerId)
         {
             var response = await GetAsync($"/customers/{customerId}/addresses").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Addresses;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Addresses;
         }
 
         private async Task<IEnumerable<Address>> GetAddressesAsync(string queryParams)
         {
             var response = await GetAsync($"/addresses?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Addresses;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Addresses;
         }
 
         public Task<IEnumerable<Address>> GetAddressesAsync(int page = 1, int limit = 50, long? discountId = null, string discountCode = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
@@ -113,7 +114,7 @@ namespace RechargeSharp.Services.Addresses
         {
             var response = await GetAsync($"/addresses/count?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Count;
         }
 
         public async Task<Address> CreateAddressAsync(CreateAddressRequest createAddressRequest, long customerId)
@@ -122,7 +123,7 @@ namespace RechargeSharp.Services.Addresses
 
             var response = await PostAsJsonAsync($"/customers/{customerId}/addresses", JsonConvert.SerializeObject(createAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Address;
         }
 
         public async Task<Address> UpdateAddressAsync(long id, UpdateAddressRequest updateAddressRequest)
@@ -131,7 +132,7 @@ namespace RechargeSharp.Services.Addresses
 
             var response = await PutAsJsonAsync($"/addresses/{id}", JsonConvert.SerializeObject(updateAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Address;
         }
         public async Task<Address> OverrideShippingLines(long id, OverrideShippingLinesRequest overrideShippingLinesRequest)
         {
@@ -139,7 +140,7 @@ namespace RechargeSharp.Services.Addresses
 
             var response = await PutAsJsonAsync($"/addresses/{id}", JsonConvert.SerializeObject(overrideShippingLinesRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Address;
         }
 
         public async Task<ValidateAddressResponse> ValidateAddress(ValidateAddressRequest validateAddressRequest)
@@ -148,7 +149,7 @@ namespace RechargeSharp.Services.Addresses
 
             var response = await PostAsJsonAsync("/addresses/validate", JsonConvert.SerializeObject(validateAddressRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ValidateAddressResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter());
         }
 
         public async Task DeleteAddressAsync(long id)

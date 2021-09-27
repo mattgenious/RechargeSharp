@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shop;
+using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Shops
 {
@@ -24,13 +25,13 @@ namespace RechargeSharp.Services.Shops
         {
             var response = await GetAsync($"/shop").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ShopResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Shop;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Shop;
         }
         public async Task<IEnumerable<ShippingCountry>> GetShippingCountries()
         {
             var response = await GetAsync($"/shop/shipping_countries").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ShippingCountriesResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).ShippingCountries;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).ShippingCountries;
         }
 
     }

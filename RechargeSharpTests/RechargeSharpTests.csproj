@@ -24,4 +24,16 @@
     <ProjectReference Include="..\RechargeSharp\RechargeSharp.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestData\AddressOffset.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\AddressUTC.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Address.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

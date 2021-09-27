@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
+using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Charges
 {
@@ -26,14 +27,14 @@ namespace RechargeSharp.Services.Charges
         {
             var response = await GetAsync($"/charges/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Charge;
         }
 
         private async Task<IEnumerable<Charge>> GetChargesAsync(string queryParams)
         {
             var response = await GetAsync($"/charges?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charges;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Charges;
         }
 
         public Task<IEnumerable<Charge>> GetChargesAsync(int page = 1, int limit = 50, long? discountId = null, string discountCode = null, string status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTime? date = null, DateTime? dateMin = null, DateTime? dateMax = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
@@ -128,7 +129,7 @@ namespace RechargeSharp.Services.Charges
         {
             var response = await GetAsync($"/charges/count?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Count;
         }
 
         public async Task<Charge> ChangeNextChargeDateAsync(long chargeId, ChangeNextChargeDateRequest changeNextChargeDateRequest)
@@ -137,7 +138,7 @@ namespace RechargeSharp.Services.Charges
 
             var response = await PostAsJsonAsync($"/charges/{chargeId}/change_next_charge_date", JsonConvert.SerializeObject(changeNextChargeDateRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Charge;
         }
 
         public async Task<Charge> SkipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest)
@@ -146,7 +147,7 @@ namespace RechargeSharp.Services.Charges
 
             var response = await PostAsJsonAsync($"/charges/{chargeId}/skip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Charge;
         }
 
         public async Task<Charge> UnskipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest)
@@ -155,7 +156,7 @@ namespace RechargeSharp.Services.Charges
 
             var response = await PostAsJsonAsync($"/charges/{chargeId}/unskip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Charge;
         }
 
         public async Task<Charge> RefundChargeAsync(long chargeId, RefundChargeRequest refundChargeRequest)
@@ -164,7 +165,7 @@ namespace RechargeSharp.Services.Charges
 
             var response = await PostAsJsonAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(refundChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Charge;
         }
 
         public async Task<Charge> TotalRefundChargeAsync(long chargeId, TotalRefundChargeRequest totalRefundChargeRequest)
@@ -173,7 +174,7 @@ namespace RechargeSharp.Services.Charges
 
             var response = await PostAsJsonAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(totalRefundChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Charge;
         }
 
         public async Task DeleteChargeAsync(long id)

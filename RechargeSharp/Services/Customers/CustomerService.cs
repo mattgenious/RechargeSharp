@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Customers;
 using RechargeSharp.Entities.Shared;
+using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Customers
 {
@@ -26,14 +27,14 @@ namespace RechargeSharp.Services.Customers
         {
             var response = await GetAsync($"/customers/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Customer;
         }
 
         private async Task<IEnumerable<Customer>> GetCustomersAsync(string queryParams)
         {
             var response = await GetAsync($"/customers?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customers;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Customers;
         }
 
         public Task<IEnumerable<Customer>> GetCustomersAsync(int page = 1, int limit = 50, string email = null, string status = null, long? shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null, string hash = null)
@@ -115,7 +116,7 @@ namespace RechargeSharp.Services.Customers
         {
             var response = await GetAsync($"/customers/count?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Count;
         }
 
         public async Task<Customer> CreateCustomerAsync(CreateCustomerRequest createCustomerRequest)
@@ -124,7 +125,7 @@ namespace RechargeSharp.Services.Customers
 
             var response = await PostAsJsonAsync("/customers", JsonConvert.SerializeObject(createCustomerRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Customer;
         }
 
         public async Task<Customer> UpdateCustomerAsync(long id, UpdateCustomerRequest updateCustomerRequest)
@@ -133,7 +134,7 @@ namespace RechargeSharp.Services.Customers
 
             var response = await PutAsJsonAsync($"/customers/{id}", JsonConvert.SerializeObject(updateCustomerRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Customer;
         }
 
         public async Task<Customer> UpdateCustomerPaymentTokenAsync(long id, UpdateCustomerPaymentTokenRequest customerPaymentTokenRequest)
@@ -142,7 +143,7 @@ namespace RechargeSharp.Services.Customers
 
             var response = await PutAsJsonAsync($"/customers/{id}", JsonConvert.SerializeObject(customerPaymentTokenRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CustomerResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Customer;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Customer;
         }
 
         public async Task DeleteCustomerAsync(long id)
@@ -154,7 +155,7 @@ namespace RechargeSharp.Services.Customers
         {
             var response = await GetAsync($"/customers/{id}/payment_sources").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<PaymentSourceListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).PaymentSources;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).PaymentSources;
         }
     }
 }

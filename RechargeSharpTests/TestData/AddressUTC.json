@@ -1,0 +1,32 @@
+{
+    "id": 21317826,
+    "address1": "1776 Washington Street",
+    "address2": "",
+    "cart_note": null,
+    "city": "Los Angeles",
+    "company": "ReCharge",
+    "country": "United States",
+    "created_at": "2018-11-14T09:00:01Z",
+    "customer_id": 18819267,
+    "discount_id": null,
+    "first_name": "John",
+    "last_name": "Doe",
+    "note_attributes": [
+        {
+            "name": "custom name",
+            "value": "custom value"
+        }
+    ],
+    "original_shipping_lines": [
+        {
+            "code": "Standard Shipping",
+            "price": "0.00",
+            "title": "Standard Shipping"
+        }
+    ],
+    "phone": "5551234567",
+    "province": "California",
+    "shipping_lines_override": null,
+    "updated_at": "2018-11-14T09:00:01Z",
+    "zip": "90404"
+}
