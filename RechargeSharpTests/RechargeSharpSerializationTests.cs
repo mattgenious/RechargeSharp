@@ -429,6 +429,35 @@ namespace RechargeSharpTests
             Assert.Equal(sut, JsonConvert.DeserializeObject<Customer>(jsonString));
         }
 
+
+        [Fact]
+        public void SerializeDeserializeCustomerFromJsonTest()
+        {
+            var sut = TestDataHandler.GetTestDataCustomer;
+
+            var test = TestDataHandler.GetTestCustomerString;
+
+            var test2 = JsonConvert.DeserializeObject<Customer>(test, new DateTimeJsonConverter());
+
+            var jsonString = JsonConvert.SerializeObject(sut);
+
+            var newCustomer = JsonConvert.DeserializeObject<Customer>(jsonString, new DateTimeJsonConverter());
+
+            _testOutputHelper.WriteLine(sut.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(test2.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(sut.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(test2.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(sut.FirstChargeProcessedAt?.ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.FirstChargeProcessedAt?.ToString("O"));
+            _testOutputHelper.WriteLine(test2.FirstChargeProcessedAt?.ToString("O"));
+
+            Assert.Equal(sut, newCustomer);
+            Assert.True(newCustomer.FirstChargeProcessedAt.Value.Kind != System.DateTimeKind.Unspecified);
+        }
+
+
         [Theory]
         [InlineAutoData]
         public void SerializeDeserializeCustomerListResponseTest(CustomerListResponse sut)

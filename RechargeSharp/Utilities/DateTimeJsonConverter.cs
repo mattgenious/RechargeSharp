@@ -3,10 +3,12 @@ using System;
 
 namespace RechargeSharp.Utilities
 {
-    public class DateTimeJsonConverter : JsonConverter<DateTime>
+    public class DateTimeJsonConverter : JsonConverter<DateTime?>
     {
-        public override DateTime ReadJson(JsonReader reader, Type objectType, DateTime existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override DateTime? ReadJson(JsonReader reader, Type objectType, DateTime? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
+
+
             var dateTime = typeof(string) == reader.ValueType ? DateTime.Parse((string)reader.Value) : (DateTime)reader.Value;
 
             switch (dateTime.Kind)
@@ -22,9 +24,9 @@ namespace RechargeSharp.Utilities
             return dateTime;
         }
 
-        public override void WriteJson(JsonWriter writer, DateTime value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, DateTime? value, JsonSerializer serializer)
         {
-            writer.WriteValue(value.ToString("O"));
+            writer.WriteValue(value?.ToString("O"));
         }
     }
 }
