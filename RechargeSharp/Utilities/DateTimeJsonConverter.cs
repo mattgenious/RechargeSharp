@@ -7,7 +7,10 @@ namespace RechargeSharp.Utilities
     {
         public override DateTime? ReadJson(JsonReader reader, Type objectType, DateTime? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-
+            if (reader.Value == null)
+            {
+                return null;
+            }
 
             var dateTime = typeof(string) == reader.ValueType ? DateTime.Parse((string)reader.Value) : (DateTime)reader.Value;
 
@@ -26,6 +29,8 @@ namespace RechargeSharp.Utilities
 
         public override void WriteJson(JsonWriter writer, DateTime? value, JsonSerializer serializer)
         {
+            if (value == null)
+                writer.WriteNull();
             writer.WriteValue(value?.ToString("O"));
         }
     }

@@ -458,6 +458,30 @@ namespace RechargeSharpTests
         }
 
 
+        [Fact]
+        public void SerializeDeserializeCustomerFromJsonWithNullDateTimeTest()
+        {
+            var customerString = TestDataHandler.GetTestCustomerString;
+
+            var newCustomer = JsonConvert.DeserializeObject<Customer>(customerString, new DateTimeJsonConverter());
+
+            newCustomer.FirstChargeProcessedAt = null;
+
+            var newCustomerString = JsonConvert.SerializeObject(newCustomer, new DateTimeJsonConverter());
+
+            var newNewCustomer = JsonConvert.DeserializeObject<Customer>(newCustomerString, new DateTimeJsonConverter());
+
+            _testOutputHelper.WriteLine(newCustomer.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newNewCustomer.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newNewCustomer.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.FirstChargeProcessedAt?.ToString("O") == null ? "null" : newCustomer.FirstChargeProcessedAt?.ToString("O"));
+            _testOutputHelper.WriteLine(newNewCustomer.FirstChargeProcessedAt?.ToString("O") == null ? "null" : newNewCustomer.FirstChargeProcessedAt?.ToString("O"));
+
+            Assert.Equal(newNewCustomer, newCustomer);
+        }
+
+
         [Theory]
         [InlineAutoData]
         public void SerializeDeserializeCustomerListResponseTest(CustomerListResponse sut)
