@@ -21,7 +21,7 @@ namespace RechargeSharp.Entities.Charges
         public ChargeClientDetails ClientDetails { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("customer_hash")]
         public string CustomerHash { get; set; }
@@ -57,13 +57,13 @@ namespace RechargeSharp.Entities.Charges
         public IEnumerable<Property> NoteAttributes { get; set; }
 
         [JsonProperty("processed_at")]
-        public DateTime? ProcessedAt { get; set; }
+        public DateTimeOffset? ProcessedAt { get; set; }
 
         [JsonProperty("processor_name")]
         public string ProcessorName { get; set; }
 
         [JsonProperty("scheduled_at")]
-        public DateTime? ScheduledAt { get; set; }
+        public DateTimeOffset? ScheduledAt { get; set; }
 
         [JsonProperty("shipments_count")]
         public long? ShipmentsCount { get; set; }
@@ -117,19 +117,19 @@ namespace RechargeSharp.Entities.Charges
         public string Type { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         /// <summary>
         /// only present for failed charges
         /// </summary>
         [JsonProperty("last_charge_attempt_date", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? LastChargeAttemptDate { get; set; }
+        public DateTimeOffset? LastChargeAttemptDate { get; set; }
 
         /// <summary>
         /// only present for failed charges
         /// </summary>
         [JsonProperty("retry_date", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? RetryDate { get; set; }
+        public DateTimeOffset? RetryDate { get; set; }
 
         /// <summary>
         /// only present for failed charges

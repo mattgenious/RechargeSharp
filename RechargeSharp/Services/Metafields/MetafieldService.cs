@@ -27,14 +27,14 @@ namespace RechargeSharp.Services.Metafields
         {
             var response = await GetAsync($"/metafields/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Metafield;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Metafield;
         }
 
         private async Task<IEnumerable<Metafield>> GetMetafieldsAsync(string queryParams)
         {
             var response = await GetAsync($"/metafields?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Metafields;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Metafields;
         }
 
         public Task<IEnumerable<Metafield>> GetMetafieldsAsync(long limit = 50, long page = 1, string ownerResource = "store", string _namespace  = null, long? ownerId = null)
@@ -86,7 +86,7 @@ namespace RechargeSharp.Services.Metafields
 
             var response = await PostAsJsonAsync($"/metafields?owner_resource={createMetafieldRequest.MetafieldObject.OwnerResource}", JsonConvert.SerializeObject(createMetafieldRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Metafield;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Metafield;
         }
 
         public async Task<Metafield> UpdateMetafieldAsync(long id, UpdateMetafieldRequest updateMetafieldRequest)
@@ -95,7 +95,7 @@ namespace RechargeSharp.Services.Metafields
 
             var response = await PutAsJsonAsync($"/metafields/{id}", JsonConvert.SerializeObject(updateMetafieldRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Metafield;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Metafield;
         }
 
         public async Task DeleteMetafieldAsync(long id)
@@ -116,7 +116,7 @@ namespace RechargeSharp.Services.Metafields
         {
             var response = await GetAsync($"/metafields/count?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Count;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Count;
         }
     }
 }

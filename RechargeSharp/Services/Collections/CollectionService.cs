@@ -26,21 +26,21 @@ namespace RechargeSharp.Services.Collections
         {
             var response = await GetAsync($"/collections/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CollectionResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Collection;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Collection;
         }
 
         public async Task<IEnumerable<Collection>> GetCollectionsAsync()
         {
             var response = await GetAsync($"/collections").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CollectionListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Products;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Products;
         }
 
         public async Task<long> CountCollectionsAsync()
         {
             var response = await GetAsync("/collections/count").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Count;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Count;
         }
 
 

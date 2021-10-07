@@ -44,6 +44,6 @@ namespace RechargeSharp.Entities.Subscriptions
         public long? AddressId { get; set; }
 
         [JsonProperty("next_charge_scheduled_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? NextChargeScheduledAt { get; set; }
+        public DateTimeOffset? NextChargeScheduledAt { get; set; }
     }
 }

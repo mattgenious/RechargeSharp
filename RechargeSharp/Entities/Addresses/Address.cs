@@ -80,7 +80,7 @@ namespace RechargeSharp.Entities.Addresses
         public string Country { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("customer_id")]
         public long CustomerId { get; set; }
@@ -113,7 +113,7 @@ namespace RechargeSharp.Entities.Addresses
         public string Province { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         [JsonProperty("zip")]
         public string Zip { get; set; }

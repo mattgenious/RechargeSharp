@@ -80,7 +80,7 @@ namespace RechargeSharp.Entities.Discounts
         public string AppliesToProductType { get; set; }
 
         [JsonProperty("created_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
         [Required]
         [StringValues(AllowableValues = new[] { "forever", "usage_limit", "single_use" })]
@@ -92,10 +92,10 @@ namespace RechargeSharp.Entities.Discounts
         public long? DurationUsageLimit { get; set; }
 
         [JsonProperty("ends_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? EndsAt { get; set; }
+        public DateTimeOffset? EndsAt { get; set; }
 
         [JsonProperty("starts_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? StartsAt { get; set; }
+        public DateTimeOffset? StartsAt { get; set; }
 
         [JsonProperty("once_per_customer", NullValueHandling = NullValueHandling.Ignore)]
         public bool? OncePerCustomer { get; set; }

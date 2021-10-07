@@ -38,11 +38,11 @@ namespace RechargeSharpTests
 
             var test = TestDataHandler.GetTestAddressString;
 
-            var test2 = JsonConvert.DeserializeObject<Address>(test, new DateTimeJsonConverter());
+            var test2 = JsonConvert.DeserializeObject<Address>(test, new DateTimeOffsetJsonConverter());
 
             var jsonString = JsonConvert.SerializeObject(sut);
 
-            var newAddress = JsonConvert.DeserializeObject<Address>(jsonString, new DateTimeJsonConverter());
+            var newAddress = JsonConvert.DeserializeObject<Address>(jsonString, new DateTimeOffsetJsonConverter());
 
             _testOutputHelper.WriteLine(sut.CreatedAt.ToString("O"));
             _testOutputHelper.WriteLine(newAddress.CreatedAt.ToString("O"));
@@ -61,11 +61,11 @@ namespace RechargeSharpTests
 
             var test = TestDataHandler.GetTestAddressUTCString;
 
-            var test2 = JsonConvert.DeserializeObject<Address>(test, new DateTimeJsonConverter());
+            var test2 = JsonConvert.DeserializeObject<Address>(test, new DateTimeOffsetJsonConverter());
 
             var jsonString = JsonConvert.SerializeObject(sut);
 
-            var newAddress = JsonConvert.DeserializeObject<Address>(jsonString, new DateTimeJsonConverter());
+            var newAddress = JsonConvert.DeserializeObject<Address>(jsonString, new DateTimeOffsetJsonConverter());
 
             _testOutputHelper.WriteLine(sut.CreatedAt.ToString("O"));
             _testOutputHelper.WriteLine(newAddress.CreatedAt.ToString("O"));
@@ -84,11 +84,11 @@ namespace RechargeSharpTests
 
             var test = TestDataHandler.GetTestAddressOffsetString;
 
-            var test2 = JsonConvert.DeserializeObject<Address>(test, new DateTimeJsonConverter());
+            var test2 = JsonConvert.DeserializeObject<Address>(test, new DateTimeOffsetJsonConverter());
 
             var jsonString = JsonConvert.SerializeObject(sut);
 
-            var newAddress = JsonConvert.DeserializeObject<Address>(jsonString, new DateTimeJsonConverter());
+            var newAddress = JsonConvert.DeserializeObject<Address>(jsonString, new DateTimeOffsetJsonConverter());
 
             _testOutputHelper.WriteLine(sut.CreatedAt.ToString("O"));
             _testOutputHelper.WriteLine(newAddress.CreatedAt.ToString("O"));
@@ -437,24 +437,21 @@ namespace RechargeSharpTests
 
             var test = TestDataHandler.GetTestCustomerString;
 
-            var test2 = JsonConvert.DeserializeObject<Customer>(test, new DateTimeJsonConverter());
 
             var jsonString = JsonConvert.SerializeObject(sut);
 
-            var newCustomer = JsonConvert.DeserializeObject<Customer>(jsonString, new DateTimeJsonConverter());
+            var newCustomer = JsonConvert.DeserializeObject<Customer>(jsonString, new DateTimeOffsetJsonConverter());
 
-            _testOutputHelper.WriteLine(sut.CreatedAt.ToString("O"));
-            _testOutputHelper.WriteLine(newCustomer.CreatedAt.ToString("O"));
-            _testOutputHelper.WriteLine(test2.CreatedAt.ToString("O"));
-            _testOutputHelper.WriteLine(sut.UpdatedAt.ToString("O"));
-            _testOutputHelper.WriteLine(newCustomer.UpdatedAt.ToString("O"));
-            _testOutputHelper.WriteLine(test2.UpdatedAt.ToString("O"));
-            _testOutputHelper.WriteLine(sut.FirstChargeProcessedAt?.ToString("O"));
-            _testOutputHelper.WriteLine(newCustomer.FirstChargeProcessedAt?.ToString("O"));
-            _testOutputHelper.WriteLine(test2.FirstChargeProcessedAt?.ToString("O"));
+            _testOutputHelper.WriteLine(sut.CreatedAt.ToUniversalTime().ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.CreatedAt.ToUniversalTime().ToString("O"));
+            _testOutputHelper.WriteLine("");
+            _testOutputHelper.WriteLine(sut.UpdatedAt.ToUniversalTime().ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.UpdatedAt.ToUniversalTime().ToString("O"));
+            _testOutputHelper.WriteLine("");
+            _testOutputHelper.WriteLine(sut.FirstChargeProcessedAt?.ToUniversalTime().ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.FirstChargeProcessedAt?.ToUniversalTime().ToString("O"));
 
             Assert.Equal(sut, newCustomer);
-            Assert.True(newCustomer.FirstChargeProcessedAt.Value.Kind != System.DateTimeKind.Unspecified);
         }
 
 
@@ -463,13 +460,13 @@ namespace RechargeSharpTests
         {
             var customerString = TestDataHandler.GetTestCustomerString;
 
-            var newCustomer = JsonConvert.DeserializeObject<Customer>(customerString, new DateTimeJsonConverter());
+            var newCustomer = JsonConvert.DeserializeObject<Customer>(customerString, new DateTimeOffsetJsonConverter());
 
             newCustomer.FirstChargeProcessedAt = null;
 
-            var newCustomerString = JsonConvert.SerializeObject(newCustomer, new DateTimeJsonConverter());
+            var newCustomerString = JsonConvert.SerializeObject(newCustomer, new DateTimeOffsetJsonConverter());
 
-            var newNewCustomer = JsonConvert.DeserializeObject<Customer>(newCustomerString, new DateTimeJsonConverter());
+            var newNewCustomer = JsonConvert.DeserializeObject<Customer>(newCustomerString, new DateTimeOffsetJsonConverter());
 
             _testOutputHelper.WriteLine(newCustomer.CreatedAt.ToString("O"));
             _testOutputHelper.WriteLine(newNewCustomer.CreatedAt.ToString("O"));

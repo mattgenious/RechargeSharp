@@ -3,9 +3,9 @@ using System;
 
 namespace RechargeSharp.Utilities
 {
-    public class DateTimeJsonConverter : JsonConverter<DateTime?>
+    public class DateTimeOffsetJsonConverter : JsonConverter<DateTimeOffset?>
     {
-        public override DateTime? ReadJson(JsonReader reader, Type objectType, DateTime? existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override DateTimeOffset? ReadJson(JsonReader reader, Type objectType, DateTimeOffset? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             if (reader.Value == null)
             {
@@ -14,20 +14,21 @@ namespace RechargeSharp.Utilities
 
             var dateTime = typeof(string) == reader.ValueType ? DateTime.Parse((string)reader.Value) : (DateTime)reader.Value;
 
+
             switch (dateTime.Kind)
             {
                 case DateTimeKind.Local:
-                    return dateTime.ToUniversalTime();
+                    return new DateTimeOffset(dateTime);
                 case DateTimeKind.Unspecified:
-                    return new DateTimeOffset(dateTime, TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time").BaseUtcOffset).UtcDateTime;
+                    return new DateTimeOffset(dateTime, TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time").BaseUtcOffset);
                 case DateTimeKind.Utc:
-                    return dateTime;
+                    return new DateTimeOffset(dateTime);
             }
 
-            return dateTime;
+            return new DateTimeOffset(dateTime);
         }
 
-        public override void WriteJson(JsonWriter writer, DateTime? value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, DateTimeOffset? value, JsonSerializer serializer)
         {
             if (value == null)
                 writer.WriteNull();

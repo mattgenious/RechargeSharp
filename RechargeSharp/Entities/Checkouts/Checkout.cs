@@ -24,10 +24,10 @@ namespace RechargeSharp.Entities.Checkouts
         public long? ChargeId { get; set; }
 
         [JsonProperty("completed_at")]
-        public DateTime? CompletedAt { get; set; }
+        public DateTimeOffset? CompletedAt { get; set; }
 
         [JsonProperty("created_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? CreatedAt { get; set; }
+        public DateTimeOffset? CreatedAt { get; set; }
 
         [JsonProperty("currency", NullValueHandling = NullValueHandling.Ignore)]
         public string Currency { get; set; }
@@ -102,7 +102,7 @@ namespace RechargeSharp.Entities.Checkouts
         public string TotalTax { get; set; }
 
         [JsonProperty("updated_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
 
         public bool Equals(Checkout other)
         {

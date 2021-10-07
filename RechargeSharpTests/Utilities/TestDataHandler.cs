@@ -8,10 +8,10 @@ namespace RechargeSharpTests.Utilities
 {
     internal class TestDataHandler
     {
-        public static Customer GetTestDataCustomer => JsonConvert.DeserializeObject<Customer>(GetTestCustomerString, new DateTimeJsonConverter());
-        public static Address GetTestDataAddress => JsonConvert.DeserializeObject<Address>(GetTestAddressString, new DateTimeJsonConverter());
-        public static Address GetTestDataAddressUTC => JsonConvert.DeserializeObject<Address>(GetTestAddressUTCString, new DateTimeJsonConverter());
-        public static Address GetTestDataAddressOffset => JsonConvert.DeserializeObject<Address>(GetTestAddressOffsetString, new DateTimeJsonConverter());
+        public static Customer GetTestDataCustomer => JsonConvert.DeserializeObject<Customer>(GetTestCustomerString, new DateTimeOffsetJsonConverter());
+        public static Address GetTestDataAddress => JsonConvert.DeserializeObject<Address>(GetTestAddressString, new DateTimeOffsetJsonConverter());
+        public static Address GetTestDataAddressUTC => JsonConvert.DeserializeObject<Address>(GetTestAddressUTCString, new DateTimeOffsetJsonConverter());
+        public static Address GetTestDataAddressOffset => JsonConvert.DeserializeObject<Address>(GetTestAddressOffsetString, new DateTimeOffsetJsonConverter());
 
         public static string GetTestCustomerString => File.ReadAllText(TestDataPaths.Customer);
         public static string GetTestAddressString => File.ReadAllText(TestDataPaths.Address);

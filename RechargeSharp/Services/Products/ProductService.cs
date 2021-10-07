@@ -26,14 +26,14 @@ namespace RechargeSharp.Services.Products
         {
             var response = await GetAsync($"/products/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ProductResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Product;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Product;
         }
 
         private async Task<IEnumerable<Product>> GetProductsAsync(string queryParams)
         {
             var response = await GetAsync($"/products?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ProductListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Products;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Products;
         }
 
         public Task<IEnumerable<Product>> GetProductsAsync(int page = 1, int limit = 50, List<long> id = null, List<long> shopifyProductId = null, string collectionId = null)
@@ -63,7 +63,7 @@ namespace RechargeSharp.Services.Products
 
             var response = await GetAsync($"/products?page={page}&limit=250{queryParams}").ConfigureAwait(false);
             var result = JsonConvert.DeserializeObject<ProductListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter());
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter());
             if (!result.Products.Any())
             {
                 return accumulator.Products;
@@ -90,7 +90,7 @@ namespace RechargeSharp.Services.Products
         {
             var response = await GetAsync($"/metafields/count?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeJsonConverter()).Count;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Count;
         }
     }
 }

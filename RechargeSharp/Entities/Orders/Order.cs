@@ -24,7 +24,7 @@ namespace RechargeSharp.Entities.Orders
         public string ChargeStatus { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("customer_id")]
         public long CustomerId { get; set; }
@@ -60,19 +60,19 @@ namespace RechargeSharp.Entities.Orders
         public string PaymentProcessor { get; set; }
 
         [JsonProperty("processed_at")]
-        public DateTime? ProcessedAt { get; set; }
+        public DateTimeOffset? ProcessedAt { get; set; }
 
         [JsonProperty("scheduled_at")]
-        public DateTime? ScheduledAt { get; set; }
+        public DateTimeOffset? ScheduledAt { get; set; }
 
         [JsonProperty("shipped_date")]
-        public DateTime? ShippedDate { get; set; }
+        public DateTimeOffset? ShippedDate { get; set; }
 
         [JsonProperty("shipping_address")]
         public Address ShippingAddress { get; set; }
 
         [JsonProperty("shipping_date")]
-        public DateTime? ShippingDate { get; set; }
+        public DateTimeOffset? ShippingDate { get; set; }
 
         [JsonProperty("shipping_lines")]
         public IEnumerable<ShippingLine> ShippingLines { get; set; }
@@ -126,7 +126,7 @@ namespace RechargeSharp.Entities.Orders
         public string Type { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         public bool Equals(Order other)
         {

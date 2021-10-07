@@ -43,10 +43,10 @@ namespace RechargeSharp.Entities.WebhookResponses.Rulesets
         }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("id")]
         public long Id { get; set; }

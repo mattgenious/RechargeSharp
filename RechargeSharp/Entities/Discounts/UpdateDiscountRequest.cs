@@ -44,7 +44,7 @@ namespace RechargeSharp.Entities.Discounts
         }
 
         [JsonProperty("starts_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? StartsAt { get; set; }
+        public DateTimeOffset? StartsAt { get; set; }
 
         [JsonProperty("usage_limit", NullValueHandling = NullValueHandling.Ignore)]
         public long? UsageLimit { get; set; }
@@ -54,6 +54,6 @@ namespace RechargeSharp.Entities.Discounts
         public string Status { get; set; }
 
         [JsonProperty("ends_at", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? EndsAt { get; set; }
+        public DateTimeOffset? EndsAt { get; set; }
     }
 }
