@@ -18,14 +18,14 @@ namespace RechargeSharp.Utilities
             switch (dateTime.Kind)
             {
                 case DateTimeKind.Local:
-                    return new DateTimeOffset(dateTime);
+                    return new DateTimeOffset(dateTime).ToUniversalTime();
                 case DateTimeKind.Unspecified:
-                    return new DateTimeOffset(dateTime, TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time").BaseUtcOffset);
+                    return new DateTimeOffset(dateTime, TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time").BaseUtcOffset).ToUniversalTime();
                 case DateTimeKind.Utc:
-                    return new DateTimeOffset(dateTime);
+                    return new DateTimeOffset(dateTime).ToUniversalTime();
             }
 
-            return new DateTimeOffset(dateTime);
+            return new DateTimeOffset(dateTime).ToUniversalTime();
         }
 
         public override void WriteJson(JsonWriter writer, DateTimeOffset? value, JsonSerializer serializer)
