@@ -59,7 +59,7 @@ namespace RechargeSharp.Entities.Onetimes
         public long AddressId { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("customer_id")]
         public long CustomerId { get; set; }
@@ -68,7 +68,7 @@ namespace RechargeSharp.Entities.Onetimes
         public long Id { get; set; }
 
         [JsonProperty("next_charge_scheduled_at")]
-        public DateTime? NextChargeScheduledAt { get; set; }
+        public DateTimeOffset? NextChargeScheduledAt { get; set; }
 
         [JsonProperty("price")]
         public long Price { get; set; }
@@ -98,7 +98,7 @@ namespace RechargeSharp.Entities.Onetimes
         public string Status { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         [JsonProperty("variant_title")]
         public string VariantTitle { get; set; }

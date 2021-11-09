@@ -67,10 +67,10 @@ namespace RechargeSharp.Entities.Discounts
         public long Value { get; set; }
 
         [JsonProperty("ends_at")]
-        public DateTime? EndsAt { get; set; }
+        public DateTimeOffset? EndsAt { get; set; }
 
         [JsonProperty("starts_at")]
-        public DateTime? StartsAt { get; set; }
+        public DateTimeOffset? StartsAt { get; set; }
 
         [JsonProperty("status")]
         public DiscountStatus? Status { get; set; }
@@ -103,10 +103,10 @@ namespace RechargeSharp.Entities.Discounts
         public AppliesToProductType? AppliesToProductType { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         [JsonProperty("once_per_customer")]
         public bool OncePerCustomer { get; set; }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Onetimes;
+using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Onetimes
 {
@@ -25,17 +26,17 @@ namespace RechargeSharp.Services.Onetimes
         {
             var response = await GetAsync($"/onetimes/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OnetimeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProduct;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).OneTimeProduct;
         }
 
         private async Task<IEnumerable<Onetime>> GetOnetimesAsync(string queryParams)
         {
             var response = await GetAsync($"/onetimes?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OnetimeListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProducts;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).OneTimeProducts;
         }
 
-        public Task<IEnumerable<Onetime>> GetOnetimesAsync(long limit = 50, long page = 1, long? customerId = null, long? addressId = null, long? shopifyCustomerId = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public Task<IEnumerable<Onetime>> GetOnetimesAsync(long limit = 50, long page = 1, long? customerId = null, long? addressId = null, long? shopifyCustomerId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
@@ -55,7 +56,7 @@ namespace RechargeSharp.Services.Onetimes
 
             var response = await PostAsJsonAsync($"/addresses/{addressId}/onetimes", JsonConvert.SerializeObject(createOneTimeProductRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OnetimeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProduct;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).OneTimeProduct;
         }
 
         public async Task<Onetime> UpdateOnetimeAsync(long id, UpdateOnetimeRequest updateOneTimeProductRequest)
@@ -64,7 +65,7 @@ namespace RechargeSharp.Services.Onetimes
 
             var response = await PutAsJsonAsync($"/onetimes/{id}", JsonConvert.SerializeObject(updateOneTimeProductRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<OnetimeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).OneTimeProduct;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).OneTimeProduct;
         }
 
         public async Task DeleteOnetimeAsync(long id)

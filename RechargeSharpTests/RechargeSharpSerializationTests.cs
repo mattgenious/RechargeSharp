@@ -15,13 +15,91 @@ using RechargeSharp.Entities.Shared;
 using RechargeSharp.Entities.Shop;
 using RechargeSharp.Entities.Subscriptions;
 using RechargeSharp.Entities.Webhooks;
+using RechargeSharp.Utilities;
+using RechargeSharpTests.Utilities;
 using Xunit;
+using Xunit.Abstractions;
 using Address = RechargeSharp.Entities.Addresses.Address;
 
 namespace RechargeSharpTests
 {
     public class RechargeSharpSerializationTests
     {
+        private readonly ITestOutputHelper _testOutputHelper;
+        public RechargeSharpSerializationTests(ITestOutputHelper testOutputHelper)
+        {
+            _testOutputHelper = testOutputHelper;
+        }
+
+        [Fact]
+        public void SerializeDeserializeAddressFromJsonTest()
+        {
+            var sut = TestDataHandler.GetTestDataAddress;
+
+            var test = TestDataHandler.GetTestAddressString;
+
+            var test2 = JsonConvert.DeserializeObject<Address>(test, new DateTimeOffsetJsonConverter());
+
+            var jsonString = JsonConvert.SerializeObject(sut);
+
+            var newAddress = JsonConvert.DeserializeObject<Address>(jsonString, new DateTimeOffsetJsonConverter());
+
+            _testOutputHelper.WriteLine(sut.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newAddress.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(test2.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(sut.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newAddress.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(test2.UpdatedAt.ToString("O"));
+
+            Assert.Equal(sut, newAddress);
+        }
+
+        [Fact]
+        public void SerializeDeserializeAddressUTCFromJsonTest()
+        {
+            var sut = TestDataHandler.GetTestDataAddressUTC;
+
+            var test = TestDataHandler.GetTestAddressUTCString;
+
+            var test2 = JsonConvert.DeserializeObject<Address>(test, new DateTimeOffsetJsonConverter());
+
+            var jsonString = JsonConvert.SerializeObject(sut);
+
+            var newAddress = JsonConvert.DeserializeObject<Address>(jsonString, new DateTimeOffsetJsonConverter());
+
+            _testOutputHelper.WriteLine(sut.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newAddress.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(test2.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(sut.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newAddress.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(test2.UpdatedAt.ToString("O"));
+
+            Assert.Equal(sut, newAddress);
+        }
+
+        [Fact]
+        public void SerializeDeserializeAddressOffsetFromJsonTest()
+        {
+            var sut = TestDataHandler.GetTestDataAddressOffset;
+
+            var test = TestDataHandler.GetTestAddressOffsetString;
+
+            var test2 = JsonConvert.DeserializeObject<Address>(test, new DateTimeOffsetJsonConverter());
+
+            var jsonString = JsonConvert.SerializeObject(sut);
+
+            var newAddress = JsonConvert.DeserializeObject<Address>(jsonString, new DateTimeOffsetJsonConverter());
+
+            _testOutputHelper.WriteLine(sut.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newAddress.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(test2.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(sut.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newAddress.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(test2.UpdatedAt.ToString("O"));
+
+            Assert.Equal(sut, newAddress);
+        }
+
         [Theory]
         [InlineAutoData]
         public void SerializeDeserializeAddressTest(Address sut)
@@ -350,6 +428,56 @@ namespace RechargeSharpTests
 
             Assert.Equal(sut, JsonConvert.DeserializeObject<Customer>(jsonString));
         }
+
+
+        [Fact]
+        public void SerializeDeserializeCustomerFromJsonTest()
+        {
+            var sut = TestDataHandler.GetTestDataCustomer;
+
+            var test = TestDataHandler.GetTestCustomerString;
+
+
+            var jsonString = JsonConvert.SerializeObject(sut);
+
+            var newCustomer = JsonConvert.DeserializeObject<Customer>(jsonString, new DateTimeOffsetJsonConverter());
+
+            _testOutputHelper.WriteLine(sut.CreatedAt.ToUniversalTime().ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.CreatedAt.ToUniversalTime().ToString("O"));
+            _testOutputHelper.WriteLine("");
+            _testOutputHelper.WriteLine(sut.UpdatedAt.ToUniversalTime().ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.UpdatedAt.ToUniversalTime().ToString("O"));
+            _testOutputHelper.WriteLine("");
+            _testOutputHelper.WriteLine(sut.FirstChargeProcessedAt?.ToUniversalTime().ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.FirstChargeProcessedAt?.ToUniversalTime().ToString("O"));
+
+            Assert.Equal(sut, newCustomer);
+        }
+
+
+        [Fact]
+        public void SerializeDeserializeCustomerFromJsonWithNullDateTimeTest()
+        {
+            var customerString = TestDataHandler.GetTestCustomerString;
+
+            var newCustomer = JsonConvert.DeserializeObject<Customer>(customerString, new DateTimeOffsetJsonConverter());
+
+            newCustomer.FirstChargeProcessedAt = null;
+
+            var newCustomerString = JsonConvert.SerializeObject(newCustomer, new DateTimeOffsetJsonConverter());
+
+            var newNewCustomer = JsonConvert.DeserializeObject<Customer>(newCustomerString, new DateTimeOffsetJsonConverter());
+
+            _testOutputHelper.WriteLine(newCustomer.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newNewCustomer.CreatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newNewCustomer.UpdatedAt.ToString("O"));
+            _testOutputHelper.WriteLine(newCustomer.FirstChargeProcessedAt?.ToString("O") == null ? "null" : newCustomer.FirstChargeProcessedAt?.ToString("O"));
+            _testOutputHelper.WriteLine(newNewCustomer.FirstChargeProcessedAt?.ToString("O") == null ? "null" : newNewCustomer.FirstChargeProcessedAt?.ToString("O"));
+
+            Assert.Equal(newNewCustomer, newCustomer);
+        }
+
 
         [Theory]
         [InlineAutoData]

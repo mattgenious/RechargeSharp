@@ -61,7 +61,7 @@ namespace RechargeSharp.Entities.Subscriptions
 
         [Required]
         [JsonProperty("next_charge_scheduled_at")]
-        public DateTime? NextChargeScheduledAt { get; set; }
+        public DateTimeOffset? NextChargeScheduledAt { get; set; }
 
         [Required]
         [JsonProperty("shopify_variant_id")]

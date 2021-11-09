@@ -43,7 +43,7 @@ namespace RechargeSharp.Entities.Collections
         }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("id")]
         public long Id { get; set; }
@@ -52,6 +52,6 @@ namespace RechargeSharp.Entities.Collections
         public string Name { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
     }
 }

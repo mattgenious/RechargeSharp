@@ -50,7 +50,7 @@ namespace RechargeSharp.Entities.Metafields
         }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -71,7 +71,7 @@ namespace RechargeSharp.Entities.Metafields
         public OwnerResource? OwnerResource { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         [JsonProperty("value")]
         public string Value { get; set; }

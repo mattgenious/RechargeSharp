@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using RechargeSharp.Entities.Addresses;
 using RechargeSharp.Entities.Checkouts;
 using RechargeSharp.Entities.Shared;
+using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Checkouts
 {
@@ -26,7 +27,7 @@ namespace RechargeSharp.Services.Checkouts
         {
             var response = await GetAsync($"/checkouts/{token}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Checkout;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Checkout;
         }
 
         public async Task<Checkout> CreateCheckoutAsync(CreateCheckoutRequest createCheckoutRequest)
@@ -35,7 +36,7 @@ namespace RechargeSharp.Services.Checkouts
 
             var response = await PostAsJsonAsync("/checkouts", JsonConvert.SerializeObject(createCheckoutRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Checkout;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Checkout;
         }
 
         public async Task<Checkout> UpdateCheckoutAsync(string token, UpdateCheckoutRequest updateCheckoutRequest)
@@ -44,14 +45,14 @@ namespace RechargeSharp.Services.Checkouts
 
             var response = await PutAsJsonAsync($"/checkouts/{token}", JsonConvert.SerializeObject(updateCheckoutRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Checkout;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Checkout;
         }
 
         public async Task<Checkout> UpdateCheckoutShippingLine(string token, string shippingRateHandle)
         {
             var response = await PutAsJsonAsync($"/checkouts/{token}", $"{{\"checkout\":{{\"shipping_line\":{{\"handle\":\"{shippingRateHandle}\"}}}}}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Checkout;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Checkout;
         }
 
         public async Task<IEnumerable<ShippingRate>> RetrieveShippingRatesAsync(string token, OverrideShippingLinesRequest overrideShippingLinesRequest)
@@ -60,7 +61,7 @@ namespace RechargeSharp.Services.Checkouts
 
             var response = await GetAsync($"/checkouts/{token}/shipping_rates").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CheckoutShippingRateListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).ShippingRates;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).ShippingRates;
         }
 
         public async Task<CheckoutCharge> ProcessCheckoutAsync(string token, ProcessCheckoutRequest processCheckoutRequest)
@@ -69,7 +70,7 @@ namespace RechargeSharp.Services.Checkouts
 
             var response = await PostAsJsonAsync($"/checkouts/{token}/charge", JsonConvert.SerializeObject(processCheckoutRequest), true).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ProcessCheckoutResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).CheckoutCharge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).CheckoutCharge;
         }
     }
 }

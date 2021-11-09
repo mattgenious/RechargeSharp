@@ -1,0 +1,30 @@
+{
+    "id": 18819267,
+    "analytics_data": {
+        "utm_params": []
+    },
+    "billing_address1": "3030 Nebraska Avenue",
+    "billing_address2": null,
+    "billing_city": "Los Angeles",
+    "billing_company": null,
+    "billing_country": "United States",
+    "billing_phone": "3103843698",
+    "billing_province": "California",
+    "billing_zip": "90404",
+    "created_at": "2018-11-14T08:40:38",
+    "email": "example_mail@gmail.com",
+    "first_charge_processed_at": "2018-11-14T08:40:38",
+    "first_name": "Jacob",
+    "has_card_error_in_dunning": false,
+    "has_valid_payment_method": false,
+    "hash": "18819267b1f9095be98f13a8",
+    "last_name": "Bronowski",
+    "number_active_subscriptions": 0,
+    "number_subscriptions": 0,
+    "processor_type": null,
+    "reason_payment_method_not_valid": null,
+    "shopify_customer_id": null,
+    "status": "INACTIVE",
+    "stripe_customer_token": "cus_I9bJ...",
+    "updated_at": "2018-11-14T08:40:38"
+}

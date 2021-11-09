@@ -9,6 +9,7 @@ using RechargeSharp.Entities.Addresses;
 using RechargeSharp.Entities.Charges;
 using RechargeSharp.Entities.Discounts;
 using RechargeSharp.Entities.Shared;
+using RechargeSharp.Utilities;
 using Address = RechargeSharp.Entities.Addresses.Address;
 
 namespace RechargeSharp.Services.Discounts
@@ -28,17 +29,17 @@ namespace RechargeSharp.Services.Discounts
         {
             var response = await GetAsync($"/discounts/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<DiscountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Discount;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Discount;
         }
 
         private async Task<IEnumerable<Discount>> GetDiscountsAsync(string queryParams)
         {
             var response = await GetAsync($"/discounts?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<DiscountListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Discounts;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Discounts;
         }
 
-        public async Task<IEnumerable<Discount>> GetDiscountsAsync(int page = 1, int limit = 50, string status = null, string discountType = null, string discountCode = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public async Task<IEnumerable<Discount>> GetDiscountsAsync(int page = 1, int limit = 50, string status = null, string discountType = null, string discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += status != null ? $"&status={status}" : "";
@@ -52,7 +53,7 @@ namespace RechargeSharp.Services.Discounts
             return await GetDiscountsAsync(queryParams).ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<Discount>> GetAllDiscountsWithParamsAsync(string status = null, string discountType = null, string discountCode = null, DateTime? createdAtMin = null, DateTime? createAtMax = null, DateTime? updatedAtMin = null, DateTime? updatedAtMax = null)
+        public async Task<IEnumerable<Discount>> GetAllDiscountsWithParamsAsync(string status = null, string discountType = null, string discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = $"";
             queryParams += discountType != null ? $"&discount_type={discountType}" : "";
@@ -94,49 +95,49 @@ namespace RechargeSharp.Services.Discounts
         {
             var response = await GetAsync("/discounts/count").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Count;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Count;
         }
 
         public async Task<Address> AddDiscountToAddressByIdAsync(long discountId, long addressId)
         {
             var response = await PostAsJsonAsync($"/addresses/{addressId}/apply_discount", $"{{ \"discount_id\":\"{discountId}\"}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Address;
         }
 
         public async Task<Address> AddDiscountToAddressByCodeAsync(string discountCode, long addressId)
         {
             var response = await PostAsJsonAsync($"/addresses/{addressId}/apply_discount", $"{{ \"discount_code\":\"{discountCode}\"}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Address;
         }
 
         public async Task<Address> RemoveDiscountFromAddress(long addressId)
         {
             var response = await PostAsJsonAsync($"/addresses/{addressId}/remove_discount", $"{{}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<AddressResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Address;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Address;
         }
 
         public async Task<Charge> AddDiscountToChargeByIdAsync(long discountId, long chargeId)
         {
             var response = await PostAsJsonAsync($"/charges/{chargeId}/apply_discount", $"{{ \"discount_id\":\"{discountId}\"}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Charge;
         }
 
         public async Task<Charge> AddDiscountToChargeByCodeAsync(string discountCode, long chargeId)
         {
             var response = await PostAsJsonAsync($"/charges/{chargeId}/apply_discount", $"{{ \"discount_code\":\"{discountCode}\"}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Charge;
         }
 
         public async Task<Charge> RemoveDiscountFromCharge(long chargeId)
         {
             var response = await PostAsJsonAsync($"/charges/{chargeId}/remove_discount", $"{{}}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Charge;
         }
 
         public async Task<Discount> CreateDiscountAsync(CreateDiscountRequest createDiscountRequest)
@@ -145,7 +146,7 @@ namespace RechargeSharp.Services.Discounts
 
             var response = await PostAsJsonAsync("/discounts", JsonConvert.SerializeObject(createDiscountRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<DiscountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Discount;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Discount;
         }
 
         public async Task<Discount> UpdateDiscountAsync(long id, UpdateDiscountRequest updateDiscountRequest)
@@ -154,7 +155,7 @@ namespace RechargeSharp.Services.Discounts
 
             var response = await PutAsJsonAsync($"/discounts/{id}", JsonConvert.SerializeObject(updateDiscountRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<DiscountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false)).Discount;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Discount;
         }
 
         public async Task DeleteDiscountAsync(long id)

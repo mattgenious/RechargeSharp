@@ -38,6 +38,6 @@ namespace RechargeSharp.Entities.Orders
 
         [Required]
         [JsonProperty("scheduled_at")]
-        public DateTime? ScheduledAt { get; set; }
+        public DateTimeOffset? ScheduledAt { get; set; }
     }
 }

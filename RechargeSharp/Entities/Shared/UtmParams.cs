@@ -24,6 +24,6 @@ namespace RechargeSharp.Entities.Shared
         public string UtmTerm { get; set; }
 
         [JsonProperty("utm_time_stamp", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime UtmTimeStamp { get; set; }
+        public DateTimeOffset UtmTimeStamp { get; set; }
     }
 }
