@@ -133,6 +133,12 @@ namespace RechargeSharp.Services.Subscriptions
             return JsonConvert.DeserializeObject<SubscriptionResponse>(
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Subscription;
         }
+        /// <summary>
+        /// Changes the address of a subscription to an address with a given id, optionally the next charge date can be changed too
+        /// </summary>
+        /// <param name="id">Subscription id</param>
+        /// <param name="changeAddressRequest">Object containing address id and optionally next charge date</param>
+        /// <returns></returns>
         public async Task<Subscription> ChangeAddressAsync(long id, ChangeAddressRequest changeAddressRequest)
         {
             ValidateModel(changeAddressRequest);
