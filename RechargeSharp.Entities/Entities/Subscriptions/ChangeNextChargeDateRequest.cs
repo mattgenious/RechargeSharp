@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Subscriptions
 {
-    class ChangeNextChargeDateRequest : IEquatable<ChangeNextChargeDateRequest>
+    public class ChangeNextChargeDateRequest : IEquatable<ChangeNextChargeDateRequest>
     {
         public bool Equals(ChangeNextChargeDateRequest other)
         {
