@@ -32,7 +32,7 @@ namespace RechargeSharp.Entities.Customers
                 hashCode = (hashCode * 397) ^ (BillingLastName != null ? BillingLastName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingAddress1 != null ? BillingAddress1.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingAddress2 != null ? BillingAddress2.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ BillingZip.GetHashCode();
+                hashCode = (hashCode * 397) ^ (BillingZip != null ? BillingZip.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingCity != null ? BillingCity.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingCompany != null ? BillingCompany.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (BillingProvince != null ? BillingProvince.GetHashCode() : 0);

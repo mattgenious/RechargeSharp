@@ -4,7 +4,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.1;netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>10.0.0-alpha.2</Version>
+		<Version>10.0.0-alpha.3</Version>
 		<AssemblyVersion>10.0.0.0</AssemblyVersion>
 		<PackageLicenseExpression></PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
@@ -15,7 +15,7 @@
 		<FileVersion>10.0.0.0</FileVersion>
 		<Authors>Matt Luccas Phaure Minet</Authors>
 		<Description>A C# library for RechargePayments</Description>
-		<PackageReleaseNotes>Split entities out into own package</PackageReleaseNotes>
+		<PackageReleaseNotes>Fixed bad gethashcode in UpdateCustomerRequest</PackageReleaseNotes>
 		<LangVersion>8.0</LangVersion>
 		<PackageIcon>icon.png</PackageIcon>
 		<Company>Matt Luccas Phaure Minet</Company>
