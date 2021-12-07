@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharpTests", "Recha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp", "RechargeSharp\RechargeSharp.csproj", "{A467D450-CC95-426B-8E34-68727EA95828}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RechargeSharp.Entities.EntityFrameworkCore", "RechargeSharp.Entities.EntityFrameworkCore\RechargeSharp.Entities.EntityFrameworkCore.csproj", "{35F32011-B7D0-4337-A5E4-55C75F035371}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A467D450-CC95-426B-8E34-68727EA95828}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A467D450-CC95-426B-8E34-68727EA95828}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A467D450-CC95-426B-8E34-68727EA95828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35F32011-B7D0-4337-A5E4-55C75F035371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35F32011-B7D0-4337-A5E4-55C75F035371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35F32011-B7D0-4337-A5E4-55C75F035371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35F32011-B7D0-4337-A5E4-55C75F035371}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

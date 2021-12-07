@@ -6,6 +6,9 @@ using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Charges
 {
+    /// <summary>
+    /// See documentation <see href="https://developer.rechargepayments.com/2021-01/charges/charge_object">https://developer.rechargepayments.com/2021-01/charges/charge_object</see>
+    /// </summary>
     public class Charge : IEquatable<Charge>
     {
         [JsonProperty("address_id")]
