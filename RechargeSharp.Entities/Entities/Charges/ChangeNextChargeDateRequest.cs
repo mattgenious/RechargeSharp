@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Charges
 {
+    /// <summary>
+    /// See documentation <see href="https://developer.rechargepayments.com/2021-01/charges/charge_change_next_date">https://developer.rechargepayments.com/2021-01/charges/charge_change_next_date</see>
+    /// </summary>
     public class ChangeNextChargeDateRequest : IEquatable<ChangeNextChargeDateRequest>
     {
         public bool Equals(ChangeNextChargeDateRequest other)

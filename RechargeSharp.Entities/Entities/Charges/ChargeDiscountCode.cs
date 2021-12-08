@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Charges
 {
+    /// <summary>
+    /// See documentation <see href="https://developer.rechargepayments.com/2021-01/charges/charge_object">https://developer.rechargepayments.com/2021-01/charges/charge_object</see>
+    /// </summary>
     public class ChargeDiscountCode : IEquatable<ChargeDiscountCode>
     {
         public bool Equals(ChargeDiscountCode other)

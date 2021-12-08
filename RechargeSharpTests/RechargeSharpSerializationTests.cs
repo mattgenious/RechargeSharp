@@ -183,11 +183,11 @@ namespace RechargeSharpTests
 
         [Theory]
         [InlineAutoData]
-        public void SerializeDeserializeChangeNextChargeDateRequestTest(ChangeNextChargeDateRequest sut)
+        public void SerializeDeserializeChangeNextChargeDateRequestTest(RechargeSharp.Entities.Charges.ChangeNextChargeDateRequest sut)
         {
             var jsonString = JsonConvert.SerializeObject(sut);
 
-            Assert.Equal(sut, JsonConvert.DeserializeObject<ChangeNextChargeDateRequest>(jsonString));
+            Assert.Equal(sut, JsonConvert.DeserializeObject<RechargeSharp.Entities.Charges.ChangeNextChargeDateRequest>(jsonString));
         }
 
         [Theory]

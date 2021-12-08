@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Subscriptions
@@ -61,13 +58,10 @@ namespace RechargeSharp.Entities.Subscriptions
                 hashCode = (hashCode * 397) ^ ShopifyVariantId.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Sku != null ? Sku.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (OrderIntervalUnit != null ? OrderIntervalUnit.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^
-                           (OrderIntervalFrequency != null ? OrderIntervalFrequency.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^
-                           (ChargeIntervalFrequency != null ? ChargeIntervalFrequency.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (OrderIntervalFrequency != null ? OrderIntervalFrequency.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ChargeIntervalFrequency != null ? ChargeIntervalFrequency.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (CancellationReason != null ? CancellationReason.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^
-                           (CancellationReasonComments != null ? CancellationReasonComments.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CancellationReasonComments != null ? CancellationReasonComments.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ OrderDayOfWeek.GetHashCode();
                 hashCode = (hashCode * 397) ^ OrderDayOfMonth.GetHashCode();
                 hashCode = (hashCode * 397) ^ ExpireAfterSpecificNumberOfCharges.GetHashCode();

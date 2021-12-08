@@ -39,10 +39,16 @@ namespace RechargeSharp.Entities.Subscriptions
             return !Equals(left, right);
         }
 
+        /// <summary>
+        /// Id of the new address
+        /// </summary>
         [Required]
         [JsonProperty("address_id")]
         public long? AddressId { get; set; }
 
+        /// <summary>
+        /// Optionally the next charge date if different than current next charge date
+        /// </summary>
         [JsonProperty("next_charge_scheduled_at", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? NextChargeScheduledAt { get; set; }
     }
