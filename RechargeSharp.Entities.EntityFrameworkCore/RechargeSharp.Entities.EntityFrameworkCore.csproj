@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>10.0.0-alpha.3</Version>
+		<Version>10.0.0-alpha.4</Version>
 		<AssemblyVersion>10.0.0.0</AssemblyVersion>
 		<PackageLicenseExpression></PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
@@ -16,7 +16,7 @@
 		<FileVersion>10.0.0.0</FileVersion>
 		<Authors>Matt Luccas Phaure Minet</Authors>
 		<Description>A C# library for RechargePayments</Description>
-		<PackageReleaseNotes>Fixed wrong reference on entity framwork core order</PackageReleaseNotes>
+		<PackageReleaseNotes>Fixed inability to define a key on a derived type for LineItem by reimplementing it instead of inheriting</PackageReleaseNotes>
 		<LangVersion>8.0</LangVersion>
 		<PackageIcon>icon.png</PackageIcon>
 		<Company>Matt Luccas Phaure Minet</Company>
