@@ -22,7 +22,7 @@ namespace RechargeSharp.Entities.EntityFrameworkCore.Entities.Orders
 
         [JsonProperty("billing_address")]
         [NotMapped]
-        public new RechargeSharp.Entities.Shared.Address? BillingAddress { get; set; }
+        public new Address? BillingAddress { get; set; }
 
         [JsonProperty("note_attributes")]
         [NotMapped]
