@@ -30,7 +30,7 @@ namespace RechargeSharp.Entities.EntityFrameworkCore.Entities.Orders
 
         [JsonProperty("shipping_address")]
         [NotMapped]
-        public new Addresses.Address? ShippingAddress { get; set; }
+        public new Address? ShippingAddress { get; set; }
 
         [JsonProperty("shipping_lines")]
         [NotMapped]
