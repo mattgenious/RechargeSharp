@@ -1,20 +1,19 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Collections
 {
     public class CollectionResponse : IEquatable<CollectionResponse>
     {
-        public bool Equals(CollectionResponse other)
+        public bool Equals(CollectionResponse? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Equals(Collection, other.Collection);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((CollectionResponse) obj);
@@ -22,7 +21,7 @@ namespace RechargeSharp.Entities.Collections
 
         public override int GetHashCode()
         {
-            return (Collection != null ? Collection.GetHashCode() : 0);
+            return Collection?.GetHashCode() ?? 0;
         }
 
         public static bool operator ==(CollectionResponse left, CollectionResponse right)
@@ -36,6 +35,6 @@ namespace RechargeSharp.Entities.Collections
         }
 
         [JsonProperty("collection")]
-        public Collection Collection { get; set; }
+        public Collection? Collection { get; set; }
     }
 }

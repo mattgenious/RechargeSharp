@@ -1,20 +1,19 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.WebhookResponses.Products
 {
     public class ProductDeletedResponse : IEquatable<ProductDeletedResponse>
     {
-        public bool Equals(ProductDeletedResponse other)
+        public bool Equals(ProductDeletedResponse? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Equals(Product, other.Product);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((ProductDeletedResponse) obj);
@@ -22,7 +21,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Products
 
         public override int GetHashCode()
         {
-            return (Product != null ? Product.GetHashCode() : 0);
+            return Product?.GetHashCode() ?? 0;
         }
 
         public static bool operator ==(ProductDeletedResponse left, ProductDeletedResponse right)
@@ -36,6 +35,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Products
         }
 
         [JsonProperty("product")]
-        public WebhookProductDeleted Product { get; set; }
+        public WebhookProductDeleted? Product { get; set; }
     }
 }

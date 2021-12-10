@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RechargeSharp.Entities.Exceptions
+﻿namespace RechargeSharp.Entities.Exceptions
 {
     /// <summary>
     /// Signifies that Strong Customer Authorization is required to proceed

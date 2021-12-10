@@ -1,8 +1,4 @@
 ﻿using RechargeSharp.Entities.Charges;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -17,27 +13,27 @@ namespace RechargeSharp.Services.Charges
         {
         }
 
-        public async Task<bool> ChargeExistsAsync(long id)
+        public async Task<bool?> ChargeExistsAsync(long id)
         {
             var response = await GetAsync($"/charges/{id}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<Charge> GetChargeAsync(long id)
+        public async Task<Charge?> GetChargeAsync(long id)
         {
             var response = await GetAsync($"/charges/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
         }
 
-        private async Task<IEnumerable<Charge>> GetChargesAsync(string queryParams)
+        private async Task<IEnumerable<Charge>?> GetChargesAsync(string queryParams)
         {
             var response = await GetAsync($"/charges?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Charges;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charges;
         }
 
-        public Task<IEnumerable<Charge>> GetChargesAsync(int page = 1, int limit = 50, long? discountId = null, string discountCode = null, string status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTimeOffset? date = null, DateTimeOffset? dateMin = null, DateTimeOffset? dateMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
+        public Task<IEnumerable<Charge>?> GetChargesAsync(int page = 1, int limit = 50, long? discountId = null, string? discountCode = null, string? status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTimeOffset? date = null, DateTimeOffset? dateMin = null, DateTimeOffset? dateMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += discountId != null ? $"&discount_id={discountId}" : "";
@@ -58,7 +54,7 @@ namespace RechargeSharp.Services.Charges
             return GetChargesAsync(queryParams);
         }
 
-        public Task<IEnumerable<Charge>> GetAllChargesWithParamsAsync(long? discountId = null, string discountCode = null, string status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTimeOffset? date = null, DateTimeOffset? dateMin = null, DateTimeOffset? dateMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
+        public Task<IEnumerable<Charge>> GetAllChargesWithParamsAsync(long? discountId = null, string? discountCode = null, string? status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTimeOffset? date = null, DateTimeOffset? dateMin = null, DateTimeOffset? dateMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = "";
             queryParams += discountId != null ? $"&discount_id={discountId}" : "";
@@ -83,13 +79,13 @@ namespace RechargeSharp.Services.Charges
         {
             var count = await CountChargesAsync(queryParams);
 
-            var taskList = new List<Task<IEnumerable<Charge>>>();
+            var taskList = new List<Task<IEnumerable<Charge>?>>();
 
             var pages = Math.Ceiling(Convert.ToDouble(count) / 250d);
 
             for (int i = 1; i <= Convert.ToInt32(pages); i++)
             {
-                taskList.Add(GetChargesAsync($"page={i}&limit=250" + queryParams));
+                taskList.Add(GetChargesAsync($"page={i}&limit=250{queryParams}"));
             }
 
             var computed = await Task.WhenAll(taskList);
@@ -98,13 +94,17 @@ namespace RechargeSharp.Services.Charges
 
             foreach (var charges in computed)
             {
+                if (charges is null)
+                {
+                    continue;
+                }
                 result.AddRange(charges);
             }
 
             return result;
         }
 
-        public async Task<long> CountChargesAsync(long? discountId = null, string discountCode = null, string status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTimeOffset? date = null, DateTimeOffset? dateMin = null, DateTimeOffset? dateMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
+        public async Task<long?> CountChargesAsync(long? discountId = null, string? discountCode = null, string? status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTimeOffset? date = null, DateTimeOffset? dateMin = null, DateTimeOffset? dateMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = "";
             queryParams += discountId != null ? $"&discount_id={discountId}" : "";
@@ -125,61 +125,61 @@ namespace RechargeSharp.Services.Charges
             return await CountChargesAsync(queryParams).ConfigureAwait(false);
         }
 
-        private async Task<long> CountChargesAsync(string queryParams)
+        private async Task<long?> CountChargesAsync(string queryParams)
         {
             var response = await GetAsync($"/charges/count?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Count;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Count;
         }
 
-        public async Task<Charge> ChangeNextChargeDateAsync(long chargeId, ChangeNextChargeDateRequest changeNextChargeDateRequest)
+        public async Task<Charge?> ChangeNextChargeDateAsync(long chargeId, ChangeNextChargeDateRequest changeNextChargeDateRequest)
         {
             ValidateModel(changeNextChargeDateRequest);
 
             var response = await PostAsJsonAsync($"/charges/{chargeId}/change_next_charge_date", JsonConvert.SerializeObject(changeNextChargeDateRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
         }
 
-        public async Task<Charge> SkipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest)
+        public async Task<Charge?> SkipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest)
         {
             ValidateModel(skipNextChargeRequest);
 
             var response = await PostAsJsonAsync($"/charges/{chargeId}/skip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
         }
 
-        public async Task<Charge> UnskipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest)
+        public async Task<Charge?> UnskipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest)
         {
             ValidateModel(skipNextChargeRequest);
 
             var response = await PostAsJsonAsync($"/charges/{chargeId}/unskip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
         }
 
-        public async Task<Charge> RefundChargeAsync(long chargeId, RefundChargeRequest refundChargeRequest)
+        public async Task<Charge?> RefundChargeAsync(long chargeId, RefundChargeRequest refundChargeRequest)
         {
             ValidateModel(refundChargeRequest);
 
             var response = await PostAsJsonAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(refundChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
         }
 
-        public async Task<Charge> TotalRefundChargeAsync(long chargeId, TotalRefundChargeRequest totalRefundChargeRequest)
+        public async Task<Charge?> TotalRefundChargeAsync(long chargeId, TotalRefundChargeRequest totalRefundChargeRequest)
         {
             ValidateModel(totalRefundChargeRequest);
 
             var response = await PostAsJsonAsync($"/charges/{chargeId}/refund", JsonConvert.SerializeObject(totalRefundChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Charge;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
         }
 
         public async Task DeleteChargeAsync(long id)
         {
-            var response = await DeleteAsync($"/charges/{id}").ConfigureAwait(false);
+            _ = await DeleteAsync($"/charges/{id}").ConfigureAwait(false);
         }
 
 

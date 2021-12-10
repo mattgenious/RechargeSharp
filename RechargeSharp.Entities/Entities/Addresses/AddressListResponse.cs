@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Addresses
 {
     public class AddressListResponse : IEquatable<AddressListResponse>
     {
-        public bool Equals(AddressListResponse other)
+        public bool Equals(AddressListResponse? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
+            if (other.Addresses is null) return false;
+            if (Addresses is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Addresses.SequenceEqual(other.Addresses);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((AddressListResponse) obj);
@@ -38,6 +37,6 @@ namespace RechargeSharp.Entities.Addresses
         }
 
         [JsonProperty("addresses")]
-        public IEnumerable<Address> Addresses { get; set; }
+        public IEnumerable<Address>? Addresses { get; set; }
     }
 }

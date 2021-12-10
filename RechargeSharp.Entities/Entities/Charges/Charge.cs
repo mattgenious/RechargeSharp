@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Charges
@@ -15,31 +12,31 @@ namespace RechargeSharp.Entities.Charges
         public long AddressId { get; set; }
 
         [JsonProperty("analytics_data")]
-        public AnalyticsData AnalyticsData { get; set; }
+        public AnalyticsData? AnalyticsData { get; set; }
 
         [JsonProperty("billing_address")]
-        public Address BillingAddress { get; set; }
+        public Address? BillingAddress { get; set; }
 
         [JsonProperty("client_details")]
-        public ChargeClientDetails ClientDetails { get; set; }
+        public ChargeClientDetails? ClientDetails { get; set; }
 
         [JsonProperty("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("customer_hash")]
-        public string CustomerHash { get; set; }
+        public string? CustomerHash { get; set; }
 
         [JsonProperty("customer_id")]
         public long CustomerId { get; set; }
 
         [JsonProperty("discount_codes")]
-        public IEnumerable<ChargeDiscountCode> DiscountCodes { get; set; }
+        public IEnumerable<ChargeDiscountCode>? DiscountCodes { get; set; }
 
         [JsonProperty("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [JsonProperty("first_name")]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         [JsonProperty("has_uncommited_changes")]
         public bool HasUncommitedChanges { get; set; }
@@ -48,22 +45,22 @@ namespace RechargeSharp.Entities.Charges
         public long Id { get; set; }
 
         [JsonProperty("last_name")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [JsonProperty("line_items")]
-        public IEnumerable<LineItem> LineItems { get; set; }
+        public IEnumerable<LineItem>? LineItems { get; set; }
 
         [JsonProperty("note")]
-        public string Note { get; set; }
+        public string? Note { get; set; }
 
         [JsonProperty("note_attributes")]
-        public IEnumerable<Property> NoteAttributes { get; set; }
+        public IEnumerable<Property>? NoteAttributes { get; set; }
 
         [JsonProperty("processed_at")]
         public DateTimeOffset? ProcessedAt { get; set; }
 
         [JsonProperty("processor_name")]
-        public string ProcessorName { get; set; }
+        public string? ProcessorName { get; set; }
 
         [JsonProperty("scheduled_at")]
         public DateTimeOffset? ScheduledAt { get; set; }
@@ -72,10 +69,10 @@ namespace RechargeSharp.Entities.Charges
         public long? ShipmentsCount { get; set; }
 
         [JsonProperty("shipping_address")]
-        public Address ShippingAddress { get; set; }
+        public Address? ShippingAddress { get; set; }
 
         [JsonProperty("shipping_lines")]
-        public IEnumerable<ShippingLine> ShippingLines { get; set; }
+        public IEnumerable<ShippingLine>? ShippingLines { get; set; }
 
         [JsonProperty("shopify_order_id")]
         public long? ShopifyOrderId { get; set; }
@@ -84,28 +81,28 @@ namespace RechargeSharp.Entities.Charges
         public ChargeStatus? Status { get; set; }
 
         [JsonProperty("sub_total")]
-        public string SubTotal { get; set; }
+        public string? SubTotal { get; set; }
 
         [JsonProperty("subtotal_price")]
         public decimal? SubtotalPrice { get; set; }
 
         [JsonProperty("tags")]
-        public string Tags { get; set; }
+        public string? Tags { get; set; }
 
         [JsonProperty("tax_lines")]
         public decimal TaxLines { get; set; }
 
         [JsonProperty("total_discounts")]
-        public string TotalDiscounts { get; set; }
+        public string? TotalDiscounts { get; set; }
 
         [JsonProperty("total_line_items_price")]
-        public string TotalLineItemsPrice { get; set; }
+        public string? TotalLineItemsPrice { get; set; }
 
         [JsonProperty("total_price")]
-        public string TotalPrice { get; set; }
+        public string? TotalPrice { get; set; }
 
         [JsonProperty("total_refunds")]
-        public string TotalRefunds { get; set; }
+        public string? TotalRefunds { get; set; }
 
         [JsonProperty("total_tax")]
         public decimal TotalTax { get; set; }
@@ -114,10 +111,10 @@ namespace RechargeSharp.Entities.Charges
         public decimal TotalWeight { get; set; }
 
         [JsonProperty("transaction_id")]
-        public string TransactionId { get; set; }
+        public string? TransactionId { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
         [JsonProperty("updated_at")]
         public DateTimeOffset UpdatedAt { get; set; }
@@ -144,24 +141,24 @@ namespace RechargeSharp.Entities.Charges
         /// only present for failed charges
         /// </summary>
         [JsonProperty("shopify_variant_id_not_found", NullValueHandling = NullValueHandling.Ignore)]
-        public string ShopifyVariantIdNotFound { get; set; }
+        public string? ShopifyVariantIdNotFound { get; set; }
 
         /// <summary>
         /// only present for failed charges
         /// </summary>
         [JsonProperty("error_type", NullValueHandling = NullValueHandling.Ignore)]
-        public string ErrorType { get; set; }
+        public string? ErrorType { get; set; }
 
         /// <summary>
         /// only present for failed charges
         /// </summary>
         [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
-        public string Error { get; set; }
+        public string? Error { get; set; }
 
 
-        public bool Equals(Charge other)
+        public bool Equals(Charge? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return AddressId == other.AddressId && CreatedAt.Equals(other.CreatedAt) &&
                    CustomerHash == other.CustomerHash && CustomerId == other.CustomerId && Email == other.Email &&
@@ -182,9 +179,9 @@ namespace RechargeSharp.Entities.Charges
                    Error == other.Error;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((Charge)obj);

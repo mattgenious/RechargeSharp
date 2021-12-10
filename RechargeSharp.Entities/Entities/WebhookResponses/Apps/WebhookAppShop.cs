@@ -1,20 +1,19 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.WebhookResponses.Apps
 {
     public class WebhookAppShop : IEquatable<WebhookAppShop>
     {
-        public bool Equals(WebhookAppShop other)
+        public bool Equals(WebhookAppShop? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Name == other.Name && Email == other.Email && IanaTimezone == other.IanaTimezone && Currency == other.Currency && Timezone == other.Timezone && Id == other.Id;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((WebhookAppShop) obj);
@@ -22,16 +21,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Apps
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = (Name != null ? Name.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Email != null ? Email.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (IanaTimezone != null ? IanaTimezone.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Currency != null ? Currency.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Timezone != null ? Timezone.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Id.GetHashCode();
-                return hashCode;
-            }
+            return HashCode.Combine(Name, Email, IanaTimezone, Currency, Timezone, Id);
         }
 
         public static bool operator ==(WebhookAppShop left, WebhookAppShop right)
@@ -45,19 +35,19 @@ namespace RechargeSharp.Entities.WebhookResponses.Apps
         }
 
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonProperty("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [JsonProperty("iana_timezone")]
-        public string IanaTimezone { get; set; }
+        public string? IanaTimezone { get; set; }
 
         [JsonProperty("currency")]
-        public string Currency { get; set; }
+        public string? Currency { get; set; }
 
         [JsonProperty("timezone")]
-        public string Timezone { get; set; }
+        public string? Timezone { get; set; }
 
         [JsonProperty("id")]
         public long Id { get; set; }

@@ -2,13 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace RechargeSharpTests
+namespace RechargeSharp.Entities.Tests
 {
     public class RechargeSharpValidationTests
     {

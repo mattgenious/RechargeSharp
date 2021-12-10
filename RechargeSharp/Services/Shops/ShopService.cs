@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shop;
@@ -21,17 +18,17 @@ namespace RechargeSharp.Services.Shops
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<Shop> GetShopAsync()
+        public async Task<Shop?> GetShopAsync()
         {
             var response = await GetAsync($"/shop").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ShopResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Shop;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Shop;
         }
-        public async Task<IEnumerable<ShippingCountry>> GetShippingCountries()
+        public async Task<IEnumerable<ShippingCountry>?> GetShippingCountries()
         {
             var response = await GetAsync($"/shop/shipping_countries").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ShippingCountriesResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).ShippingCountries;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.ShippingCountries;
         }
 
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using RechargeSharp.Validation;
 
@@ -7,16 +6,16 @@ namespace RechargeSharp.Entities.Checkouts
 {
     public class ProcessCheckoutRequest : IEquatable<ProcessCheckoutRequest>
     {
-        public bool Equals(ProcessCheckoutRequest other)
+        public bool Equals(ProcessCheckoutRequest? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return PaymentProcessor == other.PaymentProcessor && PaymentToken == other.PaymentToken;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((ProcessCheckoutRequest) obj);
@@ -43,14 +42,14 @@ namespace RechargeSharp.Entities.Checkouts
         [Required]
         [StringValues(AllowableValues = new []{ "stripe", "braintree" })]
         [JsonProperty("payment_processor")]
-        public string PaymentProcessor { get; set; }
+        public string? PaymentProcessor { get; set; }
 
         [Required]
         [JsonProperty("payment_token")]
-        public string PaymentToken { get; set; }
+        public string? PaymentToken { get; set; }
 
         [JsonProperty("authorization_token", NullValueHandling = NullValueHandling.Ignore)]
-        public string AuthorizationToken { get; set; }
+        public string? AuthorizationToken { get; set; }
         
         [JsonProperty("free", NullValueHandling = NullValueHandling.Ignore)]
         public bool Free { get; set; }

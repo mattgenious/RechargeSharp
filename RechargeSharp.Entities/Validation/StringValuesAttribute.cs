@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace RechargeSharp.Validation
 {
     public class StringValuesAttribute : ValidationAttribute
     {
-        public string[] AllowableValues { get; set; }
+        public string?[]? AllowableValues { get; set; }
 
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             if (AllowableValues?.Contains(value?.ToString()) == true)
             {

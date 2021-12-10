@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Collections;
@@ -22,25 +19,25 @@ namespace RechargeSharp.Services.Collections
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<Collection> GetCollectionAsync(long id)
+        public async Task<Collection?> GetCollectionAsync(long id)
         {
             var response = await GetAsync($"/collections/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CollectionResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Collection;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Collection;
         }
 
-        public async Task<IEnumerable<Collection>> GetCollectionsAsync()
+        public async Task<IEnumerable<Collection>?> GetCollectionsAsync()
         {
             var response = await GetAsync($"/collections").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CollectionListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Products;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Products;
         }
 
-        public async Task<long> CountCollectionsAsync()
+        public async Task<long?> CountCollectionsAsync()
         {
             var response = await GetAsync("/collections/count").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Count;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Count;
         }
 
 

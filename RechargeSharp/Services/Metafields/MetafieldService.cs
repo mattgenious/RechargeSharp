@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Metafields;
@@ -23,21 +19,21 @@ namespace RechargeSharp.Services.Metafields
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<Metafield> GetMetafieldAsync(long id)
+        public async Task<Metafield?> GetMetafieldAsync(long id)
         {
             var response = await GetAsync($"/metafields/{id}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Metafield;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Metafield;
         }
 
-        private async Task<IEnumerable<Metafield>> GetMetafieldsAsync(string queryParams)
+        private async Task<IEnumerable<Metafield>?> GetMetafieldsAsync(string queryParams)
         {
             var response = await GetAsync($"/metafields?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Metafields;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Metafields;
         }
 
-        public Task<IEnumerable<Metafield>> GetMetafieldsAsync(long limit = 50, long page = 1, string ownerResource = "store", string _namespace  = null, long? ownerId = null)
+        public Task<IEnumerable<Metafield>?> GetMetafieldsAsync(long limit = 50, long page = 1, string ownerResource = "store", string? _namespace  = null, long? ownerId = null)
         {
             var queryParams = $"page={page}&limit={limit}&owner_resource={ownerResource}";
             queryParams += _namespace != null ? $"&namespace={_namespace}" : "";
@@ -46,7 +42,7 @@ namespace RechargeSharp.Services.Metafields
             return GetMetafieldsAsync(queryParams);
         }
 
-        public Task<IEnumerable<Metafield>> GetAllMetafieldsWithParamsAsync(string ownerResource = "store", string _namespace = null, long? ownerId = null)
+        public Task<IEnumerable<Metafield>> GetAllMetafieldsWithParamsAsync(string ownerResource = "store", string? _namespace = null, long? ownerId = null)
         {
             var queryParams = $"&owner_resource={ownerResource}";
             queryParams += _namespace != null ? $"&namespace={_namespace}" : "";
@@ -59,13 +55,13 @@ namespace RechargeSharp.Services.Metafields
         {
             var count = await CountMetafields(queryParams);
 
-            var taskList = new List<Task<IEnumerable<Metafield>>>();
+            var taskList = new List<Task<IEnumerable<Metafield>?>>();
 
             var pages = Math.Ceiling(Convert.ToDouble(count) / 250d);
 
             for (int i = 1; i <= Convert.ToInt32(pages); i++)
             {
-                taskList.Add(GetMetafieldsAsync($"page={i}&limit=250" + queryParams));
+                taskList.Add(GetMetafieldsAsync($"page={i}&limit=250{queryParams}"));
             }
 
             var computed = await Task.WhenAll(taskList);
@@ -74,36 +70,40 @@ namespace RechargeSharp.Services.Metafields
 
             foreach (var metafields in computed)
             {
+                if (metafields is null)
+                {
+                    continue;
+                }
                 result.AddRange(metafields);
             }
 
             return result;
         }
 
-        public async Task<Metafield> CreateMetafieldAsync(CreateMetafieldRequest createMetafieldRequest)
+        public async Task<Metafield?> CreateMetafieldAsync(CreateMetafieldRequest createMetafieldRequest)
         {
             ValidateModel(createMetafieldRequest);
 
             var response = await PostAsJsonAsync($"/metafields?owner_resource={createMetafieldRequest.MetafieldObject.OwnerResource}", JsonConvert.SerializeObject(createMetafieldRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Metafield;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Metafield;
         }
 
-        public async Task<Metafield> UpdateMetafieldAsync(long id, UpdateMetafieldRequest updateMetafieldRequest)
+        public async Task<Metafield?> UpdateMetafieldAsync(long id, UpdateMetafieldRequest updateMetafieldRequest)
         {
             ValidateModel(updateMetafieldRequest);
 
             var response = await PutAsJsonAsync($"/metafields/{id}", JsonConvert.SerializeObject(updateMetafieldRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<MetafieldResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Metafield;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Metafield;
         }
 
         public async Task DeleteMetafieldAsync(long id)
         {
-            var response = await DeleteAsync($"/metafields/{id}").ConfigureAwait(false);
+            _ = await DeleteAsync($"/metafields/{id}").ConfigureAwait(false);
         }
 
-        public async Task<long> CountMetafields(long limit = 50, long page = 1, string ownerResource = "store", string _namespace = null, long? owner_id = null)
+        public async Task<long?> CountMetafields(long limit = 50, long page = 1, string ownerResource = "store", string? _namespace = null, long? owner_id = null)
         {
             var queryParams = $"page={page}&limit={limit}&owner_resource={ownerResource}";
             queryParams += _namespace != null ? $"&namespace={_namespace}" : "";
@@ -112,11 +112,11 @@ namespace RechargeSharp.Services.Metafields
             return await CountMetafields(queryParams);
         }
 
-        private async Task<long> CountMetafields(string queryParams)
+        private async Task<long?> CountMetafields(string queryParams)
         {
             var response = await GetAsync($"/metafields/count?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<CountResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter()).Count;
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Count;
         }
     }
 }

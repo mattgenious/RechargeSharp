@@ -5,9 +5,9 @@ namespace RechargeSharp.Entities.Subscriptions
 {
     public class Subscription : IEquatable<Subscription>
     {
-        public bool Equals(Subscription other)
+        public bool Equals(Subscription? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return RechargeProductId == other.RechargeProductId && SkuOverride == other.SkuOverride && Id == other.Id &&
                    AddressId == other.AddressId && CustomerId == other.CustomerId &&
@@ -28,9 +28,9 @@ namespace RechargeSharp.Entities.Subscriptions
                    CommitUpdate == other.CommitUpdate;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((Subscription)obj);
@@ -38,38 +38,36 @@ namespace RechargeSharp.Entities.Subscriptions
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = RechargeProductId.GetHashCode();
-                hashCode = (hashCode * 397) ^ SkuOverride.GetHashCode();
-                hashCode = (hashCode * 397) ^ Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ AddressId.GetHashCode();
-                hashCode = (hashCode * 397) ^ CustomerId.GetHashCode();
-                hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ NextChargeScheduledAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ CancelledAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ (ProductTitle != null ? ProductTitle.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (VariantTitle != null ? VariantTitle.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Price.GetHashCode();
-                hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ ShopifyProductId.GetHashCode();
-                hashCode = (hashCode * 397) ^ ShopifyVariantId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Sku != null ? Sku.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (OrderIntervalUnit != null ? OrderIntervalUnit.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (OrderIntervalFrequency != null ? OrderIntervalFrequency.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (ChargeIntervalFrequency != null ? ChargeIntervalFrequency.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (CancellationReason != null ? CancellationReason.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (CancellationReasonComments != null ? CancellationReasonComments.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ OrderDayOfWeek.GetHashCode();
-                hashCode = (hashCode * 397) ^ OrderDayOfMonth.GetHashCode();
-                hashCode = (hashCode * 397) ^ ExpireAfterSpecificNumberOfCharges.GetHashCode();
-                hashCode = (hashCode * 397) ^ MaxRetriesReached.GetHashCode();
-                hashCode = (hashCode * 397) ^ HasQueuedCharges.GetHashCode();
-                hashCode = (hashCode * 397) ^ CommitUpdate.GetHashCode();
-                return hashCode;
-            }
+            HashCode hash = new();
+            hash.Add(RechargeProductId);
+            hash.Add(SkuOverride);
+            hash.Add(Id);
+            hash.Add(AddressId);
+            hash.Add(CustomerId);
+            hash.Add(CreatedAt);
+            hash.Add(UpdatedAt);
+            hash.Add(NextChargeScheduledAt);
+            hash.Add(CancelledAt);
+            hash.Add(ProductTitle);
+            hash.Add(VariantTitle);
+            hash.Add(Price);
+            hash.Add(Quantity);
+            hash.Add(Status);
+            hash.Add(ShopifyProductId);
+            hash.Add(ShopifyVariantId);
+            hash.Add(Sku);
+            hash.Add(OrderIntervalUnit);
+            hash.Add(OrderIntervalFrequency);
+            hash.Add(ChargeIntervalFrequency);
+            hash.Add(CancellationReason);
+            hash.Add(CancellationReasonComments);
+            hash.Add(OrderDayOfWeek);
+            hash.Add(OrderDayOfMonth);
+            hash.Add(ExpireAfterSpecificNumberOfCharges);
+            hash.Add(MaxRetriesReached);
+            hash.Add(HasQueuedCharges);
+            hash.Add(CommitUpdate);
+            return hash.ToHashCode();
         }
 
         public static bool operator ==(Subscription left, Subscription right)
@@ -106,9 +104,9 @@ namespace RechargeSharp.Entities.Subscriptions
         [JsonProperty("cancelled_at", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? CancelledAt { get; set; }
 
-        [JsonProperty("product_title")] public string ProductTitle { get; set; }
+        [JsonProperty("product_title")] public string? ProductTitle { get; set; }
 
-        [JsonProperty("variant_title")] public string VariantTitle { get; set; }
+        [JsonProperty("variant_title")] public string? VariantTitle { get; set; }
 
         [JsonProperty("price")] public decimal Price { get; set; }
 
@@ -123,21 +121,21 @@ namespace RechargeSharp.Entities.Subscriptions
         [JsonProperty("shopify_variant_id")] public long ShopifyVariantId { get; set; }
 
         [JsonProperty("sku", NullValueHandling = NullValueHandling.Ignore)]
-        public string Sku { get; set; }
+        public string? Sku { get; set; }
 
-        [JsonProperty("order_interval_unit")] public string OrderIntervalUnit { get; set; }
+        [JsonProperty("order_interval_unit")] public string? OrderIntervalUnit { get; set; }
 
         [JsonProperty("order_interval_frequency")]
-        public string OrderIntervalFrequency { get; set; }
+        public string? OrderIntervalFrequency { get; set; }
 
         [JsonProperty("charge_interval_frequency")]
-        public string ChargeIntervalFrequency { get; set; }
+        public string? ChargeIntervalFrequency { get; set; }
 
         [JsonProperty("cancellation_reason", NullValueHandling = NullValueHandling.Ignore)]
-        public string CancellationReason { get; set; }
+        public string? CancellationReason { get; set; }
 
         [JsonProperty("cancellation_reason_comments", NullValueHandling = NullValueHandling.Ignore)]
-        public string CancellationReasonComments { get; set; }
+        public string? CancellationReasonComments { get; set; }
 
         [JsonProperty("order_day_of_week", NullValueHandling = NullValueHandling.Ignore)]
         public long? OrderDayOfWeek { get; set; }
@@ -145,7 +143,7 @@ namespace RechargeSharp.Entities.Subscriptions
         [JsonProperty("order_day_of_month", NullValueHandling = NullValueHandling.Ignore)]
         public long? OrderDayOfMonth { get; set; }
 
-        [JsonProperty("properties")] public IEnumerable<Property> Properties { get; set; }
+        [JsonProperty("properties")] public IEnumerable<Property>? Properties { get; set; }
 
         [JsonProperty("expire_after_specific_number_of_charges", NullValueHandling = NullValueHandling.Ignore)]
         public long? ExpireAfterSpecificNumberOfCharges { get; set; }

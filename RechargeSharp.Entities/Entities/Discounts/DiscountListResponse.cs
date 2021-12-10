@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Discounts
 {
     public class DiscountListResponse : IEquatable<DiscountListResponse>
     {
-        public bool Equals(DiscountListResponse other)
+        public bool Equals(DiscountListResponse? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
+            if (other.Discounts is null) return false;
+            if (Discounts is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Discounts.SequenceEqual(other.Discounts);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((DiscountListResponse) obj);
@@ -38,6 +37,6 @@ namespace RechargeSharp.Entities.Discounts
         }
 
         [JsonProperty("discounts")]
-        public IEnumerable<Discount> Discounts { get; set; }
+        public IEnumerable<Discount>? Discounts { get; set; }
     }
 }

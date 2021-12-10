@@ -58,14 +58,14 @@ namespace RechargeSharp.Entities.EntityFrameworkCore.Entities.Shared
 
         public bool Equals(LineItem other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Grams == other.Grams && Equals(Images, other.Images) && Price == other.Price && Quantity == other.Quantity && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && SubscriptionId == other.SubscriptionId && Title == other.Title && VariantTitle == other.VariantTitle;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((LineItem)obj);
@@ -73,7 +73,7 @@ namespace RechargeSharp.Entities.EntityFrameworkCore.Entities.Shared
 
         public override int GetHashCode()
         {
-            HashCode hash = new HashCode();
+            HashCode hash = new();
             hash.Add(Grams);
             hash.Add(Images);
             hash.Add(Price);

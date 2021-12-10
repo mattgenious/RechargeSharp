@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Net.Http;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
@@ -29,6 +25,10 @@ namespace RechargeSharp.Services
             _random = new Random();
             _clients = new List<HttpClient>();
 
+            if (_rechargeServiceOptions is null || _rechargeServiceOptions.ApiKeyArray is null)
+            {
+                throw new ArgumentException("RechargeServiceOptions were null or RechargeServiceOptions.ApiKeyArray was null");
+            }
             foreach (var apiKey in _rechargeServiceOptions.ApiKeyArray)
             {
                 var client = _httpClientFactory.CreateClient("RechargeSharpClient");
@@ -67,8 +67,10 @@ namespace RechargeSharp.Services
             return noRetry ? ExecuteSingleRequest(() => GetRandomHttpClient().DeleteAsync(path)) : AsyncRetryPolicy.ExecuteAsync(() => GetRandomHttpClient().DeleteAsync(path));
         }
 
-        protected void ValidateModel(object objectToValidate)
+        protected static void ValidateModel(object? objectToValidate)
         {
+            if (objectToValidate == null)
+                return;
             var context = new ValidationContext(objectToValidate);
             var results = new List<ValidationResult>();
 

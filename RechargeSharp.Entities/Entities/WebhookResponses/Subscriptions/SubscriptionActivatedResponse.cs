@@ -1,21 +1,20 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Subscriptions;
 
 namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
 {
     public class SubscriptionActivatedResponse : IEquatable<SubscriptionActivatedResponse>
     {
-        public bool Equals(SubscriptionActivatedResponse other)
+        public bool Equals(SubscriptionActivatedResponse? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Equals(Subscription, other.Subscription);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((SubscriptionActivatedResponse) obj);
@@ -23,7 +22,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
 
         public override int GetHashCode()
         {
-            return (Subscription != null ? Subscription.GetHashCode() : 0);
+            return Subscription?.GetHashCode() ?? 0;
         }
 
         public static bool operator ==(SubscriptionActivatedResponse left, SubscriptionActivatedResponse right)
@@ -37,6 +36,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Subscriptions
         }
 
         [JsonProperty("subscription")]
-        public Subscription Subscription { get; set; }
+        public Subscription? Subscription { get; set; }
     }
 }

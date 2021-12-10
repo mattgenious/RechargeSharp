@@ -1,21 +1,20 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Addresses;
 
 namespace RechargeSharp.Entities.WebhookResponses.Addresses
 {
     public class AddressUpdatedResponse : IEquatable<AddressUpdatedResponse>
     {
-        public bool Equals(AddressUpdatedResponse other)
+        public bool Equals(AddressUpdatedResponse? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Equals(Address, other.Address);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((AddressUpdatedResponse) obj);
@@ -23,7 +22,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Addresses
 
         public override int GetHashCode()
         {
-            return (Address != null ? Address.GetHashCode() : 0);
+            return (Address?.GetHashCode() ?? 0);
         }
 
         public static bool operator ==(AddressUpdatedResponse left, AddressUpdatedResponse right)
@@ -37,6 +36,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Addresses
         }
 
         [JsonProperty("address")]
-        public Address Address { get; set; }
+        public Address? Address { get; set; }
     }
 }

@@ -1,13 +1,9 @@
 ﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Subscriptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace RechargeSharpTests
+namespace RechargeSharp.Entities.Tests
 {
     public class RechargeSharpEnumSerializationTests
     {

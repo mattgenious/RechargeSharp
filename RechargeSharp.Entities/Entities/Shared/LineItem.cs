@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Shared
 {
     public class LineItem : IEquatable<LineItem>
     {
-        public bool Equals(LineItem other)
+        public bool Equals(LineItem? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Grams == other.Grams && Equals(Images, other.Images) && Price == other.Price && Quantity == other.Quantity && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && SubscriptionId == other.SubscriptionId && Title == other.Title && VariantTitle == other.VariantTitle;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((LineItem) obj);
@@ -26,7 +24,7 @@ namespace RechargeSharp.Entities.Shared
             unchecked
             {
                 var hashCode = Grams.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Images != null ? Images.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Images?.GetHashCode() ?? 0;
                 hashCode = (hashCode * 397) ^ (Price != null ? Price.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShopifyProductId.GetHashCode();
@@ -54,13 +52,13 @@ namespace RechargeSharp.Entities.Shared
         public long Grams { get; set; }
 
         [JsonProperty("images")]
-        public Images Images { get; set; }
+        public Images? Images { get; set; }
 
         [JsonProperty("price")]
-        public string Price { get; set; }
+        public string? Price { get; set; }
 
         [JsonProperty("properties")]
-        public IEnumerable<Property> Properties { get; set; }
+        public IEnumerable<Property>? Properties { get; set; }
 
         [JsonProperty("quantity")]
         public long Quantity { get; set; }
@@ -69,18 +67,18 @@ namespace RechargeSharp.Entities.Shared
         public long ShopifyProductId { get; set; }
 
         [JsonProperty("shopify_variant_id")]
-        public string ShopifyVariantId { get; set; }
+        public string? ShopifyVariantId { get; set; }
 
         [JsonProperty("sku")]
-        public string Sku { get; set; }
+        public string? Sku { get; set; }
 
         [JsonProperty("subscription_id")]
         public long SubscriptionId { get; set; }
 
         [JsonProperty("title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [JsonProperty("variant_title")]
-        public string VariantTitle { get; set; }
+        public string? VariantTitle { get; set; }
     }
 }

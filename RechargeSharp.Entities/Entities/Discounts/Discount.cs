@@ -1,21 +1,19 @@
-﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Discounts
 {
     public class Discount : IEquatable<Discount>
     {
-        public bool Equals(Discount other)
+        public bool Equals(Discount? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Id == other.Id && Code == other.Code && Value == other.Value && Nullable.Equals(EndsAt, other.EndsAt) && Nullable.Equals(StartsAt, other.StartsAt) && Status == other.Status && UsageLimit == other.UsageLimit && AppliesToId == other.AppliesToId && DiscountType == other.DiscountType && AppliesTo == other.AppliesTo && AppliesToResource == other.AppliesToResource && TimesUsed == other.TimesUsed && Duration == other.Duration && DurationUsageLimit == other.DurationUsageLimit && AppliesToProductType == other.AppliesToProductType && CreatedAt.Equals(other.CreatedAt) && UpdatedAt.Equals(other.UpdatedAt) && OncePerCustomer == other.OncePerCustomer;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((Discount) obj);
@@ -23,28 +21,26 @@ namespace RechargeSharp.Entities.Discounts
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Code != null ? Code.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Value.GetHashCode();
-                hashCode = (hashCode * 397) ^ EndsAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ StartsAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ Status.GetHashCode();
-                hashCode = (hashCode * 397) ^ UsageLimit.GetHashCode();
-                hashCode = (hashCode * 397) ^ AppliesToId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (DiscountType != null ? DiscountType.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (AppliesTo != null ? AppliesTo.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ AppliesToResource.GetHashCode();
-                hashCode = (hashCode * 397) ^ TimesUsed.GetHashCode();
-                hashCode = (hashCode * 397) ^ Duration.GetHashCode();
-                hashCode = (hashCode * 397) ^ DurationUsageLimit.GetHashCode();
-                hashCode = (hashCode * 397) ^ AppliesToProductType.GetHashCode();
-                hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ OncePerCustomer.GetHashCode();
-                return hashCode;
-            }
+            HashCode hash = new();
+            hash.Add(Id);
+            hash.Add(Code);
+            hash.Add(Value);
+            hash.Add(EndsAt);
+            hash.Add(StartsAt);
+            hash.Add(Status);
+            hash.Add(UsageLimit);
+            hash.Add(AppliesToId);
+            hash.Add(DiscountType);
+            hash.Add(AppliesTo);
+            hash.Add(AppliesToResource);
+            hash.Add(TimesUsed);
+            hash.Add(Duration);
+            hash.Add(DurationUsageLimit);
+            hash.Add(AppliesToProductType);
+            hash.Add(CreatedAt);
+            hash.Add(UpdatedAt);
+            hash.Add(OncePerCustomer);
+            return hash.ToHashCode();
         }
 
         public static bool operator ==(Discount left, Discount right)
@@ -61,7 +57,7 @@ namespace RechargeSharp.Entities.Discounts
         public long Id { get; set; }
 
         [JsonProperty("code")]
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
         [JsonProperty("value")]
         public long Value { get; set; }
@@ -85,7 +81,7 @@ namespace RechargeSharp.Entities.Discounts
         public DiscountType? DiscountType { get; set; }
 
         [JsonProperty("applies_to")]
-        public string AppliesTo { get; set; }
+        public string? AppliesTo { get; set; }
 
         [JsonProperty("applies_to_resource")]
         public AppliesToResource? AppliesToResource { get; set; }

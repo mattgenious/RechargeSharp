@@ -1,20 +1,19 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Orders
 {
     public class UpdateOrderRequest : IEquatable<UpdateOrderRequest>
     {
-        public bool Equals(UpdateOrderRequest other)
+        public bool Equals(UpdateOrderRequest? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Equals(Customer, other.Customer) && Equals(BillingAddress, other.BillingAddress) && Equals(ShippingAddress, other.ShippingAddress);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((UpdateOrderRequest) obj);
@@ -24,9 +23,9 @@ namespace RechargeSharp.Entities.Orders
         {
             unchecked
             {
-                var hashCode = (Customer != null ? Customer.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (BillingAddress != null ? BillingAddress.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (ShippingAddress != null ? ShippingAddress.GetHashCode() : 0);
+                var hashCode = Customer?.GetHashCode() ?? 0;
+                hashCode = (hashCode * 397) ^ BillingAddress?.GetHashCode() ?? 0;
+                hashCode = (hashCode * 397) ^ ShippingAddress?.GetHashCode() ?? 0;
                 return hashCode;
             }
         }
@@ -42,12 +41,12 @@ namespace RechargeSharp.Entities.Orders
         }
 
         [JsonProperty("customer", NullValueHandling = NullValueHandling.Ignore)]
-        public OrderCustomer Customer { get; set; }
+        public OrderCustomer? Customer { get; set; }
 
         [JsonProperty("billing_address", NullValueHandling = NullValueHandling.Ignore)]
-        public OrderAddress BillingAddress { get; set; }
+        public OrderAddress? BillingAddress { get; set; }
 
         [JsonProperty("shipping_address", NullValueHandling = NullValueHandling.Ignore)]
-        public OrderAddress ShippingAddress { get; set; }
+        public OrderAddress? ShippingAddress { get; set; }
     }
 }

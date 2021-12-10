@@ -6,7 +6,6 @@ using RechargeSharp.Entities.Checkouts;
 using RechargeSharp.Entities.Collections;
 using RechargeSharp.Entities.Customers;
 using RechargeSharp.Entities.Discounts;
-using RechargeSharp.Entities.Exceptions;
 using RechargeSharp.Entities.Metafields;
 using RechargeSharp.Entities.Onetimes;
 using RechargeSharp.Entities.Orders;
@@ -14,14 +13,14 @@ using RechargeSharp.Entities.Products;
 using RechargeSharp.Entities.Shared;
 using RechargeSharp.Entities.Shop;
 using RechargeSharp.Entities.Subscriptions;
+using RechargeSharp.Entities.Tests.Utilities;
 using RechargeSharp.Entities.Webhooks;
 using RechargeSharp.Utilities;
-using RechargeSharpTests.Utilities;
 using Xunit;
 using Xunit.Abstractions;
 using Address = RechargeSharp.Entities.Addresses.Address;
 
-namespace RechargeSharpTests
+namespace RechargeSharp.Entities.Tests
 {
     public class RechargeSharpSerializationTests
     {
@@ -183,11 +182,11 @@ namespace RechargeSharpTests
 
         [Theory]
         [InlineAutoData]
-        public void SerializeDeserializeChangeNextChargeDateRequestTest(RechargeSharp.Entities.Charges.ChangeNextChargeDateRequest sut)
+        public void SerializeDeserializeChangeNextChargeDateRequestTest(Charges.ChangeNextChargeDateRequest sut)
         {
             var jsonString = JsonConvert.SerializeObject(sut);
 
-            Assert.Equal(sut, JsonConvert.DeserializeObject<RechargeSharp.Entities.Charges.ChangeNextChargeDateRequest>(jsonString));
+            Assert.Equal(sut, JsonConvert.DeserializeObject<Charges.ChangeNextChargeDateRequest>(jsonString));
         }
 
         [Theory]
@@ -216,7 +215,7 @@ namespace RechargeSharpTests
 
             Assert.Equal(sut, JsonConvert.DeserializeObject<ChargeDiscountCode>(jsonString));
         }
-        
+
 
         [Theory]
         [InlineAutoData]
@@ -434,8 +433,7 @@ namespace RechargeSharpTests
         public void SerializeDeserializeCustomerFromJsonTest()
         {
             var sut = TestDataHandler.GetTestDataCustomer;
-
-            var test = TestDataHandler.GetTestCustomerString;
+            _ = TestDataHandler.GetTestCustomerString;
 
 
             var jsonString = JsonConvert.SerializeObject(sut);
@@ -472,8 +470,8 @@ namespace RechargeSharpTests
             _testOutputHelper.WriteLine(newNewCustomer.CreatedAt.ToString("O"));
             _testOutputHelper.WriteLine(newCustomer.UpdatedAt.ToString("O"));
             _testOutputHelper.WriteLine(newNewCustomer.UpdatedAt.ToString("O"));
-            _testOutputHelper.WriteLine(newCustomer.FirstChargeProcessedAt?.ToString("O") == null ? "null" : newCustomer.FirstChargeProcessedAt?.ToString("O"));
-            _testOutputHelper.WriteLine(newNewCustomer.FirstChargeProcessedAt?.ToString("O") == null ? "null" : newNewCustomer.FirstChargeProcessedAt?.ToString("O"));
+            _testOutputHelper.WriteLine((newCustomer.FirstChargeProcessedAt?.ToString("O")) ?? "null");
+            _testOutputHelper.WriteLine((newNewCustomer.FirstChargeProcessedAt?.ToString("O")) ?? "null");
 
             Assert.Equal(newNewCustomer, newCustomer);
         }
@@ -895,11 +893,11 @@ namespace RechargeSharpTests
 
         [Theory]
         [InlineAutoData]
-        public void SerializeDeserializeSharedAddressTest(RechargeSharp.Entities.Shared.Address sut)
+        public void SerializeDeserializeSharedAddressTest(Shared.Address sut)
         {
             var jsonString = JsonConvert.SerializeObject(sut);
 
-            Assert.Equal(sut, JsonConvert.DeserializeObject<RechargeSharp.Entities.Shared.Address>(jsonString));
+            Assert.Equal(sut, JsonConvert.DeserializeObject<Shared.Address>(jsonString));
         }
 
         [Theory]
@@ -985,11 +983,11 @@ namespace RechargeSharpTests
 
         [Theory]
         [InlineAutoData]
-        public void SerializeDeserializeShopTest(Shop sut)
+        public void SerializeDeserializeShopTest(Shop.Shop sut)
         {
             var jsonString = JsonConvert.SerializeObject(sut);
 
-            Assert.Equal(sut, JsonConvert.DeserializeObject<Shop>(jsonString));
+            Assert.Equal(sut, JsonConvert.DeserializeObject<Shop.Shop>(jsonString));
         }
 
         [Theory]

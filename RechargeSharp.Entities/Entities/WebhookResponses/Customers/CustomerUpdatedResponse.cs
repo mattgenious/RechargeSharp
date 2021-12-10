@@ -1,21 +1,20 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Customers;
 
 namespace RechargeSharp.Entities.WebhookResponses.Customers
 {
     public class CustomerUpdatedResponse : IEquatable<CustomerUpdatedResponse>
     {
-        public bool Equals(CustomerUpdatedResponse other)
+        public bool Equals(CustomerUpdatedResponse? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Equals(Customer, other.Customer);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((CustomerUpdatedResponse) obj);
@@ -23,7 +22,7 @@ namespace RechargeSharp.Entities.WebhookResponses.Customers
 
         public override int GetHashCode()
         {
-            return (Customer != null ? Customer.GetHashCode() : 0);
+            return Customer?.GetHashCode() ?? 0;
         }
 
         public static bool operator ==(CustomerUpdatedResponse left, CustomerUpdatedResponse right)
@@ -37,6 +36,6 @@ namespace RechargeSharp.Entities.WebhookResponses.Customers
         }
 
         [JsonProperty("customer")]
-        public Customer Customer { get; set; }
+        public Customer? Customer { get; set; }
     }
 }

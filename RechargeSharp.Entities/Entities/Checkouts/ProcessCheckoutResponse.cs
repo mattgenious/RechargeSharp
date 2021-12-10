@@ -1,21 +1,20 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Checkouts
 {
 
-        public class ProcessCheckoutResponse : IEquatable<ProcessCheckoutResponse>
+    public class ProcessCheckoutResponse : IEquatable<ProcessCheckoutResponse>
         {
-            public bool Equals(ProcessCheckoutResponse other)
+            public bool Equals(ProcessCheckoutResponse? other)
             {
-                if (ReferenceEquals(null, other)) return false;
+                if (other is null) return false;
                 if (ReferenceEquals(this, other)) return true;
                 return Equals(CheckoutCharge, other.CheckoutCharge);
             }
 
-            public override bool Equals(object obj)
+            public override bool Equals(object? obj)
             {
-                if (ReferenceEquals(null, obj)) return false;
+                if (obj is null) return false;
                 if (ReferenceEquals(this, obj)) return true;
                 if (obj.GetType() != this.GetType()) return false;
                 return Equals((ProcessCheckoutResponse) obj);
@@ -23,7 +22,7 @@ namespace RechargeSharp.Entities.Checkouts
 
             public override int GetHashCode()
             {
-                return (CheckoutCharge != null ? CheckoutCharge.GetHashCode() : 0);
+                return CheckoutCharge?.GetHashCode() ?? 0;
             }
 
             public static bool operator ==(ProcessCheckoutResponse left, ProcessCheckoutResponse right)
@@ -37,6 +36,6 @@ namespace RechargeSharp.Entities.Checkouts
             }
 
             [JsonProperty("checkout_charge")]
-            public CheckoutCharge CheckoutCharge { get; set; }
+            public CheckoutCharge? CheckoutCharge { get; set; }
         }
 }
