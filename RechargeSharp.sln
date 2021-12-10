@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.Entities", "RechargeSharp.Entities\RechargeSharp.Entities.csproj", "{8A41798B-8972-466B-BBDB-AB5A53EDD5E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.Entities.Tests", "RechargeSharpTests\RechargeSharp.Entities.Tests.csproj", "{5E0672E9-63E4-47EE-8A08-711B47A58FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.Entities.Tests", "RechargeSharp.Entities.Tests\RechargeSharp.Entities.Tests.csproj", "{5E0672E9-63E4-47EE-8A08-711B47A58FFD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp", "RechargeSharp\RechargeSharp.csproj", "{A467D450-CC95-426B-8E34-68727EA95828}"
 EndProject
