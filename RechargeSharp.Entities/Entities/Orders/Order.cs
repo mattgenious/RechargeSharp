@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RechargeSharp.Entities.Orders
 {
@@ -12,6 +13,7 @@ namespace RechargeSharp.Entities.Orders
         public long? AddressIsActive { get; set; }
 
         [JsonProperty("billing_address")]
+        [NotMapped]
         public Address? BillingAddress { get; set; }
 
         [JsonProperty("charge_id")]
@@ -45,12 +47,14 @@ namespace RechargeSharp.Entities.Orders
         public string? LastName { get; set; }
 
         [JsonProperty("line_items")]
+        [NotMapped]
         public IEnumerable<LineItem>? LineItems { get; set; }
 
         [JsonProperty("note")]
         public string? Note { get; set; }
 
         [JsonProperty("note_attributes")]
+        [NotMapped]
         public IEnumerable<Property>? NoteAttributes { get; set; }
 
         [JsonProperty("payment_processor")]
@@ -66,12 +70,14 @@ namespace RechargeSharp.Entities.Orders
         public DateTimeOffset? ShippedDate { get; set; }
 
         [JsonProperty("shipping_address")]
+        [NotMapped]
         public Address? ShippingAddress { get; set; }
 
         [JsonProperty("shipping_date")]
         public DateTimeOffset? ShippingDate { get; set; }
 
         [JsonProperty("shipping_lines")]
+        [NotMapped]
         public IEnumerable<ShippingLine>? ShippingLines { get; set; }
 
         [JsonProperty("shopify_cart_token")]
@@ -96,6 +102,7 @@ namespace RechargeSharp.Entities.Orders
         public string? Tags { get; set; }
 
         [JsonProperty("tax_lines")]
+        [NotMapped]
         public IEnumerable<TaxLine>? TaxLines { get; set; }
 
         [JsonProperty("total_discounts")]

@@ -19,9 +19,5 @@ namespace RechargeSharp.Entities.EntityFrameworkCore.Entities.Subscriptions
 
         [JsonIgnore]
         public Shared.LineItem? LineItem { get; set; }
-
-        [JsonProperty("properties")]
-        [NotMapped]
-        public new IEnumerable<Property>? Properties { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Products;
 using RechargeSharp.Entities.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RechargeSharp.Entities.EntityFrameworkCore.Entities.Products
 {
@@ -73,6 +74,7 @@ namespace RechargeSharp.Entities.EntityFrameworkCore.Entities.Products
         public long ShopifyProductId { get; set; }
 
         [JsonProperty("subscription_defaults")]
+        [NotMapped]
         public ProductSubscriptionDefaults? SubscriptionDefaults { get; set; }
 
         [JsonProperty("title")]

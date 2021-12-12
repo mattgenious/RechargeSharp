@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RechargeSharp.Entities.Webhooks
 {
@@ -35,6 +36,7 @@ namespace RechargeSharp.Entities.Webhooks
         }
 
         [JsonProperty("address")]
+        [NotMapped]
         public Uri? Address { get; set; }
 
         [JsonProperty("id")]

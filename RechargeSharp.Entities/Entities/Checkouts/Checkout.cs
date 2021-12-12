@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RechargeSharp.Entities.Checkouts
 {
@@ -7,12 +8,15 @@ namespace RechargeSharp.Entities.Checkouts
     {
 
         [JsonProperty("analytics_data", NullValueHandling = NullValueHandling.Ignore)]
+        [NotMapped]
         public AnalyticsData? AnalyticsData { get; set; }
 
         [JsonProperty("applied_discount")]
+        [NotMapped]
         public CheckoutAppliedDiscount? AppliedDiscount { get; set; }
 
         [JsonProperty("billing_address")]
+        [NotMapped]
         public Address? BillingAddress { get; set; }
 
         [JsonProperty("buyer_accepts_marketing", NullValueHandling = NullValueHandling.Ignore)]
@@ -46,12 +50,14 @@ namespace RechargeSharp.Entities.Checkouts
         public string? ExternalCustomerId { get; set; }
 
         [JsonProperty("line_items", NullValueHandling = NullValueHandling.Ignore)]
+        [NotMapped]
         public List<CheckoutLineItem>? LineItems { get; set; }
 
         [JsonProperty("note", NullValueHandling = NullValueHandling.Ignore)]
         public string? Note { get; set; }
 
         [JsonProperty("note_attributes", NullValueHandling = NullValueHandling.Ignore)]
+        [NotMapped]
         public List<Property>? NoteAttributes { get; set; }
 
         [JsonProperty("payment_processor")]
@@ -70,21 +76,26 @@ namespace RechargeSharp.Entities.Checkouts
         public bool? RequiresShipping { get; set; }
 
         [JsonProperty("shipping_address", NullValueHandling = NullValueHandling.Ignore)]
+        [NotMapped]
         public Address? ShippingAddress { get; set; }
 
         [JsonProperty("shipping_address_validations", NullValueHandling = NullValueHandling.Ignore)]
+        [NotMapped]
         public ShippingAddressValidations? ShippingAddressValidations { get; set; }
 
         [JsonProperty("shipping_line")]
+        [NotMapped]
         public ShippingLine? ShippingLine { get; set; }
 
         [JsonProperty("shipping_rate")]
+        [NotMapped]
         public ShippingRate? ShippingRate { get; set; }
 
         [JsonProperty("subtotal_price", NullValueHandling = NullValueHandling.Ignore)]
         public string? SubtotalPrice { get; set; }
 
         [JsonProperty("tax_lines", NullValueHandling = NullValueHandling.Ignore)]
+        [NotMapped]
         public List<TaxLine>? TaxLines { get; set; }
 
         [JsonProperty("taxes_included", NullValueHandling = NullValueHandling.Ignore)]

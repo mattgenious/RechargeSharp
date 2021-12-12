@@ -16,9 +16,5 @@ namespace RechargeSharp.Entities.EntityFrameworkCore.Entities.Onetimes
         
         [JsonIgnore]
         public Product? Product { get; set; }
-
-        [JsonProperty("properties")]
-        [NotMapped]
-        public new ICollection<Property>? Properties { get; set; }
     }
 }

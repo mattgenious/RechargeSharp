@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RechargeSharp.Entities.Subscriptions
 {
@@ -80,14 +81,17 @@ namespace RechargeSharp.Entities.Subscriptions
             return !Equals(left, right);
         }
 
-        [JsonProperty("recharge_product_id")] public long? RechargeProductId { get; set; }
+        [JsonProperty("recharge_product_id")] 
+        public long? RechargeProductId { get; set; }
 
-        [JsonProperty("sku_override")] public bool SkuOverride { get; set; }
+        [JsonProperty("sku_override")] 
+        public bool SkuOverride { get; set; }
 
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public long Id { get; set; }
 
-        [JsonProperty("address_id")] public long AddressId { get; set; }
+        [JsonProperty("address_id")] 
+        public long AddressId { get; set; }
 
         [JsonProperty("customer_id", NullValueHandling = NullValueHandling.Ignore)]
         public long CustomerId { get; set; }
@@ -104,13 +108,17 @@ namespace RechargeSharp.Entities.Subscriptions
         [JsonProperty("cancelled_at", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? CancelledAt { get; set; }
 
-        [JsonProperty("product_title")] public string? ProductTitle { get; set; }
+        [JsonProperty("product_title")] 
+        public string? ProductTitle { get; set; }
 
-        [JsonProperty("variant_title")] public string? VariantTitle { get; set; }
+        [JsonProperty("variant_title")] 
+        public string? VariantTitle { get; set; }
 
-        [JsonProperty("price")] public decimal Price { get; set; }
+        [JsonProperty("price")] 
+        public decimal Price { get; set; }
 
-        [JsonProperty("quantity")] public long Quantity { get; set; }
+        [JsonProperty("quantity")] 
+        public long Quantity { get; set; }
 
         [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public SubscriptionStatus? Status { get; set; }
@@ -118,12 +126,14 @@ namespace RechargeSharp.Entities.Subscriptions
         [JsonProperty("shopify_product_id", NullValueHandling = NullValueHandling.Ignore)]
         public long ShopifyProductId { get; set; }
 
-        [JsonProperty("shopify_variant_id")] public long ShopifyVariantId { get; set; }
+        [JsonProperty("shopify_variant_id")] 
+        public long ShopifyVariantId { get; set; }
 
         [JsonProperty("sku", NullValueHandling = NullValueHandling.Ignore)]
         public string? Sku { get; set; }
 
-        [JsonProperty("order_interval_unit")] public string? OrderIntervalUnit { get; set; }
+        [JsonProperty("order_interval_unit")] 
+        public string? OrderIntervalUnit { get; set; }
 
         [JsonProperty("order_interval_frequency")]
         public string? OrderIntervalFrequency { get; set; }
@@ -143,7 +153,9 @@ namespace RechargeSharp.Entities.Subscriptions
         [JsonProperty("order_day_of_month", NullValueHandling = NullValueHandling.Ignore)]
         public long? OrderDayOfMonth { get; set; }
 
-        [JsonProperty("properties")] public IEnumerable<Property>? Properties { get; set; }
+        [JsonProperty("properties")]
+        [NotMapped]
+        public IEnumerable<Property>? Properties { get; set; }
 
         [JsonProperty("expire_after_specific_number_of_charges", NullValueHandling = NullValueHandling.Ignore)]
         public long? ExpireAfterSpecificNumberOfCharges { get; set; }

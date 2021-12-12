@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RechargeSharp.Entities.Onetimes
 {
@@ -73,6 +74,7 @@ namespace RechargeSharp.Entities.Onetimes
         public string? ProductTitle { get; set; }
 
         [JsonProperty("properties")]
+        [NotMapped]
         public IEnumerable<Property>? Properties { get; set; }
 
         [JsonProperty("quantity")]

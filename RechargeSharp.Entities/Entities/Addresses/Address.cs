@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RechargeSharp.Entities.Addresses
 {
@@ -60,6 +61,7 @@ namespace RechargeSharp.Entities.Addresses
         public string? Address2 { get; set; }
 
         [JsonProperty("cart_attributes")]
+        [NotMapped]
         public IEnumerable<Property>? CartAttributes { get; set; }
 
         [JsonProperty("cart_note")]
@@ -93,12 +95,15 @@ namespace RechargeSharp.Entities.Addresses
         public string? LastName { get; set; }
 
         [JsonProperty("note_attributes")]
+        [NotMapped]
         public IEnumerable<Property>? NoteAttributes { get; set; }
 
         [JsonProperty("original_shipping_lines")]
+        [NotMapped]
         public IEnumerable<ShippingLine>? OriginalShippingLines { get; set; }
 
         [JsonProperty("shipping_lines_override")]
+        [NotMapped]
         public IEnumerable<ShippingLine>? ShippingLinesOverride { get; set; }
 
         [JsonProperty("phone")]

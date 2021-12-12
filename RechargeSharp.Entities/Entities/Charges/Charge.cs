@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RechargeSharp.Entities.Charges
 {
@@ -12,12 +13,15 @@ namespace RechargeSharp.Entities.Charges
         public long AddressId { get; set; }
 
         [JsonProperty("analytics_data")]
+        [NotMapped]
         public AnalyticsData? AnalyticsData { get; set; }
 
         [JsonProperty("billing_address")]
+        [NotMapped]
         public Address? BillingAddress { get; set; }
 
         [JsonProperty("client_details")]
+        [NotMapped]
         public ChargeClientDetails? ClientDetails { get; set; }
 
         [JsonProperty("created_at")]
@@ -30,6 +34,7 @@ namespace RechargeSharp.Entities.Charges
         public long CustomerId { get; set; }
 
         [JsonProperty("discount_codes")]
+        [NotMapped]
         public IEnumerable<ChargeDiscountCode>? DiscountCodes { get; set; }
 
         [JsonProperty("email")]
@@ -48,12 +53,14 @@ namespace RechargeSharp.Entities.Charges
         public string? LastName { get; set; }
 
         [JsonProperty("line_items")]
+        [NotMapped]
         public IEnumerable<LineItem>? LineItems { get; set; }
 
         [JsonProperty("note")]
         public string? Note { get; set; }
 
         [JsonProperty("note_attributes")]
+        [NotMapped]
         public IEnumerable<Property>? NoteAttributes { get; set; }
 
         [JsonProperty("processed_at")]
@@ -69,9 +76,11 @@ namespace RechargeSharp.Entities.Charges
         public long? ShipmentsCount { get; set; }
 
         [JsonProperty("shipping_address")]
+        [NotMapped]
         public Address? ShippingAddress { get; set; }
 
         [JsonProperty("shipping_lines")]
+        [NotMapped]
         public IEnumerable<ShippingLine>? ShippingLines { get; set; }
 
         [JsonProperty("shopify_order_id")]
