@@ -35,28 +35,28 @@ namespace RechargeSharp.Services.Discounts
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Discounts;
         }
 
-        public async Task<IEnumerable<Discount>?> GetDiscountsAsync(int page = 1, int limit = 50, string? status = null, string? discountType = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
+        public async Task<IEnumerable<Discount>?> GetDiscountsAsync(int page = 1, int limit = 50, string? status = null, string? discountType = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += status != null ? $"&status={status}" : "";
             queryParams += discountType != null ? $"&discount_type={discountType}" : "";
             queryParams += discountCode != null ? $"&discount_code={discountCode}" : "";
             queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
-            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += createdAtMax != null ? $"&created_at_max={createdAtMax?.ToString("s")}" : "";
             queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
 
             return await GetDiscountsAsync(queryParams).ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<Discount>> GetAllDiscountsWithParamsAsync(string? status = null, string? discountType = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
+        public async Task<IEnumerable<Discount>> GetAllDiscountsWithParamsAsync(string? status = null, string? discountType = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = $"";
             queryParams += status != null ? $"&status={status}" : "";
             queryParams += discountType != null ? $"&discount_type={discountType}" : "";
             queryParams += discountCode != null ? $"&discount_code={discountCode}" : "";
             queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
-            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += createdAtMax != null ? $"&created_at_max={createdAtMax?.ToString("s")}" : "";
             queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
 

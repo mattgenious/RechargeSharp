@@ -33,7 +33,7 @@ namespace RechargeSharp.Services.Subscriptions
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Subscriptions;
         }
 
-        public Task<IEnumerable<Subscription>?> GetSubscriptionsAsync(int page = 1, int limit = 50, long? customerId = null, long? addressId = null, string? status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
+        public Task<IEnumerable<Subscription>?> GetSubscriptionsAsync(int page = 1, int limit = 50, long? customerId = null, long? addressId = null, string? status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
@@ -42,7 +42,7 @@ namespace RechargeSharp.Services.Subscriptions
             queryParams += shopifyCustomerId != null ? $"&shopify_customer_id={shopifyCustomerId}" : "";
             queryParams += shopifyVariantId != null ? $"&shopify_variant_id={shopifyVariantId}" : "";
             queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
-            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += createdAtMax != null ? $"&created_at_max={createdAtMax?.ToString("s")}" : "";
             queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
 
@@ -50,7 +50,7 @@ namespace RechargeSharp.Services.Subscriptions
             return GetSubscriptionsAsync(queryParams);
         }
 
-        public Task<IEnumerable<Subscription>> GetAllSubscriptionsWithParamsAsync(long? customerId = null, long? addressId = null, string? status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
+        public Task<IEnumerable<Subscription>> GetAllSubscriptionsWithParamsAsync(long? customerId = null, long? addressId = null, string? status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = "";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
@@ -59,7 +59,7 @@ namespace RechargeSharp.Services.Subscriptions
             queryParams += shopifyCustomerId != null ? $"&shopify_customer_id={shopifyCustomerId}" : "";
             queryParams += shopifyVariantId != null ? $"&shopify_variant_id={shopifyVariantId}" : "";
             queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
-            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += createdAtMax != null ? $"&created_at_max={createdAtMax?.ToString("s")}" : "";
             queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
             return GetAllSubscriptionsAsync(queryParams);
@@ -94,7 +94,7 @@ namespace RechargeSharp.Services.Subscriptions
             return result;
         }
 
-        public async Task<long?> CountSubscriptionsAsync(long? customerId = null, long? addressId = null, string? status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
+        public async Task<long?> CountSubscriptionsAsync(long? customerId = null, long? addressId = null, string? status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = "";
             queryParams += customerId != null ? $"&customer_id={customerId}" : "";
@@ -103,7 +103,7 @@ namespace RechargeSharp.Services.Subscriptions
             queryParams += shopifyCustomerId != null ? $"&shopify_customer_id={shopifyCustomerId}" : "";
             queryParams += shopifyVariantId != null ? $"&shopify_variant_id={shopifyVariantId}" : "";
             queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
-            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += createdAtMax != null ? $"&created_at_max={createdAtMax?.ToString("s")}" : "";
             queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
 

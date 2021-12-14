@@ -6,7 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>11.0.0-alpha.3</Version>
+		<Version>11.0.0-alpha.4</Version>
 		<AssemblyVersion>11.0.0.0</AssemblyVersion>
 		<PackageLicenseExpression></PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
@@ -17,7 +17,7 @@
 		<FileVersion>11.0.0.0</FileVersion>
 		<Authors>Matt Luccas Phaure Minet</Authors>
 		<Description>A C# library for RechargePayments</Description>
-		<PackageReleaseNotes>Hiding members did not work for entityframework core so now [NotMapped] is on parent types.</PackageReleaseNotes>
+		<PackageReleaseNotes>Fixed typos</PackageReleaseNotes>
 		<LangVersion>8.0</LangVersion>
 		<PackageIcon>icon.png</PackageIcon>
 		<Company>Matt Luccas Phaure Minet</Company>

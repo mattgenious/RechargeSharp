@@ -43,26 +43,26 @@ namespace RechargeSharp.Services.Addresses
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Addresses;
         }
 
-        public Task<IEnumerable<Address>?> GetAddressesAsync(int page = 1, int limit = 50, long? discountId = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
+        public Task<IEnumerable<Address>?> GetAddressesAsync(int page = 1, int limit = 50, long? discountId = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = $"page={page}&limit={limit}";
             queryParams += discountId != null ? $"&discount_id={discountId}" : "";
             queryParams += discountCode != null ? $"&discount_code={discountCode}" : "";
             queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
-            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += createdAtMax != null ? $"&created_at_max={createdAtMax?.ToString("s")}" : "";
             queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
 
             return GetAddressesAsync(queryParams);
         }
 
-        public Task<IEnumerable<Address>> GetAllAddressesWithParamsAsync(long? discountId = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
+        public Task<IEnumerable<Address>> GetAllAddressesWithParamsAsync(long? discountId = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = "";
             queryParams += discountId != null ? $"&discount_id={discountId}" : "";
             queryParams += discountCode != null ? $"&discount_code={discountCode}" : "";
             queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
-            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += createdAtMax != null ? $"&created_at_max={createdAtMax?.ToString("s")}" : "";
             queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
 
@@ -96,13 +96,13 @@ namespace RechargeSharp.Services.Addresses
             return result;
         }
 
-        public async Task<long?> CountAddressesAsync(long? discountId = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
+        public async Task<long?> CountAddressesAsync(long? discountId = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null)
         {
             var queryParams = "";
             queryParams += discountId != null ? $"&discount_id={discountId}" : "";
             queryParams += discountCode != null ? $"&discount_code={discountCode}" : "";
             queryParams += createdAtMin != null ? $"&created_at_min={createdAtMin?.ToString("s")}" : "";
-            queryParams += createAtMax != null ? $"&created_at_max={createAtMax?.ToString("s")}" : "";
+            queryParams += createdAtMax != null ? $"&created_at_max={createdAtMax?.ToString("s")}" : "";
             queryParams += updatedAtMin != null ? $"&updated_at_min={updatedAtMin?.ToString("s")}" : "";
             queryParams += updatedAtMax != null ? $"&updated_at_max={updatedAtMax?.ToString("s")}" : "";
 
