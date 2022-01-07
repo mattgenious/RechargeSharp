@@ -36,9 +36,10 @@ namespace RechargeSharp.Services
                 _clients.Add(client);
             }
 
-            AsyncRetryPolicy = Policy.HandleResult<HttpResponseMessage>(HandleHttpResponseMessage).WaitAndRetryForeverAsync(
-                retryAttempt =>
-                    TimeSpan.FromSeconds(3));
+            AsyncRetryPolicy = Policy
+                .Handle<HttpRequestException>(HandleHttpRequestException)
+                .OrResult<HttpResponseMessage>(HandleHttpResponseMessage)
+                .WaitAndRetryForeverAsync(retryAttempt =>TimeSpan.FromSeconds(3));
 
         }
 
@@ -83,6 +84,13 @@ namespace RechargeSharp.Services
         private HttpClient GetRandomHttpClient()
         {
             return _clients[_random.Next(_clients.Count)];
+        }
+
+        private bool HandleHttpRequestException(HttpRequestException httpRequestException)
+        {
+            _logger.LogError("HttpRequestException", httpRequestException);
+
+            return true;
         }
 
         private async Task<HttpResponseMessage> ExecuteSingleRequest(Func<Task<HttpResponseMessage>> funky)
