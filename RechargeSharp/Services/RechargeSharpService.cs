@@ -39,7 +39,7 @@ namespace RechargeSharp.Services
             AsyncRetryPolicy = Policy
                 .Handle<HttpRequestException>(HandleHttpRequestException)
                 .OrResult<HttpResponseMessage>(HandleHttpResponseMessage)
-                .WaitAndRetryForeverAsync(retryAttempt =>TimeSpan.FromSeconds(3));
+                .WaitAndRetryForeverAsync(retryAttempt => TimeSpan.FromSeconds(3));
 
         }
 
@@ -90,14 +90,22 @@ namespace RechargeSharp.Services
         {
             _logger.LogError("HttpRequestException", httpRequestException);
 
-            return true;
+            if (httpRequestException.InnerException is IOException)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         private async Task<HttpResponseMessage> ExecuteSingleRequest(Func<Task<HttpResponseMessage>> funky)
         {
             var response = await funky.Invoke();
 
-            HandleHttpResponseMessage(response); 
+            HandleHttpResponseMessage(response);
 
             return response;
         }
