@@ -39,8 +39,7 @@ namespace RechargeSharp.Services
             AsyncRetryPolicy = Policy
                 .Handle<HttpRequestException>(HandleHttpRequestException)
                 .OrResult<HttpResponseMessage>(HandleHttpResponseMessage)
-                .WaitAndRetryForeverAsync(retryAttempt => TimeSpan.FromSeconds(3));
-
+                .WaitAndRetryAsync(10, x => TimeSpan.FromSeconds(x));
         }
 
         protected Task<HttpResponseMessage> GetAsync(string path, bool noRetry = false)
