@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Onetimes
 {
     public class OnetimeListResponse : IEquatable<OnetimeListResponse>
     {
-        public bool Equals(OnetimeListResponse other)
+        public bool Equals(OnetimeListResponse? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
+            if (other.OneTimeProducts is null) return false;
+            if (OneTimeProducts is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return OneTimeProducts.SequenceEqual(other.OneTimeProducts);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((OnetimeListResponse) obj);
@@ -38,6 +37,6 @@ namespace RechargeSharp.Entities.Onetimes
         }
 
         [JsonProperty("onetimes")]
-        public IEnumerable<Onetime> OneTimeProducts { get; set; }
+        public IEnumerable<Onetime>? OneTimeProducts { get; set; }
     }
 }

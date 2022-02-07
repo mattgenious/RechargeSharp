@@ -5,18 +5,18 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>10.0.0-alpha.1</Version>
-		<AssemblyVersion>10.0.0.0</AssemblyVersion>
+		<Version>11.0.0</Version>
+		<AssemblyVersion>11.0.0.0</AssemblyVersion>
 		<PackageLicenseExpression></PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
 		<RepositoryType>GIT</RepositoryType>
 		<PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<FileVersion>10.0.0.0</FileVersion>
+		<FileVersion>11.0.0.0</FileVersion>
 		<Authors>Matt Luccas Phaure Minet</Authors>
 		<Description>A C# library for RechargePayments</Description>
-		<PackageReleaseNotes>Implemented initial version of RechargeSharp.EntityFrameworkCore.Entities to easily use RechargeSharp entities in dbcontexts</PackageReleaseNotes>
+		<PackageReleaseNotes>Fixed typos</PackageReleaseNotes>
 		<LangVersion>8.0</LangVersion>
 		<PackageIcon>icon.png</PackageIcon>
 		<Company>Matt Luccas Phaure Minet</Company>
@@ -89,7 +89,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="RechargeSharp.Entities" Version="10.0.0" />
+	  <PackageReference Include="RechargeSharp.Entities" Version="11.0.0" />
 	</ItemGroup>
 
 </Project>

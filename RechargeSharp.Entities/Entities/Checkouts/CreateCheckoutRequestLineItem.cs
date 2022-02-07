@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Checkouts
 {
     public class CreateCheckoutRequestLineItem : IEquatable<CreateCheckoutRequestLineItem>
     {
-        public bool Equals(CreateCheckoutRequestLineItem other)
+        public bool Equals(CreateCheckoutRequestLineItem? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return ChargeIntervalFrequency == other.ChargeIntervalFrequency && CutoffDayOfMonth == other.CutoffDayOfMonth && CutoffDayOfWeek == other.CutoffDayOfWeek && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && FulfillmentService == other.FulfillmentService && Grams == other.Grams && LinePrice == other.LinePrice && OrderDayOfMonth == other.OrderDayOfMonth && OrderDayOfWeek == other.OrderDayOfWeek && OrderIntervalFrequency == other.OrderIntervalFrequency && OrderIntervalUnit == other.OrderIntervalUnit && Price == other.Price && ProductId == other.ProductId && Quantity == other.Quantity && RequiresShipping == other.RequiresShipping && Sku == other.Sku && Taxable == other.Taxable && Title == other.Title && VariantId == other.VariantId && VariantTitle == other.VariantTitle && Vendor == other.Vendor;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((CreateCheckoutRequestLineItem) obj);
@@ -24,31 +22,29 @@ namespace RechargeSharp.Entities.Checkouts
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = ChargeIntervalFrequency.GetHashCode();
-                hashCode = (hashCode * 397) ^ CutoffDayOfMonth.GetHashCode();
-                hashCode = (hashCode * 397) ^ CutoffDayOfWeek.GetHashCode();
-                hashCode = (hashCode * 397) ^ ExpireAfterSpecificNumberOfCharges.GetHashCode();
-                hashCode = (hashCode * 397) ^ (FulfillmentService != null ? FulfillmentService.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Grams.GetHashCode();
-                hashCode = (hashCode * 397) ^ (LinePrice != null ? LinePrice.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ OrderDayOfMonth.GetHashCode();
-                hashCode = (hashCode * 397) ^ OrderDayOfWeek.GetHashCode();
-                hashCode = (hashCode * 397) ^ OrderIntervalFrequency.GetHashCode();
-                hashCode = (hashCode * 397) ^ (OrderIntervalUnit != null ? OrderIntervalUnit.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Price != null ? Price.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ ProductId.GetHashCode();
-                hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
-                hashCode = (hashCode * 397) ^ RequiresShipping.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Sku != null ? Sku.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Taxable.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Title != null ? Title.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ VariantId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (VariantTitle != null ? VariantTitle.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Vendor != null ? Vendor.GetHashCode() : 0);
-                return hashCode;
-            }
+            HashCode hash = new();
+            hash.Add(ChargeIntervalFrequency);
+            hash.Add(CutoffDayOfMonth);
+            hash.Add(CutoffDayOfWeek);
+            hash.Add(ExpireAfterSpecificNumberOfCharges);
+            hash.Add(FulfillmentService);
+            hash.Add(Grams);
+            hash.Add(LinePrice);
+            hash.Add(OrderDayOfMonth);
+            hash.Add(OrderDayOfWeek);
+            hash.Add(OrderIntervalFrequency);
+            hash.Add(OrderIntervalUnit);
+            hash.Add(Price);
+            hash.Add(ProductId);
+            hash.Add(Quantity);
+            hash.Add(RequiresShipping);
+            hash.Add(Sku);
+            hash.Add(Taxable);
+            hash.Add(Title);
+            hash.Add(VariantId);
+            hash.Add(VariantTitle);
+            hash.Add(Vendor);
+            return hash.ToHashCode();
         }
 
         public static bool operator ==(CreateCheckoutRequestLineItem left, CreateCheckoutRequestLineItem right)
@@ -75,13 +71,13 @@ namespace RechargeSharp.Entities.Checkouts
         public long? ExpireAfterSpecificNumberOfCharges { get; set; }
 
         [JsonProperty("fulfillment_service", NullValueHandling = NullValueHandling.Ignore)]
-        public string FulfillmentService { get; set; }
+        public string? FulfillmentService { get; set; }
 
         [JsonProperty("grams", NullValueHandling = NullValueHandling.Ignore)]
         public long? Grams { get; set; }
 
         [JsonProperty("line_price", NullValueHandling = NullValueHandling.Ignore)]
-        public string LinePrice { get; set; }
+        public string? LinePrice { get; set; }
 
         [JsonProperty("order_day_of_month", NullValueHandling = NullValueHandling.Ignore)]
         public long? OrderDayOfMonth { get; set; }
@@ -93,16 +89,16 @@ namespace RechargeSharp.Entities.Checkouts
         public long? OrderIntervalFrequency { get; set; }
 
         [JsonProperty("order_interval_unit", NullValueHandling = NullValueHandling.Ignore)]
-        public string OrderIntervalUnit { get; set; }
+        public string? OrderIntervalUnit { get; set; }
 
         [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
-        public string Price { get; set; }
+        public string? Price { get; set; }
 
         [JsonProperty("product_id", NullValueHandling = NullValueHandling.Ignore)]
         public long? ProductId { get; set; }
 
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string,string> Properties { get; set; }
+        public Dictionary<string,string>? Properties { get; set; }
 
         [Required]
         [JsonProperty("quantity")]
@@ -112,22 +108,22 @@ namespace RechargeSharp.Entities.Checkouts
         public bool? RequiresShipping { get; set; }
 
         [JsonProperty("sku", NullValueHandling = NullValueHandling.Ignore)]
-        public string Sku { get; set; }
+        public string? Sku { get; set; }
 
         [JsonProperty("taxable", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Taxable { get; set; }
 
         [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [Required]
         [JsonProperty("variant_id")]
         public long? VariantId { get; set; }
 
         [JsonProperty("variant_title", NullValueHandling = NullValueHandling.Ignore)]
-        public string VariantTitle { get; set; }
+        public string? VariantTitle { get; set; }
 
         [JsonProperty("vendor", NullValueHandling = NullValueHandling.Ignore)]
-        public string Vendor { get; set; }
+        public string? Vendor { get; set; }
     }
 }

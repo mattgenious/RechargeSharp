@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RechargeSharp.Entities.Orders
 {
@@ -15,13 +13,14 @@ namespace RechargeSharp.Entities.Orders
         public long? AddressIsActive { get; set; }
 
         [JsonProperty("billing_address")]
-        public Address BillingAddress { get; set; }
+        [NotMapped]
+        public Address? BillingAddress { get; set; }
 
         [JsonProperty("charge_id")]
         public long? ChargeId { get; set; }
 
         [JsonProperty("charge_status")]
-        public string ChargeStatus { get; set; }
+        public string? ChargeStatus { get; set; }
 
         [JsonProperty("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
@@ -30,13 +29,13 @@ namespace RechargeSharp.Entities.Orders
         public long CustomerId { get; set; }
 
         [JsonProperty("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [JsonProperty("first_name")]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         [JsonProperty("hash")]
-        public string Hash { get; set; }
+        public string? Hash { get; set; }
 
         [JsonProperty("id")]
         public long Id { get; set; }
@@ -45,19 +44,21 @@ namespace RechargeSharp.Entities.Orders
         public long IsPrepaid { get; set; }
 
         [JsonProperty("last_name")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [JsonProperty("line_items")]
-        public IEnumerable<LineItem> LineItems { get; set; }
+        [NotMapped]
+        public IEnumerable<LineItem>? LineItems { get; set; }
 
         [JsonProperty("note")]
-        public string Note { get; set; }
+        public string? Note { get; set; }
 
         [JsonProperty("note_attributes")]
-        public IEnumerable<Property> NoteAttributes { get; set; }
+        [NotMapped]
+        public IEnumerable<Property>? NoteAttributes { get; set; }
 
         [JsonProperty("payment_processor")]
-        public string PaymentProcessor { get; set; }
+        public string? PaymentProcessor { get; set; }
 
         [JsonProperty("processed_at")]
         public DateTimeOffset? ProcessedAt { get; set; }
@@ -69,22 +70,24 @@ namespace RechargeSharp.Entities.Orders
         public DateTimeOffset? ShippedDate { get; set; }
 
         [JsonProperty("shipping_address")]
-        public Address ShippingAddress { get; set; }
+        [NotMapped]
+        public Address? ShippingAddress { get; set; }
 
         [JsonProperty("shipping_date")]
         public DateTimeOffset? ShippingDate { get; set; }
 
         [JsonProperty("shipping_lines")]
-        public IEnumerable<ShippingLine> ShippingLines { get; set; }
+        [NotMapped]
+        public IEnumerable<ShippingLine>? ShippingLines { get; set; }
 
         [JsonProperty("shopify_cart_token")]
-        public string ShopifyCartToken { get; set; }
+        public string? ShopifyCartToken { get; set; }
 
         [JsonProperty("shopify_id")]
-        public string ShopifyId { get; set; }
+        public string? ShopifyId { get; set; }
 
         [JsonProperty("shopify_order_id")]
-        public string ShopifyOrderId { get; set; }
+        public string? ShopifyOrderId { get; set; }
 
         [JsonProperty("shopify_order_number")]
         public long? ShopifyOrderNumber { get; set; }
@@ -96,10 +99,11 @@ namespace RechargeSharp.Entities.Orders
         public decimal? SubtotalPrice { get; set; }
 
         [JsonProperty("tags")]
-        public string Tags { get; set; }
+        public string? Tags { get; set; }
 
         [JsonProperty("tax_lines")]
-        public IEnumerable<TaxLine> TaxLines { get; set; }
+        [NotMapped]
+        public IEnumerable<TaxLine>? TaxLines { get; set; }
 
         [JsonProperty("total_discounts")]
         public decimal? TotalDiscounts { get; set; }
@@ -120,24 +124,24 @@ namespace RechargeSharp.Entities.Orders
         public decimal? TotalWeight { get; set; }
 
         [JsonProperty("transaction_id")]
-        public string TransactionId { get; set; }
+        public string? TransactionId { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
         [JsonProperty("updated_at")]
         public DateTimeOffset UpdatedAt { get; set; }
 
-        public bool Equals(Order other)
+        public bool Equals(Order? other)
         {
-	        if (ReferenceEquals(null, other)) return false;
+	        if (other is null) return false;
 	        if (ReferenceEquals(this, other)) return true;
 	        return AddressId == other.AddressId && AddressIsActive == other.AddressIsActive && Equals(BillingAddress, other.BillingAddress) && ChargeId == other.ChargeId && ChargeStatus == other.ChargeStatus && CreatedAt.Equals(other.CreatedAt) && CustomerId == other.CustomerId && Email == other.Email && FirstName == other.FirstName && Hash == other.Hash && Id == other.Id && IsPrepaid == other.IsPrepaid && LastName == other.LastName && Note == other.Note && PaymentProcessor == other.PaymentProcessor && Nullable.Equals(ProcessedAt, other.ProcessedAt) && Nullable.Equals(ScheduledAt, other.ScheduledAt) && Nullable.Equals(ShippedDate, other.ShippedDate) && Equals(ShippingAddress, other.ShippingAddress) && Nullable.Equals(ShippingDate, other.ShippingDate) && ShopifyCartToken == other.ShopifyCartToken && ShopifyId == other.ShopifyId && ShopifyOrderId == other.ShopifyOrderId && ShopifyOrderNumber == other.ShopifyOrderNumber && Status == other.Status && SubtotalPrice == other.SubtotalPrice && Tags == other.Tags && TotalDiscounts == other.TotalDiscounts && TotalLineItemsPrice == other.TotalLineItemsPrice && TotalPrice == other.TotalPrice && TotalRefunds == other.TotalRefunds && TotalTax == other.TotalTax && TotalWeight == other.TotalWeight && TransactionId == other.TransactionId && Type == other.Type && UpdatedAt.Equals(other.UpdatedAt);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-	        if (ReferenceEquals(null, obj)) return false;
+	        if (obj is null) return false;
 	        if (ReferenceEquals(this, obj)) return true;
 	        if (obj.GetType() != this.GetType()) return false;
 	        return Equals((Order) obj);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
@@ -8,16 +6,16 @@ namespace RechargeSharp.Entities.Checkouts
 {
     public class CreateCheckoutRequestCheckout : IEquatable<CreateCheckoutRequestCheckout>
     {
-        public bool Equals(CreateCheckoutRequestCheckout other)
+        public bool Equals(CreateCheckoutRequestCheckout? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Equals(ShippingAddress, other.ShippingAddress) && Equals(BillingAddress, other.BillingAddress) && Email == other.Email && Note == other.Note && DiscountCode == other.DiscountCode && Phone == other.Phone && BuyerAcceptsMarketing == other.BuyerAcceptsMarketing;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((CreateCheckoutRequestCheckout) obj);
@@ -27,12 +25,12 @@ namespace RechargeSharp.Entities.Checkouts
         {
             unchecked
             {
-                var hashCode = (ShippingAddress != null ? ShippingAddress.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (BillingAddress != null ? BillingAddress.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Email != null ? Email.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Note != null ? Note.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (DiscountCode != null ? DiscountCode.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Phone != null ? Phone.GetHashCode() : 0);
+                var hashCode = (ShippingAddress?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (BillingAddress?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Email?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Note?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (DiscountCode?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Phone?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ BuyerAcceptsMarketing.GetHashCode();
                 return hashCode;
             }
@@ -50,36 +48,36 @@ namespace RechargeSharp.Entities.Checkouts
 
         [Required]
         [JsonProperty("line_items")]
-        public IEnumerable<CreateCheckoutRequestLineItem> LineItems { get; set; }
+        public IEnumerable<CreateCheckoutRequestLineItem>? LineItems { get; set; }
 
         [JsonProperty("shipping_address", NullValueHandling = NullValueHandling.Ignore)]
-        public Address ShippingAddress { get; set; }
+        public Address? ShippingAddress { get; set; }
 
         [JsonProperty("billing_address", NullValueHandling = NullValueHandling.Ignore)]
-        public Address BillingAddress { get; set; }
+        public Address? BillingAddress { get; set; }
 
         [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [JsonProperty("note", NullValueHandling = NullValueHandling.Ignore)]
-        public string Note { get; set; }
+        public string? Note { get; set; }
 
         [JsonProperty("note_attributes", NullValueHandling = NullValueHandling.Ignore)]
-        public IEnumerable<Property> NoteAttributes { get; set; }
+        public IEnumerable<Property>? NoteAttributes { get; set; }
 
         [JsonProperty("shipping_line", NullValueHandling = NullValueHandling.Ignore)]
-        public IEnumerable<ShippingLine> ShippingLine { get; set; }
+        public IEnumerable<ShippingLine>? ShippingLine { get; set; }
 
         [JsonProperty("discount_code", NullValueHandling = NullValueHandling.Ignore)]
-        public string DiscountCode { get; set; }
+        public string? DiscountCode { get; set; }
 
         [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         [JsonProperty("buyer_accepts_marketing", NullValueHandling = NullValueHandling.Ignore)]
         public bool BuyerAcceptsMarketing { get; set; }
 
         [JsonProperty("analytics_data", NullValueHandling = NullValueHandling.Ignore)]
-        public AnalyticsData AnalyticsData { get; set; }
+        public AnalyticsData? AnalyticsData { get; set; }
     }
 }

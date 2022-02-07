@@ -1,21 +1,20 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
 
 namespace RechargeSharp.Entities.Products
 {
     public class Product : IEquatable<Product>
     {
-        public bool Equals(Product other)
+        public bool Equals(Product? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return CollectionId == other.CollectionId && CreatedAt.Equals(other.CreatedAt) && DiscountAmount == other.DiscountAmount && DiscountType == other.DiscountType && Id == other.Id && Equals(Images, other.Images) && ProductId == other.ProductId && ShopifyProductId == other.ShopifyProductId && Equals(SubscriptionDefaults, other.SubscriptionDefaults) && Title == other.Title && UpdatedAt.Equals(other.UpdatedAt);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((Product) obj);
@@ -30,10 +29,10 @@ namespace RechargeSharp.Entities.Products
                 hashCode = (hashCode * 397) ^ DiscountAmount.GetHashCode();
                 hashCode = (hashCode * 397) ^ (DiscountType != null ? DiscountType.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Images != null ? Images.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Images?.GetHashCode() ?? 0;
                 hashCode = (hashCode * 397) ^ ProductId.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShopifyProductId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (SubscriptionDefaults != null ? SubscriptionDefaults.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ SubscriptionDefaults?.GetHashCode() ?? 0;
                 hashCode = (hashCode * 397) ^ (Title != null ? Title.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
                 return hashCode;
@@ -60,13 +59,13 @@ namespace RechargeSharp.Entities.Products
         public long DiscountAmount { get; set; }
 
         [JsonProperty("discount_type")]
-        public string DiscountType { get; set; }
+        public string? DiscountType { get; set; }
 
         [JsonProperty("id")]
         public long Id { get; set; }
 
         [JsonProperty("images")]
-        public Images Images { get; set; }
+        public Images? Images { get; set; }
 
         [JsonProperty("product_id")]
         public long ProductId { get; set; }
@@ -75,10 +74,10 @@ namespace RechargeSharp.Entities.Products
         public long ShopifyProductId { get; set; }
 
         [JsonProperty("subscription_defaults")]
-        public ProductSubscriptionDefaults SubscriptionDefaults { get; set; }
+        public ProductSubscriptionDefaults? SubscriptionDefaults { get; set; }
 
         [JsonProperty("title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [JsonProperty("updated_at")]
         public DateTimeOffset UpdatedAt { get; set; }

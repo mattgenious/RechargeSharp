@@ -1,8 +1,6 @@
 ﻿using RechargeSharp.Entities.Checkouts;
-using System;
 using System.Net;
 using RechargeSharp.Entities.Exceptions;
-using System.Net.Http;
 
 namespace RechargeSharp.Utilities
 {

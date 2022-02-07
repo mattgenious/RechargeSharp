@@ -4,7 +4,7 @@ using RechargeSharp.Entities.Customers;
 using RechargeSharp.Utilities;
 using System.IO;
 
-namespace RechargeSharpTests.Utilities
+namespace RechargeSharp.Entities.Tests.Utilities
 {
     internal class TestDataHandler
     {

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace RechargeSharpTests
+namespace RechargeSharp.Tests
 {
     public class RechargeSharpOptionsTest
     {
-        private RechargeServiceOptions _sut;
+        private readonly RechargeServiceOptions _sut;
 
         public RechargeSharpOptionsTest()
         {
@@ -17,7 +17,7 @@ namespace RechargeSharpTests
             {
                 guidStringList.Add(Guid.NewGuid().ToString());
             }
-            
+
             guidStringList.Add("");
 
             _sut = new RechargeServiceOptions()

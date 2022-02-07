@@ -1,20 +1,19 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Metafields
 {
     public class MetafieldResponse : IEquatable<MetafieldResponse>
     {
-        public bool Equals(MetafieldResponse other)
+        public bool Equals(MetafieldResponse? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Equals(Metafield, other.Metafield);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((MetafieldResponse) obj);
@@ -22,7 +21,7 @@ namespace RechargeSharp.Entities.Metafields
 
         public override int GetHashCode()
         {
-            return (Metafield != null ? Metafield.GetHashCode() : 0);
+            return Metafield?.GetHashCode() ?? 0;
         }
 
         public static bool operator ==(MetafieldResponse left, MetafieldResponse right)
@@ -36,6 +35,6 @@ namespace RechargeSharp.Entities.Metafields
         }
 
         [JsonProperty("metafield")]
-        public Metafield Metafield { get; set; }
+        public Metafield? Metafield { get; set; }
     }
 }

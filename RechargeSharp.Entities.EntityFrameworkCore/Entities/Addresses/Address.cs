@@ -29,21 +29,5 @@ namespace RechargeSharp.Entities.EntityFrameworkCore.Entities.Addresses
 
         [JsonIgnore]
         public virtual ICollection<Order>? Orders { get; set; }
-
-        [JsonProperty("cart_attributes")]
-        [NotMapped]
-        public new ICollection<Property>? CartAttributes { get; set; }
-
-        [JsonProperty("note_attributes")]
-        [NotMapped]
-        public new ICollection<Property>? NoteAttributes { get; set; }
-
-        [JsonProperty("original_shipping_lines")]
-        [NotMapped]
-        public new ICollection<ShippingLine>? OriginalShippingLines { get; set; }
-
-        [JsonProperty("shipping_lines_override")]
-        [NotMapped]
-        public new ICollection<ShippingLine>? ShippingLinesOverride { get; set; }
     }
 }

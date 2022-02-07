@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RechargeSharp.Entities.Exceptions
+﻿namespace RechargeSharp.Entities.Exceptions
 {
     /// <summary>
     /// Signifies that the requested resource was not found

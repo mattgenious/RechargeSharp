@@ -5,11 +5,13 @@ VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.Entities", "RechargeSharp.Entities\RechargeSharp.Entities.csproj", "{8A41798B-8972-466B-BBDB-AB5A53EDD5E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharpTests", "RechargeSharpTests\RechargeSharpTests.csproj", "{5E0672E9-63E4-47EE-8A08-711B47A58FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.Entities.Tests", "RechargeSharp.Entities.Tests\RechargeSharp.Entities.Tests.csproj", "{5E0672E9-63E4-47EE-8A08-711B47A58FFD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp", "RechargeSharp\RechargeSharp.csproj", "{A467D450-CC95-426B-8E34-68727EA95828}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RechargeSharp.Entities.EntityFrameworkCore", "RechargeSharp.Entities.EntityFrameworkCore\RechargeSharp.Entities.EntityFrameworkCore.csproj", "{35F32011-B7D0-4337-A5E4-55C75F035371}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.Entities.EntityFrameworkCore", "RechargeSharp.Entities.EntityFrameworkCore\RechargeSharp.Entities.EntityFrameworkCore.csproj", "{35F32011-B7D0-4337-A5E4-55C75F035371}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RechargeSharp.Tests", "RechargeSharp.Tests\RechargeSharp.Tests.csproj", "{B5322ED0-A946-43EA-9F42-D9317DD4362E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{35F32011-B7D0-4337-A5E4-55C75F035371}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35F32011-B7D0-4337-A5E4-55C75F035371}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35F32011-B7D0-4337-A5E4-55C75F035371}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5322ED0-A946-43EA-9F42-D9317DD4362E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5322ED0-A946-43EA-9F42-D9317DD4362E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5322ED0-A946-43EA-9F42-D9317DD4362E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5322ED0-A946-43EA-9F42-D9317DD4362E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

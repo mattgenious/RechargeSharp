@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RechargeSharp.Entities.Onetimes
 {
     public class Onetime : IEquatable<Onetime>
     {
-        public bool Equals(Onetime other)
+        public bool Equals(Onetime? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return AddressId == other.AddressId && CreatedAt.Equals(other.CreatedAt) && CustomerId == other.CustomerId && Id == other.Id && Nullable.Equals(NextChargeScheduledAt, other.NextChargeScheduledAt) && Price == other.Price && ProductTitle == other.ProductTitle && Quantity == other.Quantity && RechargeProductId == other.RechargeProductId && ShopifyProductId == other.ShopifyProductId && ShopifyVariantId == other.ShopifyVariantId && Sku == other.Sku && Status == other.Status && UpdatedAt.Equals(other.UpdatedAt) && VariantTitle == other.VariantTitle;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((Onetime) obj);
@@ -24,25 +23,23 @@ namespace RechargeSharp.Entities.Onetimes
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = AddressId.GetHashCode();
-                hashCode = (hashCode * 397) ^ CreatedAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ CustomerId.GetHashCode();
-                hashCode = (hashCode * 397) ^ Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ NextChargeScheduledAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ Price.GetHashCode();
-                hashCode = (hashCode * 397) ^ (ProductTitle != null ? ProductTitle.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Quantity.GetHashCode();
-                hashCode = (hashCode * 397) ^ RechargeProductId.GetHashCode();
-                hashCode = (hashCode * 397) ^ ShopifyProductId.GetHashCode();
-                hashCode = (hashCode * 397) ^ ShopifyVariantId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Sku != null ? Sku.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ UpdatedAt.GetHashCode();
-                hashCode = (hashCode * 397) ^ (VariantTitle != null ? VariantTitle.GetHashCode() : 0);
-                return hashCode;
-            }
+            HashCode hash = new();
+            hash.Add(AddressId);
+            hash.Add(CreatedAt);
+            hash.Add(CustomerId);
+            hash.Add(Id);
+            hash.Add(NextChargeScheduledAt);
+            hash.Add(Price);
+            hash.Add(ProductTitle);
+            hash.Add(Quantity);
+            hash.Add(RechargeProductId);
+            hash.Add(ShopifyProductId);
+            hash.Add(ShopifyVariantId);
+            hash.Add(Sku);
+            hash.Add(Status);
+            hash.Add(UpdatedAt);
+            hash.Add(VariantTitle);
+            return hash.ToHashCode();
         }
 
         public static bool operator ==(Onetime left, Onetime right)
@@ -74,10 +71,11 @@ namespace RechargeSharp.Entities.Onetimes
         public long Price { get; set; }
 
         [JsonProperty("product_title")]
-        public string ProductTitle { get; set; }
+        public string? ProductTitle { get; set; }
 
         [JsonProperty("properties")]
-        public IEnumerable<Property> Properties { get; set; }
+        [NotMapped]
+        public IEnumerable<Property>? Properties { get; set; }
 
         [JsonProperty("quantity")]
         public long Quantity { get; set; }
@@ -92,15 +90,15 @@ namespace RechargeSharp.Entities.Onetimes
         public long ShopifyVariantId { get; set; }
 
         [JsonProperty("sku")]
-        public string Sku { get; set; }
+        public string? Sku { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public string? Status { get; set; }
 
         [JsonProperty("updated_at")]
         public DateTimeOffset UpdatedAt { get; set; }
 
         [JsonProperty("variant_title")]
-        public string VariantTitle { get; set; }
+        public string? VariantTitle { get; set; }
     }
 }

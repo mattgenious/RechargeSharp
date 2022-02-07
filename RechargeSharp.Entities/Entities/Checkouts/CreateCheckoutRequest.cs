@@ -1,21 +1,20 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Checkouts
 {
     public class CreateCheckoutRequest : IEquatable<CreateCheckoutRequest>
     {
-        public bool Equals(CreateCheckoutRequest other)
+        public bool Equals(CreateCheckoutRequest? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Equals(Checkout, other.Checkout);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((CreateCheckoutRequest) obj);
@@ -23,7 +22,7 @@ namespace RechargeSharp.Entities.Checkouts
 
         public override int GetHashCode()
         {
-            return (Checkout != null ? Checkout.GetHashCode() : 0);
+            return Checkout?.GetHashCode() ?? 0;
         }
 
         public static bool operator ==(CreateCheckoutRequest left, CreateCheckoutRequest right)
@@ -38,7 +37,7 @@ namespace RechargeSharp.Entities.Checkouts
 
         [Required]
         [JsonProperty("checkout")]
-        public CreateCheckoutRequestCheckout Checkout { get; set; }
+        public CreateCheckoutRequestCheckout? Checkout { get; set; }
 
     }
 }

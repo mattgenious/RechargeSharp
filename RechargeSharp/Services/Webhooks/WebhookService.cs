@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -59,55 +55,55 @@ namespace RechargeSharp.Services.Webhooks
                     TimeSpan.FromSeconds(3));
         }
 
-        public async Task<bool> WebhookExistsAsync(long id)
+        public async Task<bool?> WebhookExistsAsync(long id)
         {
             var response = await GetAsync($"/webhooks/{id}");
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<Webhook> GetWebhookAsync(long id)
+        public async Task<Webhook?> GetWebhookAsync(long id)
         {
             var response = await GetAsync($"/webhooks/{id}");
             return JsonConvert.DeserializeObject<WebhookResponse>(
-                await response.Content.ReadAsStringAsync(), new DateTimeOffsetJsonConverter()).Webhook;
+                await response.Content.ReadAsStringAsync(), new DateTimeOffsetJsonConverter())?.Webhook;
         }
 
-        public async Task<IEnumerable<Webhook>> GetWebhooksAsync()
+        public async Task<IEnumerable<Webhook>?> GetWebhooksAsync()
         {
             var response = await GetAsync($"/webhooks");
             return JsonConvert.DeserializeObject<WebhookListResponse>(
-                await response.Content.ReadAsStringAsync(), new DateTimeOffsetJsonConverter()).Webhooks;
+                await response.Content.ReadAsStringAsync(), new DateTimeOffsetJsonConverter())?.Webhooks;
         }
 
-        public async Task<Webhook> CreateWebhookAsync(CreateWebhookRequest createWebhookRequest)
+        public async Task<Webhook?> CreateWebhookAsync(CreateWebhookRequest createWebhookRequest)
         {
             ValidateModel(createWebhookRequest);
 
             var response = await PostAsJsonAsync("/webhooks", JsonConvert.SerializeObject(createWebhookRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
-                await response.Content.ReadAsStringAsync(), new DateTimeOffsetJsonConverter()).Webhook;
+                await response.Content.ReadAsStringAsync(), new DateTimeOffsetJsonConverter())?.Webhook;
         }
 
-        public async Task<Webhook> UpdateWebhookAsync(long id, UpdateWebhookRequest updateWebhookRequest)
+        public async Task<Webhook?> UpdateWebhookAsync(long id, UpdateWebhookRequest updateWebhookRequest)
         {
             ValidateModel(updateWebhookRequest);
 
             var response = await PutAsJsonAsync($"/webhooks/{id}", JsonConvert.SerializeObject(updateWebhookRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
-                await response.Content.ReadAsStringAsync(), new DateTimeOffsetJsonConverter()).Webhook;
+                await response.Content.ReadAsStringAsync(), new DateTimeOffsetJsonConverter())?.Webhook;
         }
-        public async Task<Webhook> OverrideShippingLines(long id, OverrideShippingLinesRequest overrideShippingLinesRequest)
+        public async Task<Webhook?> OverrideShippingLines(long id, OverrideShippingLinesRequest overrideShippingLinesRequest)
         {
             ValidateModel(overrideShippingLinesRequest);
 
             var response = await PutAsJsonAsync($"/webhooks/{id}", JsonConvert.SerializeObject(overrideShippingLinesRequest));
             return JsonConvert.DeserializeObject<WebhookResponse>(
-                await response.Content.ReadAsStringAsync(), new DateTimeOffsetJsonConverter()).Webhook;
+                await response.Content.ReadAsStringAsync(), new DateTimeOffsetJsonConverter())?.Webhook;
         }
 
         public async Task DeleteWebhookAsync(long id)
         {
-            var response = await DeleteAsync($"/webhooks/{id}");
+            _ = await DeleteAsync($"/webhooks/{id}");
         }
 
         private Task<HttpResponseMessage> GetAsync(string path)
@@ -135,8 +131,10 @@ namespace RechargeSharp.Services.Webhooks
             return AsyncRetryPolicy.ExecuteAsync(async () => await _client.DeleteAsync(path));
         }
 
-        protected void ValidateModel(object objectToValidate)
+        protected static void ValidateModel(object? objectToValidate)
         {
+            if (objectToValidate == null)
+                return;
             var context = new ValidationContext(objectToValidate);
             var results = new List<ValidationResult>();
 

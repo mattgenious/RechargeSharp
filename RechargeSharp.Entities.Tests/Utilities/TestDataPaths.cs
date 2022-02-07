@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace RechargeSharpTests.Utilities
+namespace RechargeSharp.Entities.Tests.Utilities
 {
     internal class TestDataPaths
     {

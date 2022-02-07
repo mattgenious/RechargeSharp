@@ -1,20 +1,19 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Shop
 {
     public class ShippingCountry : IEquatable<ShippingCountry>
     {
-        public bool Equals(ShippingCountry other)
+        public bool Equals(ShippingCountry? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Code == other.Code && CountryId == other.CountryId && Id == other.Id && Name == other.Name;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((ShippingCountry) obj);
@@ -22,14 +21,7 @@ namespace RechargeSharp.Entities.Shop
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = (Code != null ? Code.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ CountryId.GetHashCode();
-                hashCode = (hashCode * 397) ^ Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
-                return hashCode;
-            }
+            return HashCode.Combine(Code, CountryId, Id, Name);
         }
 
         public static bool operator ==(ShippingCountry left, ShippingCountry right)
@@ -43,7 +35,7 @@ namespace RechargeSharp.Entities.Shop
         }
 
         [JsonProperty("code", NullValueHandling = NullValueHandling.Ignore)]
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
         [JsonProperty("country_id", NullValueHandling = NullValueHandling.Ignore)]
         public long? CountryId { get; set; }
@@ -52,7 +44,7 @@ namespace RechargeSharp.Entities.Shop
         public long Id { get; set; }
 
         [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 
 

@@ -7,16 +7,16 @@ namespace RechargeSharp.Entities.Charges
     /// </summary>
     public class ChargeClientDetails : IEquatable<ChargeClientDetails>
     {
-        public bool Equals(ChargeClientDetails other)
+        public bool Equals(ChargeClientDetails? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return BrowserIp == other.BrowserIp && UserAgent == other.UserAgent;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((ChargeClientDetails) obj);
@@ -41,9 +41,9 @@ namespace RechargeSharp.Entities.Charges
         }
 
         [JsonProperty("browser_ip")]
-        public string BrowserIp { get; set; }
+        public string? BrowserIp { get; set; }
 
         [JsonProperty("user_agent")]
-        public string UserAgent { get; set; }
+        public string? UserAgent { get; set; }
     }
 }

@@ -1,21 +1,20 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Charges
 {
     public class RefundChargeRequest : IEquatable<RefundChargeRequest>
     {
-        public bool Equals(RefundChargeRequest other)
+        public bool Equals(RefundChargeRequest? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Amount == other.Amount;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((RefundChargeRequest) obj);
