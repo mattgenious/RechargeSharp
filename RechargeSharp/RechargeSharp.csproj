@@ -16,7 +16,7 @@
 		<FileVersion>11.0.1.0</FileVersion>
 		<Authors>Matt Luccas Phaure Minet</Authors>
 		<Description>A C# library for RechargePayments</Description>
-		<PackageReleaseNotes>Fixed typos</PackageReleaseNotes>
+		<PackageReleaseNotes>Retry if httpexception contains an AuthenticationException as this usually means the http request was malformed due to concurrency issues</PackageReleaseNotes>
 		<PackageIcon>icon.png</PackageIcon>
 		<Company>Matt Luccas Phaure Minet</Company>
 		<NeutralLanguage>en</NeutralLanguage>
