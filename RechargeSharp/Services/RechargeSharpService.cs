@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Headers;
+using System.Security.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
@@ -89,7 +90,7 @@ namespace RechargeSharp.Services
         {
             _logger.LogError("HttpRequestException", httpRequestException);
 
-            if (httpRequestException.InnerException is IOException)
+            if (httpRequestException.InnerException is IOException or AuthenticationException)
             {
                 return true;
             }
