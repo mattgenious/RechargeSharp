@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using RechargeSharp.Entities.Addresses;
-using RechargeSharp.Entities.Checkouts;
-using RechargeSharp.Entities.Shared;
-using RechargeSharp.Utilities;
+using RechargeSharp.Entities.PaymentMethods;
 
 namespace RechargeSharp.Services.Checkouts
 {
@@ -17,61 +14,44 @@ namespace RechargeSharp.Services.Checkouts
         private const string PaymentMethodsPath = "/payment_methods";
         private const string PaymentMethodsPathWithTrailingSlash = PaymentMethodsPath + "/";
 
-
         public async Task<bool> PaymentMethodExistsAsync(long paymentMethodId)
         {
             var response = await GetAsync($"{PaymentMethodsPathWithTrailingSlash}{paymentMethodId}").ConfigureAwait(false);
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<Checkout?> GetPaymentMethodAsync(long paymentMethodId)
+        public async Task<PaymentMethod?> GetPaymentMethodAsync(long paymentMethodId)
         {
             var response = await GetAsync($"{PaymentMethodsPathWithTrailingSlash}{paymentMethodId}").ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<PaymentMethodResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Checkout;
+            return JsonConvert.DeserializeObject<PaymentMethodResponse>(await response.Content.ReadAsStringAsync().ConfigureAwait(false))?.PaymentMethod;
         }
 
-        public async Task<Checkout?> CreateCheckoutAsync(CreateCheckoutRequest createCheckoutRequest)
+        public async Task<PaymentMethod?> CreatePaymentMethodAsync(CreatePaymentMethodRequest createPaymentMethodRequest)
         {
-            ValidateModel(createCheckoutRequest);
+            ValidateModel(createPaymentMethodRequest);
 
-            var response = await PostAsJsonAsync(PaymentMethodsPath, JsonConvert.SerializeObject(createCheckoutRequest)).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<CheckoutResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Checkout;
+            var response = await PostAsJsonAsync(PaymentMethodsPath, JsonConvert.SerializeObject(createPaymentMethodRequest)).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<PaymentMethodResponse>(await response.Content.ReadAsStringAsync().ConfigureAwait(false))?.PaymentMethod;
         }
 
-        public async Task<Checkout?> UpdateCheckoutAsync(string token, UpdateCheckoutRequest updateCheckoutRequest)
+        public async Task<PaymentMethod?> UpdatePaymentMethodAsync(long paymentMethodId, UpdatePaymentMethodRequest updatePaymentMethodRequest)
         {
-            ValidateModel(updateCheckoutRequest);
+            ValidateModel(updatePaymentMethodRequest);
 
-            var response = await PutAsJsonAsync($"{PaymentMethodsPathWithTrailingSlash}{token}", JsonConvert.SerializeObject(updateCheckoutRequest)).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<CheckoutResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Checkout;
+            var response = await PutAsJsonAsync($"{PaymentMethodsPathWithTrailingSlash}{paymentMethodId}", JsonConvert.SerializeObject(updatePaymentMethodRequest)).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<PaymentMethodResponse>(await response.Content.ReadAsStringAsync().ConfigureAwait(false))?.PaymentMethod;
         }
-
-        public async Task<Checkout?> UpdateCheckoutShippingLine(string token, string shippingRateHandle)
+        public async Task<IEnumerable<PaymentMethod>?> GetPaymentMethodsAsync(int page = 1, int limit = 50, long? customerId = null)
         {
-            var response = await PutAsJsonAsync($"{PaymentMethodsPathWithTrailingSlash}{token}", $"{{\"checkout\":{{\"shipping_line\":{{\"handle\":\"{shippingRateHandle}\"}}}}}}").ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<CheckoutResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Checkout;
+            var queryParams = $"page={page}&limit={limit}";
+            queryParams += customerId != null ? $"customer_id={customerId}" : "";
+
+            var response = await GetAsync($"{PaymentMethodsPathWithTrailingSlash}?{queryParams}").ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<PaymentMethodsResponse>(await response.Content.ReadAsStringAsync().ConfigureAwait(false))?.PaymentMethods;
         }
-
-        public async Task<IEnumerable<ShippingRate>?> RetrieveShippingRatesAsync(string token, OverrideShippingLinesRequest overrideShippingLinesRequest)
+        public async Task DeletePaymentMethodAsync(long paymentMethodId)
         {
-            ValidateModel(overrideShippingLinesRequest);
-
-            var response = await GetAsync($"{PaymentMethodsPathWithTrailingSlash}{token}/shipping_rates").ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<CheckoutShippingRateListResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.ShippingRates;
-        }
-
-        public async Task<CheckoutCharge?> ProcessCheckoutAsync(string token, ProcessCheckoutRequest processCheckoutRequest)
-        {
-            ValidateModel(processCheckoutRequest);
-
-            var response = await PostAsJsonAsync($"{PaymentMethodsPathWithTrailingSlash}{token}/charge", JsonConvert.SerializeObject(processCheckoutRequest), true).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<ProcessCheckoutResponse>(
-                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.CheckoutCharge;
+            _ = await DeleteAsync($"{PaymentMethodsPathWithTrailingSlash}{paymentMethodId}").ConfigureAwait(false);
         }
     }
 }

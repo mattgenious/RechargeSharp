@@ -49,7 +49,8 @@ namespace RechargeSharp.Services
                 .AddTransient<ProductService>()
                 .AddTransient<ShopService>()
                 .AddTransient<SubscriptionService>()
-                .AddTransient<WebhookService>();
+                .AddTransient<WebhookService>()
+                .AddTransient<PaymentMethodService>();
 
             return services;
         }

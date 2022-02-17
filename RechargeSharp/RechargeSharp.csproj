@@ -5,15 +5,15 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>11.0.1</Version>
-		<AssemblyVersion>11.0.1.0</AssemblyVersion>
+		<Version>11.1.0-beta.1</Version>
+		<AssemblyVersion>11.1.0.0</AssemblyVersion>
 		<PackageLicenseExpression></PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
 		<RepositoryType>GIT</RepositoryType>
 		<PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<FileVersion>11.0.1.0</FileVersion>
+		<FileVersion>11.1.0.0</FileVersion>
 		<Authors>Matt Luccas Phaure Minet</Authors>
 		<Description>A C# library for RechargePayments</Description>
 		<PackageReleaseNotes>Retry if httpexception contains an AuthenticationException as this usually means the http request was malformed due to concurrency issues</PackageReleaseNotes>
@@ -66,7 +66,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Polly" Version="7.2.3" />
-		<PackageReference Include="RechargeSharp.Entities" Version="11.0.0" />
+		<PackageReference Include="RechargeSharp.Entities" Version="11.1.0-beta.1" />
 	</ItemGroup>
 
 	<ItemGroup>
