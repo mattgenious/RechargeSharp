@@ -84,8 +84,4 @@
 		</None>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Services\PaymentMethods\" />
-	</ItemGroup>
-
 </Project>
