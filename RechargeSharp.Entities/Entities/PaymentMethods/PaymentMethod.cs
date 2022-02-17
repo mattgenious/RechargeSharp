@@ -1,7 +1,5 @@
-﻿using System.Globalization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using RechargeSharp.Entities.Utilities;
+﻿using Newtonsoft.Json;
+using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Entities.PaymentMethods
 {
@@ -61,7 +59,7 @@ namespace RechargeSharp.Entities.PaymentMethods
             {
                 PaymentTypeConverter.Singleton,
                 ProcessorNameConverter.Singleton,
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+                DateTimeOffsetJsonConverter.Singleton
             },
         };
     }

@@ -9,6 +9,7 @@ using RechargeSharp.Services.Discounts;
 using RechargeSharp.Services.Metafields;
 using RechargeSharp.Services.Onetimes;
 using RechargeSharp.Services.Orders;
+using RechargeSharp.Services.PaymentMethods;
 using RechargeSharp.Services.Products;
 using RechargeSharp.Services.Shops;
 using RechargeSharp.Services.Subscriptions;

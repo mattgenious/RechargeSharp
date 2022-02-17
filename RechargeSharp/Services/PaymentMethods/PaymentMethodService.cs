@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RechargeSharp.Entities.PaymentMethods;
 
-namespace RechargeSharp.Services.Checkouts
+namespace RechargeSharp.Services.PaymentMethods
 {
     public class PaymentMethodService : RechargeSharpService
     {

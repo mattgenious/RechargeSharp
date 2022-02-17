@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RechargeSharp.Entities.PaymentMethods;
 
-namespace RechargeSharp.Entities.Utilities
+namespace RechargeSharp.Utilities
 {
     public class ProcessorNameConverter : JsonConverter
     {
