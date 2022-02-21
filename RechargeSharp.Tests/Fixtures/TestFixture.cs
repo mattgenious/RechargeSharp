@@ -1,13 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using RechargeSharp.Services;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using Stripe;
 
 namespace RechargeSharp.Tests.Fixtures
 {
@@ -31,18 +26,11 @@ namespace RechargeSharp.Tests.Fixtures
                 x.WebhookApiKey = Configuration["key"];
                 x.ApiKeyArray = new string[] { Configuration["key"] };
             });
+            ServiceCollection.AddTransient(x => new StripeClient(Configuration["StripeKey"]));
+            ServiceCollection.AddTransient(x => new PaymentMethodService(x.GetRequiredService<StripeClient>()));
+            ServiceCollection.AddTransient(x => new CustomerService(x.GetRequiredService<StripeClient>()));
             ServiceProvider = ServiceCollection.BuildServiceProvider();
             Service = ServiceProvider.GetService<IHostedService>();
-        }
-    }
-    public class TestService : BackgroundService
-    {
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken).ConfigureAwait(false);
-            }
         }
     }
 }

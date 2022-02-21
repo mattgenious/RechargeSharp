@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Entities.PaymentMethods
@@ -7,13 +8,13 @@ namespace RechargeSharp.Entities.PaymentMethods
     public class PaymentMethod
     {
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Id { get; set; }
+        public long Id { get; set; }
 
         [JsonProperty("customer_id", NullValueHandling = NullValueHandling.Ignore)]
         public long? CustomerId { get; set; }
 
         [JsonProperty("billing_address", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, string>? BillingAddress { get; set; }
+        public PaymentMethodBillingAddress? BillingAddress { get; set; }
 
         [JsonProperty("created_at", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? CreatedAt { get; set; }
@@ -28,12 +29,14 @@ namespace RechargeSharp.Entities.PaymentMethods
         public PaymentDetails? PaymentDetails { get; set; }
 
         [JsonProperty("payment_type", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(PaymentTypeConverter))]
         public PaymentType? PaymentType { get; set; }
 
         [JsonProperty("processor_customer_token", NullValueHandling = NullValueHandling.Ignore)]
         public string? ProcessorCustomerToken { get; set; }
 
         [JsonProperty("processor_name", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(ProcessorNameConverter))]
         public ProcessorName? ProcessorName { get; set; }
 
         [JsonProperty("processor_payment_method_token", NullValueHandling = NullValueHandling.Ignore)]
@@ -47,20 +50,5 @@ namespace RechargeSharp.Entities.PaymentMethods
 
         [JsonProperty("updated_at", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? UpdatedAt { get; set; }
-    }
-
-    internal static class Converter
-    {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters =
-            {
-                PaymentTypeConverter.Singleton,
-                ProcessorNameConverter.Singleton,
-                DateTimeOffsetJsonConverter.Singleton
-            },
-        };
     }
 }

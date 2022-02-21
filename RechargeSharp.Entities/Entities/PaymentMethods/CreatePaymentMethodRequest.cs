@@ -15,6 +15,7 @@ namespace RechargeSharp.Entities.PaymentMethods
 
         [Required]
         [JsonProperty("payment_type")]
+        [JsonConverter(typeof(PaymentTypeConverter))]
         public PaymentType PaymentType { get; set; }
 
         [Required]
@@ -23,6 +24,7 @@ namespace RechargeSharp.Entities.PaymentMethods
 
         [Required]
         [JsonProperty("processor_name")]
+        [JsonConverter(typeof(ProcessorNameConverter))]
         public ProcessorName ProcessorName { get; set; }
 
         [Required]
@@ -31,22 +33,5 @@ namespace RechargeSharp.Entities.PaymentMethods
 
         [JsonProperty("billing_address", NullValueHandling = NullValueHandling.Ignore)]
         public PaymentMethodBillingAddress? BillingAddress { get; set; }
-
-
-
-        internal static class Converter
-        {
-            public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-            {
-                MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-                DateParseHandling = DateParseHandling.None,
-                Converters =
-            {
-                PaymentTypeConverter.Singleton,
-                ProcessorNameConverter.Singleton,
-                DateTimeOffsetJsonConverter.Singleton
-            },
-            };
-        }
     }
 }

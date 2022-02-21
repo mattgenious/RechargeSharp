@@ -44,7 +44,7 @@ namespace RechargeSharp.Services.PaymentMethods
         public async Task<IEnumerable<PaymentMethod>?> GetPaymentMethodsAsync(int page = 1, int limit = 50, long? customerId = null)
         {
             var queryParams = $"page={page}&limit={limit}";
-            queryParams += customerId != null ? $"customer_id={customerId}" : "";
+            queryParams += customerId != null ? $"&customer_id={customerId}" : "";
 
             var response = await GetAsync($"{PaymentMethodsPathWithTrailingSlash}?{queryParams}").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<PaymentMethodsResponse>(await response.Content.ReadAsStringAsync().ConfigureAwait(false))?.PaymentMethods;
