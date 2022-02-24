@@ -13,21 +13,15 @@ using Xunit;
 namespace RechargeSharp.Tests
 {
     [SimpleJob(RunStrategy.ColdStart, launchCount: 1, warmupCount: 0, targetCount: 1, id: "FastAndImprecise")]
-    public class SubscriptionServiceTests
+    public class SubscriptionServiceBenchmarks
     {
         private readonly SubscriptionService _sut;
         private TestFixture _testFixture;
         private readonly Consumer consumer = new Consumer();
-        public SubscriptionServiceTests()
+        public SubscriptionServiceBenchmarks()
         {
             _testFixture = new TestFixture();
             _sut = _testFixture.ServiceProvider.GetRequiredService<SubscriptionService>();
-        }
-
-        [Fact]
-        public async Task GetAllSubscriptionsWithParamsTest()
-        {
-            var summary = BenchmarkRunner.Run<SubscriptionServiceTests>();
         }
 
         [Benchmark]

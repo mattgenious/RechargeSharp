@@ -182,6 +182,11 @@ namespace RechargeSharp.Services.Charges
             _ = await DeleteAsync($"/charges/{id}").ConfigureAwait(false);
         }
 
-
+        public async Task<Charge?> ProcessChargeAsync(long id)
+        {
+            var response = await PostAsJsonAsync($"/charges/{id}/process", "{}").ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<ChargeResponse>(
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
+        }
     }
 }
