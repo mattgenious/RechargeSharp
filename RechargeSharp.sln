@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp", "RechargeSh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.Entities.EntityFrameworkCore", "RechargeSharp.Entities.EntityFrameworkCore\RechargeSharp.Entities.EntityFrameworkCore.csproj", "{35F32011-B7D0-4337-A5E4-55C75F035371}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RechargeSharp.Tests", "RechargeSharp.Tests\RechargeSharp.Tests.csproj", "{B5322ED0-A946-43EA-9F42-D9317DD4362E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.Tests", "RechargeSharp.Tests\RechargeSharp.Tests.csproj", "{B5322ED0-A946-43EA-9F42-D9317DD4362E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
