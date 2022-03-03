@@ -89,7 +89,7 @@ namespace RechargeSharp.Services
 
         private bool HandleHttpRequestException(HttpRequestException httpRequestException)
         {
-            _logger.LogError("HttpRequestException", httpRequestException);
+            _logger.LogError(httpRequestException, "HttpRequestException");
 
             if (httpRequestException.InnerException is IOException or AuthenticationException)
             {
