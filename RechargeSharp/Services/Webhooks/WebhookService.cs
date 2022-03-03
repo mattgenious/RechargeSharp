@@ -17,18 +17,16 @@ namespace RechargeSharp.Services.Webhooks
         protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicy;
 
         private readonly ILogger<RechargeSharpService> _logger;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly RechargeServiceOptions _rechargeServiceOptions;
         private readonly HttpClient _client;
+        
         public WebhookService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions)
         {
             _logger = logger;
-            _httpClientFactory = httpClientFactory;
-            _rechargeServiceOptions = rechargeServiceOptions.Value;
+            var rechargeServiceOptions1 = rechargeServiceOptions.Value;
 
-            _client = _httpClientFactory.CreateClient("RechargeSharpWebhookClient");
+            _client = httpClientFactory.CreateClient("RechargeSharpWebhookClient");
             _client.DefaultRequestHeaders.Remove("X-Recharge-Access-Token");
-            _client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", _rechargeServiceOptions.GetWebhookApiKey());
+            _client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", rechargeServiceOptions1.GetWebhookApiKey());
 
             AsyncRetryPolicy = Policy.HandleResult<HttpResponseMessage>(x =>
             {
