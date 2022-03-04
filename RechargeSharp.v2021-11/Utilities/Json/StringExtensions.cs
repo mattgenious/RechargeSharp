@@ -7,7 +7,8 @@ public static class StringExtensions
     /// </summary>
     public static string ToSnakeCase(this string str)
     {
-        var amountOfUpperCaseChars = IdentifyAmountOfUpperCaseChars(str);
+        // We don't care if the first letter is upper-cased or not
+        var amountOfUpperCaseChars = str.Skip(1).Count(t => t is >= 'A' and <= 'Z');
         var bufferSize = str.Length + amountOfUpperCaseChars;
         Span<char> buffer = new char[bufferSize];
         var bufferPosition = 0;
@@ -29,12 +30,5 @@ public static class StringExtensions
         }
 
         return new string(buffer);
-    }
-
-    private static int IdentifyAmountOfUpperCaseChars(string str)
-    {
-        // We don't care if the first letter is upper-cased or not
-        var upperCaseLength = str.Skip(1).Count(t => t is >= 'A' and <= 'Z');
-        return upperCaseLength;
     }
 }
