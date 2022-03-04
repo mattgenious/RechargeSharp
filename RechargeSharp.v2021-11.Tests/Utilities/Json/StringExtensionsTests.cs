@@ -10,6 +10,9 @@ public class StringExtensionsTests
     [InlineData("Id", "id")]
     [InlineData("MyName", "my_name")]
     [InlineData("ExpectedDeliveryDate", "expected_delivery_date")]
+    [InlineData("SomeStringProperty", "some_string_property")]
+    [InlineData("LolLolLolLol", "lol_lol_lol_lol")]
+    [InlineData("lolLolLolLol", "lol_lol_lol_lol")]
     [InlineData("", "")]
     public void CanSnakeCaseStrings(string input, string expectedOutput)
     {

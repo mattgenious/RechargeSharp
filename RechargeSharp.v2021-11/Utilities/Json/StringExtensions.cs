@@ -3,12 +3,12 @@ namespace RechargeSharp.v2021_11.Utilities.Json;
 public static class StringExtensions
 {
     /// <summary>
-    ///     From: https://www.michaelrose.dev/posts/exploring-system-text-json/
+    ///     Inspired by: https://www.michaelrose.dev/posts/exploring-system-text-json/
     /// </summary>
     public static string ToSnakeCase(this string str)
     {
-        var upperCaseLength = str.Count(t => t >= 'A' && t <= 'Z' && t != str[0]);
-        var bufferSize = str.Length + upperCaseLength;
+        var amountOfUpperCaseChars = IdentifyAmountOfUpperCaseChars(str);
+        var bufferSize = str.Length + amountOfUpperCaseChars;
         Span<char> buffer = new char[bufferSize];
         var bufferPosition = 0;
         var namePosition = 0;
@@ -17,17 +17,24 @@ public static class StringExtensions
             if (namePosition > 0 && str[namePosition] >= 'A' && str[namePosition] <= 'Z')
             {
                 buffer[bufferPosition] = '_';
-                buffer[bufferPosition + 1] = str[namePosition];
+                buffer[bufferPosition + 1] = char.ToLower(str[namePosition]);
                 bufferPosition += 2;
                 namePosition++;
                 continue;
             }
 
-            buffer[bufferPosition] = str[namePosition];
+            buffer[bufferPosition] = char.ToLower(str[namePosition]);
             bufferPosition++;
             namePosition++;
         }
 
-        return new string(buffer).ToLower();
+        return new string(buffer);
+    }
+
+    private static int IdentifyAmountOfUpperCaseChars(string str)
+    {
+        // We don't care if the first letter is upper-cased or not
+        var upperCaseLength = str.Skip(1).Count(t => t is >= 'A' and <= 'Z');
+        return upperCaseLength;
     }
 }
