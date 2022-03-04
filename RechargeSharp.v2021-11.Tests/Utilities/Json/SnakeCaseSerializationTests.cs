@@ -32,7 +32,7 @@ public class SnakeCaseSerializationTests
     [Fact]
     public void CanDeserializeJsonToObject()
     {
-        var input = "{\"some_string_propert\":\"here is a string\",\"some_date_time_property\":\"2022-03-01T12:00:00\",\"some_decimal_property\":2.45}";
+        var input = "{\"some_string_property\":\"here is a string\",\"some_date_time_property\":\"2022-03-01T12:00:00\",\"some_decimal_property\":2.45}";
         var deserialized = JsonSerializer.Deserialize<SomeClass>(input, _options);
         deserialized.Should().NotBeNull();
         deserialized.SomeStringProperty.Should().Be("here is a string");
