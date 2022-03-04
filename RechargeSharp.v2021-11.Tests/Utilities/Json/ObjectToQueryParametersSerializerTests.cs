@@ -27,7 +27,15 @@ public class ObjectToQueryParametersSerializerTests
         var asQueryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(input);
         asQueryString.Value.Should().NotBeNullOrEmpty();
         var parsedQueryString = HttpUtility.ParseQueryString(asQueryString.Value);
-        parsedQueryString["some_decimal_property"].Should().Be(input.SomeDecimalProperty.ToString("F2"));
+        parsedQueryString["some_decimal_property"].Should().Be(input.SomeDecimalProperty?.ToString("F2"));
+    }
+
+    [Fact]
+    public void ReturnsEmptyQueryStringOnAllNullProperties()
+    {
+        var input = new SomeClassWithNullableProperties(null, null, null);
+        var asQueryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(input);
+        asQueryString.Value.Should().BeNullOrEmpty();
     }
 
     [Fact]
@@ -39,7 +47,7 @@ public class ObjectToQueryParametersSerializerTests
     }
     
     public record SomeClass(string SomeStringProperty, DateTime SomeDateTimeProperty, decimal SomeDecimalProperty);
-    public record SomeClassWithNullableProperties(string? SomeStringProperty, DateTime? SomeDateTimeProperty, decimal SomeDecimalProperty);
+    public record SomeClassWithNullableProperties(string? SomeStringProperty, DateTime? SomeDateTimeProperty, decimal? SomeDecimalProperty);
     
     public record SomeClassWithComplexProperties(SomeClassWithComplexProperties? SomeComplexProperty, string? SomeStringProperty);
 }
