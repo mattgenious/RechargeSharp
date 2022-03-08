@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -7,12 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Options;
 using Moq;
 using Moq.Protected;
 using Polly;
-using Polly.NoOp;
 using RechargeSharp.v2021_11.Exceptions;
+using RechargeSharp.v2021_11.Tests.TestHelpers;
 using RechargeSharp.v2021_11.Utilities;
 using Xunit;
 
@@ -27,11 +25,9 @@ public class RechargeApiCallerTests
     {
         // Arrange
         var jsonReturnedByApi = "{\"some_string_property\": \"someValue\"}";
-        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.OK);
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.OK, "/somepath", HttpMethod.Get);
         var sut = CreateSut(httpHandlerMock, BaseAddress);
-        
-        var uri = $"{BaseAddress}";
-        
+
         // Act
         var result = await sut.Get<SomeClass>("/somepath");
 
@@ -43,7 +39,7 @@ public class RechargeApiCallerTests
             Times.Exactly(1),
             ItExpr.Is<HttpRequestMessage>(req =>
                 req.Method == HttpMethod.Get
-                && req.RequestUri!.ToString().StartsWith(uri)
+                && req.RequestUri!.ToString().StartsWith(BaseAddress)
             ),
             ItExpr.IsAny<CancellationToken>()
         );
@@ -54,10 +50,8 @@ public class RechargeApiCallerTests
     {
         // Arrange
         var jsonReturnedByApi = "{\"some_string_property\": \"someValue\"}";
-        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.OK);
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.OK, "/somepath", HttpMethod.Post);
         var sut = CreateSut(httpHandlerMock, BaseAddress);
-        
-        var uri = $"{BaseAddress}";
         
         // Act
         var result = await sut.Post<SomeClass, SomeClass>(new SomeClass(), "/somepath");
@@ -70,7 +64,7 @@ public class RechargeApiCallerTests
             Times.Exactly(1),
             ItExpr.Is<HttpRequestMessage>(req =>
                 req.Method == HttpMethod.Post
-                && req.RequestUri!.ToString().StartsWith(uri)
+                && req.RequestUri!.ToString().StartsWith(BaseAddress)
             ),
             ItExpr.IsAny<CancellationToken>()
         );
@@ -81,10 +75,8 @@ public class RechargeApiCallerTests
     {
         // Arrange
         var jsonReturnedByApi = "{\"some_string_property\": \"someValue\"}";
-        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.OK);
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.OK, "/somepath", HttpMethod.Put);
         var sut = CreateSut(httpHandlerMock, BaseAddress);
-        
-        var uri = $"{BaseAddress}";
         
         // Act
         var result = await sut.Put<SomeClass, SomeClass>(new SomeClass(), "/somepath");
@@ -97,7 +89,7 @@ public class RechargeApiCallerTests
             Times.Exactly(1),
             ItExpr.Is<HttpRequestMessage>(req =>
                 req.Method == HttpMethod.Put
-                && req.RequestUri!.ToString().StartsWith(uri)
+                && req.RequestUri!.ToString().StartsWith(BaseAddress)
             ),
             ItExpr.IsAny<CancellationToken>()
         );
@@ -108,11 +100,9 @@ public class RechargeApiCallerTests
     {
         // Arrange
         var jsonReturnedByApi = "{\"some_string_property\": \"someValue\"}";
-        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.OK);
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.OK, "/somepath", HttpMethod.Delete);
         var sut = CreateSut(httpHandlerMock, BaseAddress);
-        
-        var uri = $"{BaseAddress}";
-        
+
         // Act
         await sut.Delete("/somepath");
 
@@ -122,7 +112,7 @@ public class RechargeApiCallerTests
             Times.Exactly(1),
             ItExpr.Is<HttpRequestMessage>(req =>
                 req.Method == HttpMethod.Delete
-                && req.RequestUri!.ToString().StartsWith(uri)
+                && req.RequestUri!.ToString().StartsWith(BaseAddress)
             ),
             ItExpr.IsAny<CancellationToken>()
         );
@@ -135,13 +125,11 @@ public class RechargeApiCallerTests
         var jsonReturnedByApi = "{\"some_string_property\": \"someValue\"}";
         
         // PaymentRequired is Recharge's way of communicating a rather unspecified error
-        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.PaymentRequired); 
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.PaymentRequired, "/somepath", HttpMethod.Post); 
 
         var retryCount = 5;
         var retryPolicy = RechargeApiCallerOptions.BuildErrorHandlingLogic(policyBuilder => policyBuilder.RetryAsync(retryCount));
         var sut = CreateSut(httpHandlerMock, BaseAddress, retryPolicy);
-        
-        var uri = $"{BaseAddress}";
         
         // Act
         var act = () => sut.Post<SomeClass, SomeClass>(new SomeClass(), "/somepath");
@@ -155,7 +143,7 @@ public class RechargeApiCallerTests
             Times.Exactly(retryCount + 1),
             ItExpr.Is<HttpRequestMessage>(req =>
                 req.Method == HttpMethod.Post
-                && req.RequestUri!.ToString().StartsWith(uri)
+                && req.RequestUri!.ToString().StartsWith(BaseAddress)
             ),
             ItExpr.IsAny<CancellationToken>()
         );
@@ -166,7 +154,7 @@ public class RechargeApiCallerTests
     {
         // Arrange
         var errorJsonFromApi = "{\"error\":\"endpoint not found\"}";
-        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity);
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity, "/doesntmatter", HttpMethod.Get);
         var sut = CreateSut(httpHandlerMock, BaseAddress);
 
         // Act
@@ -185,7 +173,7 @@ public class RechargeApiCallerTests
     {
         // Arrange
         var errorJsonFromApi = "";
-        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity);
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity, "/doesntmatter", HttpMethod.Get);
         var sut = CreateSut(httpHandlerMock, BaseAddress);
 
         // Act
@@ -201,7 +189,7 @@ public class RechargeApiCallerTests
     {
         // Arrange
         var errorJsonFromApi = "{\"errors\":\"Not Found\"}";
-        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity);
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity, "/doesntmatter", HttpMethod.Get);
         var sut = CreateSut(httpHandlerMock, BaseAddress);
 
         // Act
@@ -221,7 +209,7 @@ public class RechargeApiCallerTests
         // Arrange
         var errorJsonFromApi =
             "{\"errors\":{\"email\":\"Required field missing\",\"first_name\":\"Required field missing\",\"last_name\":\"Required field missing\"}}";
-        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity);
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity, "/doesntmatter", HttpMethod.Get);
         var sut = CreateSut(httpHandlerMock, BaseAddress);
         
         // Act
@@ -243,7 +231,7 @@ public class RechargeApiCallerTests
         // Arrange
         var errorJsonFromApi =
             "{\"errors\":{\"email\":\"Required field missing\",\"first_name\":\"Required field missing\",\"complex_error\":{\"some_property\":\"some value\"}}}";
-        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity);
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity, "/doesntmatter", HttpMethod.Get);
         var sut = CreateSut(httpHandlerMock, BaseAddress);
 
         // Act
@@ -279,7 +267,7 @@ public class RechargeApiCallerTests
     public async Task ThrowsRechargeApiExceptionOnApiError(int statusCodeReturnedByApi, Type expectedExceptionType)
     {
         // Arrange
-        var httpHandlerMock =  SetupHttpHandlerMock_ReturnsStatusCodeOnly((HttpStatusCode) statusCodeReturnedByApi);
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturnsStatusCodeOnly((HttpStatusCode) statusCodeReturnedByApi, "/doesntmatter", HttpMethod.Get);
         var sut = CreateSut(httpHandlerMock, BaseAddress);
         var uri = $"{BaseAddress}";
         
@@ -290,44 +278,6 @@ public class RechargeApiCallerTests
         (await act.Should().ThrowAsync<Exception>()).Which.Should().BeOfType(expectedExceptionType);
     }
     
-    private static Mock<HttpMessageHandler> SetupHttpHandlerMock_ReturningJsonWithStatusCode(string mockJsonFromApi, HttpStatusCode returnedStatusCode)
-    {
-        return CreateHttpMessageHandlerThatReturns(new HttpResponseMessage()
-        {
-            StatusCode = returnedStatusCode,
-            Content = new StringContent(mockJsonFromApi),
-        });
-    }
-    
-    private static Mock<HttpMessageHandler> SetupHttpHandlerMock_ReturnsStatusCodeOnly( HttpStatusCode returnedStatusCode)
-    {
-        return CreateHttpMessageHandlerThatReturns(new HttpResponseMessage()
-        {
-            StatusCode = returnedStatusCode
-        });
-    }
-    
-    private static Mock<HttpMessageHandler> SetupHttpHandlerMock_ReturningStatusCode(HttpStatusCode statusCodeToReturn)
-    {
-        return CreateHttpMessageHandlerThatReturns(new HttpResponseMessage()
-        {
-            StatusCode = statusCodeToReturn,
-        });
-    }
-    
-    private static Mock<HttpMessageHandler> CreateHttpMessageHandlerThatReturns(HttpResponseMessage httpResponseMessage)
-    {
-        var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
-        handlerMock
-            .Protected()
-            .Setup<Task<HttpResponseMessage>>(
-                "SendAsync",
-                ItExpr.IsAny<HttpRequestMessage>(),
-                ItExpr.IsAny<CancellationToken>())
-            .ReturnsAsync(httpResponseMessage)
-            .Verifiable();
-        return handlerMock;
-    }
     
     private static RechargeApiCaller CreateSut(IMock<HttpMessageHandler> handlerMock, string baseAddress)
     {

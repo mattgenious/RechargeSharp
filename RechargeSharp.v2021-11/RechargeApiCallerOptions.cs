@@ -5,56 +5,8 @@ namespace RechargeSharp.v2021_11
 {
     public class RechargeApiCallerOptions
     {
-        public IEnumerable<string>? ApiKeyArray;
-        public string? WebhookApiKey;
-        private int _index = 0;
-        private bool _ordered = false;
-        private int _count = 0;
-
-        public string? GetWebhookApiKey()
-        {
-            return WebhookApiKey;
-        }
-
-        public string GetApiKey()
-        {
-            if (ApiKeyArray == null)
-            {
-                throw new ArgumentNullException("Please supply API keys in options when registering RechargeSharp in your DI container");
-            }
-            if (!ApiKeyArray.Any())
-            {
-                throw new ArgumentException("Please supply api keys in options when registering RechargeSharp in your DI container");
-            }
-
-            if (_count == 0)
-            {
-                _count = ApiKeyArray.Count();
-            }
-
-            if (!_ordered)
-            {
-                ApiKeyArray = ApiKeyArray.OrderBy(x => x);
-                _ordered = true;
-            }
-
-            if (_index < _count)
-            {
-                var returnVal = ApiKeyArray.Skip(_index).First();
-                _index++;
-                if (string.IsNullOrEmpty(returnVal))
-                {
-                    return GetApiKey();
-                }
-                return returnVal;
-            }
-            else
-            {
-                _index = 0;
-                return GetApiKey();
-            }
-
-        }
+        public string ApiKey { get; set; }
+        public string? WebhookApiKey{ get; set; }
 
         public IAsyncPolicy ApiCallPolicy { get; internal set; } = GetDefaultApiCallPolicy();
         

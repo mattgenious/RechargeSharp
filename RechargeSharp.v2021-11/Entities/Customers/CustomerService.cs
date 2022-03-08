@@ -37,10 +37,11 @@ public class CustomerService
         return responseJson;
     }
     
-    public async Task DeleteCustomer(int customerId)
+    public async Task<DeleteCustomerTypes.Response> DeleteCustomer(int customerId)
     {
         var requestUri = $"/customers/{customerId}";
         await _rechargeApiCaller.Delete(requestUri);
+        return new DeleteCustomerTypes.Response();
     }
 
     public async Task<ListCustomersTypes.Response> ListCustomers(ListCustomersTypes.Request request)
@@ -59,27 +60,49 @@ public class CustomerService
         return responseJson;
     }
 
-    public static class CreateCustomerTypes
+    public static class SharedTypes
     {
-        public record Request(string Email, string FirstName, string LastName, ExternalCustomerId ExternalCustomerId);
-        
-        public record Response(Customer Customer);
-
         public record UtmParam(
             string UtmSource,
             string UtmMedium
         );
-
+        
         public record AnalyticsData(
-            IReadOnlyList<UtmParam> UtmParams
+            IReadOnlyList<SharedTypes.UtmParam> UtmParams
         );
-
+        
+        public record ExternalCustomerId(string Ecommerce);
+        
         public record Customer(
             int Id,
-            AnalyticsData AnalyticsData,
+            SharedTypes.AnalyticsData AnalyticsData,
             DateTime CreatedAt,
             string Email,
-            ExternalCustomerId ExternalCustomerId,
+            SharedTypes.ExternalCustomerId ExternalCustomerId,
+            DateTime FirstChargeProcessedAt,
+            string FirstName,
+            bool HasPaymentMethodInDunning,
+            bool HasValidPaymentMethod,
+            string Hash,
+            string LastName,
+            int SubscriptionsActiveCount,
+            int SubscriptionsTotalCount,
+            DateTime UpdatedAt
+        );
+    }
+
+    public static class CreateCustomerTypes
+    {
+        public record Request(string Email, string FirstName, string LastName, SharedTypes.ExternalCustomerId ExternalCustomerId);
+        
+        public record Response(Customer Customer);
+        
+        public record Customer(
+            int Id,
+            SharedTypes.AnalyticsData AnalyticsData,
+            DateTime CreatedAt,
+            string Email,
+            SharedTypes.ExternalCustomerId ExternalCustomerId,
             DateTime FirstChargeProcessedAt,
             string FirstName,
             bool HasPaymentMethodInDunning,
@@ -94,106 +117,21 @@ public class CustomerService
 
     public static class UpdateCustomerTypes
     {
-        public record Request(string? Email, string? FirstName, string? LastName, ExternalCustomerId? ExternalCustomerId);
+        public record Request(string? Email, string? FirstName, string? LastName, SharedTypes.ExternalCustomerId? ExternalCustomerId);
         
-        public record UtmParam(
-            string UtmSource,
-            string UtmMedium
-        );
-
-        public record AnalyticsData(
-            IReadOnlyList<UtmParam> UtmParams
-        );
-
-        public record ExternalCustomerId(
-            string Ecommerce
-        );
-
-        public record Customer(
-            int Id,
-            AnalyticsData AnalyticsData,
-            DateTime CreatedAt,
-            string Email,
-            ExternalCustomerId ExternalCustomerId,
-            DateTime FirstChargeProcessedAt,
-            string FirstName,
-            bool HasPaymentMethodInDunning,
-            bool HasValidPaymentMethod,
-            string Hash,
-            string LastName,
-            int SubscriptionsActiveCount,
-            int SubscriptionsTotalCount,
-            DateTime UpdatedAt
-        );
-
-        public record Response(Customer Customer);
+        public record Response(SharedTypes.Customer Customer);
     }
 
     public static class ListCustomersTypes
     {
         public record Request(string? Email, DateTime? CreatedAtMax, DateTime? CreatedAtMin, string? Hash, int? Limit, int? Page, string? ExternalCustomerId, DateTime? UpdatedAtMax, DateTime? UpdatedAtMin);
-
-        public record UtmParam(string UtmSource, string UtmMedium);
-
-        public record AnalyticsData(IReadOnlyList<UtmParam> UtmParams);
-
-        public record ExternalCustomerId(string Ecommerce);
-
-        public record Customer(
-            int Id,
-            AnalyticsData AnalyticsData,
-            DateTime CreatedAt,
-            string Email,
-            ExternalCustomerId ExternalCustomerId,
-            DateTime FirstChargeProcessedAt,
-            string FirstName,
-            bool HasPaymentMethodInDunning,
-            bool HasValidPaymentMethod,
-            string Hash,
-            string LastName,
-            int SubscriptionsActiveCount,
-            int SubscriptionsTotalCount,
-            DateTime UpdatedAt
-        );
-
-        public record Response(string NextCursor, string PreviousCursor, IReadOnlyList<Customer> Customers);
+        
+        public record Response(string NextCursor, string PreviousCursor, IReadOnlyList<SharedTypes.Customer> Customers);
     }
 
     public static class GetCustomerTypes
     {
-        public record UtmParam(
-            string UtmSource,
-            string UtmMedium
-        );
-
-        public record AnalyticsData(
-            IReadOnlyList<UtmParam> UtmParams
-        );
-
-        public record ExternalCustomerId(
-            string Ecommerce
-        );
-
-        public record Customer(
-            int Id,
-            AnalyticsData AnalyticsData,
-            DateTime CreatedAt,
-            string Email,
-            ExternalCustomerId ExternalCustomerId,
-            DateTime FirstChargeProcessedAt,
-            string FirstName,
-            bool HasPaymentMethodInDunning,
-            bool HasValidPaymentMethod,
-            string Hash,
-            string LastName,
-            int SubscriptionsActiveCount,
-            int SubscriptionsTotalCount,
-            DateTime UpdatedAt
-        );
-
-        public record Response(
-            Customer Customer
-        );
+        public record Response(SharedTypes.Customer Customer);
     }
 
     public static class GetCustomerDeliveryScheduleTypes
@@ -208,19 +146,20 @@ public class CustomerService
         );
 
         public record ExternalProductId(
-            string Ecommerce
+            object Ecommerce
         );
 
         public record ExternalVariantId(
-            string Ecommerce
+            object Ecommerce
         );
 
         public record Images(
-            string Large,
-            string Medium,
-            string Small,
-            string Original,
-            int SortOrder
+
+        );
+
+        public record Property(
+            string Name,
+            object Value
         );
 
         public record LineItem(
@@ -229,9 +168,9 @@ public class CustomerService
             ExternalVariantId ExternalVariantId,
             Images Images,
             bool IsSkippable,
-            string PlanType,
+            object PlanType,
             string ProductTitle,
-            IReadOnlyList<StringKeyValuePair> Properties,
+            IReadOnlyList<Property> Properties,
             int Quantity,
             string SubtotalPrice,
             string UnitPrice,
@@ -240,26 +179,19 @@ public class CustomerService
 
         public record BillingAddress(
             string Address1,
-            string Address2,
+            object Address2,
             string City,
-            string Company,
+            object Company,
             string CountryCode,
             string FirstName,
             string LastName,
             string Phone,
-            string Province,
+            object Province,
             string Zip
         );
 
         public record PaymentDetails(
-            string Brand,
-            string ExpMonth,
-            string ExpYear,
-            string Last4,
-            string PaypalEmail,
-            string PaypalPayerId,
-            string WalletType,
-            string FundingType
+
         );
 
         public record PaymentMethod(
@@ -270,21 +202,21 @@ public class CustomerService
 
         public record ShippingAddress(
             string Address1,
-            string Address2,
+            object Address2,
             string City,
-            string Company,
+            object Company,
             string CountryCode,
             string FirstName,
             string LastName,
             string Phone,
-            string Province,
+            object Province,
             string Zip
         );
 
         public record Order(
-            int Id,
+            object Id,
             int AddressId,
-            int ChargeId,
+            int? ChargeId,
             IReadOnlyList<LineItem> LineItems,
             PaymentMethod PaymentMethod,
             ShippingAddress ShippingAddress
@@ -295,24 +227,16 @@ public class CustomerService
             IReadOnlyList<Order> Orders
         );
 
-        public record DeliverySchedule(
-            Customer Customer
-            // ,
-            // IReadOnlyList<Delivery> Deliveries
+        public record Response(
+            Customer Customer,
+            IReadOnlyList<Delivery> Deliveries
         );
-
-        public record StringKeyValuePair(string Name, string Value);
-
-        public record Response
-        {
-            [JsonPropertyName("deliverySchedule")] // This property is not snake cased
-            public DeliverySchedule DeliverySchedule { get; init; }
-        }
     }
-    
-    public record ExternalCustomerId(string Ecommerce);
 
-    
+    public static class DeleteCustomerTypes
+    {
+        public record Response();
+    }
 }
 
 
