@@ -155,7 +155,7 @@ public class RechargeApiCaller : IRechargeApiCaller
 
     private StringContent CreateJsonRequestBody<T>(T request)
     {
-        var requestJson = JsonSerializer.Serialize<T>(request, _jsonSerializerOptions);
+        var requestJson = JsonSerializer.Serialize(request, _jsonSerializerOptions);
         var content = new StringContent(requestJson, Encoding.UTF8, "application/json");
         return content;
     }

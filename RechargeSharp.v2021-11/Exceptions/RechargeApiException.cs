@@ -7,20 +7,20 @@ namespace RechargeSharp.v2021_11.Exceptions;
 /// </summary>
 public class RechargeApiException : Exception
 {
-    public ApiError? StructuredApiErrorData { get; }
+    public ApiError? ErrorDataJson { get; }
     
     public RechargeApiException(string message) : base(message)
     {
     }
     
-    public RechargeApiException(ApiError? structuredApiErrorData) : base(structuredApiErrorData?.ToString() ?? "An error was returned without any structured error data")
+    public RechargeApiException(ApiError? errorDataJson) : base(errorDataJson?.ToString() ?? "An error was returned without any structured error data")
     {
-        StructuredApiErrorData = structuredApiErrorData;
+        ErrorDataJson = errorDataJson;
     }
     
-    public RechargeApiException(string? message, ApiError? structuredApiErrorData) : base(message)
+    public RechargeApiException(string? message, ApiError? errorDataJson) : base(message)
     {
-        StructuredApiErrorData = structuredApiErrorData;
+        ErrorDataJson = errorDataJson;
     }
 }
 
@@ -29,21 +29,21 @@ public class RechargeApiException : Exception
 /// </summary>
 public class RechargeApiServerException : RechargeApiException
 {
-    public RechargeApiServerException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public RechargeApiServerException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
 
 public class RateLimitingException : RechargeApiException
 {
-    public RateLimitingException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public RateLimitingException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
 
 public class InvalidApiVersionException : RechargeApiException
 {
-    public InvalidApiVersionException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public InvalidApiVersionException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
@@ -51,63 +51,63 @@ public class InvalidApiVersionException : RechargeApiException
 
 public class UnprocessableEntityException  : RechargeApiException
 {
-    public UnprocessableEntityException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public UnprocessableEntityException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
 
 public class UnsupportedMediaTypeException : RechargeApiException
 {
-    public UnsupportedMediaTypeException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public UnsupportedMediaTypeException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
 
 public class UnknownApiFailureException : RechargeApiException
 {
-    public UnknownApiFailureException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public UnknownApiFailureException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
 
 public class ConflictException : RechargeApiException
 {
-    public ConflictException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public ConflictException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
 
 public class UnauthorizedException : RechargeApiException
 {
-    public UnauthorizedException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public UnauthorizedException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
 
 public class ForbiddenException : RechargeApiException
 {
-    public ForbiddenException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public ForbiddenException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
 
 public class NotFoundException : RechargeApiException
 {
-    public NotFoundException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public NotFoundException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
 
 public class MethodNotAllowedException : RechargeApiException
 {
-    public MethodNotAllowedException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public MethodNotAllowedException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
 
 public class BadRequestException : RechargeApiException
 {
-    public BadRequestException(ApiError? structuredApiErrorData) : base(structuredApiErrorData)
+    public BadRequestException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }
 }
