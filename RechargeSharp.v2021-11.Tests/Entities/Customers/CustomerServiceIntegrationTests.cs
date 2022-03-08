@@ -23,8 +23,8 @@ public class CustomerServiceIntegrationTests
     ///     Tests that the service behaves as expected when the Recharge API returns certain HTTP responses
     /// </summary>
     [Theory]
-    [MemberData(nameof(RechargeApiHttpResponseTestCases))]
-    public async Task CustomerServiceReturnsExpectedOutputWhenRechargeApiRespondsWithCertainHttpContent<T>(string mockJsonFromApi, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<CustomerService, Task<T>> apiCallerFunc, Func<T, ObjectAssertions> assertionsFactory)
+    [MemberData(nameof(RechargeApiHttpResponseSuccessTestCases))]
+    public async Task TestingSuccessResponseCodes<T>(string mockJsonFromApi, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<CustomerService, Task<T>> apiCallerFunc, Func<T, ObjectAssertions> assertionsFactory)
     {
         // Arrange
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(mockJsonFromApi, httpStatusCode, uriToMatch, method);
@@ -40,7 +40,7 @@ public class CustomerServiceIntegrationTests
         assertionsFactory(result);
     }
     
-    public static IEnumerable<object[]> RechargeApiHttpResponseTestCases()
+    public static IEnumerable<object[]> RechargeApiHttpResponseSuccessTestCases()
     {
         var fixture = new Fixture();
         

@@ -25,7 +25,7 @@ public class CustomerServiceUnitTests
         var request = _fixture.Create<CustomerService.ListCustomersTypes.Request>();
         var response = _fixture.Create<CustomerService.ListCustomersTypes.Response>();
         var apiCallerMock = new Mock<IRechargeApiCaller>(MockBehavior.Strict);
-        var uriToMock = "/customers";
+        const string uriToMock = "/customers";
         apiCallerMock.Setup(
             r => r.Get<CustomerService.ListCustomersTypes.Response>(It.Is<string>(s => s.StartsWith(uriToMock))))
             .ReturnsAsync(response)
@@ -47,7 +47,7 @@ public class CustomerServiceUnitTests
         // Arrange
         var response = _fixture.Create<CustomerService.GetCustomerTypes.Response>();
         var apiCallerMock = new Mock<IRechargeApiCaller>(MockBehavior.Strict);
-        var customerId = 123;
+        const int customerId = 123;
         var uriToMock = $"/customers/{customerId}";
         apiCallerMock.Setup(
                 r => r.Get<CustomerService.GetCustomerTypes.Response>(uriToMock))
@@ -71,7 +71,7 @@ public class CustomerServiceUnitTests
         var request = _fixture.Create<CustomerService.UpdateCustomerTypes.Request>();
         var response = _fixture.Create<CustomerService.UpdateCustomerTypes.Response>();
         var apiCallerMock = new Mock<IRechargeApiCaller>(MockBehavior.Strict);
-        var customerId = 123;
+        const int customerId = 123;
         var uriToMock = $"/customers/{customerId}";
         apiCallerMock.Setup(
                 r => r.Put<CustomerService.UpdateCustomerTypes.Request, CustomerService.UpdateCustomerTypes.Response>(request,uriToMock))
@@ -115,7 +115,6 @@ public class CustomerServiceUnitTests
         var request = _fixture.Create<CustomerService.CreateCustomerTypes.Request>();
         var response = _fixture.Create<CustomerService.CreateCustomerTypes.Response>();
         var apiCallerMock = new Mock<IRechargeApiCaller>(MockBehavior.Strict);
-        var customerId = 123;
         var uriToMock = $"/customers";
         apiCallerMock.Setup(
                 r => r.Post<CustomerService.CreateCustomerTypes.Request, CustomerService.CreateCustomerTypes.Response>(request,uriToMock))
@@ -140,7 +139,7 @@ public class CustomerServiceUnitTests
         var request = _fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>();
         var response = _fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Response>();
         var apiCallerMock = new Mock<IRechargeApiCaller>(MockBehavior.Strict);
-        var customerId = 123;
+        const int customerId = 123;
         var uriToMock = $"/customers/{customerId}/delivery_schedule";
         apiCallerMock.Setup(
                 r => r.Get<CustomerService.GetCustomerDeliveryScheduleTypes.Response>(It.Is<string>(uri => uri.StartsWith(uriToMock))))
