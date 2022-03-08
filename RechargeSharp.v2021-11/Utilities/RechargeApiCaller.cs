@@ -1,7 +1,8 @@
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using RechargeSharp.v2021_11.Entities;
+using Polly;
+using RechargeSharp.v2021_11.Entities.Errors;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Utilities.Json;
 
@@ -18,30 +19,37 @@ public interface IRechargeApiCaller
 public class RechargeApiCaller : IRechargeApiCaller
 {
     private readonly ILogger<RechargeApiCaller> _logger;
+    private readonly RechargeApiCallerOptions _rechargeApiCallerOptions;
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
+    public IAsyncPolicy AsyncRetryPolicy { get; set; }
 
-    public RechargeApiCaller(IHttpClientFactory httpClientFactory, ILogger<RechargeApiCaller> logger)
+    public RechargeApiCaller(IHttpClientFactory httpClientFactory, ILogger<RechargeApiCaller> logger, RechargeApiCallerOptions rechargeApiCallerOptions)
     {
         _logger = logger;
+        _rechargeApiCallerOptions = rechargeApiCallerOptions;
         _httpClient = httpClientFactory.CreateClient();
+        _httpClient.DefaultRequestHeaders.Add("X-Recharge-Version", "2021-11");
 
         _jsonSerializerOptions = new JsonSerializerOptions()
         {
             PropertyNameCaseInsensitive = true,
-            PropertyNamingPolicy = new SnakeCaseNamingPolicy()
+            PropertyNamingPolicy = new SnakeCaseNamingPolicy(),
         };
+        _jsonSerializerOptions.Converters.Add(new ApiErrorJsonConverter());
+
+        AsyncRetryPolicy = _rechargeApiCallerOptions.ApiCallPolicy;
     }
 
     public async Task<T> Get<T>(string uri)
     {
-        var request = new HttpRequestMessage()
+        var requestFactory = () => new HttpRequestMessage()
         {
             Method = HttpMethod.Get,
             RequestUri = new Uri(uri, UriKind.Relative)
         };
 
-        var response = await SendRequest(request);
+        var response = await SendRequest(requestFactory);
         var responseContentsStream = await response.Content.ReadAsStreamAsync();
         var responseJson = await DeserializeResponseJson<T>(responseContentsStream);
         return responseJson;
@@ -49,14 +57,14 @@ public class RechargeApiCaller : IRechargeApiCaller
 
     public async Task<TResponse> Put<TRequest, TResponse>(TRequest instance, string uri)
     {
-        var request = new HttpRequestMessage()
+        var requestFactory = () => new HttpRequestMessage()
         {
             Method = HttpMethod.Put,
             RequestUri = new Uri(uri, UriKind.Relative),
             Content = CreateJsonRequestBody(instance)
         };
         
-        var response = await SendRequest(request);
+        var response = await SendRequest(requestFactory);
         var responseContentsStream = await response.Content.ReadAsStreamAsync();
         var responseJson = await DeserializeResponseJson<TResponse>(responseContentsStream);
         
@@ -65,14 +73,14 @@ public class RechargeApiCaller : IRechargeApiCaller
 
     public async Task<TResponse> Post<TRequest, TResponse>(TRequest instance, string uri)
     {
-        var request = new HttpRequestMessage()
+        var requestFactory = () => new HttpRequestMessage()
         {
             Method = HttpMethod.Post,
             RequestUri = new Uri(uri, UriKind.Relative),
             Content = CreateJsonRequestBody(instance)
         };
         
-        var response = await SendRequest(request);
+        var response = await SendRequest(requestFactory);
         var responseContentsStream = await response.Content.ReadAsStreamAsync();
         var responseJson = await DeserializeResponseJson<TResponse>(responseContentsStream);
         
@@ -81,31 +89,32 @@ public class RechargeApiCaller : IRechargeApiCaller
 
     public async Task Delete(string uri)
     {
-        var request = new HttpRequestMessage()
+        var requestFactory = () => new HttpRequestMessage()
         {
             Method = HttpMethod.Delete,
             RequestUri = new Uri(uri, UriKind.Relative)
         };
 
-        await SendRequest(request);
+        await SendRequest(requestFactory);
+    }
+    
+    private async Task<HttpResponseMessage> SendRequest(Func<HttpRequestMessage> httpRequestFactory)
+    {
+        // HttpRequestMessages can only be used once, so we have to create new ones between retries
+        var result = await AsyncRetryPolicy.ExecuteAsync(() => SendRequestInner(httpRequestFactory));
+        return result;
     }
 
-    private async Task<HttpResponseMessage> SendRequest(HttpRequestMessage httpRequest)
+    private async Task<HttpResponseMessage> SendRequestInner(Func<HttpRequestMessage> httpRequestFactory)
     {
-        try
-        {
-            var response = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
+        var httpRequest = httpRequestFactory();
+        var response = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
 
-            if (response.IsSuccessStatusCode)
-                return response;
-            
-            var exceptionToThrow = await CreateAppropriateException(response);
-            throw exceptionToThrow;
-        }
-        catch (Exception e) when (e is not RechargeApiException)
-        {
-            throw new NotImplementedException("exception handling is not implemented yet", e);
-        }
+        if (response.IsSuccessStatusCode)
+            return response;
+        
+        var exceptionToThrow = await CreateAppropriateException(response);
+        throw exceptionToThrow;
     }
 
     private async Task<Exception> CreateAppropriateException(HttpResponseMessage response)

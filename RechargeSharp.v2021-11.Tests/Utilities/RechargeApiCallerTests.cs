@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
 using Moq.Protected;
+using Polly;
+using Polly.NoOp;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Utilities;
 using Xunit;
@@ -125,7 +127,75 @@ public class RechargeApiCallerTests
             ItExpr.IsAny<CancellationToken>()
         );
     }
+    
+    [Fact]
+    public async Task WillRetryOnNonTransientError()
+    {
+        // Arrange
+        var jsonReturnedByApi = "{\"some_string_property\": \"someValue\"}";
+        
+        // PaymentRequired is Recharge's way of communicating a rather unspecified error
+        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.PaymentRequired); 
 
+        var retryCount = 5;
+        var retryPolicy = RechargeApiCallerOptions.BuildErrorHandlingLogic(policyBuilder => policyBuilder.RetryAsync(retryCount));
+        var sut = CreateSut(httpHandlerMock, BaseAddress, retryPolicy);
+        
+        var uri = $"{BaseAddress}";
+        
+        // Act
+        var act = () => sut.Post<SomeClass, SomeClass>(new SomeClass(), "/somepath");
+
+        // Assert
+        var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
+        thrownException.ErrorDataJson?.Errors?.Should().BeNull();
+
+        httpHandlerMock.Protected().Verify(
+            "SendAsync",
+            Times.Exactly(retryCount + 1),
+            ItExpr.Is<HttpRequestMessage>(req =>
+                req.Method == HttpMethod.Post
+                && req.RequestUri!.ToString().StartsWith(uri)
+            ),
+            ItExpr.IsAny<CancellationToken>()
+        );
+    }
+    
+    [Fact]
+    public async Task CanHandleErrorResponseBodyWhenErrorsIsCalledError()
+    {
+        // Arrange
+        var errorJsonFromApi = "{\"error\":\"endpoint not found\"}";
+        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity);
+        var sut = CreateSut(httpHandlerMock, BaseAddress);
+
+        // Act
+        var act = () => sut.Get<SomeClass>("/doesntmatter");
+        
+        // Assert
+        var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
+        thrownException.ErrorDataJson?.Errors?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorDataJson!.Errors;
+        
+        structuredApiErrorData!.Value.GetString().Should().Be("endpoint not found");
+    }
+
+    [Fact]
+    public async Task CanHandleEmptyErrorResponseBody()
+    {
+        // Arrange
+        var errorJsonFromApi = "";
+        var httpHandlerMock =  SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.UnprocessableEntity);
+        var sut = CreateSut(httpHandlerMock, BaseAddress);
+
+        // Act
+        var act = () => sut.Get<SomeClass>("/doesntmatter");
+        
+        // Assert
+        var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
+        thrownException.ErrorDataJson?.Errors?.Should().BeNull();
+    }
+    
     [Fact]
     public async Task CanHandleErrorResponseBodyWhenErrorsIsJustAString()
     {
@@ -139,10 +209,10 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.Errors?.RootElement.Should().NotBeNull();
-        var structuredApiErrorData = thrownException.ErrorDataJson!.Errors!.RootElement;
+        thrownException.ErrorDataJson?.Errors?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorDataJson!.Errors!;
         
-        structuredApiErrorData.GetString().Should().Be("Not Found");
+        structuredApiErrorData.Value.GetString().Should().Be("Not Found");
     }
     
     [Fact]
@@ -159,12 +229,12 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.Errors?.RootElement.Should().NotBeNull();
-        var structuredApiErrorData = thrownException.ErrorDataJson!.Errors!.RootElement;
+        thrownException.ErrorDataJson?.Errors?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorDataJson!.Errors!;
         
-        structuredApiErrorData.GetProperty("email").GetString().Should().Be("Required field missing");
-        structuredApiErrorData.GetProperty("first_name").GetString().Should().Be("Required field missing");
-        structuredApiErrorData.GetProperty("last_name").GetString().Should().Be("Required field missing");
+        structuredApiErrorData.Value.GetProperty("email").GetString().Should().Be("Required field missing");
+        structuredApiErrorData.Value.GetProperty("first_name").GetString().Should().Be("Required field missing");
+        structuredApiErrorData.Value.GetProperty("last_name").GetString().Should().Be("Required field missing");
     }
     
     [Fact]
@@ -181,12 +251,12 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.Errors?.RootElement.Should().NotBeNull();
-        var structuredApiErrorData = thrownException.ErrorDataJson!.Errors!.RootElement;
+        thrownException.ErrorDataJson?.Errors?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorDataJson!.Errors!;
         
-        structuredApiErrorData.GetProperty("email").GetString().Should().Be("Required field missing");
-        structuredApiErrorData.GetProperty("first_name").GetString().Should().Be("Required field missing");
-        structuredApiErrorData.GetProperty("complex_error").ValueKind.Should().Be(JsonValueKind.Object);
+        structuredApiErrorData.Value.GetProperty("email").GetString().Should().Be("Required field missing");
+        structuredApiErrorData.Value.GetProperty("first_name").GetString().Should().Be("Required field missing");
+        structuredApiErrorData.Value.GetProperty("complex_error").ValueKind.Should().Be(JsonValueKind.Object);
     }
 
     [Theory]
@@ -261,6 +331,11 @@ public class RechargeApiCallerTests
     
     private static RechargeApiCaller CreateSut(IMock<HttpMessageHandler> handlerMock, string baseAddress)
     {
+        return CreateSut(handlerMock, baseAddress, Policy.NoOpAsync());
+    }
+    
+    private static RechargeApiCaller CreateSut(IMock<HttpMessageHandler> handlerMock, string baseAddress, IAsyncPolicy policy)
+    {
         // use real http client with mocked handler here
         var httpClient = new HttpClient(handlerMock.Object)
         {
@@ -271,8 +346,12 @@ public class RechargeApiCallerTests
         var httpClientFactoryMock = new Mock<IHttpClientFactory>();
 
         httpClientFactoryMock.Setup(f => f.CreateClient(string.Empty)).Returns(httpClient);
-        var options = Options.Create(new RechargeServiceOptions());
-        var sut = new RechargeApiCaller(httpClientFactoryMock.Object, logger);
+
+        var rechargeApiCallerOptions = new RechargeApiCallerOptions()
+        {
+            ApiCallPolicy = policy
+        };
+        var sut = new RechargeApiCaller(httpClientFactoryMock.Object, logger, rechargeApiCallerOptions);
         return sut;
     }
 
