@@ -1,5 +1,6 @@
 using System;
 using RechargeSharp.v2021_11.Entities.Customers;
+using RechargeSharp.v2021_11.Entities.SharedModels;
 
 namespace RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Customers;
 
@@ -58,7 +59,7 @@ public static class get_customer_delivery_schedules_200_customer_has_a_schedule
                             },
                             PaymentMethod: new CustomerService.GetCustomerDeliveryScheduleTypes.PaymentMethod(
                                 Id: 1111111,
-                                BillingAddress: new CustomerService.GetCustomerDeliveryScheduleTypes.BillingAddress(
+                                BillingAddress: new Address(
                                     Address1: "Test Street 1",
                                     Address2: null,
                                     City: "København",
@@ -72,7 +73,7 @@ public static class get_customer_delivery_schedules_200_customer_has_a_schedule
                                 ),
                                 PaymentDetails: new CustomerService.GetCustomerDeliveryScheduleTypes.PaymentDetails()
                             ),
-                            ShippingAddress: new CustomerService.GetCustomerDeliveryScheduleTypes.ShippingAddress(
+                            ShippingAddress: new Address(
                                 Address1: "Test Street 1",
                                 Address2: null,
                                 City: "København",
@@ -98,7 +99,7 @@ public static class get_customer_delivery_schedules_200_customer_has_a_schedule
                             LineItems: Array.Empty<CustomerService.GetCustomerDeliveryScheduleTypes.LineItem>(),
                             PaymentMethod: new CustomerService.GetCustomerDeliveryScheduleTypes.PaymentMethod(
                                 Id: 88888888,
-                                BillingAddress: new CustomerService.GetCustomerDeliveryScheduleTypes.BillingAddress(
+                                BillingAddress: new Address(
                                     Address1: "Test Street 1",
                                     Address2: null,
                                     City: "København",
@@ -112,7 +113,7 @@ public static class get_customer_delivery_schedules_200_customer_has_a_schedule
                                 ),
                                 PaymentDetails: new CustomerService.GetCustomerDeliveryScheduleTypes.PaymentDetails()
                             ),
-                            ShippingAddress: new CustomerService.GetCustomerDeliveryScheduleTypes.ShippingAddress(
+                            ShippingAddress: new Address(
                                 Address1: null,
                                 Address2: null,
                                 City: null,
@@ -138,7 +139,7 @@ public static class get_customer_delivery_schedules_200_customer_has_a_schedule
                             LineItems: Array.Empty<CustomerService.GetCustomerDeliveryScheduleTypes.LineItem>(),
                             PaymentMethod: new CustomerService.GetCustomerDeliveryScheduleTypes.PaymentMethod(
                                 Id: 88888888,
-                                BillingAddress: new CustomerService.GetCustomerDeliveryScheduleTypes.BillingAddress(
+                                BillingAddress: new Address(
                                     Address1: "Test Street 1",
                                     Address2: null,
                                     City: "København",
@@ -152,7 +153,7 @@ public static class get_customer_delivery_schedules_200_customer_has_a_schedule
                                 ),
                                 PaymentDetails: new CustomerService.GetCustomerDeliveryScheduleTypes.PaymentDetails()
                             ),
-                            ShippingAddress: new CustomerService.GetCustomerDeliveryScheduleTypes.ShippingAddress(
+                            ShippingAddress: new Address(
                                 Address1: null,
                                 Address2: null,
                                 City: null,

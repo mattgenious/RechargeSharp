@@ -1,21 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
-using FluentAssertions.Primitives;
 using Microsoft.Extensions.Logging.Abstractions;
-using Moq;
 using Polly;
-using Polly.NoOp;
 using RechargeSharp.v2021_11.Entities.Customers;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
 using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Customers;
-using RechargeSharp.v2021_11.Utilities;
 using Xunit;
 
 namespace RechargeSharp.v2021_11.Tests.Entities.Customers;
@@ -32,7 +27,7 @@ public class CustomerServiceIntegrationTests
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
-        var apiCaller = CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
         
         var nullLogger = new NullLogger<CustomerService>();
         var sut = new CustomerService(nullLogger, apiCaller);
@@ -97,7 +92,7 @@ public class CustomerServiceIntegrationTests
         {
             // Create customer
             "Customers/create-customer_201.json",
-            HttpStatusCode.OK,
+            HttpStatusCode.Created,
             $"/customers",
             HttpMethod.Post,
             new Func<CustomerService, Task<CustomerService.CreateCustomerTypes.Response>>(service => service.CreateCustomer(fixture.Create<CustomerService.CreateCustomerTypes.Request>())),
@@ -137,7 +132,7 @@ public class CustomerServiceIntegrationTests
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
-        var apiCaller = CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
         
         var nullLogger = new NullLogger<CustomerService>();
         var sut = new CustomerService(nullLogger, apiCaller);
@@ -222,25 +217,5 @@ public class CustomerServiceIntegrationTests
             new Func<CustomerService, Task<CustomerService.UpdateCustomerTypes.Response>>(service => service.UpdateCustomer(111111, fixture.Create<CustomerService.UpdateCustomerTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
-    }
-    
-    private static RechargeApiCaller CreateRechargeApiCallerWithMockedHttpHandler(IMock<HttpMessageHandler> handlerMock, IAsyncPolicy? policy = null)
-    {
-        // use real http client with mocked handler here
-        var httpClient = new HttpClient(handlerMock.Object)
-        {
-            BaseAddress = new Uri("https://api.rechargeapps.com"),
-        };
-
-        var logger = new NullLogger<RechargeApiCaller>();
-        var httpClientFactoryMock = new Mock<IHttpClientFactory>();
-
-        httpClientFactoryMock.Setup(f => f.CreateClient(string.Empty)).Returns(httpClient);
-
-        var rechargeApiCallerOptions = new RechargeApiCallerOptions();
-        if (policy != null)
-            rechargeApiCallerOptions.ApiCallPolicy = policy;
-        var sut = new RechargeApiCaller(httpClientFactoryMock.Object, logger, rechargeApiCallerOptions);
-        return sut;
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using RechargeSharp.v2021_11.Entities.SharedModels;
 using RechargeSharp.v2021_11.Utilities;
 using RechargeSharp.v2021_11.Utilities.Queries;
 
@@ -168,39 +169,13 @@ public class CustomerService
             string VariantTitle
         );
 
-        public record BillingAddress(
-            string? Address1,
-            string? Address2,
-            string? City,
-            string? Company,
-            string? CountryCode,
-            string? FirstName,
-            string? LastName,
-            string? Phone,
-            string? Province,
-            string? Zip
-        );
-
         public record PaymentDetails(
         );
 
         public record PaymentMethod(
             int Id,
-            BillingAddress BillingAddress,
+            Address BillingAddress,
             PaymentDetails PaymentDetails
-        );
-
-        public record ShippingAddress(
-            string? Address1,
-            string? Address2,
-            string? City,
-            string? Company,
-            string? CountryCode,
-            string? FirstName,
-            string? LastName,
-            string? Phone,
-            string? Province,
-            string? Zip
         );
 
         public record Order(
@@ -209,7 +184,7 @@ public class CustomerService
             int? ChargeId,
             IReadOnlyList<LineItem> LineItems,
             PaymentMethod PaymentMethod,
-            ShippingAddress ShippingAddress
+            Address ShippingAddress
         );
 
         public record Delivery(
