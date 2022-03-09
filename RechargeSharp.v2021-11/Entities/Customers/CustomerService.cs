@@ -67,18 +67,18 @@ public class CustomerService
         );
         
         public record AnalyticsData(
-            IReadOnlyList<SharedTypes.UtmParam> UtmParams
+            IReadOnlyList<UtmParam> UtmParams
         );
         
         public record ExternalCustomerId(string Ecommerce);
         
         public record Customer(
             int Id,
-            SharedTypes.AnalyticsData AnalyticsData,
+            AnalyticsData? AnalyticsData,
             DateTime CreatedAt,
             string Email,
-            SharedTypes.ExternalCustomerId ExternalCustomerId,
-            DateTime FirstChargeProcessedAt,
+            ExternalCustomerId? ExternalCustomerId,
+            DateTime? FirstChargeProcessedAt,
             string FirstName,
             bool HasPaymentMethodInDunning,
             bool HasValidPaymentMethod,
@@ -92,26 +92,9 @@ public class CustomerService
 
     public static class CreateCustomerTypes
     {
-        public record Request(string Email, string FirstName, string LastName, SharedTypes.ExternalCustomerId ExternalCustomerId);
+        public record Request(string Email, string FirstName, string LastName, SharedTypes.ExternalCustomerId? ExternalCustomerId);
         
-        public record Response(Customer Customer);
-        
-        public record Customer(
-            int Id,
-            SharedTypes.AnalyticsData AnalyticsData,
-            DateTime CreatedAt,
-            string Email,
-            SharedTypes.ExternalCustomerId ExternalCustomerId,
-            DateTime FirstChargeProcessedAt,
-            string FirstName,
-            bool HasPaymentMethodInDunning,
-            bool HasValidPaymentMethod,
-            string Hash,
-            string LastName,
-            int SubscriptionsActiveCount,
-            int SubscriptionsTotalCount,
-            DateTime UpdatedAt
-        );
+        public record Response(SharedTypes.Customer Customer);
     }
 
     public static class UpdateCustomerTypes
@@ -123,9 +106,9 @@ public class CustomerService
 
     public static class ListCustomersTypes
     {
-        public record Request(string? Email, DateTime? CreatedAtMax, DateTime? CreatedAtMin, string? Hash, int? Limit, int? Page, string? ExternalCustomerId, DateTime? UpdatedAtMax, DateTime? UpdatedAtMin);
+        public record Request(string? Email, DateTime? CreatedAtMax, DateTime? CreatedAtMin, string? Hash, int? Limit, int? Page, string? ExternalCustomerId, DateTime? UpdatedAtMax, DateTime? UpdatedAtMin, string Cursor);
         
-        public record Response(string NextCursor, string PreviousCursor, IReadOnlyList<SharedTypes.Customer> Customers);
+        public record Response(string? NextCursor, string? PreviousCursor, IReadOnlyList<SharedTypes.Customer> Customers);
     }
 
     public static class GetCustomerTypes
@@ -150,11 +133,11 @@ public class CustomerService
         );
 
         public record ExternalProductId(
-            object Ecommerce
+            string Ecommerce
         );
 
         public record ExternalVariantId(
-            object Ecommerce
+            string Ecommerce
         );
 
         public record Images(
@@ -163,7 +146,7 @@ public class CustomerService
 
         public record Property(
             string Name,
-            object Value
+            string Value
         );
 
         public record LineItem(
@@ -185,7 +168,7 @@ public class CustomerService
             string Address1,
             object Address2,
             string City,
-            object Company,
+            string Company,
             string CountryCode,
             string FirstName,
             string LastName,
@@ -206,19 +189,19 @@ public class CustomerService
 
         public record ShippingAddress(
             string Address1,
-            object Address2,
+            string Address2,
             string City,
-            object Company,
+            string Company,
             string CountryCode,
             string FirstName,
             string LastName,
             string Phone,
-            object Province,
+            string Province,
             string Zip
         );
 
         public record Order(
-            object Id,
+            string Id,
             int AddressId,
             int? ChargeId,
             IReadOnlyList<LineItem> LineItems,

@@ -10,7 +10,9 @@ using FluentAssertions.Primitives;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using Polly;
+using Polly.NoOp;
 using RechargeSharp.v2021_11.Entities.Customers;
+using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
 using RechargeSharp.v2021_11.Utilities;
 using Xunit;
@@ -20,14 +22,15 @@ namespace RechargeSharp.v2021_11.Tests.Entities.Customers;
 public class CustomerServiceIntegrationTests
 {
     /// <summary>
-    ///     Tests that the service behaves as expected when the Recharge API returns certain HTTP responses
+    ///     Tests that the service behaves as expected when the Recharge API returns certain successful HTTP responses
     /// </summary>
     [Theory]
     [MemberData(nameof(RechargeApiHttpResponseSuccessTestCases))]
-    public async Task TestingSuccessResponseCodes<T>(string mockJsonFromApi, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<CustomerService, Task<T>> apiCallerFunc, Func<T, ObjectAssertions> assertionsFactory)
+    public async Task TestingSuccessResponseCodes<T>(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<CustomerService, Task<T>> apiCallerFunc, Func<T, ObjectAssertions> assertionsFactory)
     {
         // Arrange
-        var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(mockJsonFromApi, httpStatusCode, uriToMatch, method);
+        var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
+        var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
         var apiCaller = CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
         
         var nullLogger = new NullLogger<CustomerService>();
@@ -47,40 +50,40 @@ public class CustomerServiceIntegrationTests
         yield return new object[]
         {
             // List customers
-            "{\"next_cursor\":\"next_cursor\",\"previous_cursor\":\"previous_cursor\",\"customers\":[{\"id\":37657002,\"analytics_data\":{\"utm_params\":[{\"utm_source\":\"facebook\",\"utm_medium\":\"cpc\"}]},\"created_at\":\"2020-02-19T17:40:07\",\"email\":\"fake@example.com\",\"external_customer_id\":{\"ecommerce\":\"2879413682227\"},\"first_charge_processed_at\":\"2020-02-19T17:40:11\",\"first_name\":\"Jane\",\"has_payment_method_in_dunning\":false,\"has_valid_payment_method\":true,\"hash\":\"7e706455cbd13e40\",\"last_name\":\"Doe\",\"subscriptions_active_count\":0,\"subscriptions_total_count\":1,\"updated_at\":\"2020-12-17T18:50:39\"}]}",
+            "Customers/list-customers_200.json",
             HttpStatusCode.OK,
             "/customers",
             HttpMethod.Get,
             new Func<CustomerService, Task<CustomerService.ListCustomersTypes.Response>>(service => service.ListCustomers(fixture.Create<CustomerService.ListCustomersTypes.Request>())),
-            new Func<CustomerService.ListCustomersTypes.Response, ObjectAssertions>(response => response.Customers.Should().Contain(c => c.Id == 37657002).Should())
+            new Func<CustomerService.ListCustomersTypes.Response, ObjectAssertions>(response => response.Customers.Should().Contain(c => c.Id == 82940007).Should())
         };
         
         yield return new object[]
         {
             // Get customer
-            "{\"customer\":{\"id\":37657002,\"analytics_data\":{\"utm_params\":[{\"utm_source\":\"facebook\",\"utm_medium\":\"cpc\"}]},\"created_at\":\"2020-02-19T17:40:07\",\"email\":\"fake@example.com\",\"external_customer_id\":{\"ecommerce\":\"2879413682227\"},\"first_charge_processed_at\":\"2020-02-19T17:40:11\",\"first_name\":\"Jane\",\"has_payment_method_in_dunning\":false,\"has_valid_payment_method\":true,\"hash\":\"7e706455cbd13e40\",\"last_name\":\"Doe\",\"subscriptions_active_count\":0,\"subscriptions_total_count\":1,\"updated_at\":\"2020-12-17T18:50:39\"}}",
+            "Customers/get-customer_200.json",
             HttpStatusCode.OK,
-            $"/customers/{37657002}",
+            $"/customers/{82940007}",
             HttpMethod.Get,
-            new Func<CustomerService, Task<CustomerService.GetCustomerTypes.Response>>(service => service.GetCustomer(37657002)),
-            new Func<CustomerService.GetCustomerTypes.Response, ObjectAssertions>(response => response.Customer.Id.Should().Be(37657002).Should())
+            new Func<CustomerService, Task<CustomerService.GetCustomerTypes.Response>>(service => service.GetCustomer(82940007)),
+            new Func<CustomerService.GetCustomerTypes.Response, ObjectAssertions>(response => response.Customer.Id.Should().Be(82940007).Should())
         };
         
         yield return new object[]
         {
             // Update customer
-            "{\"customer\":{\"id\":37657002,\"analytics_data\":{\"utm_params\":[{\"utm_source\":\"facebook\",\"utm_medium\":\"cpc\"}]},\"created_at\":\"2020-02-19T17:40:07\",\"email\":\"fake@example.com\",\"external_customer_id\":{\"ecommerce\":\"2879413682227\"},\"first_charge_processed_at\":\"2020-02-19T17:40:11\",\"first_name\":\"Jane\",\"has_payment_method_in_dunning\":false,\"has_valid_payment_method\":true,\"hash\":\"7e706455cbd13e40\",\"last_name\":\"Doe\",\"subscriptions_active_count\":0,\"subscriptions_total_count\":1,\"updated_at\":\"2020-12-17T18:50:39\"}}",
+            "Customers/update-customer_200.json",
             HttpStatusCode.OK,
-            $"/customers/{37657002}",
+            $"/customers/{82940507}",
             HttpMethod.Put,
-            new Func<CustomerService, Task<CustomerService.UpdateCustomerTypes.Response>>(service => service.UpdateCustomer(37657002, fixture.Create<CustomerService.UpdateCustomerTypes.Request>())),
-            new Func<CustomerService.UpdateCustomerTypes.Response, ObjectAssertions>(response => response.Customer.Id.Should().Be(37657002).Should())
+            new Func<CustomerService, Task<CustomerService.UpdateCustomerTypes.Response>>(service => service.UpdateCustomer(82940507, fixture.Create<CustomerService.UpdateCustomerTypes.Request>())),
+            new Func<CustomerService.UpdateCustomerTypes.Response, ObjectAssertions>(response => response.Customer.Id.Should().Be(82940507).Should())
         };
         
         yield return new object[]
         {
             // Delete customer
-            "",
+            "Customers/delete-customer_204.json",
             HttpStatusCode.NoContent,
             $"/customers/{37657002}",
             HttpMethod.Delete,
@@ -91,23 +94,131 @@ public class CustomerServiceIntegrationTests
         yield return new object[]
         {
             // Create customer
-            "{\"customer\":{\"id\":37657002,\"analytics_data\":{\"utm_params\":[{\"utm_source\":\"facebook\",\"utm_medium\":\"cpc\"}]},\"created_at\":\"2020-02-19T17:40:07\",\"email\":\"fake@example.com\",\"external_customer_id\":{\"ecommerce\":\"2879413682227\"},\"first_charge_processed_at\":\"2020-02-19T17:40:11\",\"first_name\":\"Jane\",\"has_payment_method_in_dunning\":false,\"has_valid_payment_method\":true,\"hash\":\"7e706455cbd13e40\",\"last_name\":\"Doe\",\"subscriptions_active_count\":0,\"subscriptions_total_count\":1,\"updated_at\":\"2020-12-17T18:50:39\"}}",
+            "Customers/create-customer_201.json",
             HttpStatusCode.OK,
             $"/customers",
             HttpMethod.Post,
             new Func<CustomerService, Task<CustomerService.CreateCustomerTypes.Response>>(service => service.CreateCustomer(fixture.Create<CustomerService.CreateCustomerTypes.Request>())),
-            new Func<CustomerService.CreateCustomerTypes.Response, ObjectAssertions>(response => response.Customer.Id.Should().Be(37657002).Should())
+            new Func<CustomerService.CreateCustomerTypes.Response, ObjectAssertions>(response => response.Customer.Id.Should().Be(82939898).Should())
         };
         
         yield return new object[]
         {
-            // Get customer delivery schedule
-            "{\"customer\":{\"id\":1234,\"email\":\"some@email.com\",\"first_name\":\"Some\",\"last_name\":\"Body\"},\"deliveries\":[{\"date\":\"2022-03-31\",\"orders\":[{\"id\":null,\"address_id\":123123,\"charge_id\":55555,\"line_items\":[{\"subscription_id\":4565464,\"external_product_id\":{\"ecommerce\":null},\"external_variant_id\":{\"ecommerce\":null},\"images\":{},\"is_skippable\":false,\"plan_type\":null,\"product_title\":\"Test product\",\"properties\":[{\"name\":\"gram per dag\",\"value\":\"328\"}],\"quantity\":2,\"subtotal_price\":\"0.00\",\"unit_price\":\"0.00\",\"variant_title\":\"571\"}],\"payment_method\":{\"id\":123123,\"billing_address\":{\"address1\":\"Somestreet 31\",\"address2\":null,\"city\":\"København\",\"company\":null,\"country_code\":\"DK\",\"first_name\":\"Some\",\"last_name\":\"Body\",\"phone\":\"12312313\",\"province\":null,\"zip\":\"1100\"},\"payment_details\":{}},\"shipping_address\":{\"address1\":\"Somestreet 31\",\"address2\":null,\"city\":\"København\",\"company\":null,\"country_code\":\"DK\",\"first_name\":\"Some\",\"last_name\":\"Body\",\"phone\":\"12312313\",\"province\":null,\"zip\":\"1100\"}}]},{\"date\":\"2022-04-30\",\"orders\":[{\"id\":null,\"address_id\":123123,\"charge_id\":null,\"line_items\":[],\"payment_method\":{\"id\":51776002,\"billing_address\":{\"address1\":\"Somestreet 31\",\"address2\":null,\"city\":\"København\",\"company\":null,\"country_code\":\"DK\",\"first_name\":\"Some\",\"last_name\":\"Body\",\"phone\":\"12312313\",\"province\":null,\"zip\":\"1100\"},\"payment_details\":{}},\"shipping_address\":{\"address1\":null,\"address2\":null,\"city\":null,\"company\":null,\"country_code\":null,\"first_name\":null,\"last_name\":null,\"phone\":null,\"province\":null,\"zip\":null}}]},{\"date\":\"2022-05-30\",\"orders\":[{\"id\":null,\"address_id\":123123,\"charge_id\":null,\"line_items\":[],\"payment_method\":{\"id\":123123,\"billing_address\":{\"address1\":\"Somestreet 31\",\"address2\":null,\"city\":\"København\",\"company\":null,\"country_code\":\"DK\",\"first_name\":\"Some\",\"last_name\":\"Body\",\"phone\":\"12312313\",\"province\":null,\"zip\":\"1100\"},\"payment_details\":{}},\"shipping_address\":{\"address1\":null,\"address2\":null,\"city\":null,\"company\":null,\"country_code\":null,\"first_name\":null,\"last_name\":null,\"phone\":null,\"province\":null,\"zip\":null}}]}]}",
+            // Get customer delivery schedule - customer has a schedule
+            "Customers/get-customer-delivery-schedules_200_customer-has-a-schedule.json",
             HttpStatusCode.OK,
-            $"/customers/{1234}/delivery_schedule",
+            $"/customers/{100000}/delivery_schedule",
             HttpMethod.Get,
-            new Func<CustomerService, Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response>>(service => service.GetCustomerDeliverySchedule(1234,fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>())),
-            new Func<CustomerService.GetCustomerDeliveryScheduleTypes.Response, ObjectAssertions>(response => response.Customer.Id.Should().Be(1234).Should())
+            new Func<CustomerService, Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response>>(service => service.GetCustomerDeliverySchedule(100000,fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>())),
+            new Func<CustomerService.GetCustomerDeliveryScheduleTypes.Response, ObjectAssertions>(response => response.Customer.Id.Should().Be(100000).Should())
+        };
+        
+        yield return new object[]
+        {
+            // Get customer delivery schedule - customer does not have a schedule
+            "Customers/get-customer-delivery-schedules_200_customer-without-deliveries.json",
+            HttpStatusCode.OK,
+            $"/customers/{82940823}/delivery_schedule",
+            HttpMethod.Get,
+            new Func<CustomerService, Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response>>(service => service.GetCustomerDeliverySchedule(82940823,fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>())),
+            new Func<CustomerService.GetCustomerDeliveryScheduleTypes.Response, ObjectAssertions>(response => response.Customer.Id.Should().Be(82940823).Should())
+        };
+    }
+    
+    /// <summary>
+    ///     Tests that the service behaves as expected when the Recharge API returns certain successful HTTP responses
+    /// </summary>
+    [Theory]
+    [MemberData(nameof(RechargeApiHttpResponseErrorTestCases))]
+    public async Task TestingErrorResponseCodes<T>(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<CustomerService, Task<T>> apiCallerFunc, Type expectedExceptionType)
+    {
+        // Arrange
+        var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
+        var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
+        var apiCaller = CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
+        
+        var nullLogger = new NullLogger<CustomerService>();
+        var sut = new CustomerService(nullLogger, apiCaller);
+        
+        // Act
+        Func<Task> act = async () => { await apiCallerFunc(sut); };
+        
+        // Assert
+        var exceptionShouldBeThrown = await act.Should().ThrowAsync<RechargeApiException>();
+        var thrownException = exceptionShouldBeThrown.Which;
+        thrownException.Should().BeOfType(expectedExceptionType);
+        thrownException.ErrorDataJson.Should().NotBeNull();
+        thrownException.ErrorDataJson.Errors.Should().NotBeNull();
+    }
+    
+    public static IEnumerable<object[]> RechargeApiHttpResponseErrorTestCases()
+    {
+        var fixture = new Fixture();
+        
+        yield return new object[]
+        {
+            // Create customer - with duplicate email
+            "Customers/create-customer_422_email-already-taken.json",
+            HttpStatusCode.UnprocessableEntity,
+            "/customers",
+            HttpMethod.Post,
+            new Func<CustomerService, Task<CustomerService.CreateCustomerTypes.Response>>(service => service.CreateCustomer(fixture.Create<CustomerService.CreateCustomerTypes.Request>())),
+            typeof(UnprocessableEntityException)
+        };
+        
+        yield return new object[]
+        {
+            // Delete customer - no customer with that ID
+            "Customers/delete-customer_404_no-customer-with-id.json",
+            HttpStatusCode.NotFound,
+            "/customers/111111",
+            HttpMethod.Delete,
+            new Func<CustomerService, Task<CustomerService.DeleteCustomerTypes.Response>>(service => service.DeleteCustomer(111111)),
+            typeof(NotFoundException)
+        };
+        
+        yield return new object[]
+        {
+            // Get customer deliveries - no customer with that ID
+            "Customers/get-customer-delivery-schedules_404_no-customer-with-id.json",
+            HttpStatusCode.NotFound,
+            $"/customers/111111/delivery_schedule",
+            HttpMethod.Get,
+            new Func<CustomerService, Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response>>(service => service.GetCustomerDeliverySchedule(111111, fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>())),
+            typeof(NotFoundException)
+        };
+        
+        yield return new object[]
+        {
+            // Get customer - no customer with that ID
+            "Customers/get-customer_404_no-customer-with-id.json",
+            HttpStatusCode.NotFound,
+            "/customers/111111",
+            HttpMethod.Get,
+            new Func<CustomerService, Task<CustomerService.GetCustomerTypes.Response>>(service => service.GetCustomer(111111)),
+            typeof(NotFoundException)
+        };
+        
+        yield return new object[]
+        {
+            // List customers - invalid cursor
+            "Customers/list-customers_422_invalid-cursor.json",
+            HttpStatusCode.UnprocessableEntity,
+            "/customers",
+            HttpMethod.Get,
+            new Func<CustomerService, Task<CustomerService.ListCustomersTypes.Response>>(service => service.ListCustomers(fixture.Create<CustomerService.ListCustomersTypes.Request>())),
+            typeof(UnprocessableEntityException)
+        };
+        
+        yield return new object[]
+        {
+            // Update customer - empty first and last name
+            "Customers/update-customer_422_bad-input.json",
+            HttpStatusCode.UnprocessableEntity,
+            "/customers/111111",
+            HttpMethod.Put,
+            new Func<CustomerService, Task<CustomerService.UpdateCustomerTypes.Response>>(service => service.UpdateCustomer(111111, fixture.Create<CustomerService.UpdateCustomerTypes.Request>())),
+            typeof(UnprocessableEntityException)
         };
     }
     

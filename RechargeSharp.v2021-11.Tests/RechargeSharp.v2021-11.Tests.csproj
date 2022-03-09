@@ -28,5 +28,11 @@
     <ItemGroup>
       <ProjectReference Include="..\RechargeSharp.v2021-11\RechargeSharp.v2021-11.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+        <Content Include="./TestResources/**">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
 </Project>

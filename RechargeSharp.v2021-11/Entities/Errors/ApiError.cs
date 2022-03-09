@@ -6,7 +6,6 @@ public class ApiError
 {
     public JsonElement? Errors { get; set; }
     
-    //
     public override string ToString()
     {
         return Errors?.ToString() ?? "(no errors was reported in the response data)";
