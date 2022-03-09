@@ -39,6 +39,8 @@ public class RechargeApiCaller : IRechargeApiCaller
             PropertyNamingPolicy = new SnakeCaseNamingPolicy(),
         };
         _jsonSerializerOptions.Converters.Add(new ApiErrorJsonConverter());
+        _jsonSerializerOptions.Converters.Add(new DateOnlyNullableConverter());
+        _jsonSerializerOptions.Converters.Add(new DecimalConverter());
 
         AsyncRetryPolicy = _rechargeApiCallerOptions.ApiCallPolicy;
     }

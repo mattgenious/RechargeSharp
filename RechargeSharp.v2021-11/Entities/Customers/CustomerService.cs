@@ -62,15 +62,15 @@ public class CustomerService
     public static class SharedTypes
     {
         public record UtmParam(
-            string UtmSource,
-            string UtmMedium
+            string? UtmSource,
+            string? UtmMedium
         );
         
         public record AnalyticsData(
             IReadOnlyList<UtmParam> UtmParams
         );
         
-        public record ExternalCustomerId(string Ecommerce);
+        public record ExternalCustomerId(string? Ecommerce);
         
         public record Customer(
             int Id,
@@ -133,15 +133,19 @@ public class CustomerService
         );
 
         public record ExternalProductId(
-            string Ecommerce
+            string? Ecommerce
         );
 
         public record ExternalVariantId(
-            string Ecommerce
+            string? Ecommerce
         );
 
         public record Images(
-
+            string? Large,
+            string? Medium,
+            string? Small,
+            string? Original,
+            int? SortOrder
         );
 
         public record Property(
@@ -151,34 +155,33 @@ public class CustomerService
 
         public record LineItem(
             int SubscriptionId,
-            ExternalProductId ExternalProductId,
-            ExternalVariantId ExternalVariantId,
-            Images Images,
+            ExternalProductId? ExternalProductId,
+            ExternalVariantId? ExternalVariantId,
+            Images? Images,
             bool IsSkippable,
-            object PlanType,
+            string? PlanType,
             string ProductTitle,
-            IReadOnlyList<Property> Properties,
+            IReadOnlyList<Property>? Properties,
             int Quantity,
-            string SubtotalPrice,
-            string UnitPrice,
+            decimal? SubtotalPrice,
+            decimal? UnitPrice,
             string VariantTitle
         );
 
         public record BillingAddress(
-            string Address1,
-            object Address2,
-            string City,
-            string Company,
-            string CountryCode,
-            string FirstName,
-            string LastName,
-            string Phone,
-            object Province,
-            string Zip
+            string? Address1,
+            string? Address2,
+            string? City,
+            string? Company,
+            string? CountryCode,
+            string? FirstName,
+            string? LastName,
+            string? Phone,
+            string? Province,
+            string? Zip
         );
 
         public record PaymentDetails(
-
         );
 
         public record PaymentMethod(
@@ -188,20 +191,20 @@ public class CustomerService
         );
 
         public record ShippingAddress(
-            string Address1,
-            string Address2,
-            string City,
-            string Company,
-            string CountryCode,
-            string FirstName,
-            string LastName,
-            string Phone,
-            string Province,
-            string Zip
+            string? Address1,
+            string? Address2,
+            string? City,
+            string? Company,
+            string? CountryCode,
+            string? FirstName,
+            string? LastName,
+            string? Phone,
+            string? Province,
+            string? Zip
         );
 
         public record Order(
-            string Id,
+            string? Id,
             int AddressId,
             int? ChargeId,
             IReadOnlyList<LineItem> LineItems,
@@ -210,7 +213,7 @@ public class CustomerService
         );
 
         public record Delivery(
-            string Date,
+            DateOnly? Date,
             IReadOnlyList<Order> Orders
         );
     }
