@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
@@ -30,6 +31,7 @@ public class RechargeApiCaller : IRechargeApiCaller
         _rechargeApiCallerOptions = rechargeApiCallerOptions;
         _httpClient = httpClientFactory.CreateClient();
         _httpClient.DefaultRequestHeaders.Add("X-Recharge-Version", "2021-11");
+        _httpClient.DefaultRequestHeaders.Add ("X-Recharge-Access-Token", rechargeApiCallerOptions.ApiKey);
 
         _jsonSerializerOptions = new JsonSerializerOptions()
         {

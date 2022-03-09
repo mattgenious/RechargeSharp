@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -19,6 +20,8 @@ namespace RechargeSharp.v2021_11.Tests.Utilities;
 public class RechargeApiCallerTests
 {
     private const string BaseAddress = "https://api.rechargeapps.com";
+    private const string ApiKey = "someapikeyhere";
+    private const string ApiVersion = "2021-11";
     
     [Fact]
     public async Task CanGet()
@@ -33,18 +36,10 @@ public class RechargeApiCallerTests
 
         // Assert
         result.SomeStringProperty.Should().Be("someValue");
-
-        httpHandlerMock.Protected().Verify(
-            "SendAsync",
-            Times.Exactly(1),
-            ItExpr.Is<HttpRequestMessage>(req =>
-                req.Method == HttpMethod.Get
-                && req.RequestUri!.ToString().StartsWith(BaseAddress)
-            ),
-            ItExpr.IsAny<CancellationToken>()
-        );
+        AssertThatExpectedHttpCallsWereMade(httpHandlerMock, HttpMethod.Get, 1);
     }
-    
+
+
     [Fact]
     public async Task CanPost()
     {
@@ -58,16 +53,7 @@ public class RechargeApiCallerTests
 
         // Assert
         result.SomeStringProperty.Should().Be("someValue");
-
-        httpHandlerMock.Protected().Verify(
-            "SendAsync",
-            Times.Exactly(1),
-            ItExpr.Is<HttpRequestMessage>(req =>
-                req.Method == HttpMethod.Post
-                && req.RequestUri!.ToString().StartsWith(BaseAddress)
-            ),
-            ItExpr.IsAny<CancellationToken>()
-        );
+        AssertThatExpectedHttpCallsWereMade(httpHandlerMock, HttpMethod.Post, 1);
     }
     
     [Fact]
@@ -84,15 +70,7 @@ public class RechargeApiCallerTests
         // Assert
         result.SomeStringProperty.Should().Be("someValue");
 
-        httpHandlerMock.Protected().Verify(
-            "SendAsync",
-            Times.Exactly(1),
-            ItExpr.Is<HttpRequestMessage>(req =>
-                req.Method == HttpMethod.Put
-                && req.RequestUri!.ToString().StartsWith(BaseAddress)
-            ),
-            ItExpr.IsAny<CancellationToken>()
-        );
+        AssertThatExpectedHttpCallsWereMade(httpHandlerMock, HttpMethod.Put, 1);
     }
     
     [Fact]
@@ -107,15 +85,7 @@ public class RechargeApiCallerTests
         await sut.Delete("/somepath");
 
         // Assert
-        httpHandlerMock.Protected().Verify(
-            "SendAsync",
-            Times.Exactly(1),
-            ItExpr.Is<HttpRequestMessage>(req =>
-                req.Method == HttpMethod.Delete
-                && req.RequestUri!.ToString().StartsWith(BaseAddress)
-            ),
-            ItExpr.IsAny<CancellationToken>()
-        );
+        AssertThatExpectedHttpCallsWereMade(httpHandlerMock, HttpMethod.Delete, 1);
     }
     
     [Fact]
@@ -138,15 +108,7 @@ public class RechargeApiCallerTests
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
         thrownException.ErrorDataJson?.Errors?.Should().BeNull();
 
-        httpHandlerMock.Protected().Verify(
-            "SendAsync",
-            Times.Exactly(retryCount + 1),
-            ItExpr.Is<HttpRequestMessage>(req =>
-                req.Method == HttpMethod.Post
-                && req.RequestUri!.ToString().StartsWith(BaseAddress)
-            ),
-            ItExpr.IsAny<CancellationToken>()
-        );
+        AssertThatExpectedHttpCallsWereMade(httpHandlerMock, HttpMethod.Post, retryCount + 1);
     }
     
     [Fact]
@@ -278,6 +240,20 @@ public class RechargeApiCallerTests
         (await act.Should().ThrowAsync<Exception>()).Which.Should().BeOfType(expectedExceptionType);
     }
     
+    private static void AssertThatExpectedHttpCallsWereMade(Mock<HttpMessageHandler> httpHandlerMock, HttpMethod httpMethod, int expectedNumberOfCalls)
+    {
+        httpHandlerMock.Protected().Verify(
+            "SendAsync",
+            Times.Exactly(expectedNumberOfCalls),
+            ItExpr.Is<HttpRequestMessage>(req =>
+                req.Method == httpMethod &&
+                req.RequestUri!.ToString().StartsWith(BaseAddress) &&
+                req.Headers.GetValues("X-Recharge-Access-Token").Contains(ApiKey) &&
+                req.Headers.GetValues("X-Recharge-Version").Contains(ApiVersion)
+            ),
+            ItExpr.IsAny<CancellationToken>()
+        );
+    }
     
     private static RechargeApiCaller CreateSut(IMock<HttpMessageHandler> handlerMock, string baseAddress)
     {
@@ -299,7 +275,8 @@ public class RechargeApiCallerTests
 
         var rechargeApiCallerOptions = new RechargeApiCallerOptions()
         {
-            ApiCallPolicy = policy
+            ApiCallPolicy = policy,
+            ApiKey = ApiKey
         };
         var sut = new RechargeApiCaller(httpClientFactoryMock.Object, logger, rechargeApiCallerOptions);
         return sut;
