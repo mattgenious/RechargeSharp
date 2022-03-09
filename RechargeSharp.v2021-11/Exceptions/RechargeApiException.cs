@@ -4,7 +4,7 @@ using RechargeSharp.v2021_11.Entities.Errors;
 namespace RechargeSharp.v2021_11.Exceptions;
 
 /// <summary>
-///     The base class for all exceptions that can be thrown when calling the Recharge API
+///     The base class for all exceptions that might be thrown when calling the Recharge API
 /// </summary>
 public class RechargeApiException : Exception
 {

@@ -27,15 +27,7 @@ public static class HttpHandlerMocking
             StatusCode = returnedStatusCode
         }, uriToMatch, method);
     }
-    
-    private static Mock<HttpMessageHandler> SetupHttpHandlerMock_ReturningStatusCode(HttpStatusCode statusCodeToReturn, string uriToMatch, HttpMethod method)
-    {
-        return CreateHttpMessageHandlerThatReturns(new HttpResponseMessage()
-        {
-            StatusCode = statusCodeToReturn,
-        }, uriToMatch, method);
-    }
-    
+
     private static Mock<HttpMessageHandler> CreateHttpMessageHandlerThatReturns(HttpResponseMessage httpResponseMessage, string uriToMatch, HttpMethod method)
     {
         var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
@@ -44,7 +36,7 @@ public static class HttpHandlerMocking
             .Setup<Task<HttpResponseMessage>>(
                 "SendAsync",
                 ItExpr.Is<HttpRequestMessage>(r =>
-                    r.RequestUri != null && 
+                    r.RequestUri != null &&
                     r.RequestUri.ToString().StartsWith($"{BaseAddress}{uriToMatch}") &&
                     r.Method == method
                 ),

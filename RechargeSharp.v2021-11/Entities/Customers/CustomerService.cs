@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using Microsoft.Extensions.Logging;
 using RechargeSharp.v2021_11.Utilities;
 using RechargeSharp.v2021_11.Utilities.Queries;
@@ -138,6 +137,11 @@ public class CustomerService
     {
         public record Request(int? DeliveryCountFuture, int? FutureInterval, DateTime? DateMin, DateTime? DateMax);
         
+        public record Response(
+            Customer Customer,
+            IReadOnlyList<Delivery> Deliveries
+        );
+        
         public record Customer(
             int Id,
             string Email,
@@ -225,11 +229,6 @@ public class CustomerService
         public record Delivery(
             string Date,
             IReadOnlyList<Order> Orders
-        );
-
-        public record Response(
-            Customer Customer,
-            IReadOnlyList<Delivery> Deliveries
         );
     }
 
