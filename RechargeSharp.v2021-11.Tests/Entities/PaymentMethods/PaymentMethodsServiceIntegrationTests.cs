@@ -76,6 +76,17 @@ public class PaymentMethodsServiceIntegrationTests
             new Func<PaymentMethodsService, Task<PaymentMethodsService.UpdatePaymentMethodTypes.Response>>(service => service.UpdatePaymentMethod(1111111, fixture.Create<PaymentMethodsService.UpdatePaymentMethodTypes.Request>())),
             update_payment_method_200.CorrectlyDeserializedJson()
         };
+        
+        yield return new object[]
+        {
+            // Delete payment method
+            "PaymentMethods/delete-payment_method_204.json",
+            HttpStatusCode.NoContent,
+            "/payment_methods/1111111",
+            HttpMethod.Delete,
+            new Func<PaymentMethodsService, Task<PaymentMethodsService.DeletePaymentMethodTypes.Response>>(service => service.DeletePaymentMethod(1111111)),
+            (PaymentMethodsService.DeletePaymentMethodTypes.Response) null
+        };
     }
     
     /// <summary>

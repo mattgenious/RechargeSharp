@@ -36,6 +36,13 @@ public class PaymentMethodsService
         var responseJson = await _rechargeApiCaller.Put<UpdatePaymentMethodTypes.Request, UpdatePaymentMethodTypes.Response>(request, requestUri);
         return responseJson;
     }
+    
+    public async Task<DeletePaymentMethodTypes.Response> DeletePaymentMethod(int paymentMethodId)
+    {
+        var requestUri = $"/payment_methods/{paymentMethodId}";
+        await _rechargeApiCaller.Delete(requestUri);
+        return new DeletePaymentMethodTypes.Response();
+    }
 
     public static class SharedTypes
     {
@@ -102,5 +109,10 @@ public class PaymentMethodsService
         public record Response(
             SharedTypes.PaymentMethod PaymentMethod
         );
+    }
+
+    public static class DeletePaymentMethodTypes
+    {
+        public record Response();
     }
 }
