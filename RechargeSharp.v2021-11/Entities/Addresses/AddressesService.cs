@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using RechargeSharp.v2021_11.Utilities;
+using RechargeSharp.v2021_11.Utilities.Queries;
 
 namespace RechargeSharp.v2021_11.Entities.Addresses;
 
@@ -35,10 +35,24 @@ public class AddressesService
         var responseJson = await _rechargeApiCaller.Put<UpdateAddressTypes.Request, UpdateAddressTypes.Response>(request, requestUri);
         return responseJson;
     }
+    
+    public async Task<DeleteAddressTypes.Response> DeleteAddress(int addressId)
+    {
+        var requestUri = $"/addresses/{addressId}";
+        await _rechargeApiCaller.Delete(requestUri);
+        return new DeleteAddressTypes.Response();
+    }
+
+    public async Task<ListAddressesTypes.Response> ListAddresses(ListAddressesTypes.Request request)
+    {
+        var queryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(request);
+        var requestUri = $"/addresses{queryString.Value}";
+        var responseJson = await _rechargeApiCaller.Get<ListAddressesTypes.Response>(requestUri);
+        return responseJson;
+    }
 
     public static class SharedAddressTypes
     {
-            
         public record ShippingLineOverride(
             string? Code,
             decimal? Price,
@@ -129,5 +143,30 @@ public class AddressesService
         
         public record Response(SharedAddressTypes.Address Address);
     }
+    
+    public record DeleteAddressTypes
+    {
+        public record Response();
+    }
+
+    public record ListAddressesTypes
+    {
+        public record Request(
+            DateTime? CreatedAtMax,
+            DateTime? CreatedAtMin,
+            string? DiscountCode,
+            string? DiscountId,
+            int? Limit,
+            int? Page,
+            string? UpdatedAtMax,
+            string? UpdatedAtMin,
+            bool? IsActive);
+        public record Response(
+            string? NextCursor,
+            string? PreviousCursor,
+            IReadOnlyList<SharedAddressTypes.Address> Addresses
+                );
+    }
+
 }
 
