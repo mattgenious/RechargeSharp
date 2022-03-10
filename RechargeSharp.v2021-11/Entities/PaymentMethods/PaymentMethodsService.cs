@@ -30,6 +30,13 @@ public class PaymentMethodsService
         return responseJson;
     }
 
+    public async Task<UpdatePaymentMethodTypes.Response> UpdatePaymentMethod(int paymentMethodId, UpdatePaymentMethodTypes.Request request )
+    {
+        var requestUri = $"/payment_methods/{paymentMethodId}";
+        var responseJson = await _rechargeApiCaller.Put<UpdatePaymentMethodTypes.Request, UpdatePaymentMethodTypes.Response>(request, requestUri);
+        return responseJson;
+    }
+
     public static class SharedTypes
     {
         public record PaymentMethod(
@@ -84,4 +91,16 @@ public class PaymentMethodsService
         );
     }
 
+    public static class UpdatePaymentMethodTypes
+    {
+        public record Request(
+            bool? Default,
+            string? ProcessorName,
+            Address? BillingAddress
+        );
+        
+        public record Response(
+            SharedTypes.PaymentMethod PaymentMethod
+        );
+    }
 }

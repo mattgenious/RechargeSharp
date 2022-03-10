@@ -57,13 +57,24 @@ public class PaymentMethodsServiceIntegrationTests
         
         yield return new object[]
         {
-            // Create payment method
+            // Get payment method
             "PaymentMethods/get-payment-method_200.json",
             HttpStatusCode.OK,
             "/payment_methods/1111111",
             HttpMethod.Get,
             new Func<PaymentMethodsService, Task<PaymentMethodsService.GetPaymentMethodTypes.Response>>(service => service.GetPaymentMethod(1111111)),
             get_payment_method_200.CorrectlyDeserializedJson()
+        };
+        
+        yield return new object[]
+        {
+            // Update payment method
+            "PaymentMethods/update-payment-method_200.json",
+            HttpStatusCode.OK,
+            "/payment_methods/1111111",
+            HttpMethod.Put,
+            new Func<PaymentMethodsService, Task<PaymentMethodsService.UpdatePaymentMethodTypes.Response>>(service => service.UpdatePaymentMethod(1111111, fixture.Create<PaymentMethodsService.UpdatePaymentMethodTypes.Request>())),
+            update_payment_method_200.CorrectlyDeserializedJson()
         };
     }
     

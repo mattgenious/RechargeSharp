@@ -4,16 +4,16 @@ using RechargeSharp.v2021_11.Entities.SharedModels;
 
 namespace RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.PaymentMethods;
 
-public static class get_payment_method_200
+public static class update_payment_method_200
 {
-    public static PaymentMethodsService.GetPaymentMethodTypes.Response CorrectlyDeserializedJson()
+    public static PaymentMethodsService.UpdatePaymentMethodTypes.Response CorrectlyDeserializedJson()
     {
-        return new PaymentMethodsService.GetPaymentMethodTypes.Response(
+        return new PaymentMethodsService.UpdatePaymentMethodTypes.Response(
             PaymentMethod: new PaymentMethodsService.SharedTypes.PaymentMethod(
                 Id: 123123,
                 CustomerId: 2222222,
                 BillingAddress: new Address(
-                    Address1: "Teststreet 1",
+                    Address1: "Teststreet 2",
                     Address2: null,
                     City: "København",
                     Company: null,
@@ -43,7 +43,7 @@ public static class get_payment_method_200
                 ProcessorPaymentMethodToken: "card_testpaymenttoken",
                 Status: null,
                 StatusReason: null,
-                UpdatedAt: DateTime.Parse("2022-03-09T10:25:10")
+                UpdatedAt: DateTime.Parse("2022-03-10T03:07:50")
             )
         );
     }

@@ -3,7 +3,7 @@
     "id": 123123,
     "customer_id": 2222222,
     "billing_address": {
-      "address1": "Teststreet 1",
+      "address1": "Teststreet 2",
       "address2": null,
       "city": "København",
       "company": null,
@@ -30,6 +30,6 @@
     "processor_payment_method_token": "card_testpaymenttoken",
     "status": null,
     "status_reason": null,
-    "updated_at": "2022-03-09T10:25:10"
+    "updated_at": "2022-03-10T03:07:50"
   }
 }
