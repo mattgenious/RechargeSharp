@@ -86,17 +86,15 @@ public class PaymentMethodsServiceIntegrationTests
     {
         var fixture = new Fixture();
 
-        throw new NotImplementedException();
-
-        // yield return new object[]
-        // {
-        //     // Create customer - with duplicate email
-        //     "PaymentMethods/.json",
-        //     HttpStatusCode.UnprocessableEntity,
-        //     "/customers",
-        //     HttpMethod.Post,
-        //     new Func<PaymentMethodsService, Task<PaymentMethodsService.CreateCustomerTypes.Response>>(service => service.CreateCustomer(fixture.Create<PaymentMethodsService.CreateCustomerTypes.Request>())),
-        //     typeof(UnprocessableEntityException)
-        // };
+        yield return new object[]
+        {
+            // Create payment method - no processor customer token with the provided ID exists
+            "PaymentMethods/create-payment-method_422_no_processor-customer-token_with_id.json",
+            HttpStatusCode.UnprocessableEntity,
+            "/payment_methods",
+            HttpMethod.Post,
+            new Func<PaymentMethodsService, Task<PaymentMethodsService.CreatePaymentMethodTypes.Response>>(service => service.CreatePaymentMethod(fixture.Create<PaymentMethodsService.CreatePaymentMethodTypes.Request>())),
+            typeof(UnprocessableEntityException)
+        };
     }
 }
