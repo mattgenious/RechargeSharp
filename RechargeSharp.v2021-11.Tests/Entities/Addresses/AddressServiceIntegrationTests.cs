@@ -10,6 +10,7 @@ using Polly;
 using RechargeSharp.v2021_11.Entities.Addresses;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
+using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Addresses;
 using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Customers;
 using Xunit;
 
@@ -53,6 +54,17 @@ public class AddressServiceIntegrationTests
             HttpMethod.Post,
             new Func<AddressesService, Task<AddressesService.CreateAddressTypes.Response>>(service => service.CreateAddress(fixture.Create<AddressesService.CreateAddressTypes.Request>())),
             create_address_201.CorrectlyDeserializedJson()
+        };
+        
+        yield return new object[]
+        {
+            // Get address
+            "Addresses/get-address_200.json",
+            HttpStatusCode.OK,
+            "/addresses/1",
+            HttpMethod.Get,
+            new Func<AddressesService, Task<AddressesService.GetAddressTypes.Response>>(service => service.GetAddress(1)),
+            get_address_201.CorrectlyDeserializedJson()
         };
     }
     

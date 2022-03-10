@@ -3,11 +3,11 @@ using RechargeSharp.v2021_11.Entities.Addresses;
 
 namespace RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Addresses;
 
-public static class create_address_201
+public static class get_address_201
 {
-    public static AddressesService.CreateAddressTypes.Response CorrectlyDeserializedJson()
+    public static AddressesService.GetAddressTypes.Response CorrectlyDeserializedJson()
     {
-        return new AddressesService.CreateAddressTypes.Response(
+        return new AddressesService.GetAddressTypes.Response(
             new AddressesService.SharedAddressTypes.Address(
                 Id: 123123,
                 CustomerId: 12312312,
