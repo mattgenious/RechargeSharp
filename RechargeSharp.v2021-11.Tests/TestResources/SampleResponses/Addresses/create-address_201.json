@@ -1,0 +1,29 @@
+{
+  "address": {
+    "id": 89907581,
+    "customer_id": 82947450,
+    "payment_method_id": null,
+    "address1": "1776 Washington Street",
+    "address2": null,
+    "city": "Los Angeles",
+    "company": "Recharge",
+    "country_code": "US",
+    "created_at": "2022-03-10T10:28:40+00:00",
+    "discounts": [],
+    "first_name": "Niels",
+    "last_name": "Doe",
+    "order_attributes": [
+      {
+        "name": "custom name",
+        "value": "custom value"
+      }
+    ],
+    "order_note": null,
+    "phone": "5551234567",
+    "presentment_currency": "DKK",
+    "province": "California",
+    "shipping_lines_override": [],
+    "updated_at": "2022-03-10T10:28:40+00:00",
+    "zip": "90404"
+  }
+}
