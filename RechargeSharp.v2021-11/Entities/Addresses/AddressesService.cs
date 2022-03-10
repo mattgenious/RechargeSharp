@@ -28,6 +28,13 @@ public class AddressesService
         var responseJson = await _rechargeApiCaller.Get<GetAddressTypes.Response>(requestUri);
         return responseJson;
     }
+    
+    public async Task<UpdateAddressTypes.Response> UpdateAddress(int addressId, UpdateAddressTypes.Request request)
+    {
+        var requestUri = $"/addresses/{addressId}";
+        var responseJson = await _rechargeApiCaller.Put<UpdateAddressTypes.Request, UpdateAddressTypes.Response>(request, requestUri);
+        return responseJson;
+    }
 
     public static class SharedAddressTypes
     {
@@ -97,6 +104,29 @@ public class AddressesService
 
     public static class GetAddressTypes
     {
+        public record Response(SharedAddressTypes.Address Address);
+    }
+    
+    public static class UpdateAddressTypes
+    {
+        public record Request(
+            string Address1,
+            string? Address2,
+            string City,
+            string? Company,
+            string CountryCode,
+            IReadOnlyList<SharedAddressTypes.Discount> Discounts,
+            string FirstName,
+            string LastName,
+            IReadOnlyList<SharedAddressTypes.OrderAttribute> OrderAttributes,
+            string? OrderNote,
+            int? PaymentMethodId,
+            string Phone,
+            string? Province,
+            IReadOnlyList<SharedAddressTypes.ShippingLineOverride> ShippingLinesOverride,
+            string Zip
+        );
+        
         public record Response(SharedAddressTypes.Address Address);
     }
 }

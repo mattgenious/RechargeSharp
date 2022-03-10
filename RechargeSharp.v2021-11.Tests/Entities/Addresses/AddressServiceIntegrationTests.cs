@@ -66,6 +66,17 @@ public class AddressServiceIntegrationTests
             new Func<AddressesService, Task<AddressesService.GetAddressTypes.Response>>(service => service.GetAddress(1)),
             get_address_201.CorrectlyDeserializedJson()
         };
+        
+        yield return new object[]
+        {
+            // Update address
+            "Addresses/update-address_200.json",
+            HttpStatusCode.OK,
+            "/addresses/1",
+            HttpMethod.Put,
+            new Func<AddressesService, Task<AddressesService.UpdateAddressTypes.Response>>(service => service.UpdateAddress(1, fixture.Create<AddressesService.UpdateAddressTypes.Request>())),
+            update_address_200.CorrectlyDeserializedJson()
+        };
     }
     
     /// <summary>
@@ -106,6 +117,17 @@ public class AddressServiceIntegrationTests
             "/addresses",
             HttpMethod.Post,
             new Func<AddressesService, Task<AddressesService.CreateAddressTypes.Response>>(service => service.CreateAddress(fixture.Create<AddressesService.CreateAddressTypes.Request>())),
+            typeof(UnprocessableEntityException)
+        };
+        
+        yield return new object[]
+        {
+            // Update address - address1 is null
+            "Addresses/update-address_422_address1-missing.json",
+            HttpStatusCode.UnprocessableEntity,
+            "/addresses/1",
+            HttpMethod.Put,
+            new Func<AddressesService, Task<AddressesService.UpdateAddressTypes.Response>>(service => service.UpdateAddress(1, fixture.Create<AddressesService.UpdateAddressTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
     }
