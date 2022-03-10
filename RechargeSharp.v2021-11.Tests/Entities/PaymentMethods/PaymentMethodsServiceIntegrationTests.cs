@@ -87,6 +87,17 @@ public class PaymentMethodsServiceIntegrationTests
             new Func<PaymentMethodsService, Task<PaymentMethodsService.DeletePaymentMethodTypes.Response>>(service => service.DeletePaymentMethod(1111111)),
             (PaymentMethodsService.DeletePaymentMethodTypes.Response) null
         };
+        
+        yield return new object[]
+        {
+            // List payment methods
+            "PaymentMethods/list-payment-methods_200.json",
+            HttpStatusCode.OK,
+            "/payment_methods",
+            HttpMethod.Get,
+            new Func<PaymentMethodsService, Task<PaymentMethodsService.ListPaymentMethodTypes.Response>>(service => service.ListPaymentMethods(fixture.Create<PaymentMethodsService.ListPaymentMethodTypes.Request>())),
+            list_payment_methods_200.CorrectlyDeserializedJson()
+        };
     }
     
     /// <summary>
@@ -149,6 +160,17 @@ public class PaymentMethodsServiceIntegrationTests
             "/payment_methods/1",
             HttpMethod.Put,
             new Func<PaymentMethodsService, Task<PaymentMethodsService.UpdatePaymentMethodTypes.Response>>(service => service.UpdatePaymentMethod(1, fixture.Create<PaymentMethodsService.UpdatePaymentMethodTypes.Request>())),
+            typeof(UnprocessableEntityException)
+        };
+        
+        yield return new object[]
+        {
+            // Delete payment method - attempting to delete payment method with associated address
+            "PaymentMethods/delete-payment_method_422_attempting-to-delete-payment-method-with-related-addresses.json",
+            HttpStatusCode.UnprocessableEntity,
+            "/payment_methods/1",
+            HttpMethod.Delete,
+            new Func<PaymentMethodsService, Task<PaymentMethodsService.DeletePaymentMethodTypes.Response>>(service => service.DeletePaymentMethod(1)),
             typeof(UnprocessableEntityException)
         };
     }

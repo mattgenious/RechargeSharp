@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using RechargeSharp.v2021_11.Entities.SharedModels;
 using RechargeSharp.v2021_11.Utilities;
+using RechargeSharp.v2021_11.Utilities.Queries;
 
 namespace RechargeSharp.v2021_11.Entities.PaymentMethods;
 
@@ -21,8 +22,7 @@ public class PaymentMethodsService
         var responseJson = await _rechargeApiCaller.Post<CreatePaymentMethodTypes.Request, CreatePaymentMethodTypes.Response> (request, requestUri);
         return responseJson;
     }
-    
-    
+
     public async Task<GetPaymentMethodTypes.Response> GetPaymentMethod(int paymentMethodId)
     {
         var requestUri = $"/payment_methods/{paymentMethodId}";
@@ -30,7 +30,7 @@ public class PaymentMethodsService
         return responseJson;
     }
 
-    public async Task<UpdatePaymentMethodTypes.Response> UpdatePaymentMethod(int paymentMethodId, UpdatePaymentMethodTypes.Request request )
+    public async Task<UpdatePaymentMethodTypes.Response> UpdatePaymentMethod(int paymentMethodId, UpdatePaymentMethodTypes.Request request)
     {
         var requestUri = $"/payment_methods/{paymentMethodId}";
         var responseJson = await _rechargeApiCaller.Put<UpdatePaymentMethodTypes.Request, UpdatePaymentMethodTypes.Response>(request, requestUri);
@@ -43,6 +43,14 @@ public class PaymentMethodsService
         await _rechargeApiCaller.Delete(requestUri);
         return new DeletePaymentMethodTypes.Response();
     }
+    
+    public async Task<ListPaymentMethodTypes.Response> ListPaymentMethods(ListPaymentMethodTypes.Request request)
+    {
+        var queryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(request);
+        var requestUri = $"/payment_methods{queryString.Value}";
+        var responseJson = await _rechargeApiCaller.Get<ListPaymentMethodTypes.Response>(requestUri);
+        return responseJson;
+    }
 
     public static class SharedTypes
     {
@@ -51,14 +59,14 @@ public class PaymentMethodsService
             int CustomerId,
             Address BillingAddress,
             DateTime CreatedAt,
-            bool Default,
-            PaymentDetails PaymentDetails,
-            string PaymentType,
-            string ProcessorCustomerToken,
+            bool? Default,
+            PaymentDetails? PaymentDetails,
+            string? PaymentType,
+            string? ProcessorCustomerToken,
             string ProcessorName,
-            string ProcessorPaymentMethodToken,
-            string Status,
-            string StatusReason,
+            string? ProcessorPaymentMethodToken,
+            string? Status,
+            string? StatusReason,
             DateTime UpdatedAt
         );
         
@@ -114,5 +122,11 @@ public class PaymentMethodsService
     public static class DeletePaymentMethodTypes
     {
         public record Response();
+    }
+
+    public static class ListPaymentMethodTypes
+    {
+        public record Request(string? CustomerId);
+        public record Response(IReadOnlyList<SharedTypes.PaymentMethod> PaymentMethods);
     }
 }
