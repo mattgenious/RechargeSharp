@@ -129,5 +129,16 @@ public class PaymentMethodsServiceIntegrationTests
             new Func<PaymentMethodsService, Task<PaymentMethodsService.GetPaymentMethodTypes.Response>>(service => service.GetPaymentMethod(1)),
             typeof(NotFoundException)
         };
+        
+        yield return new object[]
+        {
+            // Update payment method - attempting to address1 to be empty
+            "PaymentMethods/update-payment-method_422_address-is-empty.json",
+            HttpStatusCode.UnprocessableEntity,
+            "/payment_methods/1",
+            HttpMethod.Put,
+            new Func<PaymentMethodsService, Task<PaymentMethodsService.UpdatePaymentMethodTypes.Response>>(service => service.UpdatePaymentMethod(1, fixture.Create<PaymentMethodsService.UpdatePaymentMethodTypes.Request>())),
+            typeof(UnprocessableEntityException)
+        };
     }
 }
