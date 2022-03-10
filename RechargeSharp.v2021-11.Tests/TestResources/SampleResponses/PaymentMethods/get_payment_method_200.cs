@@ -4,46 +4,46 @@ using RechargeSharp.v2021_11.Entities.SharedModels;
 
 namespace RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.PaymentMethods;
 
-public static class create_payment_method_201
+public static class get_payment_method_200
 {
-    public static PaymentMethodsService.CreatePaymentMethodTypes.Response CorrectlyDeserializedJson()
+    public static PaymentMethodsService.GetPaymentMethodTypes.Response CorrectlyDeserializedJson()
     {
-        return new PaymentMethodsService.CreatePaymentMethodTypes.Response(
+        return new PaymentMethodsService.GetPaymentMethodTypes.Response(
             PaymentMethod: new PaymentMethodsService.SharedTypes.PaymentMethod(
                 Id: 123123,
                 CustomerId: 2222222,
                 BillingAddress: new Address(
-                    Address1: null,
-                    Address2: null,
-                    City: null,
+                    Address1: "Teststreet 1",
+                    Address2: "Teststreet 1",
+                    City: "København",
                     Company: null,
-                    Country: null,
-                    CountryCode: null,
-                    FirstName: null,
-                    LastName: null,
-                    Phone: null,
-                    Province: null,
-                    Zip: null
+                    Country: "Denmark",
+                    CountryCode: "DK",
+                    FirstName: "Firstname",
+                    LastName: "Lastname",
+                    Phone: "22222222",
+                    Province: "",
+                    Zip: "1000"
                 ),
-                CreatedAt: DateTime.Parse("2022-03-09T08:45:03"),
+                CreatedAt: DateTime.Parse("2022-03-09T10:25:10"),
                 Default: true,
                 PaymentDetails: new PaymentMethodsService.SharedTypes.PaymentDetails(
                     Brand: "visa",
                     ExpMonth: 4,
                     ExpYear: 2024,
-                    Last4: "1234",
+                    Last4: "2222",
                     PaypalEmail: null,
                     PaypalPayerId: null,
                     WalletType: null,
                     FundingType: null
                 ),
                 PaymentType: "CREDIT_CARD",
-                ProcessorCustomerToken: "cus_testtest",
+                ProcessorCustomerToken: "cus_testcustomertoken",
                 ProcessorName: "stripe",
-                ProcessorPaymentMethodToken: "pm_testtest",
+                ProcessorPaymentMethodToken: "card_testpaymenttoken",
                 Status: null,
                 StatusReason: null,
-                UpdatedAt: DateTime.Parse("2022-03-09T08:45:03")
+                UpdatedAt: DateTime.Parse("2022-03-09T10:25:10")
             )
         );
     }

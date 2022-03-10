@@ -54,6 +54,17 @@ public class PaymentMethodsServiceIntegrationTests
             new Func<PaymentMethodsService, Task<PaymentMethodsService.CreatePaymentMethodTypes.Response>>(service => service.CreatePaymentMethod(fixture.Create<PaymentMethodsService.CreatePaymentMethodTypes.Request>())),
             create_payment_method_201.CorrectlyDeserializedJson()
         };
+        
+        yield return new object[]
+        {
+            // Create payment method
+            "PaymentMethods/get-payment-method_200.json",
+            HttpStatusCode.OK,
+            "/payment_methods/1111111",
+            HttpMethod.Get,
+            new Func<PaymentMethodsService, Task<PaymentMethodsService.GetPaymentMethodTypes.Response>>(service => service.GetPaymentMethod(1111111)),
+            get_payment_method_200.CorrectlyDeserializedJson()
+        };
     }
     
     /// <summary>
