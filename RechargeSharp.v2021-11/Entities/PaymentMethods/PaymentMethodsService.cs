@@ -21,23 +21,17 @@ public class PaymentMethodsService
         var responseJson = await _rechargeApiCaller.Post<CreatePaymentMethodTypes.Request, CreatePaymentMethodTypes.Response> (request, requestUri);
         return responseJson;
     }
-        
-    public static class CreatePaymentMethodTypes
+    
+    
+    public async Task<GetPaymentMethodTypes.Response> GetPaymentMethod(int paymentMethodId)
     {
-        public record Request(
-            int CustomerId,
-            bool Default,
-            string PaymentType,
-            string ProcessorCustomerToken,
-            string ProcessorName,
-            string ProcessorPaymentMethodToken,
-            Address? BillingAddress
-            );
-        
-        public record Response(
-            PaymentMethod PaymentMethod
-        );
-        
+        var requestUri = $"/payment_methods/{paymentMethodId}";
+        var responseJson = await _rechargeApiCaller.Get<GetPaymentMethodTypes.Response>(requestUri);
+        return responseJson;
+    }
+
+    public static class SharedTypes
+    {
         public record PaymentMethod(
             int Id,
             int CustomerId,
@@ -64,6 +58,30 @@ public class PaymentMethodsService
             string? WalletType,
             string? FundingType
         );
-
     }
+        
+    public static class CreatePaymentMethodTypes
+    {
+        public record Request(
+            int CustomerId,
+            bool Default,
+            string PaymentType,
+            string ProcessorCustomerToken,
+            string ProcessorName,
+            string ProcessorPaymentMethodToken,
+            Address? BillingAddress
+            );
+        
+        public record Response(
+            SharedTypes.PaymentMethod PaymentMethod
+        );
+    }
+
+    public static class GetPaymentMethodTypes
+    {
+        public record Response(
+            SharedTypes.PaymentMethod PaymentMethod
+        );
+    }
+
 }

@@ -5,6 +5,7 @@ public record Address(
     string? Address2,
     string? City,
     string? Company,
+    string? Country,
     string? CountryCode,
     string? FirstName,
     string? LastName,
