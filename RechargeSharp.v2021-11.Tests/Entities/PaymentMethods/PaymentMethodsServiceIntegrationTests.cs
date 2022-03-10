@@ -107,5 +107,16 @@ public class PaymentMethodsServiceIntegrationTests
             new Func<PaymentMethodsService, Task<PaymentMethodsService.CreatePaymentMethodTypes.Response>>(service => service.CreatePaymentMethod(fixture.Create<PaymentMethodsService.CreatePaymentMethodTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
+        
+        yield return new object[]
+        {
+            // Get payment method - no payment method with the given ID exists
+            "PaymentMethods/get-payment-method_404_no_payment_method_with_id.json",
+            HttpStatusCode.NotFound,
+            "/payment_methods/1",
+            HttpMethod.Get,
+            new Func<PaymentMethodsService, Task<PaymentMethodsService.GetPaymentMethodTypes.Response>>(service => service.GetPaymentMethod(1)),
+            typeof(NotFoundException)
+        };
     }
 }
