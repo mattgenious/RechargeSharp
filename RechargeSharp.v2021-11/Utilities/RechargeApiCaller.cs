@@ -40,7 +40,9 @@ public class RechargeApiCaller : IRechargeApiCaller
         };
         _jsonSerializerOptions.Converters.Add(new ApiErrorJsonConverter());
         _jsonSerializerOptions.Converters.Add(new DateOnlyNullableConverter());
+        _jsonSerializerOptions.Converters.Add(new DateOnlyConverter());
         _jsonSerializerOptions.Converters.Add(new DecimalConverter());
+        _jsonSerializerOptions.Converters.Add(new DecimalNullableConverter());
 
         AsyncRetryPolicy = _rechargeApiCallerOptions.ApiCallPolicy;
     }

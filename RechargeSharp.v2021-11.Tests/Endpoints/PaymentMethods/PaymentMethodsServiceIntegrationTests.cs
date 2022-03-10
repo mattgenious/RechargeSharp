@@ -7,13 +7,13 @@ using AutoFixture;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
 using Polly;
-using RechargeSharp.v2021_11.Entities.PaymentMethods;
+using RechargeSharp.v2021_11.Endpoints.PaymentMethods;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
 using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.PaymentMethods;
 using Xunit;
 
-namespace RechargeSharp.v2021_11.Tests.Entities.PaymentMethods;
+namespace RechargeSharp.v2021_11.Tests.Endpoints.PaymentMethods;
 
 public class PaymentMethodsServiceIntegrationTests
 {

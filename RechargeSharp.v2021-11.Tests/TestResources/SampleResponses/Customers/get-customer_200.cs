@@ -1,5 +1,5 @@
 using System;
-using RechargeSharp.v2021_11.Entities.Customers;
+using RechargeSharp.v2021_11.Endpoints.Customers;
 
 namespace RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Customers;
 

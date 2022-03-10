@@ -8,17 +8,37 @@ namespace RechargeSharp.v2021_11.Utilities.Json;
 /// </summary>
 public class DateOnlyNullableConverter : JsonConverter<DateOnly?>
 {
+    private readonly DateOnlyConverter _dateOnlyConverter  = new DateOnlyConverter();
+
     public override DateOnly? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         var value = reader.GetString();
         if (value is null)
             return null;
-        return DateOnly.Parse(value!);
+        return _dateOnlyConverter.ParseAsDateOnly(value);
     }
 
     public override void Write(Utf8JsonWriter writer, DateOnly? value, JsonSerializerOptions options)
     {
         if(value is not null)
-            writer.WriteStringValue(value.Value.ToString("yyyy-MM-dd"));
+            _dateOnlyConverter.Write(writer, value.Value, options);
+    }
+}
+
+public class DateOnlyConverter : JsonConverter<DateOnly>
+{
+    public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        return ParseAsDateOnly(reader.GetString() ?? throw new InvalidOperationException("The DateOnly field could not be retrieved as a string"));
+    }
+
+    internal DateOnly ParseAsDateOnly(string input)
+    {
+        return DateOnly.Parse(input);
+    }
+
+    public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue(value.ToString("yyyy-MM-dd"));
     }
 }

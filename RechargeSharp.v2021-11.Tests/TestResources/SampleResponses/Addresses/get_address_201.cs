@@ -1,5 +1,5 @@
 using System;
-using RechargeSharp.v2021_11.Entities.Addresses;
+using RechargeSharp.v2021_11.Endpoints.Addresses;
 
 namespace RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Addresses;
 

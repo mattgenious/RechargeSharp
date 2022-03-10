@@ -3,7 +3,7 @@ using RechargeSharp.v2021_11.Entities.SharedModels;
 using RechargeSharp.v2021_11.Utilities;
 using RechargeSharp.v2021_11.Utilities.Queries;
 
-namespace RechargeSharp.v2021_11.Entities.PaymentMethods;
+namespace RechargeSharp.v2021_11.Endpoints.PaymentMethods;
 
 public class PaymentMethodsService
 {

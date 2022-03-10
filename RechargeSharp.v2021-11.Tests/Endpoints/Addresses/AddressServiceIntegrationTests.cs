@@ -7,7 +7,7 @@ using AutoFixture;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
 using Polly;
-using RechargeSharp.v2021_11.Entities.Addresses;
+using RechargeSharp.v2021_11.Endpoints.Addresses;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
 using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Addresses;

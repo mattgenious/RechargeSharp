@@ -1,5 +1,5 @@
 using System;
-using RechargeSharp.v2021_11.Entities.PaymentMethods;
+using RechargeSharp.v2021_11.Endpoints.PaymentMethods;
 using RechargeSharp.v2021_11.Entities.SharedModels;
 
 namespace RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.PaymentMethods;

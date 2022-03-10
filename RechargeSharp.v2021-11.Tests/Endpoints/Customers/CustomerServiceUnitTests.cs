@@ -3,7 +3,7 @@ using AutoFixture;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
-using RechargeSharp.v2021_11.Entities.Customers;
+using RechargeSharp.v2021_11.Endpoints.Customers;
 using RechargeSharp.v2021_11.Utilities;
 using Xunit;
 

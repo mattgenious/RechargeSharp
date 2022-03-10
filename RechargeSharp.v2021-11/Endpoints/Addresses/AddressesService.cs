@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 using RechargeSharp.v2021_11.Utilities;
 using RechargeSharp.v2021_11.Utilities.Queries;
 
-namespace RechargeSharp.v2021_11.Entities.Addresses;
+namespace RechargeSharp.v2021_11.Endpoints.Addresses;
 
 public class AddressesService
 {
@@ -14,28 +14,30 @@ public class AddressesService
         _logger = logger;
         _rechargeApiCaller = rechargeApiCaller;
     }
-    
+
     public async Task<CreateAddressTypes.Response> CreateAddress(CreateAddressTypes.Request request)
     {
         var requestUri = $"/addresses";
-        var responseJson = await _rechargeApiCaller.Post<CreateAddressTypes.Request, CreateAddressTypes.Response> (request, requestUri);
+        var responseJson =
+            await _rechargeApiCaller.Post<CreateAddressTypes.Request, CreateAddressTypes.Response>(request, requestUri);
         return responseJson;
     }
-    
+
     public async Task<GetAddressTypes.Response> GetAddress(int addressId)
     {
         var requestUri = $"/addresses/{addressId}";
         var responseJson = await _rechargeApiCaller.Get<GetAddressTypes.Response>(requestUri);
         return responseJson;
     }
-    
+
     public async Task<UpdateAddressTypes.Response> UpdateAddress(int addressId, UpdateAddressTypes.Request request)
     {
         var requestUri = $"/addresses/{addressId}";
-        var responseJson = await _rechargeApiCaller.Put<UpdateAddressTypes.Request, UpdateAddressTypes.Response>(request, requestUri);
+        var responseJson =
+            await _rechargeApiCaller.Put<UpdateAddressTypes.Request, UpdateAddressTypes.Response>(request, requestUri);
         return responseJson;
     }
-    
+
     public async Task<DeleteAddressTypes.Response> DeleteAddress(int addressId)
     {
         var requestUri = $"/addresses/{addressId}";
@@ -58,7 +60,7 @@ public class AddressesService
             decimal? Price,
             string Title
         );
-        
+
         public record OrderAttribute(
             string Name,
             string Value
@@ -110,7 +112,7 @@ public class AddressesService
             IReadOnlyList<SharedAddressTypes.ShippingLineOverride> ShippingLinesOverride,
             string Zip
         );
-        
+
         public record Response(
             SharedAddressTypes.Address Address
         );
@@ -120,7 +122,7 @@ public class AddressesService
     {
         public record Response(SharedAddressTypes.Address Address);
     }
-    
+
     public static class UpdateAddressTypes
     {
         public record Request(
@@ -140,10 +142,10 @@ public class AddressesService
             IReadOnlyList<SharedAddressTypes.ShippingLineOverride> ShippingLinesOverride,
             string Zip
         );
-        
+
         public record Response(SharedAddressTypes.Address Address);
     }
-    
+
     public record DeleteAddressTypes
     {
         public record Response();
@@ -161,12 +163,11 @@ public class AddressesService
             string? UpdatedAtMax,
             string? UpdatedAtMin,
             bool? IsActive);
+
         public record Response(
             string? NextCursor,
             string? PreviousCursor,
             IReadOnlyList<SharedAddressTypes.Address> Addresses
-                );
+        );
     }
-
 }
-

@@ -3,7 +3,7 @@ using RechargeSharp.v2021_11.Entities.SharedModels;
 using RechargeSharp.v2021_11.Utilities;
 using RechargeSharp.v2021_11.Utilities.Queries;
 
-namespace RechargeSharp.v2021_11.Entities.Customers;
+namespace RechargeSharp.v2021_11.Endpoints.Customers;
 
 public class CustomerService
 {
