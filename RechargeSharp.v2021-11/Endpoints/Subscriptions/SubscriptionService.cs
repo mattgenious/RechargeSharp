@@ -67,6 +67,14 @@ public class SubscriptionService
         var responseJson = await _rechargeApiCaller.Post<ChangeSubscriptionsAddressTypes.Request, ChangeSubscriptionsAddressTypes.Response>(request, requestUri);
         return responseJson;
     }
+    
+    public async Task<CancelSubscriptionTypes.Response> CancelSubscription(int subscriptionId, CancelSubscriptionTypes.Request request)
+    {
+        var requestUri = $"/subscriptions/{subscriptionId}/cancel";
+        var responseJson = await _rechargeApiCaller.Post<CancelSubscriptionTypes.Request, CancelSubscriptionTypes.Response>(request, requestUri);
+        return responseJson;
+    }
+    
 
     public static class SharedSubscriptionTypes
     {
@@ -215,6 +223,12 @@ public class SubscriptionService
     public static class ChangeSubscriptionsAddressTypes
     {
         public record Request(int AddressId, DateOnly? NextChargeScheduledAt);
+        public record Response(SharedSubscriptionTypes.Subscription Subscription);
+    }
+    
+    public static class CancelSubscriptionTypes
+    {
+        public record Request(string CancellationReason, string? CancellationReasonComments, bool SendEmail);
         public record Response(SharedSubscriptionTypes.Subscription Subscription);
     }
 }

@@ -120,6 +120,17 @@ public class SubscriptionsServiceIntegrationTests
             new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsAddressTypes.Response>>(service => service.ChangeSubscriptionsAddress(1, new SubscriptionService.ChangeSubscriptionsAddressTypes.Request(1, new DateOnly(2022, 03, 01)))),
             change_a_subscription_address_200.CorrectlyDeserializedJson()
         };
+        
+        yield return new object[]
+        {
+            // Cancel a subscription
+            "Subscriptions/cancel-subscription_200.json",
+            HttpStatusCode.OK,
+            "/subscriptions/1/cancel",
+            HttpMethod.Post,
+            new Func<SubscriptionService, Task<SubscriptionService.CancelSubscriptionTypes.Response>>(service => service.CancelSubscription(1, fixture.Create<SubscriptionService.CancelSubscriptionTypes.Request>())),
+            cancel_subscription_200.CorrectlyDeserializedJson()
+        };
     }
     
     /// <summary>
