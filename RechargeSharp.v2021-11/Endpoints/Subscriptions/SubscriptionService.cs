@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RechargeSharp.v2021_11.Utilities;
+using RechargeSharp.v2021_11.Utilities.Queries;
 
 namespace RechargeSharp.v2021_11.Endpoints.Subscriptions;
 
@@ -36,6 +37,23 @@ public class SubscriptionService
         var responseJson = await _rechargeApiCaller.Put<UpdateSubscriptionTypes.Request, UpdateSubscriptionTypes.Response>(request,requestUri);
         return responseJson;
     }
+    
+    public async Task<DeleteSubscriptionTypes.Response> DeleteSubscription(int subscriptionId)
+    {
+        throw new NotImplementedException();
+        var requestUri = $"/subscriptions/{subscriptionId}";
+        await _rechargeApiCaller.Delete(requestUri);
+        return new DeleteSubscriptionTypes.Response();
+    }
+    
+    public async Task<ListSubscriptionsTypes.Response> ListSubscriptions(ListSubscriptionsTypes.Request request)
+    {
+        var queryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(request);
+        var requestUri = $"/subscriptions{queryString.Value}";
+        var responseJson = await _rechargeApiCaller.Get<ListSubscriptionsTypes.Response>(requestUri);
+        return responseJson;
+    }
+    
 
     public static class SharedSubscriptionTypes
     {
@@ -144,4 +162,34 @@ public class SubscriptionService
         
         public record Response(SharedSubscriptionTypes.Subscription Subscription);
     }
+
+    public static class DeleteSubscriptionTypes
+    {
+        public record Response();
+    }
+
+    public static class ListSubscriptionsTypes
+    {
+        public record Request(
+            string? AddressId,
+            IReadOnlyList<string>? AddressIds, // TODO implement custom serialization of this
+            DateTime? CreatedAtMax,
+            DateTime? CreatedAtMin,
+            string? Cursor,
+            string? CustomerId,
+            IReadOnlyList<string>? Ids,// TODO implement custom serialization of this
+            string? Limit,
+            int Page,
+            string Status,
+            DateTime? UpdatedAtMax,
+            DateTime? UpdatedAtMin
+            );
+        
+        public record Response(
+            string? NextCursor,
+            string? PreviousCursor,
+            IReadOnlyList<SharedSubscriptionTypes.Subscription> Subscriptions
+            );
+    }
+
 }

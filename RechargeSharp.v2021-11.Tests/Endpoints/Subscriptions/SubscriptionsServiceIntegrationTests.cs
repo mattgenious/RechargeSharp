@@ -10,7 +10,6 @@ using Polly;
 using RechargeSharp.v2021_11.Endpoints.Subscriptions;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
-using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Customers;
 using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Subscriptions;
 using Xunit;
 
@@ -76,6 +75,28 @@ public class SubscriptionsServiceIntegrationTests
             HttpMethod.Put,
             new Func<SubscriptionService, Task<SubscriptionService.UpdateSubscriptionTypes.Response>>(service => service.UpdateSubscription(1, fixture.Create<SubscriptionService.UpdateSubscriptionTypes.Request>())),
             update_subscription_200.CorrectlyDeserializedJson()
+        };
+        
+        yield return new object[]
+        {
+            // Delete subscription
+            "Subscriptions/delete-subscription_204.json",
+            HttpStatusCode.NoContent,
+            "/subscriptions/1",
+            HttpMethod.Delete,
+            new Func<SubscriptionService, Task<SubscriptionService.DeleteSubscriptionTypes.Response>>(service => service.DeleteSubscription(1)),
+            (SubscriptionService.DeleteSubscriptionTypes.Response?) null
+        };
+        
+        yield return new object[]
+        {
+            // List subscriptions
+            "Subscriptions/list-subscriptions_200.json",
+            HttpStatusCode.OK,
+            "/subscriptions",
+            HttpMethod.Get,
+            new Func<SubscriptionService, Task<SubscriptionService.ListSubscriptionsTypes.Response>>(service => service.ListSubscriptions(fixture.Create<SubscriptionService.ListSubscriptionsTypes.Request>())),
+            list_subscriptions_200.CorrectlyDeserializedJson()
         };
     }
     
