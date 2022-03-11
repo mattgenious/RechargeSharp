@@ -60,6 +60,13 @@ public class SubscriptionService
         var responseJson = await _rechargeApiCaller.Post<ChangeSubscriptionsNextChargeDateTypes.Request, ChangeSubscriptionsNextChargeDateTypes.Response>(request, requestUri);
         return responseJson;
     }
+    
+    public async Task<ChangeSubscriptionsAddressTypes.Response> ChangeSubscriptionsAddress(int subscriptionId, ChangeSubscriptionsAddressTypes.Request request)
+    {
+        var requestUri = $"/subscriptions/{subscriptionId}/change_address";
+        var responseJson = await _rechargeApiCaller.Post<ChangeSubscriptionsAddressTypes.Request, ChangeSubscriptionsAddressTypes.Response>(request, requestUri);
+        return responseJson;
+    }
 
     public static class SharedSubscriptionTypes
     {
@@ -179,15 +186,15 @@ public class SubscriptionService
     {
         public record Request(
             string? AddressId,
-            IReadOnlyList<string>? AddressIds, // TODO implement custom serialization of this
+            IReadOnlyList<string>? AddressIds,
             DateTime? CreatedAtMax,
             DateTime? CreatedAtMin,
             string? Cursor,
             string? CustomerId,
-            IReadOnlyList<string>? Ids,// TODO implement custom serialization of this
+            IReadOnlyList<string>? Ids,
             string? Limit,
-            int Page,
-            string Status,
+            int? Page,
+            string? Status,
             DateTime? UpdatedAtMax,
             DateTime? UpdatedAtMin
             );
@@ -202,6 +209,12 @@ public class SubscriptionService
     public static class ChangeSubscriptionsNextChargeDateTypes
     {
         public record Request(DateOnly Date);
+        public record Response(SharedSubscriptionTypes.Subscription Subscription);
+    }
+
+    public static class ChangeSubscriptionsAddressTypes
+    {
+        public record Request(int AddressId, DateOnly? NextChargeScheduledAt);
         public record Response(SharedSubscriptionTypes.Subscription Subscription);
     }
 }
