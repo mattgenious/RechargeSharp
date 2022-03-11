@@ -4,15 +4,15 @@ using RechargeSharp.v2021_11.Endpoints.Subscriptions;
 
 namespace RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Subscriptions;
 
-public static class create_subscription_201
+public static class update_subscription_200
 {
-    public static SubscriptionService.CreateSubscriptionTypes.Response CorrectlyDeserializedJson()
+    public static SubscriptionService.UpdateSubscriptionTypes.Response CorrectlyDeserializedJson()
     {
-        return new SubscriptionService.CreateSubscriptionTypes.Response(
+        return new SubscriptionService.UpdateSubscriptionTypes.Response(
             Subscription: new SubscriptionService.SharedSubscriptionTypes.Subscription(
-                Id: 123123123,
-                AddressId: 22222222,
-                CustomerId: 333333333,
+                Id: 111111,
+                AddressId: 222222,
+                CustomerId: 333333,
                 AnalyticsData: new SubscriptionService.SharedSubscriptionTypes.AnalyticsData(
                     UtmParams: Array.Empty<CustomerService.SharedTypes.UtmParam>()
                 ),
@@ -20,43 +20,47 @@ public static class create_subscription_201
                 CancellationReasonComments: null,
                 CancelledAt: null,
                 ChargeIntervalFrequency: 30,
-                CreatedAt: DateTime.Parse("2022-03-10T14:14:30+00:00"),
-                ExpireAfterSpecificNumberOfCharges: 1,
+                CreatedAt: DateTime.Parse("2022-03-10T12:13:28+00:00"),
+                ExpireAfterSpecificNumberOfCharges: null,
                 ExternalProductId: new SubscriptionService.SharedSubscriptionTypes.ExternalProductId(
-                    Ecommerce: "44444444444"
+                    Ecommerce: "123123123"
                 ),
                 ExternalVariantId: new SubscriptionService.SharedSubscriptionTypes.ExternalVariantId(
-                    Ecommerce: "555555555555"
+                    Ecommerce: "234234234"
                 ),
                 HasQueuedCharges: true,
                 IsPrepaid: false,
                 IsSkippable: true,
                 IsSwappable: false,
                 MaxRetriesReached: false,
-                NextChargeScheduledAt: DateOnly.Parse("2022-12-17"),
+                NextChargeScheduledAt: DateOnly.Parse("2022-04-09"),
                 OrderDayOfMonth: null,
                 OrderDayOfWeek: null,
                 OrderIntervalFrequency: 30,
                 OrderIntervalUnit: "day",
-                PresentmentCurrency: "DKK",
+                PresentmentCurrency: null,
                 Price: 49.00m,
                 ProductTitle: "Test product",
                 Properties: new SubscriptionService.SharedSubscriptionTypes.Property[]
                 {
-                    new SubscriptionService.SharedSubscriptionTypes.Property(
-                        Name: "Colour",
-                        Value: "Yellow"
-                    ),
-                    new SubscriptionService.SharedSubscriptionTypes.Property(
-                        Name: "Bottle Material",
-                        Value: "Glass"
-                    ),
+                     new SubscriptionService.SharedSubscriptionTypes.Property(
+                                     Name: "charge_interval_frequency",
+                                     Value: "30"
+                         ),
+                     new SubscriptionService.SharedSubscriptionTypes.Property(
+                         Name: "shipping_interval_frequency",
+                         Value: "30"
+                     ),
+                     new SubscriptionService.SharedSubscriptionTypes.Property(
+                         Name: "shipping_interval_unit_type",
+                         Value: "day"
+                     ),
                 },
-                Quantity: 3,
+                Quantity: 4,
                 Sku: null,
                 SkuOverride: false,
                 Status: "active",
-                UpdatedAt: DateTime.Parse("2022-03-10T14:14:30+00:00"),
+                UpdatedAt: DateTime.Parse("2022-03-11T07:01:12+00:00"),
                 VariantTitle: "972-1"
             )
         );

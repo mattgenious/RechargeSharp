@@ -1,0 +1,5 @@
+{
+  "errors": {
+    "charge_interval_unit_type": "when passing order_interval_unit provide charge_interval_frequency and order_interval_frequency to update the interval information"
+  }
+}

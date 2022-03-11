@@ -7,7 +7,7 @@ using RechargeSharp.v2021_11.Endpoints.Customers;
 using RechargeSharp.v2021_11.Utilities;
 using Xunit;
 
-namespace RechargeSharp.v2021_11.Tests.Entities.Customers;
+namespace RechargeSharp.v2021_11.Tests.Endpoints.Customers;
 
 public class CustomerServiceUnitTests
 {

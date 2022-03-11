@@ -11,10 +11,9 @@ using RechargeSharp.v2021_11.Endpoints.Addresses;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
 using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Addresses;
-using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Customers;
 using Xunit;
 
-namespace RechargeSharp.v2021_11.Tests.Entities.Addresses;
+namespace RechargeSharp.v2021_11.Tests.Endpoints.Addresses;
 
 public class AddressServiceIntegrationTests
 {

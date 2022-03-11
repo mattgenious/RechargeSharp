@@ -1,8 +1,8 @@
 {
   "subscription": {
-    "id": 123123123,
-    "address_id": 22222222,
-    "customer_id": 333333333,
+    "id": 1111111,
+    "address_id": 2222222,
+    "customer_id": 33333333,
     "analytics_data": {
       "utm_params": []
     },
@@ -10,42 +10,46 @@
     "cancellation_reason_comments": null,
     "cancelled_at": null,
     "charge_interval_frequency": 30,
-    "created_at": "2022-03-10T14:14:30+00:00",
-    "expire_after_specific_number_of_charges": 1,
+    "created_at": "2022-03-10T12:13:28+00:00",
+    "expire_after_specific_number_of_charges": null,
     "external_product_id": {
-      "ecommerce": "44444444444"
+      "ecommerce": "123123"
     },
     "external_variant_id": {
-      "ecommerce": "555555555555"
+      "ecommerce": "23123123123"
     },
     "has_queued_charges": true,
     "is_prepaid": false,
     "is_skippable": true,
     "is_swappable": false,
     "max_retries_reached": false,
-    "next_charge_scheduled_at": "2022-12-17",
+    "next_charge_scheduled_at": "2022-04-09",
     "order_day_of_month": null,
     "order_day_of_week": null,
     "order_interval_frequency": 30,
     "order_interval_unit": "day",
-    "presentment_currency": "DKK",
+    "presentment_currency": null,
     "price": "49.00",
     "product_title": "Test product",
     "properties": [
       {
-        "name": "Colour",
-        "value": "Yellow"
+        "name": "charge_interval_frequency",
+        "value": "30"
       },
       {
-        "name": "Bottle Material",
-        "value": "Glass"
+        "name": "shipping_interval_frequency",
+        "value": "30"
+      },
+      {
+        "name": "shipping_interval_unit_type",
+        "value": "day"
       }
     ],
-    "quantity": 3,
+    "quantity": 1,
     "sku": null,
     "sku_override": false,
     "status": "active",
-    "updated_at": "2022-03-10T14:14:30+00:00",
+    "updated_at": "2022-03-10T12:13:28+00:00",
     "variant_title": "972-1"
   }
 }

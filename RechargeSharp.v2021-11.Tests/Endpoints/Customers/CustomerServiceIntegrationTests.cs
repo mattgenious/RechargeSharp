@@ -13,7 +13,7 @@ using RechargeSharp.v2021_11.Tests.TestHelpers;
 using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Customers;
 using Xunit;
 
-namespace RechargeSharp.v2021_11.Tests.Entities.Customers;
+namespace RechargeSharp.v2021_11.Tests.Endpoints.Customers;
 
 public class CustomerServiceIntegrationTests
 {

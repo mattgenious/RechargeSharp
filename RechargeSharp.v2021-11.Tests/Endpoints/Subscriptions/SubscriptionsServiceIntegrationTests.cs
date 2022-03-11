@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
+using Polly;
 using RechargeSharp.v2021_11.Endpoints.Subscriptions;
+using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
 using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Customers;
+using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Subscriptions;
 using Xunit;
 
 namespace RechargeSharp.v2021_11.Tests.Endpoints.Subscriptions;
@@ -44,7 +47,7 @@ public class SubscriptionsServiceIntegrationTests
         
         yield return new object[]
         {
-            // Create payment method
+            // Create subscription
             "Subscriptions/create-subscription_201.json",
             HttpStatusCode.Created,
             "/subscriptions",
@@ -52,47 +55,91 @@ public class SubscriptionsServiceIntegrationTests
             new Func<SubscriptionService, Task<SubscriptionService.CreateSubscriptionTypes.Response>>(service => service.CreateSubscription(fixture.Create<SubscriptionService.CreateSubscriptionTypes.Request>())),
             create_subscription_201.CorrectlyDeserializedJson()
         };
+        
+        yield return new object[]
+        {
+            // Get subscription
+            "Subscriptions/get-subscription_200.json",
+            HttpStatusCode.OK,
+            "/subscriptions",
+            HttpMethod.Get,
+            new Func<SubscriptionService, Task<SubscriptionService.GetSubscriptionTypes.Response>>(service => service.GetSubscription(1)),
+            get_subscription_200.CorrectlyDeserializedJson()
+        };
+        
+        yield return new object[]
+        {
+            // Update subscription
+            "Subscriptions/update-subscription_200.json",
+            HttpStatusCode.OK,
+            "/subscriptions/1",
+            HttpMethod.Put,
+            new Func<SubscriptionService, Task<SubscriptionService.UpdateSubscriptionTypes.Response>>(service => service.UpdateSubscription(1, fixture.Create<SubscriptionService.UpdateSubscriptionTypes.Request>())),
+            update_subscription_200.CorrectlyDeserializedJson()
+        };
     }
     
-    // /// <summary>
-    // ///     Tests that the service behaves as expected when the Recharge API returns certain successful HTTP responses
-    // /// </summary>
-    // [Theory]
-    // [MemberData(nameof(RechargeApiHttpResponseErrorTestCases))]
-    // public async Task TestingErrorResponseCodes<T>(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<PaymentMethodsService, Task<T>> apiCallerFunc, Type expectedExceptionType)
-    // {
-    //     // Arrange
-    //     var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
-    //     var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
-    //     var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
-    //     
-    //     var nullLogger = new NullLogger<SubscriptionService>();
-    //     var sut = new SubscriptionService(nullLogger, apiCaller);
-    //     
-    //     // Act
-    //     Func<Task> act = async () => { await apiCallerFunc(sut); };
-    //     
-    //     // Assert
-    //     var exceptionShouldBeThrown = await act.Should().ThrowAsync<RechargeApiException>();
-    //     var thrownException = exceptionShouldBeThrown.Which;
-    //     thrownException.Should().BeOfType(expectedExceptionType);
-    //     thrownException.ErrorDataJson.Should().NotBeNull();
-    //     thrownException.ErrorDataJson.Errors.Should().NotBeNull();
-    // }
-    //
-    // public static IEnumerable<object[]> RechargeApiHttpResponseErrorTestCases()
-    // {
-    //     var fixture = new Fixture();
-    //
-    //     yield return new object[]
-    //     {
-    //         // Create payment method - no processor customer token with the provided ID exists
-    //         "PaymentMethods/create-payment-method_422_no_processor-customer-token_with_id.json",
-    //         HttpStatusCode.UnprocessableEntity,
-    //         "/payment_methods",
-    //         HttpMethod.Post,
-    //         new Func<PaymentMethodsService, Task<PaymentMethodsService.CreatePaymentMethodTypes.Response>>(service => service.CreatePaymentMethod(fixture.Create<PaymentMethodsService.CreatePaymentMethodTypes.Request>())),
-    //         typeof(UnprocessableEntityException)
-    //     };
-    // }
+    /// <summary>
+    ///     Tests that the service behaves as expected when the Recharge API returns certain successful HTTP responses
+    /// </summary>
+    [Theory]
+    [MemberData(nameof(RechargeApiHttpResponseErrorTestCases))]
+    public async Task TestingErrorResponseCodes<T>(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<SubscriptionService, Task<T>> apiCallerFunc, Type expectedExceptionType)
+    {
+        // Arrange
+        var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
+        var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
+        
+        var nullLogger = new NullLogger<SubscriptionService>();
+        var sut = new SubscriptionService(nullLogger, apiCaller);
+        
+        // Act
+        Func<Task> act = async () => { await apiCallerFunc(sut); };
+        
+        // Assert
+        var exceptionShouldBeThrown = await act.Should().ThrowAsync<RechargeApiException>();
+        var thrownException = exceptionShouldBeThrown.Which;
+        thrownException.Should().BeOfType(expectedExceptionType);
+        thrownException.ErrorDataJson.Should().NotBeNull();
+        thrownException.ErrorDataJson.Errors.Should().NotBeNull();
+    }
+    
+    public static IEnumerable<object[]> RechargeApiHttpResponseErrorTestCases()
+    {
+        var fixture = new Fixture();
+    
+        yield return new object[]
+        {
+            // Create subscription - next charge schedule was set to be in the past
+            "Subscriptions/create-subscription_422_next-charge-schedule-was-in-the-past.json",
+            HttpStatusCode.UnprocessableEntity,
+            "/subscriptions",
+            HttpMethod.Post,
+            new Func<SubscriptionService, Task<SubscriptionService.CreateSubscriptionTypes.Response>>(service => service.CreateSubscription(fixture.Create<SubscriptionService.CreateSubscriptionTypes.Request>())),
+            typeof(UnprocessableEntityException)
+        };
+        
+        yield return new object[]
+        {
+            // Get subscription - no subscription with the given ID
+            "Subscriptions/get-subscription_404_no-subscription-with-the-given-id.json",
+            HttpStatusCode.NotFound,
+            "/subscriptions/1",
+            HttpMethod.Get,
+            new Func<SubscriptionService, Task<SubscriptionService.GetSubscriptionTypes.Response>>(service => service.GetSubscription(1)),
+            typeof(NotFoundException)
+        };
+        
+        yield return new object[]
+        {
+            // Update subscription - missing required fields
+            "Subscriptions/update-subscription_422_missing-required-properties.json",
+            HttpStatusCode.UnprocessableEntity,
+            "/subscriptions/1",
+            HttpMethod.Put,
+            new Func<SubscriptionService, Task<SubscriptionService.UpdateSubscriptionTypes.Response>>(service => service.UpdateSubscription(1, fixture.Create<SubscriptionService.UpdateSubscriptionTypes.Request>())),
+            typeof(UnprocessableEntityException)
+        };
+    }
 }
