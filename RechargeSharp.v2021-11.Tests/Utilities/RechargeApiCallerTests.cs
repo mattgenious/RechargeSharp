@@ -57,6 +57,22 @@ public class RechargeApiCallerTests
     }
     
     [Fact]
+    public async Task CanPostEmptyBody()
+    {
+        // Arrange
+        var jsonReturnedByApi = "{\"some_string_property\": \"someValue\"}";
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.OK, "/somepath", HttpMethod.Post);
+        var sut = CreateSut(httpHandlerMock, BaseAddress);
+        
+        // Act
+        var result = await sut.Post<SomeClass>("/somepath");
+
+        // Assert
+        result.SomeStringProperty.Should().Be("someValue");
+        AssertThatExpectedHttpCallsWereMade(httpHandlerMock, HttpMethod.Post, 1);
+    }
+    
+    [Fact]
     public async Task CanPut()
     {
         // Arrange

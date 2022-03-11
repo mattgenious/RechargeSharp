@@ -92,6 +92,21 @@ public class RechargeApiCaller : IRechargeApiCaller
         
         return responseJson;
     }
+    
+    public async Task<TResponse> Post<TResponse>(string uri)
+    {
+        var requestFactory = () => new HttpRequestMessage()
+        {
+            Method = HttpMethod.Post,
+            RequestUri = new Uri(uri, UriKind.Relative)
+        };
+        
+        var response = await SendRequest(requestFactory);
+        var responseContentsStream = await response.Content.ReadAsStreamAsync();
+        var responseJson = await DeserializeResponseJson<TResponse>(responseContentsStream);
+        
+        return responseJson;
+    }
 
     public async Task Delete(string uri)
     {

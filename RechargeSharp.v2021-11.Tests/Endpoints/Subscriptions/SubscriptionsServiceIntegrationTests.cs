@@ -131,6 +131,17 @@ public class SubscriptionsServiceIntegrationTests
             new Func<SubscriptionService, Task<SubscriptionService.CancelSubscriptionTypes.Response>>(service => service.CancelSubscription(1, fixture.Create<SubscriptionService.CancelSubscriptionTypes.Request>())),
             cancel_subscription_200.CorrectlyDeserializedJson()
         };
+        
+        yield return new object[]
+        {
+            // Activate a subscription
+            "Subscriptions/activate-subscription_200.json",
+            HttpStatusCode.OK,
+            "/subscriptions/1/activate",
+            HttpMethod.Post,
+            new Func<SubscriptionService, Task<SubscriptionService.ActivateSubscriptionTypes.Response>>(service => service.ActivateSubscription(1)),
+            activate_subscription_200.CorrectlyDeserializedJson()
+        };
     }
     
     /// <summary>

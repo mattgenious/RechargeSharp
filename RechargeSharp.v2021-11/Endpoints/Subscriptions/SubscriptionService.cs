@@ -75,6 +75,13 @@ public class SubscriptionService
         return responseJson;
     }
     
+    public async Task<ActivateSubscriptionTypes.Response> ActivateSubscription(int subscriptionId)
+    {
+        var requestUri = $"/subscriptions/{subscriptionId}/activate";
+        var responseJson = await _rechargeApiCaller.Post<ActivateSubscriptionTypes.Response>(requestUri);
+        return responseJson;
+    }
+    
 
     public static class SharedSubscriptionTypes
     {
@@ -229,6 +236,11 @@ public class SubscriptionService
     public static class CancelSubscriptionTypes
     {
         public record Request(string CancellationReason, string? CancellationReasonComments, bool SendEmail);
+        public record Response(SharedSubscriptionTypes.Subscription Subscription);
+    }
+    
+    public static class ActivateSubscriptionTypes
+    {
         public record Response(SharedSubscriptionTypes.Subscription Subscription);
     }
 }
