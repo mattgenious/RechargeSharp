@@ -30,11 +30,39 @@ public static class ObjectToQueryStringSerializer
                 case JsonValueKind.Null:
                     queryString = queryString.Add(jsonProperty.Name, jsonProperty.Value.ToString());
                     break;
+                case JsonValueKind.Array:
+                {
+                    queryString = SerializeArrayToQueryString(jsonProperty, queryString);
+                    break;
+                }
                 default:
                     throw new ArgumentOutOfRangeException(nameof(jsonProperty.Value.ValueKind), "Serialization of this JSON type into query parameters has not been implemented");
             }
         }
 
+        return queryString;
+    }
+
+    private static QueryString SerializeArrayToQueryString(JsonProperty jsonProperty, QueryString queryString)
+    {
+        var arrayElementsAsStrings = new List<string>();
+        for (int i = 0; i < jsonProperty.Value.GetArrayLength(); i++)
+        {
+            var arrayElement = jsonProperty.Value[i];
+            switch (arrayElement.ValueKind)
+            {
+                case JsonValueKind.String:
+                case JsonValueKind.Number:
+                    arrayElementsAsStrings.Add(arrayElement.GetString()!);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(arrayElement.ValueKind),
+                        "Serialization of arrays of complex types has not been implemented");
+            }
+        }
+
+        var serializedArray = string.Join(",", arrayElementsAsStrings);
+        queryString = queryString.Add(jsonProperty.Name, serializedArray);
         return queryString;
     }
 }
