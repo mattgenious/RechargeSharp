@@ -40,7 +40,6 @@ public class SubscriptionService
     
     public async Task<DeleteSubscriptionTypes.Response> DeleteSubscription(int subscriptionId)
     {
-        throw new NotImplementedException();
         var requestUri = $"/subscriptions/{subscriptionId}";
         await _rechargeApiCaller.Delete(requestUri);
         return new DeleteSubscriptionTypes.Response();

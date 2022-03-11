@@ -156,21 +156,52 @@ public class RechargeApiCaller : IRechargeApiCaller
         // Therefore, we match on ints instead of names
         return (int) response.StatusCode switch
         {
+            // Bad Request: The request was unacceptable, often due to a missing required parameter.
             400 => new BadRequestException(responseBodyAsStructuredJson),
+            
+            // Unauthorized: No valid API key was provided.
             401 => new UnauthorizedException(responseBodyAsStructuredJson),
+            
+            // Request Failed: The parameters were valid but the request failed.
             402 => new UnknownApiFailureException(responseBodyAsStructuredJson),
+            
+            // The request was authenticated but not authorized for the requested resource (permission scope error).
             403 => new ForbiddenException(responseBodyAsStructuredJson),
+            
+            // Not Found: The requested resource doesn’t exist.
             404 => new NotFoundException(responseBodyAsStructuredJson),
+            
+            // Method Not Allowed: The method is not allowed for this URI.
             405 => new MethodNotAllowedException(responseBodyAsStructuredJson),
+            
+            // The request was unacceptable, or requesting a data source which is not allowed although permissions permit the request.
             406 => new UnknownApiFailureException(responseBodyAsStructuredJson),
+            
+            // Conflict: You will get this error when you try to send two requests to edit an address or any of its child objects at the same time, in order to avoid out of date information being returned.
             409 => new ConflictException(responseBodyAsStructuredJson),
+            
+            // The request body was not a JSON object.
             415 => new UnsupportedMediaTypeException(responseBodyAsStructuredJson),
+            
+            // The request was understood but cannot be processed due to invalid or missing supplemental information.
             422 => new UnprocessableEntityException(responseBodyAsStructuredJson),
+            
+            // The request was made using an invalid API version.
             426 => new InvalidApiVersionException(responseBodyAsStructuredJson),
+            
+            // The request has been rate limited.
             429 => new RateLimitingException(responseBodyAsStructuredJson),
+            
+            // Internal server error.
             500 => new RechargeApiServerException(responseBodyAsStructuredJson),
+            
+            // The resource requested has not been implemented in the current version but may be implemented in the future.
             501 => new RechargeApiServerException(responseBodyAsStructuredJson),
+            
+            // A 3rd party service on which the request depends has timed out.
             503 => new RechargeApiServerException(responseBodyAsStructuredJson),
+            
+            // Unknown error
             _ => new RechargeApiException($"An unknown error occurred with unhandled status code {(int) response.StatusCode}")
         };
     }
