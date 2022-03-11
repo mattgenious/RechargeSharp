@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Web;
 using FluentAssertions;
 using RechargeSharp.v2021_11.Utilities.Queries;
@@ -29,6 +30,17 @@ public class ObjectToQueryParametersSerializerTests
         var parsedQueryString = HttpUtility.ParseQueryString(asQueryString.Value);
         parsedQueryString["some_decimal_property"].Should().Be(input.SomeDecimalProperty?.ToString("F2"));
     }
+        
+    [Fact]
+    public void CanSerializeObjectWithAnArrayToQueryParameters()
+    {
+        var input = new SomeClassWithAnArray("test", new []{"test1", "test2", "test3"});
+        var asQueryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(input);
+        asQueryString.Value.Should().NotBeNullOrEmpty();
+        var parsedQueryString = HttpUtility.ParseQueryString(asQueryString.Value);
+        parsedQueryString["some_string_property"].Should().Be(input.SomeStringProperty);
+        parsedQueryString["some_string_array"].Should().Be("test1,test2,test3");
+    }
 
     [Fact]
     public void ReturnsEmptyQueryStringOnAllNullProperties()
@@ -48,6 +60,7 @@ public class ObjectToQueryParametersSerializerTests
     
     public record SomeClass(string SomeStringProperty, DateTime SomeDateTimeProperty, decimal SomeDecimalProperty);
     public record SomeClassWithNullableProperties(string? SomeStringProperty, DateTime? SomeDateTimeProperty, decimal? SomeDecimalProperty);
+    public record SomeClassWithAnArray(string? SomeStringProperty, IReadOnlyList<string> SomeStringArray);
     
     public record SomeClassWithComplexProperties(SomeClassWithComplexProperties? SomeComplexProperty, string? SomeStringProperty);
 }
