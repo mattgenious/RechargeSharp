@@ -4,12 +4,12 @@ using RechargeSharp.v2021_11.Utilities.Queries;
 
 namespace RechargeSharp.v2021_11.Endpoints.Addresses;
 
-public class AddressesService
+public class AddressService
 {
-    private readonly ILogger<AddressesService> _logger;
-    private readonly RechargeApiCaller _rechargeApiCaller;
+    private readonly ILogger<AddressService> _logger;
+    private readonly IRechargeApiCaller _rechargeApiCaller;
 
-    public AddressesService(ILogger<AddressesService> logger, RechargeApiCaller rechargeApiCaller)
+    public AddressService(ILogger<AddressService> logger, IRechargeApiCaller rechargeApiCaller)
     {
         _logger = logger;
         _rechargeApiCaller = rechargeApiCaller;

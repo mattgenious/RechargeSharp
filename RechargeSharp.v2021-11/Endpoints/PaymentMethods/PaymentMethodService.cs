@@ -5,12 +5,12 @@ using RechargeSharp.v2021_11.Utilities.Queries;
 
 namespace RechargeSharp.v2021_11.Endpoints.PaymentMethods;
 
-public class PaymentMethodsService
+public class PaymentMethodService
 {
-    private readonly ILogger<PaymentMethodsService> _logger;
-    private readonly RechargeApiCaller _rechargeApiCaller;
+    private readonly ILogger<PaymentMethodService> _logger;
+    private readonly IRechargeApiCaller _rechargeApiCaller;
 
-    public PaymentMethodsService(ILogger<PaymentMethodsService> logger, RechargeApiCaller rechargeApiCaller)
+    public PaymentMethodService(ILogger<PaymentMethodService> logger, IRechargeApiCaller rechargeApiCaller)
     {
         _logger = logger;
         _rechargeApiCaller = rechargeApiCaller;

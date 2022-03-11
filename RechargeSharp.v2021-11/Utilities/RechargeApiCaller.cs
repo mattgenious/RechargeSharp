@@ -2,6 +2,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Polly;
 using RechargeSharp.v2021_11.Entities.Errors;
 using RechargeSharp.v2021_11.Exceptions;
@@ -14,7 +15,9 @@ public interface IRechargeApiCaller
     Task<T> Get<T>(string uri);
     Task<TResponse> Put<TRequest, TResponse>(TRequest instance, string uri);
     Task<TResponse> Post<TRequest, TResponse>(TRequest instance, string uri);
+    Task<TResponse> Post<TResponse>(string uri);
     Task Delete(string uri);
+    
 }
 
 public class RechargeApiCaller : IRechargeApiCaller
@@ -25,13 +28,13 @@ public class RechargeApiCaller : IRechargeApiCaller
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     public IAsyncPolicy AsyncRetryPolicy { get; set; }
 
-    public RechargeApiCaller(IHttpClientFactory httpClientFactory, ILogger<RechargeApiCaller> logger, RechargeApiCallerOptions rechargeApiCallerOptions)
+    public RechargeApiCaller(IHttpClientFactory httpClientFactory, ILogger<RechargeApiCaller> logger, IOptions<RechargeApiCallerOptions> rechargeApiCallerOptions)
     {
         _logger = logger;
-        _rechargeApiCallerOptions = rechargeApiCallerOptions;
-        _httpClient = httpClientFactory.CreateClient();
+        _rechargeApiCallerOptions = rechargeApiCallerOptions.Value;
+        _httpClient = httpClientFactory.CreateClient("RechargeSharpClient");
         _httpClient.DefaultRequestHeaders.Add("X-Recharge-Version", "2021-11");
-        _httpClient.DefaultRequestHeaders.Add ("X-Recharge-Access-Token", rechargeApiCallerOptions.ApiKey);
+        _httpClient.DefaultRequestHeaders.Add ("X-Recharge-Access-Token", _rechargeApiCallerOptions.ApiKey);
 
         _jsonSerializerOptions = new JsonSerializerOptions()
         {

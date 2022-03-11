@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using Moq;
 using Polly;
 using RechargeSharp.v2021_11.Utilities;
@@ -20,12 +21,12 @@ public static class RechargeApiCallerMocking
         var logger = new NullLogger<RechargeApiCaller>();
         var httpClientFactoryMock = new Mock<IHttpClientFactory>();
 
-        httpClientFactoryMock.Setup(f => f.CreateClient(string.Empty)).Returns(httpClient);
+        httpClientFactoryMock.Setup(f => f.CreateClient("RechargeSharpClient")).Returns(httpClient);
 
         var rechargeApiCallerOptions = new RechargeApiCallerOptions();
         if (policy != null)
             rechargeApiCallerOptions.ApiCallPolicy = policy;
-        var sut = new RechargeApiCaller(httpClientFactoryMock.Object, logger, rechargeApiCallerOptions);
+        var sut = new RechargeApiCaller(httpClientFactoryMock.Object, logger, Options.Create(rechargeApiCallerOptions));
         return sut;
     }
 }

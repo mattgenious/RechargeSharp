@@ -8,9 +8,9 @@ namespace RechargeSharp.v2021_11.Endpoints.Subscriptions;
 public class SubscriptionService
 {
     private readonly ILogger<SubscriptionService> _logger;
-    private readonly RechargeApiCaller _rechargeApiCaller;
+    private readonly IRechargeApiCaller _rechargeApiCaller;
 
-    public SubscriptionService(ILogger<SubscriptionService> logger, RechargeApiCaller rechargeApiCaller)
+    public SubscriptionService(ILogger<SubscriptionService> logger, IRechargeApiCaller rechargeApiCaller)
     {
         _logger = logger;
         _rechargeApiCaller = rechargeApiCaller;

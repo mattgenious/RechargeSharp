@@ -1,13 +1,14 @@
-﻿using Polly;
+﻿using System.ComponentModel.DataAnnotations;
+using Polly;
 using RechargeSharp.v2021_11.Exceptions;
 
 namespace RechargeSharp.v2021_11
 {
     public class RechargeApiCallerOptions
     {
+        [Required]
         public string ApiKey { get; set; }
-        public string? WebhookApiKey{ get; set; }
-
+        
         public IAsyncPolicy ApiCallPolicy { get; internal set; } = GetDefaultApiCallPolicy();
         
         public static IAsyncPolicy GetDefaultApiCallPolicy()

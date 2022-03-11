@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using Moq;
 using Moq.Protected;
 using Polly;
@@ -287,14 +288,14 @@ public class RechargeApiCallerTests
         var logger = new NullLogger<RechargeApiCaller>();
         var httpClientFactoryMock = new Mock<IHttpClientFactory>();
 
-        httpClientFactoryMock.Setup(f => f.CreateClient(string.Empty)).Returns(httpClient);
+        httpClientFactoryMock.Setup(f => f.CreateClient("RechargeSharpClient")).Returns(httpClient);
 
         var rechargeApiCallerOptions = new RechargeApiCallerOptions()
         {
             ApiCallPolicy = policy,
             ApiKey = ApiKey
         };
-        var sut = new RechargeApiCaller(httpClientFactoryMock.Object, logger, rechargeApiCallerOptions);
+        var sut = new RechargeApiCaller(httpClientFactoryMock.Object, logger, Options.Create<RechargeApiCallerOptions>(rechargeApiCallerOptions));
         return sut;
     }
 

@@ -22,15 +22,15 @@ public class PaymentMethodsServiceIntegrationTests
     /// </summary>
     [Theory]
     [MemberData(nameof(RechargeApiHttpResponseSuccessTestCases))]
-    public async Task TestingSuccessResponseCodes<T>(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<PaymentMethodsService, Task<T>> apiCallerFunc, T? expectedDeserializedResponse)
+    public async Task TestingSuccessResponseCodes<T>(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<PaymentMethodService, Task<T>> apiCallerFunc, T? expectedDeserializedResponse)
     {
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
         var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
         
-        var nullLogger = new NullLogger<PaymentMethodsService>();
-        var sut = new PaymentMethodsService(nullLogger, apiCaller);
+        var nullLogger = new NullLogger<PaymentMethodService>();
+        var sut = new PaymentMethodService(nullLogger, apiCaller);
         
         // Act
         var result = await apiCallerFunc(sut);
@@ -51,7 +51,7 @@ public class PaymentMethodsServiceIntegrationTests
             HttpStatusCode.Created,
             "/payment_methods",
             HttpMethod.Post,
-            new Func<PaymentMethodsService, Task<PaymentMethodsService.CreatePaymentMethodTypes.Response>>(service => service.CreatePaymentMethod(fixture.Create<PaymentMethodsService.CreatePaymentMethodTypes.Request>())),
+            new Func<PaymentMethodService, Task<PaymentMethodService.CreatePaymentMethodTypes.Response>>(service => service.CreatePaymentMethod(fixture.Create<PaymentMethodService.CreatePaymentMethodTypes.Request>())),
             create_payment_method_201.CorrectlyDeserializedJson()
         };
         
@@ -62,7 +62,7 @@ public class PaymentMethodsServiceIntegrationTests
             HttpStatusCode.OK,
             "/payment_methods/1111111",
             HttpMethod.Get,
-            new Func<PaymentMethodsService, Task<PaymentMethodsService.GetPaymentMethodTypes.Response>>(service => service.GetPaymentMethod(1111111)),
+            new Func<PaymentMethodService, Task<PaymentMethodService.GetPaymentMethodTypes.Response>>(service => service.GetPaymentMethod(1111111)),
             get_payment_method_200.CorrectlyDeserializedJson()
         };
         
@@ -73,7 +73,7 @@ public class PaymentMethodsServiceIntegrationTests
             HttpStatusCode.OK,
             "/payment_methods/1111111",
             HttpMethod.Put,
-            new Func<PaymentMethodsService, Task<PaymentMethodsService.UpdatePaymentMethodTypes.Response>>(service => service.UpdatePaymentMethod(1111111, fixture.Create<PaymentMethodsService.UpdatePaymentMethodTypes.Request>())),
+            new Func<PaymentMethodService, Task<PaymentMethodService.UpdatePaymentMethodTypes.Response>>(service => service.UpdatePaymentMethod(1111111, fixture.Create<PaymentMethodService.UpdatePaymentMethodTypes.Request>())),
             update_payment_method_200.CorrectlyDeserializedJson()
         };
         
@@ -84,8 +84,8 @@ public class PaymentMethodsServiceIntegrationTests
             HttpStatusCode.NoContent,
             "/payment_methods/1111111",
             HttpMethod.Delete,
-            new Func<PaymentMethodsService, Task<PaymentMethodsService.DeletePaymentMethodTypes.Response>>(service => service.DeletePaymentMethod(1111111)),
-            (PaymentMethodsService.DeletePaymentMethodTypes.Response) null
+            new Func<PaymentMethodService, Task<PaymentMethodService.DeletePaymentMethodTypes.Response>>(service => service.DeletePaymentMethod(1111111)),
+            (PaymentMethodService.DeletePaymentMethodTypes.Response) null
         };
         
         yield return new object[]
@@ -95,7 +95,7 @@ public class PaymentMethodsServiceIntegrationTests
             HttpStatusCode.OK,
             "/payment_methods",
             HttpMethod.Get,
-            new Func<PaymentMethodsService, Task<PaymentMethodsService.ListPaymentMethodTypes.Response>>(service => service.ListPaymentMethods(fixture.Create<PaymentMethodsService.ListPaymentMethodTypes.Request>())),
+            new Func<PaymentMethodService, Task<PaymentMethodService.ListPaymentMethodTypes.Response>>(service => service.ListPaymentMethods(fixture.Create<PaymentMethodService.ListPaymentMethodTypes.Request>())),
             list_payment_methods_200.CorrectlyDeserializedJson()
         };
     }
@@ -105,15 +105,15 @@ public class PaymentMethodsServiceIntegrationTests
     /// </summary>
     [Theory]
     [MemberData(nameof(RechargeApiHttpResponseErrorTestCases))]
-    public async Task TestingErrorResponseCodes<T>(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<PaymentMethodsService, Task<T>> apiCallerFunc, Type expectedExceptionType)
+    public async Task TestingErrorResponseCodes<T>(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<PaymentMethodService, Task<T>> apiCallerFunc, Type expectedExceptionType)
     {
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
         var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
         
-        var nullLogger = new NullLogger<PaymentMethodsService>();
-        var sut = new PaymentMethodsService(nullLogger, apiCaller);
+        var nullLogger = new NullLogger<PaymentMethodService>();
+        var sut = new PaymentMethodService(nullLogger, apiCaller);
         
         // Act
         Func<Task> act = async () => { await apiCallerFunc(sut); };
@@ -137,7 +137,7 @@ public class PaymentMethodsServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/payment_methods",
             HttpMethod.Post,
-            new Func<PaymentMethodsService, Task<PaymentMethodsService.CreatePaymentMethodTypes.Response>>(service => service.CreatePaymentMethod(fixture.Create<PaymentMethodsService.CreatePaymentMethodTypes.Request>())),
+            new Func<PaymentMethodService, Task<PaymentMethodService.CreatePaymentMethodTypes.Response>>(service => service.CreatePaymentMethod(fixture.Create<PaymentMethodService.CreatePaymentMethodTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
         
@@ -148,7 +148,7 @@ public class PaymentMethodsServiceIntegrationTests
             HttpStatusCode.NotFound,
             "/payment_methods/1",
             HttpMethod.Get,
-            new Func<PaymentMethodsService, Task<PaymentMethodsService.GetPaymentMethodTypes.Response>>(service => service.GetPaymentMethod(1)),
+            new Func<PaymentMethodService, Task<PaymentMethodService.GetPaymentMethodTypes.Response>>(service => service.GetPaymentMethod(1)),
             typeof(NotFoundException)
         };
         
@@ -159,7 +159,7 @@ public class PaymentMethodsServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/payment_methods/1",
             HttpMethod.Put,
-            new Func<PaymentMethodsService, Task<PaymentMethodsService.UpdatePaymentMethodTypes.Response>>(service => service.UpdatePaymentMethod(1, fixture.Create<PaymentMethodsService.UpdatePaymentMethodTypes.Request>())),
+            new Func<PaymentMethodService, Task<PaymentMethodService.UpdatePaymentMethodTypes.Response>>(service => service.UpdatePaymentMethod(1, fixture.Create<PaymentMethodService.UpdatePaymentMethodTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
         
@@ -170,7 +170,7 @@ public class PaymentMethodsServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/payment_methods/1",
             HttpMethod.Delete,
-            new Func<PaymentMethodsService, Task<PaymentMethodsService.DeletePaymentMethodTypes.Response>>(service => service.DeletePaymentMethod(1)),
+            new Func<PaymentMethodService, Task<PaymentMethodService.DeletePaymentMethodTypes.Response>>(service => service.DeletePaymentMethod(1)),
             typeof(UnprocessableEntityException)
         };
     }

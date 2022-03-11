@@ -6,10 +6,10 @@ namespace RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.PaymentMeth
 
 public static class get_payment_method_200
 {
-    public static PaymentMethodsService.GetPaymentMethodTypes.Response CorrectlyDeserializedJson()
+    public static PaymentMethodService.GetPaymentMethodTypes.Response CorrectlyDeserializedJson()
     {
-        return new PaymentMethodsService.GetPaymentMethodTypes.Response(
-            PaymentMethod: new PaymentMethodsService.SharedTypes.PaymentMethod(
+        return new PaymentMethodService.GetPaymentMethodTypes.Response(
+            PaymentMethod: new PaymentMethodService.SharedTypes.PaymentMethod(
                 Id: 123123,
                 CustomerId: 2222222,
                 BillingAddress: new Address(
@@ -27,7 +27,7 @@ public static class get_payment_method_200
                 ),
                 CreatedAt: DateTime.Parse("2022-03-09T10:25:10"),
                 Default: true,
-                PaymentDetails: new PaymentMethodsService.SharedTypes.PaymentDetails(
+                PaymentDetails: new PaymentMethodService.SharedTypes.PaymentDetails(
                     Brand: "visa",
                     ExpMonth: 4,
                     ExpYear: 2024,

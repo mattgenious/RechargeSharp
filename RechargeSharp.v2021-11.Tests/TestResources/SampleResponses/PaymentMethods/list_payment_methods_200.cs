@@ -6,12 +6,12 @@ namespace RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.PaymentMeth
 
 public static class list_payment_methods_200
 {
-    public static PaymentMethodsService.ListPaymentMethodTypes.Response CorrectlyDeserializedJson()
+    public static PaymentMethodService.ListPaymentMethodTypes.Response CorrectlyDeserializedJson()
     {
-        return new PaymentMethodsService.ListPaymentMethodTypes.Response(
+        return new PaymentMethodService.ListPaymentMethodTypes.Response(
             new []
             {
-                new PaymentMethodsService.SharedTypes.PaymentMethod(
+                new PaymentMethodService.SharedTypes.PaymentMethod(
                     Id: 324534534,
                     CustomerId: 132123123,
                     BillingAddress: new Address(
@@ -29,7 +29,7 @@ public static class list_payment_methods_200
                     ),
                     CreatedAt: DateTime.Parse("2022-03-09T10:27:40"),
                     Default: true,
-                    PaymentDetails: new PaymentMethodsService.SharedTypes.PaymentDetails(
+                    PaymentDetails: new PaymentMethodService.SharedTypes.PaymentDetails(
                         Brand: "visa",
                         ExpMonth: 3,
                         ExpYear: 2023,
@@ -47,7 +47,7 @@ public static class list_payment_methods_200
                     StatusReason: null,
                     UpdatedAt: DateTime.Parse("2022-03-09T10:27:40")
                 ),
-                new PaymentMethodsService.SharedTypes.PaymentMethod(
+                new PaymentMethodService.SharedTypes.PaymentMethod(
                     Id: 123123123,
                     CustomerId: 23232323,
                     BillingAddress: new Address(
@@ -65,7 +65,7 @@ public static class list_payment_methods_200
                     ),
                     CreatedAt: DateTime.Parse("2022-03-09T10:27:40"),
                     Default: null,
-                    PaymentDetails: new PaymentMethodsService.SharedTypes.PaymentDetails(
+                    PaymentDetails: new PaymentMethodService.SharedTypes.PaymentDetails(
                         Brand: null,
                         ExpMonth: null,
                         ExpYear: null,

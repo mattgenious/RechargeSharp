@@ -5,10 +5,10 @@ namespace RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Addresses;
 
 public static class update_address_200
 {
-    public static AddressesService.UpdateAddressTypes.Response CorrectlyDeserializedJson()
+    public static AddressService.UpdateAddressTypes.Response CorrectlyDeserializedJson()
     {
-        return new AddressesService.UpdateAddressTypes.Response(
-            new AddressesService.SharedAddressTypes.Address(
+        return new AddressService.UpdateAddressTypes.Response(
+            new AddressService.SharedAddressTypes.Address(
                 Id: 123123,
                 CustomerId: 12312312,
                 PaymentMethodId: null,
@@ -18,12 +18,12 @@ public static class update_address_200
                 Company: "Recharge",
                 CountryCode: "US",
                 CreatedAt: DateTime.Parse("2022-03-10T10:28:40+00:00"),
-                Discounts: Array.Empty<AddressesService.SharedAddressTypes.Discount>(),
+                Discounts: Array.Empty<AddressService.SharedAddressTypes.Discount>(),
                 FirstName: "Niels",
                 LastName: "Doe",
-                OrderAttributes: new AddressesService.SharedAddressTypes.OrderAttribute[]
+                OrderAttributes: new AddressService.SharedAddressTypes.OrderAttribute[]
                 {
-                    new AddressesService.SharedAddressTypes.OrderAttribute(
+                    new AddressService.SharedAddressTypes.OrderAttribute(
                         Name: "custom name",
                         Value: "custom value"
                     )
@@ -32,7 +32,7 @@ public static class update_address_200
                 Phone:"5551234567",
                 PresentmentCurrency:"DKK",
                 Province:"California",
-                ShippingLinesOverride: Array.Empty<AddressesService.SharedAddressTypes.ShippingLineOverride>(),
+                ShippingLinesOverride: Array.Empty<AddressService.SharedAddressTypes.ShippingLineOverride>(),
                 UpdatedAt: DateTime.Parse("2022-03-10T12:02:14+00:00"),
                 Zip:"90404"
             ));
