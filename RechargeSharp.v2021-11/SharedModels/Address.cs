@@ -1,4 +1,4 @@
-namespace RechargeSharp.v2021_11.Entities.SharedModels;
+namespace RechargeSharp.v2021_11.SharedModels;
 
 public record Address(
     string? Address1,
