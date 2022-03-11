@@ -54,6 +54,12 @@ public class SubscriptionService
         return responseJson;
     }
     
+    public async Task<ChangeSubscriptionsNextChargeDateTypes.Response> ChangeSubscriptionsNextChargeDate(int subscriptionId, ChangeSubscriptionsNextChargeDateTypes.Request request)
+    {
+        var requestUri = $"/subscriptions/{subscriptionId}/set_next_charge_date";
+        var responseJson = await _rechargeApiCaller.Post<ChangeSubscriptionsNextChargeDateTypes.Request, ChangeSubscriptionsNextChargeDateTypes.Response>(request, requestUri);
+        return responseJson;
+    }
 
     public static class SharedSubscriptionTypes
     {
@@ -125,6 +131,7 @@ public class SubscriptionService
             string? ProductTitle,
             IReadOnlyList<SharedSubscriptionTypes.Property> Properties,
             int Quantity,
+            string? Sku,
             SharedSubscriptionTypes.ExternalProductId ExternalProductId,
             SharedSubscriptionTypes.ExternalVariantId ExternalVariantId,
             string? Status
@@ -192,4 +199,9 @@ public class SubscriptionService
             );
     }
 
+    public static class ChangeSubscriptionsNextChargeDateTypes
+    {
+        public record Request(DateOnly Date);
+        public record Response(SharedSubscriptionTypes.Subscription Subscription);
+    }
 }

@@ -98,6 +98,17 @@ public class SubscriptionsServiceIntegrationTests
             new Func<SubscriptionService, Task<SubscriptionService.ListSubscriptionsTypes.Response>>(service => service.ListSubscriptions(fixture.Create<SubscriptionService.ListSubscriptionsTypes.Request>())),
             list_subscriptions_200.CorrectlyDeserializedJson()
         };
+        
+        yield return new object[]
+        {
+            // Change a subscription next charge date
+            "Subscriptions/change-a-subscription-next-charge-date_200.json",
+            HttpStatusCode.OK,
+            "/subscriptions/1/set_next_charge_date",
+            HttpMethod.Post,
+            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response>>(service => service.ChangeSubscriptionsNextChargeDate(1, new SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request(new DateOnly(2022, 03, 01)))),
+            change_a_subscription_next_charge_date_200.CorrectlyDeserializedJson()
+        };
     }
     
     /// <summary>
@@ -160,6 +171,17 @@ public class SubscriptionsServiceIntegrationTests
             "/subscriptions/1",
             HttpMethod.Put,
             new Func<SubscriptionService, Task<SubscriptionService.UpdateSubscriptionTypes.Response>>(service => service.UpdateSubscription(1, fixture.Create<SubscriptionService.UpdateSubscriptionTypes.Request>())),
+            typeof(UnprocessableEntityException)
+        };
+        
+        yield return new object[]
+        {
+            // Change a subscription next charge date - date set to sometime in the past
+            "Subscriptions/change-a-subscription-next-charge-date_422_date-set-to-the-past.json",
+            HttpStatusCode.UnprocessableEntity,
+            "/subscriptions/1/set_next_charge_date",
+            HttpMethod.Post,
+            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response>>(service => service.ChangeSubscriptionsNextChargeDate(1,  new SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request(new DateOnly(2022, 03, 01)))),
             typeof(UnprocessableEntityException)
         };
     }
