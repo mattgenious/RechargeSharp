@@ -11,6 +11,8 @@ namespace RechargeSharp.v2021_11.Configuration.DependencyInjection;
 
 public static class RechargeSharpDependencyInjection
 {
+    public const string RechargeSharpHttpClientKey = "RechargeSharpClient2021_11";
+    
     public static IServiceCollection AddRechargeSharp2021_11(this IServiceCollection services, Action<RechargeApiCallerOptions> options)
     {
         services
@@ -18,21 +20,21 @@ public static class RechargeSharpDependencyInjection
             .Configure(options)
             .ValidateDataAnnotations();
         
-        services.AddHttpClient("RechargeSharpClient", (services, opts) =>
+        services.AddHttpClient(RechargeSharpHttpClientKey, (_, opts) =>
         {
             opts.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             opts.BaseAddress = new Uri("https://api.rechargeapps.com/");
-        }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() {MaxConnectionsPerServer = 256});
+        });
 
         services.AddTransient(x => options);
         services.AddLogging();
 
         services
-            .AddScoped<IRechargeApiCaller, RechargeApiCaller>()
-            .AddScoped<AddressService>()
-            .AddScoped<CustomerService>()
-            .AddScoped<SubscriptionService>()
-            .AddScoped<PaymentMethodService>();
+            .AddTransient<IRechargeApiCaller, RechargeApiCaller>()
+            .AddTransient<AddressService>()
+            .AddTransient<CustomerService>()
+            .AddTransient<SubscriptionService>()
+            .AddTransient<PaymentMethodService>();
 
         return services;
     }

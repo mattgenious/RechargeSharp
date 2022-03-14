@@ -4,6 +4,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
+using RechargeSharp.v2021_11.Configuration.DependencyInjection;
 using RechargeSharp.v2021_11.Entities.Errors;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Utilities.Json;
@@ -32,7 +33,7 @@ public class RechargeApiCaller : IRechargeApiCaller
     {
         _logger = logger;
         _rechargeApiCallerOptions = rechargeApiCallerOptions.Value;
-        _httpClient = httpClientFactory.CreateClient("RechargeSharpClient");
+        _httpClient = httpClientFactory.CreateClient(RechargeSharpDependencyInjection.RechargeSharpHttpClientKey);
         _httpClient.DefaultRequestHeaders.Add("X-Recharge-Version", "2021-11");
         _httpClient.DefaultRequestHeaders.Add ("X-Recharge-Access-Token", _rechargeApiCallerOptions.ApiKey);
 

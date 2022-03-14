@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Moq;
 using Moq.Protected;
 using Polly;
+using RechargeSharp.v2021_11.Configuration.DependencyInjection;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
 using RechargeSharp.v2021_11.Utilities;
@@ -288,7 +289,7 @@ public class RechargeApiCallerTests
         var logger = new NullLogger<RechargeApiCaller>();
         var httpClientFactoryMock = new Mock<IHttpClientFactory>();
 
-        httpClientFactoryMock.Setup(f => f.CreateClient("RechargeSharpClient")).Returns(httpClient);
+        httpClientFactoryMock.Setup(f => f.CreateClient(RechargeSharpDependencyInjection.RechargeSharpHttpClientKey)).Returns(httpClient);
 
         var rechargeApiCallerOptions = new RechargeApiCallerOptions()
         {
