@@ -31,10 +31,10 @@ public static class RechargeSharpDependencyInjection
 
         services
             .AddTransient<IRechargeApiCaller, RechargeApiCaller>()
-            .AddTransient<AddressService>()
-            .AddTransient<CustomerService>()
-            .AddTransient<SubscriptionService>()
-            .AddTransient<PaymentMethodService>();
+            .AddTransient<IAddressService,AddressService>()
+            .AddTransient<ICustomerService, CustomerService>()
+            .AddTransient<ISubscriptionService, SubscriptionService>()
+            .AddTransient<IPaymentMethodService, PaymentMethodService>();
 
         return services;
     }

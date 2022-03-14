@@ -4,7 +4,20 @@ using RechargeSharp.v2021_11.Utilities.Queries;
 
 namespace RechargeSharp.v2021_11.Endpoints.Subscriptions;
 
-public partial class SubscriptionService
+public interface ISubscriptionService
+{
+    Task<SubscriptionService.CreateSubscriptionTypes.Response> CreateSubscriptionAsync(SubscriptionService.CreateSubscriptionTypes.Request request);
+    Task<SubscriptionService.GetSubscriptionTypes.Response> GetSubscriptionAsync(int subscriptionId);
+    Task<SubscriptionService.UpdateSubscriptionTypes.Response> UpdateSubscriptionAsync(int subscriptionId, SubscriptionService.UpdateSubscriptionTypes.Request request);
+    Task<SubscriptionService.DeleteSubscriptionTypes.Response> DeleteSubscriptionAsync(int subscriptionId);
+    Task<SubscriptionService.ListSubscriptionsTypes.Response> ListSubscriptionsAsync(SubscriptionService.ListSubscriptionsTypes.Request request);
+    Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response> ChangeSubscriptionsNextChargeDateAsync(int subscriptionId, SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request request);
+    Task<SubscriptionService.ChangeSubscriptionsAddressTypes.Response> ChangeSubscriptionsAddressAsync(int subscriptionId, SubscriptionService.ChangeSubscriptionsAddressTypes.Request request);
+    Task<SubscriptionService.CancelSubscriptionTypes.Response> CancelSubscriptionAsync(int subscriptionId, SubscriptionService.CancelSubscriptionTypes.Request request);
+    Task<SubscriptionService.ActivateSubscriptionTypes.Response> ActivateSubscriptionAsync(int subscriptionId);
+}
+
+public partial class SubscriptionService : ISubscriptionService
 {
     private readonly IRechargeApiCaller _rechargeApiCaller;
 

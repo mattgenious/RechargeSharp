@@ -4,7 +4,17 @@ using RechargeSharp.v2021_11.Utilities.Queries;
 
 namespace RechargeSharp.v2021_11.Endpoints.Customers;
 
-public partial class CustomerService
+public interface ICustomerService
+{
+    Task<CustomerService.CreateCustomerTypes.Response> CreateCustomerAsync(CustomerService.CreateCustomerTypes.Request request);
+    Task<CustomerService.GetCustomerTypes.Response> GetCustomerAsync(int customerId);
+    Task<CustomerService.UpdateCustomerTypes.Response> UpdateCustomerAsync(int customerId, CustomerService.UpdateCustomerTypes.Request request);
+    Task<CustomerService.DeleteCustomerTypes.Response> DeleteCustomerAsync(int customerId);
+    Task<CustomerService.ListCustomersTypes.Response> ListCustomersAsync(CustomerService.ListCustomersTypes.Request request);
+    Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response> GetCustomerDeliveryScheduleAsync(int customerId, CustomerService.GetCustomerDeliveryScheduleTypes.Request request);
+}
+
+public partial class CustomerService : ICustomerService
 {
     private readonly IRechargeApiCaller _rechargeApiCaller;
 

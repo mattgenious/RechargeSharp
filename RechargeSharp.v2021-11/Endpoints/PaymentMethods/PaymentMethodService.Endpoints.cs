@@ -4,7 +4,16 @@ using RechargeSharp.v2021_11.Utilities.Queries;
 
 namespace RechargeSharp.v2021_11.Endpoints.PaymentMethods;
 
-public partial class PaymentMethodService
+public interface IPaymentMethodService
+{
+    Task<PaymentMethodService.CreatePaymentMethodTypes.Response> CreatePaymentMethodAsync(PaymentMethodService.CreatePaymentMethodTypes.Request request);
+    Task<PaymentMethodService.GetPaymentMethodTypes.Response> GetPaymentMethodAsync(int paymentMethodId);
+    Task<PaymentMethodService.UpdatePaymentMethodTypes.Response> UpdatePaymentMethodAsync(int paymentMethodId, PaymentMethodService.UpdatePaymentMethodTypes.Request request);
+    Task<PaymentMethodService.DeletePaymentMethodTypes.Response> DeletePaymentMethodAsync(int paymentMethodId);
+    Task<PaymentMethodService.ListPaymentMethodTypes.Response> ListPaymentMethodsAsync(PaymentMethodService.ListPaymentMethodTypes.Request request);
+}
+
+public partial class PaymentMethodService : IPaymentMethodService
 {
     private readonly IRechargeApiCaller _rechargeApiCaller;
 

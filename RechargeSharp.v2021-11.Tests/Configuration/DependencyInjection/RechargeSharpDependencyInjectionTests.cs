@@ -14,10 +14,10 @@ namespace RechargeSharp.v2021_11.Tests.Configuration.DependencyInjection;
 public class RechargeSharpDependencyInjectionTests
 {
     [Theory]
-    [InlineData(typeof(AddressService))]
-    [InlineData(typeof(CustomerService))]
-    [InlineData(typeof(SubscriptionService))]
-    [InlineData(typeof(PaymentMethodService))]
+    [InlineData(typeof(IAddressService))]
+    [InlineData(typeof(ICustomerService))]
+    [InlineData(typeof(ISubscriptionService))]
+    [InlineData(typeof(IPaymentMethodService))]
     public void CanResolveRechargeSharpServicesAfterUsingTheDIHelper(Type serviceType)
     {
         // Arrange
@@ -41,7 +41,7 @@ public class RechargeSharpDependencyInjectionTests
         var serviceProvider = serviceCollection.BuildServiceProvider();
         
         // Act
-        var act = () => serviceProvider.GetService<AddressService>();
+        var act = () => serviceProvider.GetService<IAddressService>();
         
         // Assert
         act.Should()

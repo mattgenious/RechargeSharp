@@ -3,7 +3,16 @@ using RechargeSharp.v2021_11.Utilities.Queries;
 
 namespace RechargeSharp.v2021_11.Endpoints.Addresses;
 
-public partial class AddressService
+public interface IAddressService
+{
+    Task<AddressService.CreateAddressTypes.Response> CreateAddressAsync(AddressService.CreateAddressTypes.Request request);
+    Task<AddressService.GetAddressTypes.Response> GetAddressAsync(int addressId);
+    Task<AddressService.UpdateAddressTypes.Response> UpdateAddressAsync(int addressId, AddressService.UpdateAddressTypes.Request request);
+    Task<AddressService.DeleteAddressTypes.Response> DeleteAddressAsync(int addressId);
+    Task<AddressService.ListAddressesTypes.Response> ListAddressesAsync(AddressService.ListAddressesTypes.Request request);
+}
+
+public partial class AddressService : IAddressService
 {
     private readonly IRechargeApiCaller _rechargeApiCaller;
 
