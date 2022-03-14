@@ -7,7 +7,15 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Collections
 {
-    public class CollectionService : RechargeSharpService
+    public interface ICollectionService
+    {
+        Task<bool> CollectionExistsAsync(long id);
+        Task<Collection?> GetCollectionAsync(long id);
+        Task<IEnumerable<Collection>?> GetCollectionsAsync();
+        Task<long?> CountCollectionsAsync();
+    }
+
+    public class CollectionService : RechargeSharpService, ICollectionService
     {
         public CollectionService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {

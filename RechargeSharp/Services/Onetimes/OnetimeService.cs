@@ -6,7 +6,17 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Onetimes
 {
-    public class OnetimeService : RechargeSharpService
+    public interface IOnetimeService
+    {
+        Task<bool> OnetimeExistsAsync(long id);
+        Task<Onetime?> GetOnetimeAsync(long id);
+        Task<IEnumerable<Onetime>?> GetOnetimesAsync(long limit = 50, long page = 1, long? customerId = null, long? addressId = null, long? shopifyCustomerId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<Onetime?> CreateOnetimeAsync(CreateOnetimeRequest createOneTimeProductRequest, long addressId);
+        Task<Onetime?> UpdateOnetimeAsync(long id, UpdateOnetimeRequest updateOneTimeProductRequest);
+        Task DeleteOnetimeAsync(long id);
+    }
+
+    public class OnetimeService : RechargeSharpService, IOnetimeService
     {
         public OnetimeService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {

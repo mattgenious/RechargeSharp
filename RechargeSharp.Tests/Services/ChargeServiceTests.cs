@@ -1,22 +1,22 @@
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using RechargeSharp.Entities.Charges;
 using RechargeSharp.Services.Charges;
 using RechargeSharp.Tests.Fixtures;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace RechargeSharp.Tests
+namespace RechargeSharp.Tests.Services
 {
     public class ChargeServiceTests
     {
-        private readonly ChargeService _sut;
+        private readonly IChargeService _sut;
         private TestFixture _testFixture;
 
         public ChargeServiceTests()
         {
             _testFixture = new TestFixture();
-            _sut = _testFixture.ServiceProvider.GetRequiredService<ChargeService>();
+            _sut = _testFixture.ServiceProvider.GetRequiredService<IChargeService>();
         }
 
         [Fact]

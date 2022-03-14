@@ -7,7 +7,32 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Subscriptions
 {
-    public class SubscriptionService : RechargeSharpService
+    public interface ISubscriptionService
+    {
+        Task<bool> SubscriptionExistsAsync(long id);
+        Task<Subscription?> GetSubscriptionAsync(long id);
+        Task<IEnumerable<Subscription>?> GetSubscriptionsAsync(int page = 1, int limit = 50, long? customerId = null, long? addressId = null, string? status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<IEnumerable<Subscription>> GetAllSubscriptionsWithParamsAsync(long? customerId = null, long? addressId = null, string? status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<long?> CountSubscriptionsAsync(long? customerId = null, long? addressId = null, string? status = null, long? shopifyCustomerId = null, long? shopifyVariantId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<Subscription?> CreateSubscriptionAsync(CreateSubscriptionRequest createSubscriptionRequest);
+        Task<Subscription?> ChangeNextChargeDateAsync(long id, DateTimeOffset date);
+
+        /// <summary>
+        /// Changes the address of a subscription to an address with a given id, optionally the next charge date can be changed too
+        /// </summary>
+        /// <param name="id">Subscription id</param>
+        /// <param name="changeAddressRequest">Object containing address id and optionally next charge date</param>
+        /// <returns></returns>
+        Task<Subscription?> ChangeAddressAsync(long id, ChangeAddressRequest changeAddressRequest);
+
+        Task<Subscription?> CancelSubscriptionAsync(long id, CancelSubscriptionRequest cancelSubscriptionRequest);
+        Task<Subscription?> ActivateSubscriptionAsync(long id);
+        Task<Subscription?> UpdateSubscriptionAsync(long id, UpdateSubscriptionRequest updateSubscriptionRequest);
+        Task<Subscription?> DelayChargeRegenAsync(long id, DelayChargeRegenRequest delayChargeRegenRequest);
+        Task DeleteSubscriptionAsync(long id);
+    }
+
+    public class SubscriptionService : RechargeSharpService, ISubscriptionService
     {
         public SubscriptionService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {

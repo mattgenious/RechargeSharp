@@ -12,7 +12,18 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Webhooks
 {
-    public class WebhookService
+    public interface IWebhookService
+    {
+        Task<bool?> WebhookExistsAsync(long id);
+        Task<Webhook?> GetWebhookAsync(long id);
+        Task<IEnumerable<Webhook>?> GetWebhooksAsync();
+        Task<Webhook?> CreateWebhookAsync(CreateWebhookRequest createWebhookRequest);
+        Task<Webhook?> UpdateWebhookAsync(long id, UpdateWebhookRequest updateWebhookRequest);
+        Task<Webhook?> OverrideShippingLines(long id, OverrideShippingLinesRequest overrideShippingLinesRequest);
+        Task DeleteWebhookAsync(long id);
+    }
+
+    public class WebhookService : IWebhookService
     {
         protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicy;
 

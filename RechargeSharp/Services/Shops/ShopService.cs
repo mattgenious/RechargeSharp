@@ -6,7 +6,14 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Shops
 {
-    public class ShopService : RechargeSharpService
+    public interface IShopService
+    {
+        Task<bool> ShopExistsAsync();
+        Task<Shop?> GetShopAsync();
+        Task<IEnumerable<ShippingCountry>?> GetShippingCountries();
+    }
+
+    public class ShopService : RechargeSharpService, IShopService
     {
         public ShopService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {

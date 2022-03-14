@@ -8,7 +8,18 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Checkouts
 {
-    public class CheckoutService : RechargeSharpService
+    public interface ICheckoutService
+    {
+        Task<bool> CheckoutExistsAsync(string token);
+        Task<Checkout?> GetCheckoutAsync(string token);
+        Task<Checkout?> CreateCheckoutAsync(CreateCheckoutRequest createCheckoutRequest);
+        Task<Checkout?> UpdateCheckoutAsync(string token, UpdateCheckoutRequest updateCheckoutRequest);
+        Task<Checkout?> UpdateCheckoutShippingLine(string token, string shippingRateHandle);
+        Task<IEnumerable<ShippingRate>?> RetrieveShippingRatesAsync(string token, OverrideShippingLinesRequest overrideShippingLinesRequest);
+        Task<CheckoutCharge?> ProcessCheckoutAsync(string token, ProcessCheckoutRequest processCheckoutRequest);
+    }
+
+    public class CheckoutService : RechargeSharpService, ICheckoutService
     {
         public CheckoutService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
