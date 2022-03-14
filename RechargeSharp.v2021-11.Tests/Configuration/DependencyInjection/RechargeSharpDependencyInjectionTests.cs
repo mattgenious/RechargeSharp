@@ -34,7 +34,7 @@ public class RechargeSharpDependencyInjectionTests
     }
 
     [Fact]
-    public void ThrowsOnInvalidRechargerApiCallerOptions()
+    public void ThrowsOnRechargerApiCallerOptionsWithMissingApiKey()
     {
         // Arrange
         var serviceCollection = new ServiceCollection();
