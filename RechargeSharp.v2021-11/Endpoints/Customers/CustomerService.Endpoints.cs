@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using RechargeSharp.v2021_11.SharedModels;
 using RechargeSharp.v2021_11.Utilities;
 using RechargeSharp.v2021_11.Utilities.Queries;
@@ -7,12 +6,10 @@ namespace RechargeSharp.v2021_11.Endpoints.Customers;
 
 public partial class CustomerService
 {
-    private readonly ILogger<CustomerService> _logger;
     private readonly IRechargeApiCaller _rechargeApiCaller;
 
-    public CustomerService(ILogger<CustomerService> logger, IRechargeApiCaller rechargeApiCaller)
+    public CustomerService(IRechargeApiCaller rechargeApiCaller)
     {
-        _logger = logger;
         _rechargeApiCaller = rechargeApiCaller;
     }
     

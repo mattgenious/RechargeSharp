@@ -158,7 +158,7 @@ public class CustomerServiceUnitTests
     private static CustomerService CreateSut(IRechargeApiCaller apiCaller)
     {
         var customerServiceLogger = new NullLogger<CustomerService>();
-        var sut = new CustomerService(customerServiceLogger, apiCaller);
+        var sut = new CustomerService(apiCaller);
         return sut;
     }
 }

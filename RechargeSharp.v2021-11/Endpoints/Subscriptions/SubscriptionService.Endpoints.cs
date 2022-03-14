@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RechargeSharp.v2021_11.Utilities;
 using RechargeSharp.v2021_11.Utilities.Queries;
@@ -7,12 +6,10 @@ namespace RechargeSharp.v2021_11.Endpoints.Subscriptions;
 
 public partial class SubscriptionService
 {
-    private readonly ILogger<SubscriptionService> _logger;
     private readonly IRechargeApiCaller _rechargeApiCaller;
 
-    public SubscriptionService(ILogger<SubscriptionService> logger, IRechargeApiCaller rechargeApiCaller)
+    public SubscriptionService(IRechargeApiCaller rechargeApiCaller)
     {
-        _logger = logger;
         _rechargeApiCaller = rechargeApiCaller;
     }
 
@@ -22,8 +19,7 @@ public partial class SubscriptionService
         var responseJson = await _rechargeApiCaller.PostAsync<CreateSubscriptionTypes.Request, CreateSubscriptionTypes.Response> (request, requestUri);
         return responseJson;
     }
-    
-    
+
     public async Task<GetSubscriptionTypes.Response> GetSubscriptionAsync(int subscriptionId)
     {
         var requestUri = $"/subscriptions/{subscriptionId}";

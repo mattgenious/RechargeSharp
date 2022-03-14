@@ -29,8 +29,7 @@ public class AddressServiceIntegrationTests
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
         var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
         
-        var nullLogger = new NullLogger<AddressService>();
-        var sut = new AddressService(nullLogger, apiCaller);
+        var sut = new AddressService(apiCaller);
         
         // Act
         var result = await apiCallerFunc(sut);
@@ -112,8 +111,7 @@ public class AddressServiceIntegrationTests
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
         var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
         
-        var nullLogger = new NullLogger<AddressService>();
-        var sut = new AddressService(nullLogger, apiCaller);
+        var sut = new AddressService(apiCaller);
         
         // Act
         Func<Task> act = async () => { await apiCallerFunc(sut); };

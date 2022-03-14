@@ -29,8 +29,7 @@ public class PaymentMethodsServiceIntegrationTests
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
         var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
         
-        var nullLogger = new NullLogger<PaymentMethodService>();
-        var sut = new PaymentMethodService(nullLogger, apiCaller);
+        var sut = new PaymentMethodService(apiCaller);
         
         // Act
         var result = await apiCallerFunc(sut);
@@ -112,8 +111,7 @@ public class PaymentMethodsServiceIntegrationTests
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
         var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
         
-        var nullLogger = new NullLogger<PaymentMethodService>();
-        var sut = new PaymentMethodService(nullLogger, apiCaller);
+        var sut = new PaymentMethodService(apiCaller);
         
         // Act
         Func<Task> act = async () => { await apiCallerFunc(sut); };

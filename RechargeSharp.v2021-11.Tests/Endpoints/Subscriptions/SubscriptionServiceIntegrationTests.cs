@@ -29,8 +29,7 @@ public class SubscriptionsServiceIntegrationTests
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
         var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
         
-        var nullLogger = new NullLogger<SubscriptionService>();
-        var sut = new SubscriptionService(nullLogger, apiCaller);
+        var sut = new SubscriptionService(apiCaller);
         
         // Act
         var result = await apiCallerFunc(sut);
@@ -156,8 +155,7 @@ public class SubscriptionsServiceIntegrationTests
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
         var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
         
-        var nullLogger = new NullLogger<SubscriptionService>();
-        var sut = new SubscriptionService(nullLogger, apiCaller);
+        var sut = new SubscriptionService(apiCaller);
         
         // Act
         Func<Task> act = async () => { await apiCallerFunc(sut); };

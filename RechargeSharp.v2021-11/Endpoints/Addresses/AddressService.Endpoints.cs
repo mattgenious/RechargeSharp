@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using RechargeSharp.v2021_11.Utilities;
 using RechargeSharp.v2021_11.Utilities.Queries;
 
@@ -6,12 +5,10 @@ namespace RechargeSharp.v2021_11.Endpoints.Addresses;
 
 public partial class AddressService
 {
-    private readonly ILogger<AddressService> _logger;
     private readonly IRechargeApiCaller _rechargeApiCaller;
 
-    public AddressService(ILogger<AddressService> logger, IRechargeApiCaller rechargeApiCaller)
+    public AddressService(IRechargeApiCaller rechargeApiCaller)
     {
-        _logger = logger;
         _rechargeApiCaller = rechargeApiCaller;
     }
 

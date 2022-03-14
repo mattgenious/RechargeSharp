@@ -29,8 +29,7 @@ public class CustomerServiceIntegrationTests
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
         var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
         
-        var nullLogger = new NullLogger<CustomerService>();
-        var sut = new CustomerService(nullLogger, apiCaller);
+        var sut = new CustomerService(apiCaller);
         
         // Act
         var result = await apiCallerFunc(sut);
@@ -134,8 +133,7 @@ public class CustomerServiceIntegrationTests
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
         var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
         
-        var nullLogger = new NullLogger<CustomerService>();
-        var sut = new CustomerService(nullLogger, apiCaller);
+        var sut = new CustomerService(apiCaller);
         
         // Act
         Func<Task> act = async () => { await apiCallerFunc(sut); };

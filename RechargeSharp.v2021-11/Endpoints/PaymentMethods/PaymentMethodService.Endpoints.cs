@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using RechargeSharp.v2021_11.SharedModels;
 using RechargeSharp.v2021_11.Utilities;
 using RechargeSharp.v2021_11.Utilities.Queries;
@@ -7,12 +6,10 @@ namespace RechargeSharp.v2021_11.Endpoints.PaymentMethods;
 
 public partial class PaymentMethodService
 {
-    private readonly ILogger<PaymentMethodService> _logger;
     private readonly IRechargeApiCaller _rechargeApiCaller;
 
-    public PaymentMethodService(ILogger<PaymentMethodService> logger, IRechargeApiCaller rechargeApiCaller)
+    public PaymentMethodService(IRechargeApiCaller rechargeApiCaller)
     {
-        _logger = logger;
         _rechargeApiCaller = rechargeApiCaller;
     }
 
