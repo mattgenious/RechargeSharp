@@ -16,47 +16,47 @@ public class CustomerService
         _rechargeApiCaller = rechargeApiCaller;
     }
     
-    public async Task<CreateCustomerTypes.Response> CreateCustomer(CreateCustomerTypes.Request request)
+    public async Task<CreateCustomerTypes.Response> CreateCustomerAsync(CreateCustomerTypes.Request request)
     {
         var requestUri = $"/customers";
-        var responseJson = await _rechargeApiCaller.Post<CreateCustomerTypes.Request, CreateCustomerTypes.Response> (request, requestUri);
+        var responseJson = await _rechargeApiCaller.PostAsync<CreateCustomerTypes.Request, CreateCustomerTypes.Response> (request, requestUri);
         return responseJson;
     }
 
-    public async Task<GetCustomerTypes.Response> GetCustomer(int customerId)
+    public async Task<GetCustomerTypes.Response> GetCustomerAsync(int customerId)
     {
         var requestUri = $"/customers/{customerId}";
-        var responseJson = await _rechargeApiCaller.Get<GetCustomerTypes.Response>(requestUri);
+        var responseJson = await _rechargeApiCaller.GetAsync<GetCustomerTypes.Response>(requestUri);
         return responseJson;
     }
     
-    public async Task<UpdateCustomerTypes.Response> UpdateCustomer(int customerId, UpdateCustomerTypes.Request request)
+    public async Task<UpdateCustomerTypes.Response> UpdateCustomerAsync(int customerId, UpdateCustomerTypes.Request request)
     {
         var requestUri = $"/customers/{customerId}";
-        var responseJson = await _rechargeApiCaller.Put<UpdateCustomerTypes.Request, UpdateCustomerTypes.Response>(request, requestUri);
+        var responseJson = await _rechargeApiCaller.PutAsync<UpdateCustomerTypes.Request, UpdateCustomerTypes.Response>(request, requestUri);
         return responseJson;
     }
     
-    public async Task<DeleteCustomerTypes.Response> DeleteCustomer(int customerId)
+    public async Task<DeleteCustomerTypes.Response> DeleteCustomerAsync(int customerId)
     {
         var requestUri = $"/customers/{customerId}";
-        await _rechargeApiCaller.Delete(requestUri);
+        await _rechargeApiCaller.DeleteAsync(requestUri);
         return new DeleteCustomerTypes.Response();
     }
 
-    public async Task<ListCustomersTypes.Response> ListCustomers(ListCustomersTypes.Request request)
+    public async Task<ListCustomersTypes.Response> ListCustomersAsync(ListCustomersTypes.Request request)
     {
         var queryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(request);
         var requestUri = $"/customers{queryString.Value}";
-        var responseJson = await _rechargeApiCaller.Get<ListCustomersTypes.Response>(requestUri);
+        var responseJson = await _rechargeApiCaller.GetAsync<ListCustomersTypes.Response>(requestUri);
         return responseJson;
     }
     
-    public async Task<GetCustomerDeliveryScheduleTypes.Response> GetCustomerDeliverySchedule(int customerId, GetCustomerDeliveryScheduleTypes.Request request)
+    public async Task<GetCustomerDeliveryScheduleTypes.Response> GetCustomerDeliveryScheduleAsync(int customerId, GetCustomerDeliveryScheduleTypes.Request request)
     {
         var queryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(request);
         var requestUri = $"/customers/{customerId}/delivery_schedule{queryString}";
-        var responseJson = await _rechargeApiCaller.Get<GetCustomerDeliveryScheduleTypes.Response>(requestUri);
+        var responseJson = await _rechargeApiCaller.GetAsync<GetCustomerDeliveryScheduleTypes.Response>(requestUri);
         return responseJson;
     }
 

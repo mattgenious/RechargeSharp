@@ -16,39 +16,39 @@ public class PaymentMethodService
         _rechargeApiCaller = rechargeApiCaller;
     }
 
-    public async Task<CreatePaymentMethodTypes.Response> CreatePaymentMethod(CreatePaymentMethodTypes.Request request)
+    public async Task<CreatePaymentMethodTypes.Response> CreatePaymentMethodAsync(CreatePaymentMethodTypes.Request request)
     {
         var requestUri = $"/payment_methods";
-        var responseJson = await _rechargeApiCaller.Post<CreatePaymentMethodTypes.Request, CreatePaymentMethodTypes.Response> (request, requestUri);
+        var responseJson = await _rechargeApiCaller.PostAsync<CreatePaymentMethodTypes.Request, CreatePaymentMethodTypes.Response> (request, requestUri);
         return responseJson;
     }
 
-    public async Task<GetPaymentMethodTypes.Response> GetPaymentMethod(int paymentMethodId)
+    public async Task<GetPaymentMethodTypes.Response> GetPaymentMethodAsync(int paymentMethodId)
     {
         var requestUri = $"/payment_methods/{paymentMethodId}";
-        var responseJson = await _rechargeApiCaller.Get<GetPaymentMethodTypes.Response>(requestUri);
+        var responseJson = await _rechargeApiCaller.GetAsync<GetPaymentMethodTypes.Response>(requestUri);
         return responseJson;
     }
 
-    public async Task<UpdatePaymentMethodTypes.Response> UpdatePaymentMethod(int paymentMethodId, UpdatePaymentMethodTypes.Request request)
+    public async Task<UpdatePaymentMethodTypes.Response> UpdatePaymentMethodAsync(int paymentMethodId, UpdatePaymentMethodTypes.Request request)
     {
         var requestUri = $"/payment_methods/{paymentMethodId}";
-        var responseJson = await _rechargeApiCaller.Put<UpdatePaymentMethodTypes.Request, UpdatePaymentMethodTypes.Response>(request, requestUri);
+        var responseJson = await _rechargeApiCaller.PutAsync<UpdatePaymentMethodTypes.Request, UpdatePaymentMethodTypes.Response>(request, requestUri);
         return responseJson;
     }
     
-    public async Task<DeletePaymentMethodTypes.Response> DeletePaymentMethod(int paymentMethodId)
+    public async Task<DeletePaymentMethodTypes.Response> DeletePaymentMethodAsync(int paymentMethodId)
     {
         var requestUri = $"/payment_methods/{paymentMethodId}";
-        await _rechargeApiCaller.Delete(requestUri);
+        await _rechargeApiCaller.DeleteAsync(requestUri);
         return new DeletePaymentMethodTypes.Response();
     }
     
-    public async Task<ListPaymentMethodTypes.Response> ListPaymentMethods(ListPaymentMethodTypes.Request request)
+    public async Task<ListPaymentMethodTypes.Response> ListPaymentMethodsAsync(ListPaymentMethodTypes.Request request)
     {
         var queryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(request);
         var requestUri = $"/payment_methods{queryString.Value}";
-        var responseJson = await _rechargeApiCaller.Get<ListPaymentMethodTypes.Response>(requestUri);
+        var responseJson = await _rechargeApiCaller.GetAsync<ListPaymentMethodTypes.Response>(requestUri);
         return responseJson;
     }
 

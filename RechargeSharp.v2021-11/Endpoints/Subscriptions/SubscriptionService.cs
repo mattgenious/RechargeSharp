@@ -16,68 +16,68 @@ public class SubscriptionService
         _rechargeApiCaller = rechargeApiCaller;
     }
 
-    public async Task<CreateSubscriptionTypes.Response> CreateSubscription(CreateSubscriptionTypes.Request request)
+    public async Task<CreateSubscriptionTypes.Response> CreateSubscriptionAsync(CreateSubscriptionTypes.Request request)
     {
         var requestUri = $"/subscriptions";
-        var responseJson = await _rechargeApiCaller.Post<CreateSubscriptionTypes.Request, CreateSubscriptionTypes.Response> (request, requestUri);
+        var responseJson = await _rechargeApiCaller.PostAsync<CreateSubscriptionTypes.Request, CreateSubscriptionTypes.Response> (request, requestUri);
         return responseJson;
     }
     
     
-    public async Task<GetSubscriptionTypes.Response> GetSubscription(int subscriptionId)
+    public async Task<GetSubscriptionTypes.Response> GetSubscriptionAsync(int subscriptionId)
     {
         var requestUri = $"/subscriptions/{subscriptionId}";
-        var responseJson = await _rechargeApiCaller.Get<GetSubscriptionTypes.Response> (requestUri);
+        var responseJson = await _rechargeApiCaller.GetAsync<GetSubscriptionTypes.Response> (requestUri);
         return responseJson;
     }
     
-    public async Task<UpdateSubscriptionTypes.Response> UpdateSubscription(int subscriptionId, UpdateSubscriptionTypes.Request request)
+    public async Task<UpdateSubscriptionTypes.Response> UpdateSubscriptionAsync(int subscriptionId, UpdateSubscriptionTypes.Request request)
     {
         var requestUri = $"/subscriptions/{subscriptionId}";
-        var responseJson = await _rechargeApiCaller.Put<UpdateSubscriptionTypes.Request, UpdateSubscriptionTypes.Response>(request,requestUri);
+        var responseJson = await _rechargeApiCaller.PutAsync<UpdateSubscriptionTypes.Request, UpdateSubscriptionTypes.Response>(request,requestUri);
         return responseJson;
     }
     
-    public async Task<DeleteSubscriptionTypes.Response> DeleteSubscription(int subscriptionId)
+    public async Task<DeleteSubscriptionTypes.Response> DeleteSubscriptionAsync(int subscriptionId)
     {
         var requestUri = $"/subscriptions/{subscriptionId}";
-        await _rechargeApiCaller.Delete(requestUri);
+        await _rechargeApiCaller.DeleteAsync(requestUri);
         return new DeleteSubscriptionTypes.Response();
     }
     
-    public async Task<ListSubscriptionsTypes.Response> ListSubscriptions(ListSubscriptionsTypes.Request request)
+    public async Task<ListSubscriptionsTypes.Response> ListSubscriptionsAsync(ListSubscriptionsTypes.Request request)
     {
         var queryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(request);
         var requestUri = $"/subscriptions{queryString.Value}";
-        var responseJson = await _rechargeApiCaller.Get<ListSubscriptionsTypes.Response>(requestUri);
+        var responseJson = await _rechargeApiCaller.GetAsync<ListSubscriptionsTypes.Response>(requestUri);
         return responseJson;
     }
     
-    public async Task<ChangeSubscriptionsNextChargeDateTypes.Response> ChangeSubscriptionsNextChargeDate(int subscriptionId, ChangeSubscriptionsNextChargeDateTypes.Request request)
+    public async Task<ChangeSubscriptionsNextChargeDateTypes.Response> ChangeSubscriptionsNextChargeDateAsync(int subscriptionId, ChangeSubscriptionsNextChargeDateTypes.Request request)
     {
         var requestUri = $"/subscriptions/{subscriptionId}/set_next_charge_date";
-        var responseJson = await _rechargeApiCaller.Post<ChangeSubscriptionsNextChargeDateTypes.Request, ChangeSubscriptionsNextChargeDateTypes.Response>(request, requestUri);
+        var responseJson = await _rechargeApiCaller.PostAsync<ChangeSubscriptionsNextChargeDateTypes.Request, ChangeSubscriptionsNextChargeDateTypes.Response>(request, requestUri);
         return responseJson;
     }
     
-    public async Task<ChangeSubscriptionsAddressTypes.Response> ChangeSubscriptionsAddress(int subscriptionId, ChangeSubscriptionsAddressTypes.Request request)
+    public async Task<ChangeSubscriptionsAddressTypes.Response> ChangeSubscriptionsAddressAsync(int subscriptionId, ChangeSubscriptionsAddressTypes.Request request)
     {
         var requestUri = $"/subscriptions/{subscriptionId}/change_address";
-        var responseJson = await _rechargeApiCaller.Post<ChangeSubscriptionsAddressTypes.Request, ChangeSubscriptionsAddressTypes.Response>(request, requestUri);
+        var responseJson = await _rechargeApiCaller.PostAsync<ChangeSubscriptionsAddressTypes.Request, ChangeSubscriptionsAddressTypes.Response>(request, requestUri);
         return responseJson;
     }
     
-    public async Task<CancelSubscriptionTypes.Response> CancelSubscription(int subscriptionId, CancelSubscriptionTypes.Request request)
+    public async Task<CancelSubscriptionTypes.Response> CancelSubscriptionAsync(int subscriptionId, CancelSubscriptionTypes.Request request)
     {
         var requestUri = $"/subscriptions/{subscriptionId}/cancel";
-        var responseJson = await _rechargeApiCaller.Post<CancelSubscriptionTypes.Request, CancelSubscriptionTypes.Response>(request, requestUri);
+        var responseJson = await _rechargeApiCaller.PostAsync<CancelSubscriptionTypes.Request, CancelSubscriptionTypes.Response>(request, requestUri);
         return responseJson;
     }
     
-    public async Task<ActivateSubscriptionTypes.Response> ActivateSubscription(int subscriptionId)
+    public async Task<ActivateSubscriptionTypes.Response> ActivateSubscriptionAsync(int subscriptionId)
     {
         var requestUri = $"/subscriptions/{subscriptionId}/activate";
-        var responseJson = await _rechargeApiCaller.Post<ActivateSubscriptionTypes.Response>(requestUri);
+        var responseJson = await _rechargeApiCaller.PostAsync<ActivateSubscriptionTypes.Response>(requestUri);
         return responseJson;
     }
     

@@ -51,7 +51,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.Created,
             "/subscriptions",
             HttpMethod.Post,
-            new Func<SubscriptionService, Task<SubscriptionService.CreateSubscriptionTypes.Response>>(service => service.CreateSubscription(fixture.Create<SubscriptionService.CreateSubscriptionTypes.Request>())),
+            new Func<SubscriptionService, Task<SubscriptionService.CreateSubscriptionTypes.Response>>(service => service.CreateSubscriptionAsync(fixture.Create<SubscriptionService.CreateSubscriptionTypes.Request>())),
             create_subscription_201.CorrectlyDeserializedJson()
         };
         
@@ -62,7 +62,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.OK,
             "/subscriptions",
             HttpMethod.Get,
-            new Func<SubscriptionService, Task<SubscriptionService.GetSubscriptionTypes.Response>>(service => service.GetSubscription(1)),
+            new Func<SubscriptionService, Task<SubscriptionService.GetSubscriptionTypes.Response>>(service => service.GetSubscriptionAsync(1)),
             get_subscription_200.CorrectlyDeserializedJson()
         };
         
@@ -73,7 +73,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.OK,
             "/subscriptions/1",
             HttpMethod.Put,
-            new Func<SubscriptionService, Task<SubscriptionService.UpdateSubscriptionTypes.Response>>(service => service.UpdateSubscription(1, fixture.Create<SubscriptionService.UpdateSubscriptionTypes.Request>())),
+            new Func<SubscriptionService, Task<SubscriptionService.UpdateSubscriptionTypes.Response>>(service => service.UpdateSubscriptionAsync(1, fixture.Create<SubscriptionService.UpdateSubscriptionTypes.Request>())),
             update_subscription_200.CorrectlyDeserializedJson()
         };
         
@@ -84,7 +84,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.NoContent,
             "/subscriptions/1",
             HttpMethod.Delete,
-            new Func<SubscriptionService, Task<SubscriptionService.DeleteSubscriptionTypes.Response>>(service => service.DeleteSubscription(1)),
+            new Func<SubscriptionService, Task<SubscriptionService.DeleteSubscriptionTypes.Response>>(service => service.DeleteSubscriptionAsync(1)),
             (SubscriptionService.DeleteSubscriptionTypes.Response?) null
         };
         
@@ -95,7 +95,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.OK,
             "/subscriptions",
             HttpMethod.Get,
-            new Func<SubscriptionService, Task<SubscriptionService.ListSubscriptionsTypes.Response>>(service => service.ListSubscriptions(fixture.Create<SubscriptionService.ListSubscriptionsTypes.Request>())),
+            new Func<SubscriptionService, Task<SubscriptionService.ListSubscriptionsTypes.Response>>(service => service.ListSubscriptionsAsync(fixture.Create<SubscriptionService.ListSubscriptionsTypes.Request>())),
             list_subscriptions_200.CorrectlyDeserializedJson()
         };
         
@@ -106,7 +106,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.OK,
             "/subscriptions/1/set_next_charge_date",
             HttpMethod.Post,
-            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response>>(service => service.ChangeSubscriptionsNextChargeDate(1, new SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request(new DateOnly(2022, 03, 01)))),
+            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response>>(service => service.ChangeSubscriptionsNextChargeDateAsync(1, new SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request(new DateOnly(2022, 03, 01)))),
             change_a_subscription_next_charge_date_200.CorrectlyDeserializedJson()
         };
         
@@ -117,7 +117,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.OK,
             "/subscriptions/1/change_address",
             HttpMethod.Post,
-            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsAddressTypes.Response>>(service => service.ChangeSubscriptionsAddress(1, new SubscriptionService.ChangeSubscriptionsAddressTypes.Request(1, new DateOnly(2022, 03, 01)))),
+            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsAddressTypes.Response>>(service => service.ChangeSubscriptionsAddressAsync(1, new SubscriptionService.ChangeSubscriptionsAddressTypes.Request(1, new DateOnly(2022, 03, 01)))),
             change_a_subscription_address_200.CorrectlyDeserializedJson()
         };
         
@@ -128,7 +128,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.OK,
             "/subscriptions/1/cancel",
             HttpMethod.Post,
-            new Func<SubscriptionService, Task<SubscriptionService.CancelSubscriptionTypes.Response>>(service => service.CancelSubscription(1, fixture.Create<SubscriptionService.CancelSubscriptionTypes.Request>())),
+            new Func<SubscriptionService, Task<SubscriptionService.CancelSubscriptionTypes.Response>>(service => service.CancelSubscriptionAsync(1, fixture.Create<SubscriptionService.CancelSubscriptionTypes.Request>())),
             cancel_subscription_200.CorrectlyDeserializedJson()
         };
         
@@ -139,7 +139,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.OK,
             "/subscriptions/1/activate",
             HttpMethod.Post,
-            new Func<SubscriptionService, Task<SubscriptionService.ActivateSubscriptionTypes.Response>>(service => service.ActivateSubscription(1)),
+            new Func<SubscriptionService, Task<SubscriptionService.ActivateSubscriptionTypes.Response>>(service => service.ActivateSubscriptionAsync(1)),
             activate_subscription_200.CorrectlyDeserializedJson()
         };
     }
@@ -181,7 +181,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/subscriptions",
             HttpMethod.Post,
-            new Func<SubscriptionService, Task<SubscriptionService.CreateSubscriptionTypes.Response>>(service => service.CreateSubscription(fixture.Create<SubscriptionService.CreateSubscriptionTypes.Request>())),
+            new Func<SubscriptionService, Task<SubscriptionService.CreateSubscriptionTypes.Response>>(service => service.CreateSubscriptionAsync(fixture.Create<SubscriptionService.CreateSubscriptionTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
         
@@ -192,7 +192,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.NotFound,
             "/subscriptions/1",
             HttpMethod.Get,
-            new Func<SubscriptionService, Task<SubscriptionService.GetSubscriptionTypes.Response>>(service => service.GetSubscription(1)),
+            new Func<SubscriptionService, Task<SubscriptionService.GetSubscriptionTypes.Response>>(service => service.GetSubscriptionAsync(1)),
             typeof(NotFoundException)
         };
         
@@ -203,7 +203,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/subscriptions/1",
             HttpMethod.Put,
-            new Func<SubscriptionService, Task<SubscriptionService.UpdateSubscriptionTypes.Response>>(service => service.UpdateSubscription(1, fixture.Create<SubscriptionService.UpdateSubscriptionTypes.Request>())),
+            new Func<SubscriptionService, Task<SubscriptionService.UpdateSubscriptionTypes.Response>>(service => service.UpdateSubscriptionAsync(1, fixture.Create<SubscriptionService.UpdateSubscriptionTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
         
@@ -214,7 +214,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/subscriptions/1/set_next_charge_date",
             HttpMethod.Post,
-            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response>>(service => service.ChangeSubscriptionsNextChargeDate(1,  new SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request(new DateOnly(2022, 03, 01)))),
+            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response>>(service => service.ChangeSubscriptionsNextChargeDateAsync(1,  new SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request(new DateOnly(2022, 03, 01)))),
             typeof(UnprocessableEntityException)
         };
     }

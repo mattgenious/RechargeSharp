@@ -51,7 +51,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.OK,
             "/customers",
             HttpMethod.Get,
-            new Func<CustomerService, Task<CustomerService.ListCustomersTypes.Response>>(service => service.ListCustomers(fixture.Create<CustomerService.ListCustomersTypes.Request>())),
+            new Func<CustomerService, Task<CustomerService.ListCustomersTypes.Response>>(service => service.ListCustomersAsync(fixture.Create<CustomerService.ListCustomersTypes.Request>())),
             list_customers_200.CorrectlyDeserializedJson()
         };
         
@@ -62,7 +62,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.OK,
             $"/customers/{82940007}",
             HttpMethod.Get,
-            new Func<CustomerService, Task<CustomerService.GetCustomerTypes.Response>>(service => service.GetCustomer(82940007)),
+            new Func<CustomerService, Task<CustomerService.GetCustomerTypes.Response>>(service => service.GetCustomerAsync(82940007)),
             get_customer_200.CorrectlyDeserializedJson()
         };
         
@@ -73,7 +73,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.OK,
             $"/customers/{82940507}",
             HttpMethod.Put,
-            new Func<CustomerService, Task<CustomerService.UpdateCustomerTypes.Response>>(service => service.UpdateCustomer(82940507, fixture.Create<CustomerService.UpdateCustomerTypes.Request>())),
+            new Func<CustomerService, Task<CustomerService.UpdateCustomerTypes.Response>>(service => service.UpdateCustomerAsync(82940507, fixture.Create<CustomerService.UpdateCustomerTypes.Request>())),
             update_customer_200.CorrectlyDeserializedJson()
         };
         
@@ -84,7 +84,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.NoContent,
             $"/customers/{37657002}",
             HttpMethod.Delete,
-            new Func<CustomerService, Task<CustomerService.DeleteCustomerTypes.Response>>(service => service.DeleteCustomer(37657002)),
+            new Func<CustomerService, Task<CustomerService.DeleteCustomerTypes.Response>>(service => service.DeleteCustomerAsync(37657002)),
             (CustomerService.DeleteCustomerTypes.Response?) null
         };
         
@@ -95,7 +95,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.Created,
             $"/customers",
             HttpMethod.Post,
-            new Func<CustomerService, Task<CustomerService.CreateCustomerTypes.Response>>(service => service.CreateCustomer(fixture.Create<CustomerService.CreateCustomerTypes.Request>())),
+            new Func<CustomerService, Task<CustomerService.CreateCustomerTypes.Response>>(service => service.CreateCustomerAsync(fixture.Create<CustomerService.CreateCustomerTypes.Request>())),
             create_customer_201.CorrectlyDeserializedJson()
         };
         
@@ -106,7 +106,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.OK,
             $"/customers/{100000}/delivery_schedule",
             HttpMethod.Get,
-            new Func<CustomerService, Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response>>(service => service.GetCustomerDeliverySchedule(100000,fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>())),
+            new Func<CustomerService, Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response>>(service => service.GetCustomerDeliveryScheduleAsync(100000,fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>())),
             get_customer_delivery_schedules_200_customer_has_a_schedule.CorrectlyDeserializedJson()
         };
         
@@ -117,7 +117,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.OK,
             $"/customers/{82940823}/delivery_schedule",
             HttpMethod.Get,
-            new Func<CustomerService, Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response>>(service => service.GetCustomerDeliverySchedule(82940823,fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>())),
+            new Func<CustomerService, Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response>>(service => service.GetCustomerDeliveryScheduleAsync(82940823,fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>())),
             get_customer_delivery_schedules_200_customer_without_deliveries.CorrectlyDeserializedJson()
         };
     }
@@ -159,7 +159,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/customers",
             HttpMethod.Post,
-            new Func<CustomerService, Task<CustomerService.CreateCustomerTypes.Response>>(service => service.CreateCustomer(fixture.Create<CustomerService.CreateCustomerTypes.Request>())),
+            new Func<CustomerService, Task<CustomerService.CreateCustomerTypes.Response>>(service => service.CreateCustomerAsync(fixture.Create<CustomerService.CreateCustomerTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
         
@@ -170,7 +170,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.NotFound,
             "/customers/111111",
             HttpMethod.Delete,
-            new Func<CustomerService, Task<CustomerService.DeleteCustomerTypes.Response>>(service => service.DeleteCustomer(111111)),
+            new Func<CustomerService, Task<CustomerService.DeleteCustomerTypes.Response>>(service => service.DeleteCustomerAsync(111111)),
             typeof(NotFoundException)
         };
         
@@ -181,7 +181,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.NotFound,
             $"/customers/111111/delivery_schedule",
             HttpMethod.Get,
-            new Func<CustomerService, Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response>>(service => service.GetCustomerDeliverySchedule(111111, fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>())),
+            new Func<CustomerService, Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response>>(service => service.GetCustomerDeliveryScheduleAsync(111111, fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>())),
             typeof(NotFoundException)
         };
         
@@ -192,7 +192,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.NotFound,
             "/customers/111111",
             HttpMethod.Get,
-            new Func<CustomerService, Task<CustomerService.GetCustomerTypes.Response>>(service => service.GetCustomer(111111)),
+            new Func<CustomerService, Task<CustomerService.GetCustomerTypes.Response>>(service => service.GetCustomerAsync(111111)),
             typeof(NotFoundException)
         };
         
@@ -203,7 +203,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/customers",
             HttpMethod.Get,
-            new Func<CustomerService, Task<CustomerService.ListCustomersTypes.Response>>(service => service.ListCustomers(fixture.Create<CustomerService.ListCustomersTypes.Request>())),
+            new Func<CustomerService, Task<CustomerService.ListCustomersTypes.Response>>(service => service.ListCustomersAsync(fixture.Create<CustomerService.ListCustomersTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
         
@@ -214,7 +214,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/customers/111111",
             HttpMethod.Put,
-            new Func<CustomerService, Task<CustomerService.UpdateCustomerTypes.Response>>(service => service.UpdateCustomer(111111, fixture.Create<CustomerService.UpdateCustomerTypes.Request>())),
+            new Func<CustomerService, Task<CustomerService.UpdateCustomerTypes.Response>>(service => service.UpdateCustomerAsync(111111, fixture.Create<CustomerService.UpdateCustomerTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
     }

@@ -34,7 +34,7 @@ public class RechargeApiCallerTests
         var sut = CreateSut(httpHandlerMock, BaseAddress);
 
         // Act
-        var result = await sut.Get<SomeClass>("/somepath");
+        var result = await sut.GetAsync<SomeClass>("/somepath");
 
         // Assert
         result.SomeStringProperty.Should().Be("someValue");
@@ -51,7 +51,7 @@ public class RechargeApiCallerTests
         var sut = CreateSut(httpHandlerMock, BaseAddress);
         
         // Act
-        var result = await sut.Post<SomeClass, SomeClass>(new SomeClass(), "/somepath");
+        var result = await sut.PostAsync<SomeClass, SomeClass>(new SomeClass(), "/somepath");
 
         // Assert
         result.SomeStringProperty.Should().Be("someValue");
@@ -67,7 +67,7 @@ public class RechargeApiCallerTests
         var sut = CreateSut(httpHandlerMock, BaseAddress);
         
         // Act
-        var result = await sut.Post<SomeClass>("/somepath");
+        var result = await sut.PostAsync<SomeClass>("/somepath");
 
         // Assert
         result.SomeStringProperty.Should().Be("someValue");
@@ -83,7 +83,7 @@ public class RechargeApiCallerTests
         var sut = CreateSut(httpHandlerMock, BaseAddress);
         
         // Act
-        var result = await sut.Put<SomeClass, SomeClass>(new SomeClass(), "/somepath");
+        var result = await sut.PutAsync<SomeClass, SomeClass>(new SomeClass(), "/somepath");
 
         // Assert
         result.SomeStringProperty.Should().Be("someValue");
@@ -100,7 +100,7 @@ public class RechargeApiCallerTests
         var sut = CreateSut(httpHandlerMock, BaseAddress);
 
         // Act
-        await sut.Delete("/somepath");
+        await sut.DeleteAsync("/somepath");
 
         // Assert
         AssertThatExpectedHttpCallsWereMade(httpHandlerMock, HttpMethod.Delete, 1);
@@ -120,7 +120,7 @@ public class RechargeApiCallerTests
         var sut = CreateSut(httpHandlerMock, BaseAddress, retryPolicy);
         
         // Act
-        var act = () => sut.Post<SomeClass, SomeClass>(new SomeClass(), "/somepath");
+        var act = () => sut.PostAsync<SomeClass, SomeClass>(new SomeClass(), "/somepath");
 
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
@@ -138,7 +138,7 @@ public class RechargeApiCallerTests
         var sut = CreateSut(httpHandlerMock, BaseAddress);
 
         // Act
-        var act = () => sut.Get<SomeClass>("/doesntmatter");
+        var act = () => sut.GetAsync<SomeClass>("/doesntmatter");
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
@@ -157,7 +157,7 @@ public class RechargeApiCallerTests
         var sut = CreateSut(httpHandlerMock, BaseAddress);
 
         // Act
-        var act = () => sut.Get<SomeClass>("/doesntmatter");
+        var act = () => sut.GetAsync<SomeClass>("/doesntmatter");
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
@@ -173,7 +173,7 @@ public class RechargeApiCallerTests
         var sut = CreateSut(httpHandlerMock, BaseAddress);
 
         // Act
-        var act = () => sut.Get<SomeClass>("/doesntmatter");
+        var act = () => sut.GetAsync<SomeClass>("/doesntmatter");
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
@@ -193,7 +193,7 @@ public class RechargeApiCallerTests
         var sut = CreateSut(httpHandlerMock, BaseAddress);
         
         // Act
-        var act = () => sut.Get<SomeClass>("/doesntmatter");
+        var act = () => sut.GetAsync<SomeClass>("/doesntmatter");
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
@@ -215,7 +215,7 @@ public class RechargeApiCallerTests
         var sut = CreateSut(httpHandlerMock, BaseAddress);
 
         // Act
-        var act = () => sut.Get<SomeClass>("/doesntmatter");
+        var act = () => sut.GetAsync<SomeClass>("/doesntmatter");
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
@@ -252,7 +252,7 @@ public class RechargeApiCallerTests
         var uri = $"{BaseAddress}";
         
         // Act
-        var act = () => sut.Get<SomeClass>("/doesntmatter");
+        var act = () => sut.GetAsync<SomeClass>("/doesntmatter");
         
         // Assert
         (await act.Should().ThrowAsync<Exception>()).Which.Should().BeOfType(expectedExceptionType);

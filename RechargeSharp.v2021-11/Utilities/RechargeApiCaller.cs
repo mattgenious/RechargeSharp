@@ -13,11 +13,11 @@ namespace RechargeSharp.v2021_11.Utilities;
 
 public interface IRechargeApiCaller
 {
-    Task<T> Get<T>(string uri);
-    Task<TResponse> Put<TRequest, TResponse>(TRequest instance, string uri);
-    Task<TResponse> Post<TRequest, TResponse>(TRequest instance, string uri);
-    Task<TResponse> Post<TResponse>(string uri);
-    Task Delete(string uri);
+    Task<T> GetAsync<T>(string uri);
+    Task<TResponse> PutAsync<TRequest, TResponse>(TRequest instance, string uri);
+    Task<TResponse> PostAsync<TRequest, TResponse>(TRequest instance, string uri);
+    Task<TResponse> PostAsync<TResponse>(string uri);
+    Task DeleteAsync(string uri);
     
 }
 
@@ -51,7 +51,7 @@ public class RechargeApiCaller : IRechargeApiCaller
         AsyncRetryPolicy = _rechargeApiCallerOptions.ApiCallPolicy;
     }
 
-    public async Task<T> Get<T>(string uri)
+    public async Task<T> GetAsync<T>(string uri)
     {
         var requestFactory = () => new HttpRequestMessage()
         {
@@ -65,7 +65,7 @@ public class RechargeApiCaller : IRechargeApiCaller
         return responseJson;
     }
 
-    public async Task<TResponse> Put<TRequest, TResponse>(TRequest instance, string uri)
+    public async Task<TResponse> PutAsync<TRequest, TResponse>(TRequest instance, string uri)
     {
         var requestFactory = () => new HttpRequestMessage()
         {
@@ -81,7 +81,7 @@ public class RechargeApiCaller : IRechargeApiCaller
         return responseJson;
     }
 
-    public async Task<TResponse> Post<TRequest, TResponse>(TRequest instance, string uri)
+    public async Task<TResponse> PostAsync<TRequest, TResponse>(TRequest instance, string uri)
     {
         var requestFactory = () => new HttpRequestMessage()
         {
@@ -97,7 +97,7 @@ public class RechargeApiCaller : IRechargeApiCaller
         return responseJson;
     }
     
-    public async Task<TResponse> Post<TResponse>(string uri)
+    public async Task<TResponse> PostAsync<TResponse>(string uri)
     {
         var requestFactory = () => new HttpRequestMessage()
         {
@@ -112,7 +112,7 @@ public class RechargeApiCaller : IRechargeApiCaller
         return responseJson;
     }
 
-    public async Task Delete(string uri)
+    public async Task DeleteAsync(string uri)
     {
         var requestFactory = () => new HttpRequestMessage()
         {

@@ -51,7 +51,7 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.Created,
             "/addresses",
             HttpMethod.Post,
-            new Func<AddressService, Task<AddressService.CreateAddressTypes.Response>>(service => service.CreateAddress(fixture.Create<AddressService.CreateAddressTypes.Request>())),
+            new Func<AddressService, Task<AddressService.CreateAddressTypes.Response>>(service => service.CreateAddressAsync(fixture.Create<AddressService.CreateAddressTypes.Request>())),
             create_address_201.CorrectlyDeserializedJson()
         };
         
@@ -62,7 +62,7 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.OK,
             "/addresses/1",
             HttpMethod.Get,
-            new Func<AddressService, Task<AddressService.GetAddressTypes.Response>>(service => service.GetAddress(1)),
+            new Func<AddressService, Task<AddressService.GetAddressTypes.Response>>(service => service.GetAddressAsync(1)),
             get_address_201.CorrectlyDeserializedJson()
         };
         
@@ -73,7 +73,7 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.OK,
             "/addresses/1",
             HttpMethod.Put,
-            new Func<AddressService, Task<AddressService.UpdateAddressTypes.Response>>(service => service.UpdateAddress(1, fixture.Create<AddressService.UpdateAddressTypes.Request>())),
+            new Func<AddressService, Task<AddressService.UpdateAddressTypes.Response>>(service => service.UpdateAddressAsync(1, fixture.Create<AddressService.UpdateAddressTypes.Request>())),
             update_address_200.CorrectlyDeserializedJson()
         };
         
@@ -84,7 +84,7 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.NoContent,
             "/addresses/1",
             HttpMethod.Delete,
-            new Func<AddressService, Task<AddressService.DeleteAddressTypes.Response>>(service => service.DeleteAddress(1)),
+            new Func<AddressService, Task<AddressService.DeleteAddressTypes.Response>>(service => service.DeleteAddressAsync(1)),
             (AddressService.DeleteAddressTypes.Response?) null
         };
         
@@ -95,7 +95,7 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.OK,
             "/addresses",
             HttpMethod.Get,
-            new Func<AddressService, Task<AddressService.ListAddressesTypes.Response>>(service => service.ListAddresses(fixture.Create<AddressService.ListAddressesTypes.Request>())),
+            new Func<AddressService, Task<AddressService.ListAddressesTypes.Response>>(service => service.ListAddressesAsync(fixture.Create<AddressService.ListAddressesTypes.Request>())),
             list_addresses_201.CorrectlyDeserializedJson()
         };
     }
@@ -137,7 +137,7 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/addresses",
             HttpMethod.Post,
-            new Func<AddressService, Task<AddressService.CreateAddressTypes.Response>>(service => service.CreateAddress(fixture.Create<AddressService.CreateAddressTypes.Request>())),
+            new Func<AddressService, Task<AddressService.CreateAddressTypes.Response>>(service => service.CreateAddressAsync(fixture.Create<AddressService.CreateAddressTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
         
@@ -148,7 +148,7 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/addresses/1",
             HttpMethod.Put,
-            new Func<AddressService, Task<AddressService.UpdateAddressTypes.Response>>(service => service.UpdateAddress(1, fixture.Create<AddressService.UpdateAddressTypes.Request>())),
+            new Func<AddressService, Task<AddressService.UpdateAddressTypes.Response>>(service => service.UpdateAddressAsync(1, fixture.Create<AddressService.UpdateAddressTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
         
@@ -159,7 +159,7 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.NotFound,
             "/addresses/1",
             HttpMethod.Delete,
-            new Func<AddressService, Task<AddressService.DeleteAddressTypes.Response>>(service => service.DeleteAddress(1)),
+            new Func<AddressService, Task<AddressService.DeleteAddressTypes.Response>>(service => service.DeleteAddressAsync(1)),
             typeof(NotFoundException)
         };
         
@@ -170,7 +170,7 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/addresses/1",
             HttpMethod.Delete,
-            new Func<AddressService, Task<AddressService.DeleteAddressTypes.Response>>(service => service.DeleteAddress(1)),
+            new Func<AddressService, Task<AddressService.DeleteAddressTypes.Response>>(service => service.DeleteAddressAsync(1)),
             typeof(UnprocessableEntityException)
         };
 
@@ -181,7 +181,7 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/addresses",
             HttpMethod.Get,
-            new Func<AddressService, Task<AddressService.ListAddressesTypes.Response>>(service => service.ListAddresses(fixture.Create<AddressService.ListAddressesTypes.Request>())),
+            new Func<AddressService, Task<AddressService.ListAddressesTypes.Response>>(service => service.ListAddressesAsync(fixture.Create<AddressService.ListAddressesTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
     }

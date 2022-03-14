@@ -27,14 +27,14 @@ public class CustomerServiceUnitTests
         var apiCallerMock = new Mock<IRechargeApiCaller>(MockBehavior.Strict);
         const string uriToMock = "/customers";
         apiCallerMock.Setup(
-            r => r.Get<CustomerService.ListCustomersTypes.Response>(It.Is<string>(s => s.StartsWith(uriToMock))))
+            r => r.GetAsync<CustomerService.ListCustomersTypes.Response>(It.Is<string>(s => s.StartsWith(uriToMock))))
             .ReturnsAsync(response)
             .Verifiable();
         
         var sut = CreateSut(apiCallerMock.Object);
         
         // Act
-        var actualResponse = await sut.ListCustomers(request);
+        var actualResponse = await sut.ListCustomersAsync(request);
 
         // Assert
         apiCallerMock.Verify();
@@ -50,14 +50,14 @@ public class CustomerServiceUnitTests
         const int customerId = 123;
         var uriToMock = $"/customers/{customerId}";
         apiCallerMock.Setup(
-                r => r.Get<CustomerService.GetCustomerTypes.Response>(uriToMock))
+                r => r.GetAsync<CustomerService.GetCustomerTypes.Response>(uriToMock))
             .ReturnsAsync(response)
             .Verifiable();
         
         var sut = CreateSut(apiCallerMock.Object);
     
         // Act
-        var actualResponse = await sut.GetCustomer(customerId);
+        var actualResponse = await sut.GetCustomerAsync(customerId);
 
         // Assert
         apiCallerMock.Verify();
@@ -74,14 +74,14 @@ public class CustomerServiceUnitTests
         const int customerId = 123;
         var uriToMock = $"/customers/{customerId}";
         apiCallerMock.Setup(
-                r => r.Put<CustomerService.UpdateCustomerTypes.Request, CustomerService.UpdateCustomerTypes.Response>(request,uriToMock))
+                r => r.PutAsync<CustomerService.UpdateCustomerTypes.Request, CustomerService.UpdateCustomerTypes.Response>(request,uriToMock))
             .ReturnsAsync(response)
             .Verifiable();
         
         var sut = CreateSut(apiCallerMock.Object);
     
         // Act
-        var actualResponse = await sut.UpdateCustomer(customerId, request);
+        var actualResponse = await sut.UpdateCustomerAsync(customerId, request);
 
         // Assert
         apiCallerMock.Verify();
@@ -95,14 +95,14 @@ public class CustomerServiceUnitTests
         var customerId = 123;
         var uriToMock = $"/customers/{customerId}";
         apiCallerMock.Setup(
-                r => r.Delete(uriToMock))
+                r => r.DeleteAsync(uriToMock))
             .Returns(Task.CompletedTask)
             .Verifiable();
         
         var sut = CreateSut(apiCallerMock.Object);
     
         // Act
-        await sut.DeleteCustomer(customerId);
+        await sut.DeleteCustomerAsync(customerId);
 
         // Assert
         apiCallerMock.Verify();
@@ -117,14 +117,14 @@ public class CustomerServiceUnitTests
         var apiCallerMock = new Mock<IRechargeApiCaller>(MockBehavior.Strict);
         var uriToMock = $"/customers";
         apiCallerMock.Setup(
-                r => r.Post<CustomerService.CreateCustomerTypes.Request, CustomerService.CreateCustomerTypes.Response>(request,uriToMock))
+                r => r.PostAsync<CustomerService.CreateCustomerTypes.Request, CustomerService.CreateCustomerTypes.Response>(request,uriToMock))
             .ReturnsAsync(response)
             .Verifiable();
         
         var sut = CreateSut(apiCallerMock.Object);
     
         // Act
-        var actualResponse = await sut.CreateCustomer(request);
+        var actualResponse = await sut.CreateCustomerAsync(request);
 
         // Assert
         apiCallerMock.Verify();
@@ -141,14 +141,14 @@ public class CustomerServiceUnitTests
         const int customerId = 123;
         var uriToMock = $"/customers/{customerId}/delivery_schedule";
         apiCallerMock.Setup(
-                r => r.Get<CustomerService.GetCustomerDeliveryScheduleTypes.Response>(It.Is<string>(uri => uri.StartsWith(uriToMock))))
+                r => r.GetAsync<CustomerService.GetCustomerDeliveryScheduleTypes.Response>(It.Is<string>(uri => uri.StartsWith(uriToMock))))
             .ReturnsAsync(response)
             .Verifiable();
         
         var sut = CreateSut(apiCallerMock.Object);
     
         // Act
-        var actualResponse = await sut.GetCustomerDeliverySchedule(customerId, request);
+        var actualResponse = await sut.GetCustomerDeliveryScheduleAsync(customerId, request);
 
         // Assert
         apiCallerMock.Verify();
