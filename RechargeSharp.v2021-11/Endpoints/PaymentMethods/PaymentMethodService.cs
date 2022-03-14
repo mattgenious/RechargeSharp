@@ -126,7 +126,7 @@ public class PaymentMethodService
 
     public static class ListPaymentMethodTypes
     {
-        public record Request(string? CustomerId);
+        public record Request(string? CustomerId, int? Page, int? Limit);
         public record Response(IReadOnlyList<SharedTypes.PaymentMethod> PaymentMethods);
     }
 }
