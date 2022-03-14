@@ -15,7 +15,7 @@ public class DateOnlyNullableConverter : JsonConverter<DateOnly?>
         var value = reader.GetString();
         if (value is null)
             return null;
-        return _dateOnlyConverter.ParseAsDateOnly(value);
+        return DateOnlyConverter.ParseAsDateOnly(value);
     }
 
     public override void Write(Utf8JsonWriter writer, DateOnly? value, JsonSerializerOptions options)
@@ -32,7 +32,7 @@ public class DateOnlyConverter : JsonConverter<DateOnly>
         return ParseAsDateOnly(reader.GetString() ?? throw new InvalidOperationException("The DateOnly field could not be retrieved as a string"));
     }
 
-    internal DateOnly ParseAsDateOnly(string input)
+    internal static DateOnly ParseAsDateOnly(string input)
     {
         return DateOnly.Parse(input);
     }

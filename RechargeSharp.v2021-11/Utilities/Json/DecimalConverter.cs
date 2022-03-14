@@ -14,7 +14,7 @@ public class DecimalNullableConverter : JsonConverter<decimal?>
         var value = reader.GetString();
         if (value is null)
             return null;
-        return _decimalNullableConverter.ParseAsDecimal(value);
+        return DecimalConverter.ParseAsDecimal(value);
 ;    }
 
     public override void Write(Utf8JsonWriter writer, decimal? value, JsonSerializerOptions options)
@@ -32,7 +32,7 @@ public class DecimalConverter : JsonConverter<decimal>
         return ParseAsDecimal(value);
     }
     
-    internal decimal ParseAsDecimal(string input)
+    internal static decimal ParseAsDecimal(string input)
     {
         return decimal.Parse(input, NumberStyles.Any, DateTimeFormatInfo.InvariantInfo);
     }
