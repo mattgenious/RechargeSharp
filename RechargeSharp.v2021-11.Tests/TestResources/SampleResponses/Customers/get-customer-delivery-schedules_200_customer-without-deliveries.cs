@@ -7,14 +7,16 @@ public static class get_customer_delivery_schedules_200_customer_without_deliver
 {
     public static CustomerService.GetCustomerDeliveryScheduleTypes.Response CorrectlyDeserializedJson()
     {
-        return new CustomerService.GetCustomerDeliveryScheduleTypes.Response(
-            new CustomerService.GetCustomerDeliveryScheduleTypes.Customer(
-                Id: 82940823,
-                Email: "testtesttest101@test.dk",
-                FirstName: "Niels",
-                LastName: "Bohr"
-            ),
-            Deliveries: Array.Empty<CustomerService.GetCustomerDeliveryScheduleTypes.Delivery>()
-        );
+        return new CustomerService.GetCustomerDeliveryScheduleTypes.Response()
+        {
+            Customer = new CustomerService.GetCustomerDeliveryScheduleTypes.Customer()
+            {
+                Id = 82940823,
+                Email = "testtesttest101@test.dk",
+                FirstName = "Niels",
+                LastName = "Bohr"
+            },
+            Deliveries = Array.Empty<CustomerService.GetCustomerDeliveryScheduleTypes.Delivery>()
+        };
     }
 }

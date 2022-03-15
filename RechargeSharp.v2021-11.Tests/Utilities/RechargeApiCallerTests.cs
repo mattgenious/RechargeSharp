@@ -249,8 +249,7 @@ public class RechargeApiCallerTests
         // Arrange
         var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturnsStatusCodeOnly((HttpStatusCode) statusCodeReturnedByApi, "/doesntmatter", HttpMethod.Get);
         var sut = CreateSut(httpHandlerMock, BaseAddress);
-        var uri = $"{BaseAddress}";
-        
+
         // Act
         var act = () => sut.GetAsync<SomeClass>("/doesntmatter");
         

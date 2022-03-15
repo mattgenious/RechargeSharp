@@ -4,143 +4,199 @@ namespace RechargeSharp.v2021_11.Endpoints.Customers;
 
 public partial class CustomerService
 {
-    
-
     public static class SharedTypes
     {
-        public record UtmParam(
-            string? UtmSource,
-            string? UtmMedium
-        );
-        
-        public record AnalyticsData(
-            IReadOnlyList<UtmParam> UtmParams
-        );
-        
-        public record ExternalCustomerId(string? Ecommerce);
-        
-        public record Customer(
-            int Id,
-            AnalyticsData? AnalyticsData,
-            DateTime CreatedAt,
-            string Email,
-            ExternalCustomerId? ExternalCustomerId,
-            DateTime? FirstChargeProcessedAt,
-            string FirstName,
-            bool HasPaymentMethodInDunning,
-            bool HasValidPaymentMethod,
-            string Hash,
-            string LastName,
-            int SubscriptionsActiveCount,
-            int SubscriptionsTotalCount,
-            DateTime UpdatedAt
-        );
+        public record ExternalCustomerId
+        {
+            public string? Ecommerce { get; init; }
+        }
+
+        public record Customer
+        {
+            public int? Id { get; init; }
+            public AnalyticsData? AnalyticsData { get; init; }
+            public DateTime? CreatedAt { get; init; }
+            public string? Email { get; init; }
+            public ExternalCustomerId? ExternalCustomerId { get; init; }
+            public DateTime? FirstChargeProcessedAt { get; init; }
+            public string? FirstName { get; init; }
+            public bool? HasPaymentMethodInDunning { get; init; }
+            public bool? HasValidPaymentMethod { get; init; }
+            public string? Hash { get; init; }
+            public string? LastName { get; init; }
+            public int? SubscriptionsActiveCount { get; init; }
+            public int? SubscriptionsTotalCount { get; init; }
+            public DateTime? UpdatedAt { get; init; }
+        }
     }
 
     public static class CreateCustomerTypes
     {
-        public record Request(string Email, string FirstName, string LastName, SharedTypes.ExternalCustomerId? ExternalCustomerId);
-        
-        public record Response(SharedTypes.Customer Customer);
+        public record Request
+        {
+            public string? Email { get; init; }
+            public string? FirstName { get; init; }
+            public string? LastName { get; init; }
+            public SharedTypes.ExternalCustomerId? ExternalCustomerId { get; init; }
+        }
+
+        public record Response
+        {
+            public SharedTypes.Customer? Customer { get; init; }
+        }
     }
 
     public static class UpdateCustomerTypes
     {
-        public record Request(string? Email, string? FirstName, string? LastName, SharedTypes.ExternalCustomerId? ExternalCustomerId);
-        
-        public record Response(SharedTypes.Customer Customer);
+        public record Request
+        {
+            public string? Email { get; init; }
+            public string? FirstName { get; init; }
+            public string? LastName { get; init; }
+            public SharedTypes.ExternalCustomerId? ExternalCustomerId { get; init; }
+        }
+
+        public record Response
+        {
+            public SharedTypes.Customer? Customer { get; init; }
+        }
     }
 
     public static class ListCustomersTypes
     {
-        public record Request(string? Email, DateTime? CreatedAtMax, DateTime? CreatedAtMin, string? Hash, int? Limit, int? Page, string? ExternalCustomerId, DateTime? UpdatedAtMax, DateTime? UpdatedAtMin, string Cursor);
-        
-        public record Response(string? NextCursor, string? PreviousCursor, IReadOnlyList<SharedTypes.Customer> Customers);
+        public record Request
+        {
+            public string? Email { get; init; }
+            public DateTime? CreatedAtMax { get; init; }
+            public DateTime? CreatedAtMin { get; init; }
+            public string? Hash { get; init; }
+            public int? Limit { get; init; }
+            public int? Page { get; init; }
+            public string? ExternalCustomerId { get; init; }
+            public DateTime? UpdatedAtMax { get; init; }
+            public DateTime? UpdatedAtMin { get; init; }
+            public string? Cursor { get; init; }
+        }
+
+        public record Response
+        {
+            public string? NextCursor { get; init; }
+            public string? PreviousCursor { get; init; }
+            public IReadOnlyList<SharedTypes.Customer>? Customers { get; init; }
+        }
     }
 
     public static class GetCustomerTypes
     {
-        public record Response(SharedTypes.Customer Customer);
+        public record Response
+        {
+            public SharedTypes.Customer? Customer { get; init; }
+        }
     }
 
     public static class GetCustomerDeliveryScheduleTypes
     {
-        public record Request(int? DeliveryCountFuture, int? FutureInterval, DateTime? DateMin, DateTime? DateMax);
-        
-        public record Response(
-            Customer Customer,
-            IReadOnlyList<Delivery> Deliveries
-        );
-        
-        public record Customer(
-            int Id,
-            string Email,
-            string FirstName,
-            string LastName
-        );
+        public record Request
+        {
+            public int? DeliveryCountFuture { get; init; }
+            public int? FutureInterval { get; init; }
+            public DateTime? DateMin { get; init; }
+            public DateTime? DateMax { get; init; }
+        }
 
-        public record ExternalProductId(
-            string? Ecommerce
-        );
+        public record Response
+        {
+            public Customer? Customer { get; init; }
+            public IReadOnlyList<Delivery>? Deliveries { get; init; }
+        }
 
-        public record ExternalVariantId(
-            string? Ecommerce
-        );
+        public record Customer
+        {
+            public int? Id { get; init; }
+            public string? Email { get; init; }
+            public string? FirstName { get; init; }
+            public string? LastName { get; init; }
+        }
 
-        public record Images(
-            string? Large,
-            string? Medium,
-            string? Small,
-            string? Original,
-            int? SortOrder
-        );
+        public record ExternalProductId
+        {
+            public string? Ecommerce { get; init; }
+        }
 
-        public record Property(
-            string Name,
-            string Value
-        );
+        public record ExternalVariantId
+        {
+            public string? Ecommerce { get; init; }
+        }
 
-        public record LineItem(
-            int SubscriptionId,
-            ExternalProductId? ExternalProductId,
-            ExternalVariantId? ExternalVariantId,
-            Images? Images,
-            bool IsSkippable,
-            string? PlanType,
-            string ProductTitle,
-            IReadOnlyList<Property>? Properties,
-            int Quantity,
-            decimal? SubtotalPrice,
-            decimal? UnitPrice,
-            string VariantTitle
-        );
+        public record Images
+        {
+            public string? Large { get; init; }
+            public string? Medium { get; init; }
+            public string? Small { get; init; }
+            public string? Original { get; init; }
+            public int? SortOrder { get; init; }
+        }
 
-        public record PaymentDetails(
-        );
+        public record Property
+        {
+            public string? Name { get; init; }
+            public string? Value { get; init; }
+        }
 
-        public record PaymentMethod(
-            int Id,
-            Address BillingAddress,
-            PaymentDetails PaymentDetails
-        );
+        public record LineItem
+        {
+            public int? SubscriptionId { get; init; }
+            public ExternalProductId? ExternalProductId { get; init; }
+            public ExternalVariantId? ExternalVariantId { get; init; }
+            public Images? Images { get; init; }
+            public bool? IsSkippable { get; init; }
+            public string? PlanType { get; init; }
+            public string? ProductTitle { get; init; }
+            public IReadOnlyList<Property>? Properties { get; init; }
+            public int? Quantity { get; init; }
+            public decimal? SubtotalPrice { get; init; }
+            public decimal? UnitPrice { get; init; }
+            public string? VariantTitle { get; init; }
+        }
 
-        public record Order(
-            string? Id,
-            int AddressId,
-            int? ChargeId,
-            IReadOnlyList<LineItem> LineItems,
-            PaymentMethod PaymentMethod,
-            Address ShippingAddress
-        );
+        public record PaymentDetails
+        {
+            public PaymentDetails()
+            {
+            }
+        }
 
-        public record Delivery(
-            DateOnly? Date,
-            IReadOnlyList<Order> Orders
-        );
+        public record PaymentMethod
+        {
+            public int? Id { get; init; }
+            public Address? BillingAddress { get; init; }
+            public PaymentDetails? PaymentDetails { get; init; }
+        }
+
+        public record Order
+        {
+            public string? Id { get; init; }
+            public int? AddressId { get; init; }
+            public int? ChargeId { get; init; }
+            public IReadOnlyList<LineItem>? LineItems { get; init; }
+            public PaymentMethod? PaymentMethod { get; init; }
+            public Address? ShippingAddress { get; init; }
+        }
+
+        public record Delivery
+        {
+            public DateOnly? Date { get; init; }
+            public IReadOnlyList<Order>? Orders { get; init; }
+        }
     }
 
     public static class DeleteCustomerTypes
     {
-        public record Response();
+        public record Response
+        {
+            public Response()
+            {
+            }
+        }
     }
 }

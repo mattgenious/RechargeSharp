@@ -6,80 +6,100 @@ public partial class PaymentMethodService
 {
     public static class SharedTypes
     {
-        public record PaymentMethod(
-            int Id,
-            int CustomerId,
-            Address BillingAddress,
-            DateTime CreatedAt,
-            bool? Default,
-            PaymentDetails? PaymentDetails,
-            string? PaymentType,
-            string? ProcessorCustomerToken,
-            string ProcessorName,
-            string? ProcessorPaymentMethodToken,
-            string? Status,
-            string? StatusReason,
-            DateTime UpdatedAt
-        );
+        public record PaymentMethod
+        {
+            public int? Id { get; init; }
+            public int? CustomerId { get; init; }
+            public Address? BillingAddress { get; init; }
+            public DateTime? CreatedAt { get; init; }
+            public bool? Default { get; init; }
+            public PaymentDetails? PaymentDetails { get; init; }
+            public string? PaymentType { get; init; }
+            public string? ProcessorCustomerToken { get; init; }
+            public string? ProcessorName { get; init; }
+            public string? ProcessorPaymentMethodToken { get; init; }
+            public string? Status { get; init; }
+            public string? StatusReason { get; init; }
+            public DateTime? UpdatedAt { get; init; }
+        }
 
-        public record PaymentDetails(
-            string? Brand,
-            int? ExpMonth,
-            int? ExpYear,
-            string? Last4,
-            string? PaypalEmail,
-            string? PaypalPayerId,
-            string? WalletType,
-            string? FundingType
-        );
+        public record PaymentDetails
+        {
+            public string? Brand { get; init; }
+            public int? ExpMonth { get; init; }
+            public int? ExpYear { get; init; }
+            public string? Last4 { get; init; }
+            public string? PaypalEmail { get; init; }
+            public string? PaypalPayerId { get; init; }
+            public string? WalletType { get; init; }
+            public string? FundingType { get; init; }
+        }
     }
 
     public static class CreatePaymentMethodTypes
     {
-        public record Request(
-            int CustomerId,
-            bool Default,
-            string PaymentType,
-            string ProcessorCustomerToken,
-            string ProcessorName,
-            string ProcessorPaymentMethodToken,
-            Address? BillingAddress
-        );
+        public record Request
+        {
+            public int? CustomerId { get; init; }
+            public bool? Default { get; init; }
+            public string? PaymentType { get; init; }
+            public string? ProcessorCustomerToken { get; init; }
+            public string? ProcessorName { get; init; }
+            public string? ProcessorPaymentMethodToken { get; init; }
+            public Address? BillingAddress { get; init; }
+        }
 
-        public record Response(
-            SharedTypes.PaymentMethod PaymentMethod
-        );
+        public record Response
+        {
+            public SharedTypes.PaymentMethod? PaymentMethod { get; init; }
+        }
     }
 
     public static class GetPaymentMethodTypes
     {
-        public record Response(
-            SharedTypes.PaymentMethod PaymentMethod
-        );
+        public record Response
+        {
+            public SharedTypes.PaymentMethod? PaymentMethod { get; init; }
+        }
     }
 
     public static class UpdatePaymentMethodTypes
     {
-        public record Request(
-            bool? Default,
-            string? ProcessorName,
-            Address? BillingAddress
-        );
+        public record Request
+        {
+            public bool? Default { get; init; }
+            public string? ProcessorName { get; init; }
+            public Address? BillingAddress { get; init; }
+        }
 
-        public record Response(
-            SharedTypes.PaymentMethod PaymentMethod
-        );
+        public record Response
+        {
+            public SharedTypes.PaymentMethod? PaymentMethod { get; init; }
+        }
     }
 
     public static class DeletePaymentMethodTypes
     {
-        public record Response();
+        public record Response
+        {
+            public Response()
+            {
+            }
+        }
     }
 
     public static class ListPaymentMethodTypes
     {
-        public record Request(string? CustomerId, int? Page, int? Limit);
+        public record Request
+        {
+            public string? CustomerId { get; init; }
+            public int? Page { get; init; }
+            public int? Limit { get; init; }
+        }
 
-        public record Response(IReadOnlyList<SharedTypes.PaymentMethod> PaymentMethods);
+        public record Response
+        {
+            public IReadOnlyList<SharedTypes.PaymentMethod>? PaymentMethods { get; init; }
+        }
     }
 }

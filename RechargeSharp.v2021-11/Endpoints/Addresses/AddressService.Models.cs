@@ -4,120 +4,142 @@ public partial class AddressService
 {
     public static class SharedAddressTypes
     {
-        public record ShippingLineOverride(
-            string? Code,
-            decimal? Price,
-            string Title
-        );
+        public record ShippingLineOverride
+        {
+            public string? Code { get; init; }
+            public decimal? Price { get; init; }
+            public string? Title { get; init; }
+        }
 
-        public record OrderAttribute(
-            string Name,
-            string Value
-        );
+        public record OrderAttribute
+        {
+            public string Name { get; init; }
+            public string Value { get; init; }
+        }
 
-        public record Address(
-            int Id,
-            int CustomerId,
-            int? PaymentMethodId,
-            string Address1,
-            string? Address2,
-            string City,
-            string Company,
-            string CountryCode,
-            DateTime CreatedAt,
-            IReadOnlyList<Discount> Discounts,
-            string FirstName,
-            string LastName,
-            IReadOnlyList<OrderAttribute> OrderAttributes,
-            string? OrderNote,
-            string Phone,
-            string? PresentmentCurrency,
-            string Province,
-            IReadOnlyList<ShippingLineOverride> ShippingLinesOverride,
-            DateTime UpdatedAt,
-            string Zip
-        );
+        public record Address
+        {
+            public int? Id { get; init; }
+            public int? CustomerId { get; init; }
+            public int? PaymentMethodId { get; init; }
+            public string? Address1 { get; init; }
+            public string? Address2 { get; init; }
+            public string? City { get; init; }
+            public string? Company { get; init; }
+            public string? CountryCode { get; init; }
+            public DateTime? CreatedAt { get; init; }
+            public IReadOnlyList<Discount>? Discounts { get; init; }
+            public string? FirstName { get; init; }
+            public string? LastName { get; init; }
+            public IReadOnlyList<OrderAttribute>? OrderAttributes { get; init; }
+            public string? OrderNote { get; init; }
+            public string? Phone { get; init; }
+            public string? PresentmentCurrency { get; init; }
+            public string? Province { get; init; }
+            public IReadOnlyList<ShippingLineOverride>? ShippingLinesOverride { get; init; }
+            public DateTime? UpdatedAt { get; init; }
+            public string? Zip { get; init; }
+        }
 
-        public record Discount(int Id);
+        public record Discount
+        {
+            public int? Id { get; init; }
+        }
     }
 
     public static class CreateAddressTypes
     {
-        public record Request(
-            int CustomerId,
-            string Address1,
-            string? Address2,
-            string City,
-            string? Company,
-            string CountryCode,
-            IReadOnlyList<SharedAddressTypes.Discount> Discounts,
-            string FirstName,
-            string LastName,
-            IReadOnlyList<SharedAddressTypes.OrderAttribute> OrderAttributes,
-            string? OrderNote,
-            int? PaymentMethodId,
-            string Phone,
-            string? Province,
-            IReadOnlyList<SharedAddressTypes.ShippingLineOverride> ShippingLinesOverride,
-            string Zip
-        );
+        public record Request
+        {
+            public int? CustomerId { get; init; }
+            public string? Address1 { get; init; }
+            public string? Address2 { get; init; }
+            public string? City { get; init; }
+            public string? Company { get; init; }
+            public string? CountryCode { get; init; }
+            public IReadOnlyList<SharedAddressTypes.Discount>? Discounts { get; init; }
+            public string? FirstName { get; init; }
+            public string? LastName { get; init; }
+            public IReadOnlyList<SharedAddressTypes.OrderAttribute>? OrderAttributes { get; init; }
+            public string? OrderNote { get; init; }
+            public int? PaymentMethodId { get; init; }
+            public string? Phone { get; init; }
+            public string? Province { get; init; }
+            public IReadOnlyList<SharedAddressTypes.ShippingLineOverride>? ShippingLinesOverride { get; init; }
+            public string? Zip { get; init; }
+        }
 
-        public record Response(
-            SharedAddressTypes.Address Address
-        );
+        public record Response
+        {
+            public SharedAddressTypes.Address? Address { get; init; }
+        }
     }
 
     public static class GetAddressTypes
     {
-        public record Response(SharedAddressTypes.Address Address);
+        public record Response
+        {
+            public SharedAddressTypes.Address? Address { get; init; }
+        }
     }
 
     public static class UpdateAddressTypes
     {
         public record Request
         {
-            public string Address1 { get; init; }
+            public string? Address1 { get; init; }
             public string? Address2 { get; init; }
-            public string City { get; init; }
+            public string? City { get; init; }
             public string? Company { get; init; }
-            public string CountryCode { get; init; }
-            public IReadOnlyList<SharedAddressTypes.Discount> Discounts { get; init; }
-            public string FirstName { get; init; }
-            public string LastName { get; init; }
-            public IReadOnlyList<SharedAddressTypes.OrderAttribute> OrderAttributes { get; init; }
+            public string? CountryCode { get; init; }
+            public IReadOnlyList<SharedAddressTypes.Discount>? Discounts { get; init; }
+            public string? FirstName { get; init; }
+            public string? LastName { get; init; }
+            public IReadOnlyList<SharedAddressTypes.OrderAttribute>? OrderAttributes { get; init; }
             public string? OrderNote { get; init; }
             public int? PaymentMethodId { get; init; }
-            public string Phone { get; init; }
+            public string? Phone { get; init; }
             public string? Province { get; init; }
-            public IReadOnlyList<SharedAddressTypes.ShippingLineOverride> ShippingLinesOverride { get; init; }
-            public string Zip { get; init; }
+            public IReadOnlyList<SharedAddressTypes.ShippingLineOverride>? ShippingLinesOverride { get; init; }
+            public string? Zip { get; init; }
         }
 
-        public record Response(SharedAddressTypes.Address Address);
+        public record Response
+        {
+            public SharedAddressTypes.Address? Address { get; init; }
+        }
     }
 
     public record DeleteAddressTypes
     {
-        public record Response();
+        public record Response
+        {
+            public Response()
+            {
+            }
+        }
     }
 
     public record ListAddressesTypes
     {
-        public record Request(
-            DateTime? CreatedAtMax,
-            DateTime? CreatedAtMin,
-            string? DiscountCode,
-            string? DiscountId,
-            int? Limit,
-            int? Page,
-            string? UpdatedAtMax,
-            string? UpdatedAtMin,
-            bool? IsActive);
+        public record Request
+        {
+            public DateTime? CreatedAtMax { get; init; }
+            public DateTime? CreatedAtMin { get; init; }
+            public string? DiscountCode { get; init; }
+            public string? DiscountId { get; init; }
+            public int? Limit { get; init; }
+            public int? Page { get; init; }
+            public string? UpdatedAtMax { get; init; }
+            public string? UpdatedAtMin { get; init; }
+            public bool? IsActive { get; init; }
+        }
 
-        public record Response(
-            string? NextCursor,
-            string? PreviousCursor,
-            IReadOnlyList<SharedAddressTypes.Address> Addresses
-        );
+        public record Response
+        {
+            public string? NextCursor { get; init; }
+            public string? PreviousCursor { get; init; }
+            public IReadOnlyList<SharedAddressTypes.Address>? Addresses { get; init; }
+        }
     }
 }

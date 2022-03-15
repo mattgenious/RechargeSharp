@@ -5,11 +5,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
-using Microsoft.Extensions.Logging.Abstractions;
 using Polly;
 using RechargeSharp.v2021_11.Endpoints.Subscriptions;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
+using RechargeSharp.v2021_11.Tests.TestHelpers.AutoFixture;
 using RechargeSharp.v2021_11.Tests.TestResources.SampleResponses.Subscriptions;
 using Xunit;
 
@@ -42,6 +42,7 @@ public class SubscriptionsServiceIntegrationTests
     public static IEnumerable<object[]> RechargeApiHttpResponseSuccessTestCases()
     {
         var fixture = new Fixture();
+        fixture.Customizations.Add(new DateOnlySpecimenBuilder());
         
         yield return new object[]
         {
@@ -105,7 +106,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.OK,
             "/subscriptions/1/set_next_charge_date",
             HttpMethod.Post,
-            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response>>(service => service.ChangeSubscriptionsNextChargeDateAsync(1, new SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request(new DateOnly(2022, 03, 01)))),
+            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response>>(service => service.ChangeSubscriptionsNextChargeDateAsync(1, fixture.Create<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request>())),
             change_a_subscription_next_charge_date_200.CorrectlyDeserializedJson()
         };
         
@@ -116,7 +117,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.OK,
             "/subscriptions/1/change_address",
             HttpMethod.Post,
-            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsAddressTypes.Response>>(service => service.ChangeSubscriptionsAddressAsync(1, new SubscriptionService.ChangeSubscriptionsAddressTypes.Request(1, new DateOnly(2022, 03, 01)))),
+            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsAddressTypes.Response>>(service => service.ChangeSubscriptionsAddressAsync(1, fixture.Create<SubscriptionService.ChangeSubscriptionsAddressTypes.Request>())),
             change_a_subscription_address_200.CorrectlyDeserializedJson()
         };
         
@@ -171,7 +172,8 @@ public class SubscriptionsServiceIntegrationTests
     public static IEnumerable<object[]> RechargeApiHttpResponseErrorTestCases()
     {
         var fixture = new Fixture();
-    
+        fixture.Customizations.Add(new DateOnlySpecimenBuilder());
+        
         yield return new object[]
         {
             // Create subscription - next charge schedule was set to be in the past
@@ -212,7 +214,7 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/subscriptions/1/set_next_charge_date",
             HttpMethod.Post,
-            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response>>(service => service.ChangeSubscriptionsNextChargeDateAsync(1,  new SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request(new DateOnly(2022, 03, 01)))),
+            new Func<SubscriptionService, Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response>>(service => service.ChangeSubscriptionsNextChargeDateAsync(1, fixture.Create<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request>())),
             typeof(UnprocessableEntityException)
         };
     }

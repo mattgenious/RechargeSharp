@@ -4,6 +4,7 @@ using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using RechargeSharp.v2021_11.Endpoints.Customers;
+using RechargeSharp.v2021_11.Tests.TestHelpers.AutoFixture;
 using RechargeSharp.v2021_11.Utilities;
 using Xunit;
 
@@ -16,6 +17,7 @@ public class CustomerServiceUnitTests
     public CustomerServiceUnitTests()
     {
         _fixture = new Fixture();
+        _fixture.Customizations.Add(new DateOnlySpecimenBuilder());
     }
     
     [Fact]
@@ -157,7 +159,6 @@ public class CustomerServiceUnitTests
 
     private static CustomerService CreateSut(IRechargeApiCaller apiCaller)
     {
-        var customerServiceLogger = new NullLogger<CustomerService>();
         var sut = new CustomerService(apiCaller);
         return sut;
     }
