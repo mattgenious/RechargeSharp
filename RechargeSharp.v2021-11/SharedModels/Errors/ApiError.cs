@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace RechargeSharp.v2021_11.Entities.Errors;
+namespace RechargeSharp.v2021_11.SharedModels.Errors;
 
 public class ApiError
 {
@@ -10,4 +10,6 @@ public class ApiError
     {
         return Errors?.ToString() ?? "(no errors was reported in the response data)";
     }
+
+    public bool IsNotFoundError() => Errors?.ValueEquals("Not Found") == true;
 }

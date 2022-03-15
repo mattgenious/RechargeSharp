@@ -110,16 +110,6 @@ public partial class AddressService
         }
     }
 
-    public record DeleteAddressTypes
-    {
-        public record Response
-        {
-            public Response()
-            {
-            }
-        }
-    }
-
     public record ListAddressesTypes
     {
         public record Request

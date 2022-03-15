@@ -7,9 +7,9 @@ namespace RechargeSharp.v2021_11.Endpoints.PaymentMethods;
 public interface IPaymentMethodService
 {
     Task<PaymentMethodService.CreatePaymentMethodTypes.Response> CreatePaymentMethodAsync(PaymentMethodService.CreatePaymentMethodTypes.Request request);
-    Task<PaymentMethodService.GetPaymentMethodTypes.Response> GetPaymentMethodAsync(int paymentMethodId);
+    Task<PaymentMethodService.GetPaymentMethodTypes.Response?> GetPaymentMethodAsync(int paymentMethodId);
     Task<PaymentMethodService.UpdatePaymentMethodTypes.Response> UpdatePaymentMethodAsync(int paymentMethodId, PaymentMethodService.UpdatePaymentMethodTypes.Request request);
-    Task<PaymentMethodService.DeletePaymentMethodTypes.Response> DeletePaymentMethodAsync(int paymentMethodId);
+    Task DeletePaymentMethodAsync(int paymentMethodId);
     Task<PaymentMethodService.ListPaymentMethodTypes.Response> ListPaymentMethodsAsync(PaymentMethodService.ListPaymentMethodTypes.Request request);
 }
 
@@ -29,10 +29,10 @@ public partial class PaymentMethodService : IPaymentMethodService
         return responseJson;
     }
 
-    public async Task<GetPaymentMethodTypes.Response> GetPaymentMethodAsync(int paymentMethodId)
+    public async Task<GetPaymentMethodTypes.Response?> GetPaymentMethodAsync(int paymentMethodId)
     {
         var requestUri = $"/payment_methods/{paymentMethodId}";
-        var responseJson = await _rechargeApiCaller.GetAsync<GetPaymentMethodTypes.Response>(requestUri);
+        var responseJson = await _rechargeApiCaller.GetNullableAsync<GetPaymentMethodTypes.Response>(requestUri);
         return responseJson;
     }
 
@@ -43,11 +43,10 @@ public partial class PaymentMethodService : IPaymentMethodService
         return responseJson;
     }
     
-    public async Task<DeletePaymentMethodTypes.Response> DeletePaymentMethodAsync(int paymentMethodId)
+    public async Task DeletePaymentMethodAsync(int paymentMethodId)
     {
         var requestUri = $"/payment_methods/{paymentMethodId}";
         await _rechargeApiCaller.DeleteAsync(requestUri);
-        return new DeletePaymentMethodTypes.Response();
     }
     
     public async Task<ListPaymentMethodTypes.Response> ListPaymentMethodsAsync(ListPaymentMethodTypes.Request request)

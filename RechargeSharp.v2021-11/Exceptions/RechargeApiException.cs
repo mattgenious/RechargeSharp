@@ -1,5 +1,4 @@
-using RechargeSharp.v2021_11.Entities;
-using RechargeSharp.v2021_11.Entities.Errors;
+using RechargeSharp.v2021_11.SharedModels.Errors;
 
 namespace RechargeSharp.v2021_11.Exceptions;
 
@@ -108,6 +107,7 @@ public class ForbiddenException : RechargeApiException
 
 public class NotFoundException : RechargeApiException
 {
+    public override bool? IsTransient => false;
     public NotFoundException(ApiError? errorDataJson) : base(errorDataJson)
     {
     }

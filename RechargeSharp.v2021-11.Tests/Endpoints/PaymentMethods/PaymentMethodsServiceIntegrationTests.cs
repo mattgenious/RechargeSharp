@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
-using Microsoft.Extensions.Logging.Abstractions;
 using Polly;
 using RechargeSharp.v2021_11.Endpoints.PaymentMethods;
 using RechargeSharp.v2021_11.Exceptions;
@@ -61,8 +60,19 @@ public class PaymentMethodsServiceIntegrationTests
             HttpStatusCode.OK,
             "/payment_methods/1111111",
             HttpMethod.Get,
-            new Func<PaymentMethodService, Task<PaymentMethodService.GetPaymentMethodTypes.Response>>(service => service.GetPaymentMethodAsync(1111111)),
+            new Func<PaymentMethodService, Task<PaymentMethodService.GetPaymentMethodTypes.Response?>>(service => service.GetPaymentMethodAsync(1111111)),
             get_payment_method_200.CorrectlyDeserializedJson()
+        };
+
+        yield return new object[]
+        {
+            // Get payment method - no payment method with the given ID exists
+            "PaymentMethods/get-payment-method_404_no_payment_method_with_id.json",
+            HttpStatusCode.NotFound,
+            "/payment_methods/1",
+            HttpMethod.Get,
+            new Func<PaymentMethodService, Task<PaymentMethodService.GetPaymentMethodTypes.Response?>>(service => service.GetPaymentMethodAsync(1)),
+            (PaymentMethodService.GetPaymentMethodTypes.Response?) null
         };
         
         yield return new object[]
@@ -78,17 +88,6 @@ public class PaymentMethodsServiceIntegrationTests
         
         yield return new object[]
         {
-            // Delete payment method
-            "PaymentMethods/delete-payment_method_204.json",
-            HttpStatusCode.NoContent,
-            "/payment_methods/1111111",
-            HttpMethod.Delete,
-            new Func<PaymentMethodService, Task<PaymentMethodService.DeletePaymentMethodTypes.Response>>(service => service.DeletePaymentMethodAsync(1111111)),
-            (PaymentMethodService.DeletePaymentMethodTypes.Response) null
-        };
-        
-        yield return new object[]
-        {
             // List payment methods
             "PaymentMethods/list-payment-methods_200.json",
             HttpStatusCode.OK,
@@ -100,11 +99,31 @@ public class PaymentMethodsServiceIntegrationTests
     }
     
     /// <summary>
+    ///     Testing that deletion works as intended
+    /// </summary>
+    [Fact]
+    public async Task TestingDeletion()
+    {
+        // Arrange
+        var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson("PaymentMethods/delete-payment_method_204.json");
+        var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, HttpStatusCode.NoContent,  "/payment_methods/1111111", HttpMethod.Delete);
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
+        
+        var sut = new PaymentMethodService(apiCaller);
+        
+        // Act
+        var act = async () => await sut.DeletePaymentMethodAsync(1111111);
+        
+        // Assert
+        await act.Should().NotThrowAsync();
+    }
+    
+    /// <summary>
     ///     Tests that the service behaves as expected when the Recharge API returns certain successful HTTP responses
     /// </summary>
     [Theory]
     [MemberData(nameof(RechargeApiHttpResponseErrorTestCases))]
-    public async Task TestingErrorResponseCodes<T>(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<PaymentMethodService, Task<T>> apiCallerFunc, Type expectedExceptionType)
+    public async Task TestingErrorResponseCodes(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<PaymentMethodService, Task> apiCallerFunc, Type expectedExceptionType)
     {
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
@@ -121,7 +140,7 @@ public class PaymentMethodsServiceIntegrationTests
         var thrownException = exceptionShouldBeThrown.Which;
         thrownException.Should().BeOfType(expectedExceptionType);
         thrownException.ErrorDataJson.Should().NotBeNull();
-        thrownException.ErrorDataJson.Errors.Should().NotBeNull();
+        thrownException.ErrorDataJson!.Errors.Should().NotBeNull();
     }
     
     public static IEnumerable<object[]> RechargeApiHttpResponseErrorTestCases()
@@ -137,17 +156,6 @@ public class PaymentMethodsServiceIntegrationTests
             HttpMethod.Post,
             new Func<PaymentMethodService, Task<PaymentMethodService.CreatePaymentMethodTypes.Response>>(service => service.CreatePaymentMethodAsync(fixture.Create<PaymentMethodService.CreatePaymentMethodTypes.Request>())),
             typeof(UnprocessableEntityException)
-        };
-        
-        yield return new object[]
-        {
-            // Get payment method - no payment method with the given ID exists
-            "PaymentMethods/get-payment-method_404_no_payment_method_with_id.json",
-            HttpStatusCode.NotFound,
-            "/payment_methods/1",
-            HttpMethod.Get,
-            new Func<PaymentMethodService, Task<PaymentMethodService.GetPaymentMethodTypes.Response>>(service => service.GetPaymentMethodAsync(1)),
-            typeof(NotFoundException)
         };
         
         yield return new object[]
@@ -168,7 +176,7 @@ public class PaymentMethodsServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/payment_methods/1",
             HttpMethod.Delete,
-            new Func<PaymentMethodService, Task<PaymentMethodService.DeletePaymentMethodTypes.Response>>(service => service.DeletePaymentMethodAsync(1)),
+            new Func<PaymentMethodService, Task>(service => service.DeletePaymentMethodAsync(1)),
             typeof(UnprocessableEntityException)
         };
     }

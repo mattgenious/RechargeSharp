@@ -62,9 +62,21 @@ public class SubscriptionsServiceIntegrationTests
             HttpStatusCode.OK,
             "/subscriptions",
             HttpMethod.Get,
-            new Func<SubscriptionService, Task<SubscriptionService.GetSubscriptionTypes.Response>>(service => service.GetSubscriptionAsync(1)),
+            new Func<SubscriptionService, Task<SubscriptionService.GetSubscriptionTypes.Response?>>(service => service.GetSubscriptionAsync(1)),
             get_subscription_200.CorrectlyDeserializedJson()
         };
+        
+        yield return new object[]
+        {
+            // Get subscription - no subscription with the given ID
+            "Subscriptions/get-subscription_404_no-subscription-with-the-given-id.json",
+            HttpStatusCode.NotFound,
+            "/subscriptions/1",
+            HttpMethod.Get,
+            new Func<SubscriptionService, Task<SubscriptionService.GetSubscriptionTypes.Response?>>(service => service.GetSubscriptionAsync(1)),
+            (SubscriptionService.GetSubscriptionTypes.Response?) null
+        };
+
         
         yield return new object[]
         {
@@ -76,18 +88,7 @@ public class SubscriptionsServiceIntegrationTests
             new Func<SubscriptionService, Task<SubscriptionService.UpdateSubscriptionTypes.Response>>(service => service.UpdateSubscriptionAsync(1, fixture.Create<SubscriptionService.UpdateSubscriptionTypes.Request>())),
             update_subscription_200.CorrectlyDeserializedJson()
         };
-        
-        yield return new object[]
-        {
-            // Delete subscription
-            "Subscriptions/delete-subscription_204.json",
-            HttpStatusCode.NoContent,
-            "/subscriptions/1",
-            HttpMethod.Delete,
-            new Func<SubscriptionService, Task<SubscriptionService.DeleteSubscriptionTypes.Response>>(service => service.DeleteSubscriptionAsync(1)),
-            (SubscriptionService.DeleteSubscriptionTypes.Response?) null
-        };
-        
+
         yield return new object[]
         {
             // List subscriptions
@@ -145,6 +146,26 @@ public class SubscriptionsServiceIntegrationTests
     }
     
     /// <summary>
+    ///     Testing that deletion works as intended
+    /// </summary>
+    [Fact]
+    public async Task TestingDeletion()
+    {
+        // Arrange
+        var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson("Subscriptions/delete-subscription_204.json");
+        var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, HttpStatusCode.NoContent, "/subscriptions/1", HttpMethod.Delete);
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
+        
+        var sut = new SubscriptionService(apiCaller);
+        
+        // Act
+        var act = async () => await sut.DeleteSubscriptionAsync(1);
+        
+        // Assert
+        await act.Should().NotThrowAsync();
+    }
+    
+    /// <summary>
     ///     Tests that the service behaves as expected when the Recharge API returns certain successful HTTP responses
     /// </summary>
     [Theory]
@@ -183,17 +204,6 @@ public class SubscriptionsServiceIntegrationTests
             HttpMethod.Post,
             new Func<SubscriptionService, Task<SubscriptionService.CreateSubscriptionTypes.Response>>(service => service.CreateSubscriptionAsync(fixture.Create<SubscriptionService.CreateSubscriptionTypes.Request>())),
             typeof(UnprocessableEntityException)
-        };
-        
-        yield return new object[]
-        {
-            // Get subscription - no subscription with the given ID
-            "Subscriptions/get-subscription_404_no-subscription-with-the-given-id.json",
-            HttpStatusCode.NotFound,
-            "/subscriptions/1",
-            HttpMethod.Get,
-            new Func<SubscriptionService, Task<SubscriptionService.GetSubscriptionTypes.Response>>(service => service.GetSubscriptionAsync(1)),
-            typeof(NotFoundException)
         };
         
         yield return new object[]

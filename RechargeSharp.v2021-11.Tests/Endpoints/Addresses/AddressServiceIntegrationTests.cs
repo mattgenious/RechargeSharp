@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
-using Microsoft.Extensions.Logging.Abstractions;
 using Polly;
 using RechargeSharp.v2021_11.Endpoints.Addresses;
 using RechargeSharp.v2021_11.Exceptions;
@@ -35,9 +34,12 @@ public class AddressServiceIntegrationTests
         var result = await apiCallerFunc(sut);
         
         // Assert
-        if(expectedDeserializedResponse != null)
+        if (expectedDeserializedResponse != null)
             result.Should().BeEquivalentTo(expectedDeserializedResponse);
+        else
+            result.Should().BeNull();
     }
+    
     
     public static IEnumerable<object[]> RechargeApiHttpResponseSuccessTestCases()
     {
@@ -61,8 +63,19 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.OK,
             "/addresses/1",
             HttpMethod.Get,
-            new Func<AddressService, Task<AddressService.GetAddressTypes.Response>>(service => service.GetAddressAsync(1)),
+            new Func<AddressService, Task<AddressService.GetAddressTypes.Response?>>(service => service.GetAddressAsync(1)),
             get_address_201.CorrectlyDeserializedJson()
+        };
+        
+        yield return new object[]
+        {
+            // Get address - no address with given id
+            "Addresses/get-address_404_no-address-with-id.json",
+            HttpStatusCode.NotFound,
+            "/addresses/1",
+            HttpMethod.Get,
+            new Func<AddressService, Task<AddressService.GetAddressTypes.Response?>>(service => service.GetAddressAsync(1)),
+            (AddressService.GetAddressTypes.Response?) null
         };
         
         yield return new object[]
@@ -78,17 +91,6 @@ public class AddressServiceIntegrationTests
         
         yield return new object[]
         {
-            // Delete address
-            "Addresses/delete-address_204.json",
-            HttpStatusCode.NoContent,
-            "/addresses/1",
-            HttpMethod.Delete,
-            new Func<AddressService, Task<AddressService.DeleteAddressTypes.Response>>(service => service.DeleteAddressAsync(1)),
-            (AddressService.DeleteAddressTypes.Response?) null
-        };
-        
-        yield return new object[]
-        {
             // List addresses
             "Addresses/list-addresses_200.json",
             HttpStatusCode.OK,
@@ -99,12 +101,31 @@ public class AddressServiceIntegrationTests
         };
     }
     
+    
+    /// <summary>
+    ///     Tests that the service behaves as expected when the Recharge API returns certain successful HTTP responses
+    /// </summary>
+    [Fact]
+    public async Task TestingDeletion()
+    {
+        // Arrange
+        var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson("Addresses/delete-address_204.json");
+        var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, HttpStatusCode.NoContent, "/addresses/1", HttpMethod.Delete);
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
+        
+        var sut = new AddressService(apiCaller);
+        
+        // Act
+        var act = async () => await sut.DeleteAddressAsync(1);
+        await act.Should().NotThrowAsync();
+    }
+    
     /// <summary>
     ///     Tests that the service behaves as expected when the Recharge API returns certain successful HTTP responses
     /// </summary>
     [Theory]
     [MemberData(nameof(RechargeApiHttpResponseErrorTestCases))]
-    public async Task TestingErrorResponseCodes<T>(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<AddressService, Task<T>> apiCallerFunc, Type expectedExceptionType)
+    public async Task TestingErrorResponseCodes(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<AddressService, Task> apiCallerFunc, Type expectedExceptionType)
     {
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
@@ -121,7 +142,7 @@ public class AddressServiceIntegrationTests
         var thrownException = exceptionShouldBeThrown.Which;
         thrownException.Should().BeOfType(expectedExceptionType);
         thrownException.ErrorDataJson.Should().NotBeNull();
-        thrownException.ErrorDataJson.Errors.Should().NotBeNull();
+        thrownException.ErrorDataJson!.Errors.Should().NotBeNull();
     }
     
     public static IEnumerable<object[]> RechargeApiHttpResponseErrorTestCases()
@@ -153,11 +174,11 @@ public class AddressServiceIntegrationTests
         yield return new object[]
         {
             // Delete address - address doesn't exist
-            "Addresses/update-address_422_address1-missing.json",
+            "Addresses/delete-address_404_no-address-with-id.json",
             HttpStatusCode.NotFound,
             "/addresses/1",
             HttpMethod.Delete,
-            new Func<AddressService, Task<AddressService.DeleteAddressTypes.Response>>(service => service.DeleteAddressAsync(1)),
+            new Func<AddressService, Task>(service => service.DeleteAddressAsync(1)),
             typeof(NotFoundException)
         };
         
@@ -168,13 +189,13 @@ public class AddressServiceIntegrationTests
             HttpStatusCode.UnprocessableEntity,
             "/addresses/1",
             HttpMethod.Delete,
-            new Func<AddressService, Task<AddressService.DeleteAddressTypes.Response>>(service => service.DeleteAddressAsync(1)),
+            new Func<AddressService, Task>(service => service.DeleteAddressAsync(1)),
             typeof(UnprocessableEntityException)
         };
 
         yield return new object[]
         {
-            // List addresses - 
+            // List addresses - update_at_max is not a proper date
             "Addresses/list-addresses_422_updated-at-max-was-not-a-proper-date.json",
             HttpStatusCode.UnprocessableEntity,
             "/addresses",

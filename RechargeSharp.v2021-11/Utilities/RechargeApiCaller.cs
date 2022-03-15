@@ -5,8 +5,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
 using RechargeSharp.v2021_11.Configuration.DependencyInjection;
-using RechargeSharp.v2021_11.Entities.Errors;
 using RechargeSharp.v2021_11.Exceptions;
+using RechargeSharp.v2021_11.SharedModels.Errors;
 using RechargeSharp.v2021_11.Utilities.Json;
 
 namespace RechargeSharp.v2021_11.Utilities;
@@ -14,6 +14,11 @@ namespace RechargeSharp.v2021_11.Utilities;
 public interface IRechargeApiCaller
 {
     Task<T> GetAsync<T>(string uri);
+    
+    /// <summary>
+    ///     Sends a GET request to the API, but will just return null if the API responds with 404 Not Found
+    /// </summary>
+    Task<T?> GetNullableAsync<T>(string uri);
     Task<TResponse> PutAsync<TRequest, TResponse>(TRequest instance, string uri);
     Task<TResponse> PostAsync<TRequest, TResponse>(TRequest instance, string uri);
     Task<TResponse> PostAsync<TResponse>(string uri);
@@ -24,7 +29,6 @@ public interface IRechargeApiCaller
 public class RechargeApiCaller : IRechargeApiCaller
 {
     private readonly ILogger<RechargeApiCaller> _logger;
-    private readonly RechargeApiCallerOptions _rechargeApiCallerOptions;
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     public IAsyncPolicy AsyncRetryPolicy { get; set; }
@@ -32,23 +36,29 @@ public class RechargeApiCaller : IRechargeApiCaller
     public RechargeApiCaller(IHttpClientFactory httpClientFactory, ILogger<RechargeApiCaller> logger, IOptions<RechargeApiCallerOptions> rechargeApiCallerOptions)
     {
         _logger = logger;
-        _rechargeApiCallerOptions = rechargeApiCallerOptions.Value;
+        var resolvedRechargeApiCallerOptions = rechargeApiCallerOptions.Value;
         _httpClient = httpClientFactory.CreateClient(RechargeSharpDependencyInjection.RechargeSharpHttpClientKey);
         _httpClient.DefaultRequestHeaders.Add("X-Recharge-Version", "2021-11");
-        _httpClient.DefaultRequestHeaders.Add ("X-Recharge-Access-Token", _rechargeApiCallerOptions.ApiKey);
+        _httpClient.DefaultRequestHeaders.Add ("X-Recharge-Access-Token", resolvedRechargeApiCallerOptions.ApiKey);
 
-        _jsonSerializerOptions = new JsonSerializerOptions()
+        _jsonSerializerOptions = CreateJsonOptions();
+
+        AsyncRetryPolicy = resolvedRechargeApiCallerOptions.ApiCallPolicy;
+    }
+
+    private static JsonSerializerOptions CreateJsonOptions()
+    {
+        var jsonSerializerOptions = new JsonSerializerOptions()
         {
             PropertyNameCaseInsensitive = true,
             PropertyNamingPolicy = new SnakeCaseNamingPolicy(),
         };
-        _jsonSerializerOptions.Converters.Add(new ApiErrorJsonConverter());
-        _jsonSerializerOptions.Converters.Add(new DateOnlyNullableConverter());
-        _jsonSerializerOptions.Converters.Add(new DateOnlyConverter());
-        _jsonSerializerOptions.Converters.Add(new DecimalConverter());
-        _jsonSerializerOptions.Converters.Add(new DecimalNullableConverter());
-
-        AsyncRetryPolicy = _rechargeApiCallerOptions.ApiCallPolicy;
+        jsonSerializerOptions.Converters.Add(new ApiErrorJsonConverter());
+        jsonSerializerOptions.Converters.Add(new DateOnlyNullableConverter());
+        jsonSerializerOptions.Converters.Add(new DateOnlyConverter());
+        jsonSerializerOptions.Converters.Add(new DecimalConverter());
+        jsonSerializerOptions.Converters.Add(new DecimalNullableConverter());
+        return jsonSerializerOptions;
     }
 
     public async Task<T> GetAsync<T>(string uri)
@@ -59,9 +69,23 @@ public class RechargeApiCaller : IRechargeApiCaller
             RequestUri = new Uri(uri, UriKind.Relative)
         };
 
-        var response = await SendRequest(requestFactory);
+        var response = await SendRequest(requestFactory, true);
         var responseContentsStream = await response.Content.ReadAsStreamAsync();
         var responseJson = await DeserializeResponseJson<T>(responseContentsStream);
+        return responseJson;
+    }
+
+    public async Task<T?> GetNullableAsync<T>(string uri)
+    {
+        var requestFactory = () => new HttpRequestMessage()
+        {
+            Method = HttpMethod.Get,
+            RequestUri = new Uri(uri, UriKind.Relative)
+        };
+
+        var response = await SendRequest(requestFactory, false);
+        var responseContentsStream = await response.Content.ReadAsStreamAsync();
+        var responseJson = await DeserializeNullableResponseJson<T?>(responseContentsStream);
         return responseJson;
     }
 
@@ -74,7 +98,7 @@ public class RechargeApiCaller : IRechargeApiCaller
             Content = CreateJsonRequestBody(instance)
         };
         
-        var response = await SendRequest(requestFactory);
+        var response = await SendRequest(requestFactory, true);
         var responseContentsStream = await response.Content.ReadAsStreamAsync();
         var responseJson = await DeserializeResponseJson<TResponse>(responseContentsStream);
         
@@ -90,7 +114,7 @@ public class RechargeApiCaller : IRechargeApiCaller
             Content = CreateJsonRequestBody(instance)
         };
         
-        var response = await SendRequest(requestFactory);
+        var response = await SendRequest(requestFactory, true);
         var responseContentsStream = await response.Content.ReadAsStreamAsync();
         var responseJson = await DeserializeResponseJson<TResponse>(responseContentsStream);
         
@@ -105,7 +129,7 @@ public class RechargeApiCaller : IRechargeApiCaller
             RequestUri = new Uri(uri, UriKind.Relative)
         };
         
-        var response = await SendRequest(requestFactory);
+        var response = await SendRequest(requestFactory, true);
         var responseContentsStream = await response.Content.ReadAsStreamAsync();
         var responseJson = await DeserializeResponseJson<TResponse>(responseContentsStream);
         
@@ -120,17 +144,17 @@ public class RechargeApiCaller : IRechargeApiCaller
             RequestUri = new Uri(uri, UriKind.Relative)
         };
 
-        await SendRequest(requestFactory);
+        await SendRequest(requestFactory, true);
     }
     
-    private async Task<HttpResponseMessage> SendRequest(Func<HttpRequestMessage> httpRequestFactory)
+    private async Task<HttpResponseMessage> SendRequest(Func<HttpRequestMessage> httpRequestFactory, bool throwWhenNotFound)
     {
         // HttpRequestMessages can only be used once, so we have to create new ones between retries
-        var result = await AsyncRetryPolicy.ExecuteAsync(() => SendRequestInner(httpRequestFactory));
+        var result = await AsyncRetryPolicy.ExecuteAsync(() => SendRequestInner(httpRequestFactory, throwWhenNotFound));
         return result;
     }
 
-    private async Task<HttpResponseMessage> SendRequestInner(Func<HttpRequestMessage> httpRequestFactory)
+    private async Task<HttpResponseMessage> SendRequestInner(Func<HttpRequestMessage> httpRequestFactory, bool throwWhenNotFound)
     {
         var httpRequest = httpRequestFactory();
         var response = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
@@ -138,11 +162,14 @@ public class RechargeApiCaller : IRechargeApiCaller
         if (response.IsSuccessStatusCode)
             return response;
         
-        var exceptionToThrow = await CreateAppropriateException(response);
-        throw exceptionToThrow;
+        var exceptionToThrow = await CreateAppropriateException(response, throwWhenNotFound);
+        if(exceptionToThrow != null)
+            throw exceptionToThrow;
+
+        return response;
     }
 
-    private async Task<Exception> CreateAppropriateException(HttpResponseMessage response)
+    private async Task<Exception?> CreateAppropriateException(HttpResponseMessage response, bool throwWhenNotFound)
     {
         ApiError? responseBodyAsStructuredJson;
         try
@@ -172,7 +199,10 @@ public class RechargeApiCaller : IRechargeApiCaller
             // The request was authenticated but not authorized for the requested resource (permission scope error).
             403 => new ForbiddenException(responseBodyAsStructuredJson),
             
-            // Not Found: The requested resource doesn’t exist.
+            // The entity was not found
+            404 when throwWhenNotFound == false && responseBodyAsStructuredJson?.IsNotFoundError() == true => null,
+            
+            // Not Found: The requested resource does not exist.
             404 => new NotFoundException(responseBodyAsStructuredJson),
             
             // Method Not Allowed: The method is not allowed for this URI.
@@ -215,6 +245,17 @@ public class RechargeApiCaller : IRechargeApiCaller
         var responseJson = await JsonSerializer.DeserializeAsync<T>(response, _jsonSerializerOptions);
         if (responseJson == null)
             throw new UnexpectedResponseContentException("The response could not be deserialized to JSON");
+        return responseJson;
+    }
+    
+    private async Task<T?> DeserializeNullableResponseJson<T>(Stream response)
+    {
+        await using var ms = new MemoryStream();
+        await response.CopyToAsync(ms);
+        var responseAsString = Encoding.UTF8.GetString(ms.ToArray());
+        if (string.IsNullOrWhiteSpace(responseAsString))
+            return default;
+        var responseJson = JsonSerializer.Deserialize<T>(responseAsString, _jsonSerializerOptions);
         return responseJson;
     }
 

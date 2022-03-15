@@ -7,9 +7,9 @@ namespace RechargeSharp.v2021_11.Endpoints.Subscriptions;
 public interface ISubscriptionService
 {
     Task<SubscriptionService.CreateSubscriptionTypes.Response> CreateSubscriptionAsync(SubscriptionService.CreateSubscriptionTypes.Request request);
-    Task<SubscriptionService.GetSubscriptionTypes.Response> GetSubscriptionAsync(int subscriptionId);
+    Task<SubscriptionService.GetSubscriptionTypes.Response?> GetSubscriptionAsync(int subscriptionId);
     Task<SubscriptionService.UpdateSubscriptionTypes.Response> UpdateSubscriptionAsync(int subscriptionId, SubscriptionService.UpdateSubscriptionTypes.Request request);
-    Task<SubscriptionService.DeleteSubscriptionTypes.Response> DeleteSubscriptionAsync(int subscriptionId);
+    Task DeleteSubscriptionAsync(int subscriptionId);
     Task<SubscriptionService.ListSubscriptionsTypes.Response> ListSubscriptionsAsync(SubscriptionService.ListSubscriptionsTypes.Request request);
     Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response> ChangeSubscriptionsNextChargeDateAsync(int subscriptionId, SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request request);
     Task<SubscriptionService.ChangeSubscriptionsAddressTypes.Response> ChangeSubscriptionsAddressAsync(int subscriptionId, SubscriptionService.ChangeSubscriptionsAddressTypes.Request request);
@@ -33,10 +33,10 @@ public partial class SubscriptionService : ISubscriptionService
         return responseJson;
     }
 
-    public async Task<GetSubscriptionTypes.Response> GetSubscriptionAsync(int subscriptionId)
+    public async Task<GetSubscriptionTypes.Response?> GetSubscriptionAsync(int subscriptionId)
     {
         var requestUri = $"/subscriptions/{subscriptionId}";
-        var responseJson = await _rechargeApiCaller.GetAsync<GetSubscriptionTypes.Response> (requestUri);
+        var responseJson = await _rechargeApiCaller.GetNullableAsync<GetSubscriptionTypes.Response> (requestUri);
         return responseJson;
     }
     
@@ -47,11 +47,10 @@ public partial class SubscriptionService : ISubscriptionService
         return responseJson;
     }
     
-    public async Task<DeleteSubscriptionTypes.Response> DeleteSubscriptionAsync(int subscriptionId)
+    public async Task DeleteSubscriptionAsync(int subscriptionId)
     {
         var requestUri = $"/subscriptions/{subscriptionId}";
         await _rechargeApiCaller.DeleteAsync(requestUri);
-        return new DeleteSubscriptionTypes.Response();
     }
     
     public async Task<ListSubscriptionsTypes.Response> ListSubscriptionsAsync(ListSubscriptionsTypes.Request request)

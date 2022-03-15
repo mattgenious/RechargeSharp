@@ -27,7 +27,7 @@ public class CustomerServiceIntegrationTests
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
-        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
         
         var sut = new CustomerService(apiCaller);
         
@@ -35,8 +35,10 @@ public class CustomerServiceIntegrationTests
         var result = await apiCallerFunc(sut);
         
         // Assert
-        if(expectedDeserializedResponse != null)
+        if (expectedDeserializedResponse != null)
             result.Should().BeEquivalentTo(expectedDeserializedResponse);
+        else
+            result.Should().BeNull();
     }
     
     public static IEnumerable<object[]> RechargeApiHttpResponseSuccessTestCases()
@@ -61,8 +63,20 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.OK,
             $"/customers/{82940007}",
             HttpMethod.Get,
-            new Func<CustomerService, Task<CustomerService.GetCustomerTypes.Response>>(service => service.GetCustomerAsync(82940007)),
+            new Func<CustomerService, Task<CustomerService.GetCustomerTypes.Response?>>(service => service.GetCustomerAsync(82940007)),
             get_customer_200.CorrectlyDeserializedJson()
+        };
+        
+        
+        yield return new object[]
+        {
+            // Get customer - no customer with that ID
+            "Customers/get-customer_404_no-customer-with-id.json",
+            HttpStatusCode.NotFound,
+            "/customers/111111",
+            HttpMethod.Get,
+            new Func<CustomerService, Task<CustomerService.GetCustomerTypes.Response?>>(service => service.GetCustomerAsync(111111)),
+            (CustomerService.GetCustomerTypes.Response?) null
         };
         
         yield return new object[]
@@ -74,17 +88,6 @@ public class CustomerServiceIntegrationTests
             HttpMethod.Put,
             new Func<CustomerService, Task<CustomerService.UpdateCustomerTypes.Response>>(service => service.UpdateCustomerAsync(82940507, fixture.Create<CustomerService.UpdateCustomerTypes.Request>())),
             update_customer_200.CorrectlyDeserializedJson()
-        };
-        
-        yield return new object[]
-        {
-            // Delete customer
-            "Customers/delete-customer_204.json",
-            HttpStatusCode.NoContent,
-            $"/customers/{37657002}",
-            HttpMethod.Delete,
-            new Func<CustomerService, Task<CustomerService.DeleteCustomerTypes.Response>>(service => service.DeleteCustomerAsync(37657002)),
-            (CustomerService.DeleteCustomerTypes.Response?) null
         };
         
         yield return new object[]
@@ -122,11 +125,31 @@ public class CustomerServiceIntegrationTests
     }
     
     /// <summary>
+    ///     Testing that deletion works as intended
+    /// </summary>
+    [Fact]
+    public async Task TestingDeletion()
+    {
+        // Arrange
+        var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson("Customers/delete-customer_204.json");
+        var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, HttpStatusCode.NoContent, $"/customers/{37657002}", HttpMethod.Delete);
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
+        
+        var sut = new CustomerService(apiCaller);
+        
+        // Act
+        var act = async () => await sut.DeleteCustomerAsync(37657002);
+        
+        // Assert
+        await act.Should().NotThrowAsync();
+    }
+    
+    /// <summary>
     ///     Tests that the service behaves as expected when the Recharge API returns certain successful HTTP responses
     /// </summary>
     [Theory]
     [MemberData(nameof(RechargeApiHttpResponseErrorTestCases))]
-    public async Task TestingErrorResponseCodes<T>(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<CustomerService, Task<T>> apiCallerFunc, Type expectedExceptionType)
+    public async Task TestingErrorResponseCodes(string sampleResponseJsonFile, HttpStatusCode httpStatusCode, string uriToMatch, HttpMethod method, Func<CustomerService, Task> apiCallerFunc, Type expectedExceptionType)
     {
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
@@ -143,7 +166,7 @@ public class CustomerServiceIntegrationTests
         var thrownException = exceptionShouldBeThrown.Which;
         thrownException.Should().BeOfType(expectedExceptionType);
         thrownException.ErrorDataJson.Should().NotBeNull();
-        thrownException.ErrorDataJson.Errors.Should().NotBeNull();
+        thrownException.ErrorDataJson!.Errors.Should().NotBeNull();
     }
     
     public static IEnumerable<object[]> RechargeApiHttpResponseErrorTestCases()
@@ -168,7 +191,7 @@ public class CustomerServiceIntegrationTests
             HttpStatusCode.NotFound,
             "/customers/111111",
             HttpMethod.Delete,
-            new Func<CustomerService, Task<CustomerService.DeleteCustomerTypes.Response>>(service => service.DeleteCustomerAsync(111111)),
+            new Func<CustomerService, Task>(service => service.DeleteCustomerAsync(111111)),
             typeof(NotFoundException)
         };
         
@@ -180,17 +203,6 @@ public class CustomerServiceIntegrationTests
             $"/customers/111111/delivery_schedule",
             HttpMethod.Get,
             new Func<CustomerService, Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response>>(service => service.GetCustomerDeliveryScheduleAsync(111111, fixture.Create<CustomerService.GetCustomerDeliveryScheduleTypes.Request>())),
-            typeof(NotFoundException)
-        };
-        
-        yield return new object[]
-        {
-            // Get customer - no customer with that ID
-            "Customers/get-customer_404_no-customer-with-id.json",
-            HttpStatusCode.NotFound,
-            "/customers/111111",
-            HttpMethod.Get,
-            new Func<CustomerService, Task<CustomerService.GetCustomerTypes.Response>>(service => service.GetCustomerAsync(111111)),
             typeof(NotFoundException)
         };
         

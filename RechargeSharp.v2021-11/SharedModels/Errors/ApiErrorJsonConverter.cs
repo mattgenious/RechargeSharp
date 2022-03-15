@@ -1,8 +1,7 @@
-using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RechargeSharp.v2021_11.Entities.Errors;
+namespace RechargeSharp.v2021_11.SharedModels.Errors;
 
 public class ApiErrorJsonConverter : JsonConverter<ApiError>
 {

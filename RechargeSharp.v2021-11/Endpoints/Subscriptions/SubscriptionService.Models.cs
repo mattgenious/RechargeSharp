@@ -124,16 +124,6 @@ public partial class SubscriptionService
         }
     }
 
-    public static class DeleteSubscriptionTypes
-    {
-        public record Response
-        {
-            public Response()
-            {
-            }
-        }
-    }
-
     public static class ListSubscriptionsTypes
     {
         public record Request

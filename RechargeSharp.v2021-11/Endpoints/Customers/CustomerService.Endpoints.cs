@@ -7,9 +7,9 @@ namespace RechargeSharp.v2021_11.Endpoints.Customers;
 public interface ICustomerService
 {
     Task<CustomerService.CreateCustomerTypes.Response> CreateCustomerAsync(CustomerService.CreateCustomerTypes.Request request);
-    Task<CustomerService.GetCustomerTypes.Response> GetCustomerAsync(int customerId);
+    Task<CustomerService.GetCustomerTypes.Response?> GetCustomerAsync(int customerId);
     Task<CustomerService.UpdateCustomerTypes.Response> UpdateCustomerAsync(int customerId, CustomerService.UpdateCustomerTypes.Request request);
-    Task<CustomerService.DeleteCustomerTypes.Response> DeleteCustomerAsync(int customerId);
+    Task DeleteCustomerAsync(int customerId);
     Task<CustomerService.ListCustomersTypes.Response> ListCustomersAsync(CustomerService.ListCustomersTypes.Request request);
     Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response> GetCustomerDeliveryScheduleAsync(int customerId, CustomerService.GetCustomerDeliveryScheduleTypes.Request request);
 }
@@ -30,10 +30,10 @@ public partial class CustomerService : ICustomerService
         return responseJson;
     }
 
-    public async Task<GetCustomerTypes.Response> GetCustomerAsync(int customerId)
+    public async Task<GetCustomerTypes.Response?> GetCustomerAsync(int customerId)
     {
         var requestUri = $"/customers/{customerId}";
-        var responseJson = await _rechargeApiCaller.GetAsync<GetCustomerTypes.Response>(requestUri);
+        var responseJson = await _rechargeApiCaller.GetNullableAsync<GetCustomerTypes.Response>(requestUri);
         return responseJson;
     }
     
@@ -44,11 +44,10 @@ public partial class CustomerService : ICustomerService
         return responseJson;
     }
     
-    public async Task<DeleteCustomerTypes.Response> DeleteCustomerAsync(int customerId)
+    public async Task DeleteCustomerAsync(int customerId)
     {
         var requestUri = $"/customers/{customerId}";
         await _rechargeApiCaller.DeleteAsync(requestUri);
-        return new DeleteCustomerTypes.Response();
     }
 
     public async Task<ListCustomersTypes.Response> ListCustomersAsync(ListCustomersTypes.Request request)

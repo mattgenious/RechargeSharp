@@ -189,14 +189,4 @@ public partial class CustomerService
             public IReadOnlyList<Order>? Orders { get; init; }
         }
     }
-
-    public static class DeleteCustomerTypes
-    {
-        public record Response
-        {
-            public Response()
-            {
-            }
-        }
-    }
 }

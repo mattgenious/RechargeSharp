@@ -78,16 +78,6 @@ public partial class PaymentMethodService
         }
     }
 
-    public static class DeletePaymentMethodTypes
-    {
-        public record Response
-        {
-            public Response()
-            {
-            }
-        }
-    }
-
     public static class ListPaymentMethodTypes
     {
         public record Request

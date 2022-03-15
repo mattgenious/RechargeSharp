@@ -52,7 +52,7 @@ public class CustomerServiceUnitTests
         const int customerId = 123;
         var uriToMock = $"/customers/{customerId}";
         apiCallerMock.Setup(
-                r => r.GetAsync<CustomerService.GetCustomerTypes.Response>(uriToMock))
+                r => r.GetNullableAsync<CustomerService.GetCustomerTypes.Response>(uriToMock))
             .ReturnsAsync(response)
             .Verifiable();
         
