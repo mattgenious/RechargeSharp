@@ -10,6 +10,14 @@ namespace RechargeSharp.v2021_11.Tests.Utilities.Json;
 public class ObjectToQueryParametersSerializerTests
 {
     [Fact]
+    public void CanHandleNullObject()
+    {
+        SomeClass? input = null;
+        var asQueryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(input);
+        asQueryString.Value.Should().BeNull();
+    }
+    
+    [Fact]
     public void CanSerializeObjectToQueryParameters()
     {
         var input = new SomeClass("here is a string", new DateTime(2022, 3, 1, 12, 0, 0), 2.45m);

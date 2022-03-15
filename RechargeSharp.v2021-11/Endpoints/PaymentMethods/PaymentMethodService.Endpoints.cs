@@ -10,7 +10,7 @@ public interface IPaymentMethodService
     Task<PaymentMethodService.GetPaymentMethodTypes.Response?> GetPaymentMethodAsync(int paymentMethodId);
     Task<PaymentMethodService.UpdatePaymentMethodTypes.Response> UpdatePaymentMethodAsync(int paymentMethodId, PaymentMethodService.UpdatePaymentMethodTypes.Request request);
     Task DeletePaymentMethodAsync(int paymentMethodId);
-    Task<PaymentMethodService.ListPaymentMethodTypes.Response> ListPaymentMethodsAsync(PaymentMethodService.ListPaymentMethodTypes.Request request);
+    Task<PaymentMethodService.ListPaymentMethodTypes.Response> ListPaymentMethodsAsync(PaymentMethodService.ListPaymentMethodTypes.Request? request);
 }
 
 public partial class PaymentMethodService : IPaymentMethodService
@@ -49,7 +49,7 @@ public partial class PaymentMethodService : IPaymentMethodService
         await _rechargeApiCaller.DeleteAsync(requestUri);
     }
     
-    public async Task<ListPaymentMethodTypes.Response> ListPaymentMethodsAsync(ListPaymentMethodTypes.Request request)
+    public async Task<ListPaymentMethodTypes.Response> ListPaymentMethodsAsync(ListPaymentMethodTypes.Request? request)
     {
         var queryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(request);
         var requestUri = $"/payment_methods{queryString.Value}";

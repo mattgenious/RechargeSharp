@@ -10,7 +10,7 @@ public interface ISubscriptionService
     Task<SubscriptionService.GetSubscriptionTypes.Response?> GetSubscriptionAsync(int subscriptionId);
     Task<SubscriptionService.UpdateSubscriptionTypes.Response> UpdateSubscriptionAsync(int subscriptionId, SubscriptionService.UpdateSubscriptionTypes.Request request);
     Task DeleteSubscriptionAsync(int subscriptionId);
-    Task<SubscriptionService.ListSubscriptionsTypes.Response> ListSubscriptionsAsync(SubscriptionService.ListSubscriptionsTypes.Request request);
+    Task<SubscriptionService.ListSubscriptionsTypes.Response> ListSubscriptionsAsync(SubscriptionService.ListSubscriptionsTypes.Request? request);
     Task<SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Response> ChangeSubscriptionsNextChargeDateAsync(int subscriptionId, SubscriptionService.ChangeSubscriptionsNextChargeDateTypes.Request request);
     Task<SubscriptionService.ChangeSubscriptionsAddressTypes.Response> ChangeSubscriptionsAddressAsync(int subscriptionId, SubscriptionService.ChangeSubscriptionsAddressTypes.Request request);
     Task<SubscriptionService.CancelSubscriptionTypes.Response> CancelSubscriptionAsync(int subscriptionId, SubscriptionService.CancelSubscriptionTypes.Request request);
@@ -53,7 +53,7 @@ public partial class SubscriptionService : ISubscriptionService
         await _rechargeApiCaller.DeleteAsync(requestUri);
     }
     
-    public async Task<ListSubscriptionsTypes.Response> ListSubscriptionsAsync(ListSubscriptionsTypes.Request request)
+    public async Task<ListSubscriptionsTypes.Response> ListSubscriptionsAsync(ListSubscriptionsTypes.Request? request)
     {
         var queryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(request);
         var requestUri = $"/subscriptions{queryString.Value}";

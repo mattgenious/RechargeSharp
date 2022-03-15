@@ -9,7 +9,7 @@ public interface IAddressService
     Task<AddressService.GetAddressTypes.Response?> GetAddressAsync(int addressId);
     Task<AddressService.UpdateAddressTypes.Response> UpdateAddressAsync(int addressId, AddressService.UpdateAddressTypes.Request request);
     Task DeleteAddressAsync(int addressId);
-    Task<AddressService.ListAddressesTypes.Response> ListAddressesAsync(AddressService.ListAddressesTypes.Request request);
+    Task<AddressService.ListAddressesTypes.Response> ListAddressesAsync(AddressService.ListAddressesTypes.Request? request);
 }
 
 public partial class AddressService : IAddressService
@@ -50,7 +50,7 @@ public partial class AddressService : IAddressService
         await _rechargeApiCaller.DeleteAsync(requestUri);
     }
 
-    public async Task<ListAddressesTypes.Response> ListAddressesAsync(ListAddressesTypes.Request request)
+    public async Task<ListAddressesTypes.Response> ListAddressesAsync(ListAddressesTypes.Request? request)
     {
         var queryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(request);
         var requestUri = $"/addresses{queryString.Value}";

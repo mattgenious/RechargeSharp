@@ -8,8 +8,11 @@ namespace RechargeSharp.v2021_11.Utilities.Queries;
 
 public static class ObjectToQueryStringSerializer
 {
-    public static QueryString SerializeObjectToQueryString<T>(T instance) where T : class
+    public static QueryString SerializeObjectToQueryString<T>(T? instance) where T : class
     {
+        if (instance == null)
+            return new QueryString();
+        
         var jsonSerializerOptions = new JsonSerializerOptions()
         {
             PropertyNamingPolicy = new SnakeCaseNamingPolicy(),

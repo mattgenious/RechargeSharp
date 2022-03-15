@@ -10,7 +10,7 @@ public interface ICustomerService
     Task<CustomerService.GetCustomerTypes.Response?> GetCustomerAsync(int customerId);
     Task<CustomerService.UpdateCustomerTypes.Response> UpdateCustomerAsync(int customerId, CustomerService.UpdateCustomerTypes.Request request);
     Task DeleteCustomerAsync(int customerId);
-    Task<CustomerService.ListCustomersTypes.Response> ListCustomersAsync(CustomerService.ListCustomersTypes.Request request);
+    Task<CustomerService.ListCustomersTypes.Response> ListCustomersAsync(CustomerService.ListCustomersTypes.Request? request);
     Task<CustomerService.GetCustomerDeliveryScheduleTypes.Response> GetCustomerDeliveryScheduleAsync(int customerId, CustomerService.GetCustomerDeliveryScheduleTypes.Request request);
 }
 
@@ -50,7 +50,7 @@ public partial class CustomerService : ICustomerService
         await _rechargeApiCaller.DeleteAsync(requestUri);
     }
 
-    public async Task<ListCustomersTypes.Response> ListCustomersAsync(ListCustomersTypes.Request request)
+    public async Task<ListCustomersTypes.Response> ListCustomersAsync(ListCustomersTypes.Request? request)
     {
         var queryString = ObjectToQueryStringSerializer.SerializeObjectToQueryString(request);
         var requestUri = $"/customers{queryString.Value}";
