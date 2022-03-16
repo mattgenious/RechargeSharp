@@ -21,7 +21,7 @@ public class ConsoleTesterLogic : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var response = await _customerService.GetCustomerAsync(80630241);
-        _logger.LogInformation($"Customer: {response?.Customer}");
+        _logger.LogInformation("Customer: {Customer}", response?.Customer);
         _hostApplicationLifetime.StopApplication();
     }
 }

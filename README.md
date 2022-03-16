@@ -3,21 +3,66 @@
 ### Built to work with the api documented at [https://developer.rechargepayments.com/](https://developer.rechargepayments.com/)
 Please feel free to submit issues and pull requests on github
 
-## Quickstart
+## Supported API versions
 
-### Dependency injection
+* 2021-01: The namespace for this is just `RechargeSharp`.
+* 2021-11: The namespace for this is `RechargeSharp.v2021-11`.
+
+You can use services from both namespaces simultaneously without issues.
+
+## Recharge API version 2021-11
+
+### Quickstart
+
+#### Dependency injection
+
+Use the `AddRechargeSharp2021_11()` to add the services to the service collection, like so:
+
+```cs
+var hostBuilder = Host.CreateDefaultBuilder()
+    .ConfigureServices(collection =>
+    {
+        var apiKey = "<insert-your-API-key-here>";
+        collection.AddRechargeSharp2021_11(options => options.ApiKey = apiKey);
+    });
+```
+
+After this, the DI container will be able to resolve services for implemented endpoints, such as the `IAddressService`, `ICustomerService`, and so on.
+
+Here is a tiny example of a class that uses the `ICustomerService`.
+
+```cs
+private readonly ICustomerService _customerService;
+
+public YourServiceThatUsesRechargeSharp(ICustomerService customerService)
+{
+    _customerService = customerService;
+}
+
+protected async Task PrintCustomerEmail()
+{
+    GetCustomerTypes.Response? response = await _customerService.GetCustomerAsync(1234);
+    Console.WriteLine($"Customer email: {response!.Customer!.Email}");    
+}
+```
+
+
+## Recharge API version 2021-01
+
+### Quickstart
+
+#### Dependency injection
 
 If you set up your appsettings.json like this:
 ```json
 {  
     "RechargeConfiguration": {
-    "ApiKey": [
-      "1",
-      "2",
-      "3",
-      "4"
-    ],
-    "Url": "https://api.rechargeapps.com/"
+        "ApiKey": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ]
   }
 }
 
@@ -47,7 +92,7 @@ services.AddRechargeSharp(opts =>
 ```
 
 
-### Subscriptions
+#### Subscriptions
 
 
 ```cs
@@ -72,7 +117,7 @@ public class SubscriptionTestClass {
 }
 ```
 
-### Customers
+#### Customers
 ```cs
 public class CustomerTestClass {
     private readonly CustomerService _customerService;
