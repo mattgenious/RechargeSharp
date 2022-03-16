@@ -4,12 +4,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Moq;
 using Moq.Protected;
+using RechargeSharp.v2021_11.Configuration;
+using RechargeSharp.v2021_11.Tests.Configuration;
 
 namespace RechargeSharp.v2021_11.Tests.TestHelpers;
 
 public static class HttpHandlerMocking
 {
-    private const string BaseAddress = "https://api.rechargeapps.com";
+    private const string BaseAddress = RechargeConstants.ApiUrl;
     
     public static Mock<HttpMessageHandler> SetupHttpHandlerMock_ReturningJsonWithStatusCode(string mockJsonFromApi, HttpStatusCode returnedStatusCode, string uriToMatch, HttpMethod method)
     {

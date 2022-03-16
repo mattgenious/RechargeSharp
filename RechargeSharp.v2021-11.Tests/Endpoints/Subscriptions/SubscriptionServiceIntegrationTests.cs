@@ -154,7 +154,7 @@ public class SubscriptionsServiceIntegrationTests
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson("Subscriptions/delete-subscription_204.json");
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, HttpStatusCode.NoContent, "/subscriptions/1", HttpMethod.Delete);
-        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
         
         var sut = new SubscriptionService(apiCaller);
         
@@ -175,7 +175,7 @@ public class SubscriptionsServiceIntegrationTests
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
-        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
         
         var sut = new SubscriptionService(apiCaller);
         

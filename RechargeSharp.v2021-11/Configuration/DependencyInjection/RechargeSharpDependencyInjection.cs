@@ -24,7 +24,7 @@ public static class RechargeSharpDependencyInjection
         {
             opts.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             opts.BaseAddress = new Uri("https://api.rechargeapps.com/");
-        });
+        }).AddHttpMessageHandler<LoggingHttpHandler>();
 
         services.AddTransient(x => options);
         services.AddLogging();
