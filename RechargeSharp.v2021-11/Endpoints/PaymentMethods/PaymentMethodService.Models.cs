@@ -8,8 +8,8 @@ public partial class PaymentMethodService
     {
         public record PaymentMethod
         {
-            public int? Id { get; init; }
-            public int? CustomerId { get; init; }
+            public long? Id { get; init; }
+            public long? CustomerId { get; init; }
             public Address? BillingAddress { get; init; }
             public DateTime? CreatedAt { get; init; }
             public bool? Default { get; init; }
@@ -40,7 +40,7 @@ public partial class PaymentMethodService
     {
         public record Request
         {
-            public int? CustomerId { get; init; }
+            public long? CustomerId { get; init; }
             public bool? Default { get; init; }
             public string? PaymentType { get; init; }
             public string? ProcessorCustomerToken { get; init; }

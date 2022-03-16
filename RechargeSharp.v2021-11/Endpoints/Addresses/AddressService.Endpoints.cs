@@ -6,9 +6,9 @@ namespace RechargeSharp.v2021_11.Endpoints.Addresses;
 public interface IAddressService
 {
     Task<AddressService.CreateAddressTypes.Response> CreateAddressAsync(AddressService.CreateAddressTypes.Request request);
-    Task<AddressService.GetAddressTypes.Response?> GetAddressAsync(int addressId);
-    Task<AddressService.UpdateAddressTypes.Response> UpdateAddressAsync(int addressId, AddressService.UpdateAddressTypes.Request request);
-    Task DeleteAddressAsync(int addressId);
+    Task<AddressService.GetAddressTypes.Response?> GetAddressAsync(long addressId);
+    Task<AddressService.UpdateAddressTypes.Response> UpdateAddressAsync(long addressId, AddressService.UpdateAddressTypes.Request request);
+    Task DeleteAddressAsync(long addressId);
     Task<AddressService.ListAddressesTypes.Response> ListAddressesAsync(AddressService.ListAddressesTypes.Request? request);
 }
 
@@ -29,14 +29,14 @@ public partial class AddressService : IAddressService
         return responseJson;
     }
 
-    public async Task<GetAddressTypes.Response?> GetAddressAsync(int addressId)
+    public async Task<GetAddressTypes.Response?> GetAddressAsync(long addressId)
     {
         var requestUri = $"/addresses/{addressId}";
         var responseJson = await _rechargeApiCaller.GetNullableAsync<GetAddressTypes.Response>(requestUri);
         return responseJson;
     }
 
-    public async Task<UpdateAddressTypes.Response> UpdateAddressAsync(int addressId, UpdateAddressTypes.Request request)
+    public async Task<UpdateAddressTypes.Response> UpdateAddressAsync(long addressId, UpdateAddressTypes.Request request)
     {
         var requestUri = $"/addresses/{addressId}";
         var responseJson =
@@ -44,7 +44,7 @@ public partial class AddressService : IAddressService
         return responseJson;
     }
 
-    public async Task DeleteAddressAsync(int addressId)
+    public async Task DeleteAddressAsync(long addressId)
     {
         var requestUri = $"/addresses/{addressId}";
         await _rechargeApiCaller.DeleteAsync(requestUri);

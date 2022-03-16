@@ -24,9 +24,9 @@ public partial class SubscriptionService
         
         public record Subscription
         {
-            public int? Id { get; init; }
-            public int? AddressId { get; init; }
-            public int? CustomerId { get; init; }
+            public long? Id { get; init; }
+            public long? AddressId { get; init; }
+            public long? CustomerId { get; init; }
             public AnalyticsData? AnalyticsData { get; init; }
             public string? CancellationReason { get; init; }
             public string? CancellationReasonComments { get; init; }
@@ -63,7 +63,7 @@ public partial class SubscriptionService
     {
         public record Request
         {
-            public int? AddressId { get; init; }
+            public long? AddressId { get; init; }
             public int? ChargeIntervalFrequency { get; init; }
             public int? ExpireAfterSpecificNumberOfCharges { get; init; }
             public DateTime? NextChargeScheduledAt { get; init; }
@@ -167,7 +167,7 @@ public partial class SubscriptionService
     {
         public record Request
         {
-            public int? AddressId { get; init; }
+            public long? AddressId { get; init; }
             public DateOnly? NextChargeScheduledAt { get; init; }
         }
 

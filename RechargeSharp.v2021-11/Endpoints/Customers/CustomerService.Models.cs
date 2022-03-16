@@ -13,7 +13,7 @@ public partial class CustomerService
 
         public record Customer
         {
-            public int? Id { get; init; }
+            public long? Id { get; init; }
             public AnalyticsData? AnalyticsData { get; init; }
             public DateTime? CreatedAt { get; init; }
             public string? Email { get; init; }
@@ -112,7 +112,7 @@ public partial class CustomerService
 
         public record Customer
         {
-            public int? Id { get; init; }
+            public long? Id { get; init; }
             public string? Email { get; init; }
             public string? FirstName { get; init; }
             public string? LastName { get; init; }
@@ -145,7 +145,7 @@ public partial class CustomerService
 
         public record LineItem
         {
-            public int? SubscriptionId { get; init; }
+            public long? SubscriptionId { get; init; }
             public ExternalProductId? ExternalProductId { get; init; }
             public ExternalVariantId? ExternalVariantId { get; init; }
             public Images? Images { get; init; }
@@ -168,7 +168,7 @@ public partial class CustomerService
 
         public record PaymentMethod
         {
-            public int? Id { get; init; }
+            public long? Id { get; init; }
             public Address? BillingAddress { get; init; }
             public PaymentDetails? PaymentDetails { get; init; }
         }
@@ -176,8 +176,8 @@ public partial class CustomerService
         public record Order
         {
             public string? Id { get; init; }
-            public int? AddressId { get; init; }
-            public int? ChargeId { get; init; }
+            public long? AddressId { get; init; }
+            public long? ChargeId { get; init; }
             public IReadOnlyList<LineItem>? LineItems { get; init; }
             public PaymentMethod? PaymentMethod { get; init; }
             public Address? ShippingAddress { get; init; }

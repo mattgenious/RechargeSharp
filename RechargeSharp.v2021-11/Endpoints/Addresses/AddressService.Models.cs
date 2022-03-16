@@ -19,9 +19,9 @@ public partial class AddressService
 
         public record Address
         {
-            public int? Id { get; init; }
-            public int? CustomerId { get; init; }
-            public int? PaymentMethodId { get; init; }
+            public long? Id { get; init; }
+            public long? CustomerId { get; init; }
+            public long? PaymentMethodId { get; init; }
             public string? Address1 { get; init; }
             public string? Address2 { get; init; }
             public string? City { get; init; }
@@ -43,7 +43,7 @@ public partial class AddressService
 
         public record Discount
         {
-            public int? Id { get; init; }
+            public long? Id { get; init; }
         }
     }
 
@@ -51,7 +51,7 @@ public partial class AddressService
     {
         public record Request
         {
-            public int? CustomerId { get; init; }
+            public long? CustomerId { get; init; }
             public string? Address1 { get; init; }
             public string? Address2 { get; init; }
             public string? City { get; init; }
@@ -62,7 +62,7 @@ public partial class AddressService
             public string? LastName { get; init; }
             public IReadOnlyList<SharedAddressTypes.OrderAttribute>? OrderAttributes { get; init; }
             public string? OrderNote { get; init; }
-            public int? PaymentMethodId { get; init; }
+            public long? PaymentMethodId { get; init; }
             public string? Phone { get; init; }
             public string? Province { get; init; }
             public IReadOnlyList<SharedAddressTypes.ShippingLineOverride>? ShippingLinesOverride { get; init; }
@@ -97,7 +97,7 @@ public partial class AddressService
             public string? LastName { get; init; }
             public IReadOnlyList<SharedAddressTypes.OrderAttribute>? OrderAttributes { get; init; }
             public string? OrderNote { get; init; }
-            public int? PaymentMethodId { get; init; }
+            public long? PaymentMethodId { get; init; }
             public string? Phone { get; init; }
             public string? Province { get; init; }
             public IReadOnlyList<SharedAddressTypes.ShippingLineOverride>? ShippingLinesOverride { get; init; }
