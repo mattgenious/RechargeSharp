@@ -4,6 +4,8 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
+using Polly.Retry;
+using RechargeSharp.v2021_11.Configuration;
 using RechargeSharp.v2021_11.Configuration.DependencyInjection;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.SharedModels.Errors;
@@ -31,19 +33,34 @@ public class RechargeApiCaller : IRechargeApiCaller
     private readonly ILogger<RechargeApiCaller> _logger;
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
-    public IAsyncPolicy AsyncRetryPolicy { get; set; }
+    private readonly IAsyncPolicy _asyncRetryPolicy;
 
     public RechargeApiCaller(IHttpClientFactory httpClientFactory, ILogger<RechargeApiCaller> logger, IOptions<RechargeApiCallerOptions> rechargeApiCallerOptions)
     {
         _logger = logger;
         var resolvedRechargeApiCallerOptions = rechargeApiCallerOptions.Value;
         _httpClient = httpClientFactory.CreateClient(RechargeSharpDependencyInjection.RechargeSharpHttpClientKey);
-        _httpClient.DefaultRequestHeaders.Add("X-Recharge-Version", "2021-11");
-        _httpClient.DefaultRequestHeaders.Add ("X-Recharge-Access-Token", resolvedRechargeApiCallerOptions.ApiKey);
+        _httpClient.DefaultRequestHeaders.Add(RechargeConstants.Headers.Keys.ApiVersion, RechargeConstants.Headers.Values.Version2021_11);
+        _httpClient.DefaultRequestHeaders.Add (RechargeConstants.Headers.Keys.ApiKey, resolvedRechargeApiCallerOptions.ApiKey);
 
         _jsonSerializerOptions = CreateJsonOptions();
+        _asyncRetryPolicy = CreateRetryPolicy(resolvedRechargeApiCallerOptions.RetryCount);
+    }
 
-        AsyncRetryPolicy = resolvedRechargeApiCallerOptions.ApiCallPolicy;
+    private AsyncRetryPolicy CreateRetryPolicy(int retryCount)
+    {
+        var jitterer = new Random();
+        return Policy
+            .Handle<HttpRequestException>()
+            .Or<RechargeApiException>(e => e.IsTransient is true or null)
+            .WaitAndRetryAsync(
+                retryCount, 
+                currentRetryNumber => TimeSpan.FromSeconds(currentRetryNumber) + TimeSpan.FromMilliseconds(jitterer.NextInt64(1000)),
+                (exception, timeSpan, currentRetryNumber, context) =>
+                {
+                    _logger.LogError(exception, "An error occurred while calling the Recharge API, retry number {RetryNumber} will be attempted in {TimeUntilRetry} - Polly correlation ID: {PollyCorrelationId}", currentRetryNumber, timeSpan, context.CorrelationId);
+                }
+                );
     }
 
     private static JsonSerializerOptions CreateJsonOptions()
@@ -150,7 +167,7 @@ public class RechargeApiCaller : IRechargeApiCaller
     private async Task<HttpResponseMessage> SendRequest(Func<HttpRequestMessage> httpRequestFactory, bool throwWhenNotFound)
     {
         // HttpRequestMessages can only be used once, so we have to create new ones between retries
-        var result = await AsyncRetryPolicy.ExecuteAsync(() => SendRequestInner(httpRequestFactory, throwWhenNotFound));
+        var result = await _asyncRetryPolicy.ExecuteAsync(() => SendRequestInner(httpRequestFactory, throwWhenNotFound));
         return result;
     }
 

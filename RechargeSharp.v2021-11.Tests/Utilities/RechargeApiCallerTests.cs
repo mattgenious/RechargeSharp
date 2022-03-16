@@ -1,16 +1,19 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
 using Moq.Protected;
-using Polly;
+using RechargeSharp.v2021_11.Configuration;
 using RechargeSharp.v2021_11.Configuration.DependencyInjection;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
@@ -22,7 +25,7 @@ namespace RechargeSharp.v2021_11.Tests.Utilities;
 public class RechargeApiCallerTests
 {
     private const string BaseAddress = "https://api.rechargeapps.com";
-    private const string ApiKey = "someapikeyhere";
+    private const string ApiKey = "apikeygoeshere";
     private const string ApiVersion = "2021-11";
     
     [Fact]
@@ -40,8 +43,7 @@ public class RechargeApiCallerTests
         result.SomeStringProperty.Should().Be("someValue");
         AssertThatExpectedHttpCallsWereMade(httpHandlerMock, HttpMethod.Get, 1);
     }
-
-
+    
     [Fact]
     public async Task CanPost()
     {
@@ -113,11 +115,10 @@ public class RechargeApiCallerTests
         var jsonReturnedByApi = "{\"some_string_property\": \"someValue\"}";
         
         // PaymentRequired is Recharge's way of communicating a rather unspecified error
-        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.PaymentRequired, "/somepath", HttpMethod.Post); 
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.PaymentRequired, "/somepath", HttpMethod.Post);
 
-        var retryCount = 5;
-        var retryPolicy = RechargeApiCallerOptions.BuildErrorHandlingLogic(policyBuilder => policyBuilder.RetryAsync(retryCount));
-        var sut = CreateSut(httpHandlerMock, BaseAddress, retryPolicy);
+        var retryCount = 1;
+        var sut = CreateSut(httpHandlerMock, BaseAddress, retryCount);
         
         // Act
         var act = () => sut.PostAsync<SomeClass, SomeClass>(new SomeClass(), "/somepath");
@@ -265,26 +266,81 @@ public class RechargeApiCallerTests
             ItExpr.Is<HttpRequestMessage>(req =>
                 req.Method == httpMethod &&
                 req.RequestUri!.ToString().StartsWith(BaseAddress) &&
-                req.Headers.GetValues("X-Recharge-Access-Token").Contains(ApiKey) &&
-                req.Headers.GetValues("X-Recharge-Version").Contains(ApiVersion)
+                req.Headers.GetValues(RechargeConstants.Headers.Keys.ApiKey).Contains(ApiKey) &&
+                req.Headers.GetValues(RechargeConstants.Headers.Keys.ApiVersion).Contains(ApiVersion)
             ),
             ItExpr.IsAny<CancellationToken>()
         );
     }
     
-    private static RechargeApiCaller CreateSut(IMock<HttpMessageHandler> handlerMock, string baseAddress)
+    [Fact]
+    public async Task LogsAsExpectedWhenStatusCodeIsSuccess()
     {
-        return CreateSut(handlerMock, baseAddress, Policy.NoOpAsync());
+        // Arrange
+        var jsonReturnedByApi = "{\"some_string_property\": \"someValue\"}";
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.OK, "/somepath", HttpMethod.Get);
+        var logger = new TestJsonLogger<LoggingHttpHandler>();
+        var loggingHttpHandler = new LoggingHttpHandler(logger);
+        var sut = CreateSut(loggingHttpHandler, httpHandlerMock, BaseAddress, 0);
+
+        // Act
+        await sut.GetAsync<SomeClass>("/somepath");
+
+        // Assert
+        logger.LogEntries.Should().HaveCount(2, "one log for the request and one log for the response should have been added");
+        var requestLog = logger.LogEntries.First();
+        requestLog.LogMessage.Should().NotContain(ApiKey, "the full API key must not be logged");
+        requestLog.LogMessage.Should().MatchRegex(@$"{ApiKey.Substring(0,5)}\**", "the first characters of the API key should be logged");
+        requestLog.LogAsJson?.RootElement.EnumerateArray().ToList().Should().NotBeEmpty("some JSON elements should have been logged");
+        
+        var responseLog = logger.LogEntries.Last();
+        responseLog.LogAsJson?.RootElement.EnumerateArray().ToList().Should().NotBeEmpty("some JSON elements should have been logged");
     }
     
-    private static RechargeApiCaller CreateSut(IMock<HttpMessageHandler> handlerMock, string baseAddress, IAsyncPolicy policy)
+    [Fact]
+    public async Task LogsAsExpectedWhenRetriesAreAttempted()
+    {
+        // Arrange
+        var jsonReturnedByApi = "{\"some_string_property\": \"someValue\"}";
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.PaymentRequired, "/somepath", HttpMethod.Get);
+        
+        var retryCount = 2;
+        var testJsonLogger = new TestJsonLogger<LoggingHttpHandler>();
+        var apiCallerJsonLogger = new TestJsonLogger<RechargeApiCaller>();
+        var loggingHttpHandler = new LoggingHttpHandler(testJsonLogger);
+        var sut = CreateSut(loggingHttpHandler, httpHandlerMock, BaseAddress, retryCount, apiCallerJsonLogger);
+
+        // Act
+        var act = async () => await sut.GetAsync<SomeClass>("/somepath");
+
+        await act.Should().ThrowAsync<Exception>();
+
+        // Assert
+        testJsonLogger.LogEntries.Should().HaveCount((3 * retryCount),"each attempt should produce one log for the request and one log for the response");
+        testJsonLogger.LogEntries.Should()
+            .AllSatisfy(l => l.LogAsJson?.RootElement.EnumerateArray().ToList().Should().NotBeEmpty(),
+                "some JSON elements should have been logged");
+        apiCallerJsonLogger.LogEntries.Should().HaveCount(retryCount, "each retry should produce an exception log");
+        apiCallerJsonLogger.LogEntries.Should()
+            .AllSatisfy(l => l.LogAsJson?.RootElement.EnumerateArray().ToList().Should().NotBeEmpty(),
+                "some JSON elements should have been logged");
+        apiCallerJsonLogger.LogEntries.Should()
+            .AllSatisfy(l => l.Exception.Should().NotBeNull(), "exceptions should have been logged");
+    }
+    
+    private static RechargeApiCaller CreateSut(IMock<HttpMessageHandler> handlerMock, string baseAddress)
+    {
+        return CreateSut(handlerMock, baseAddress, 0);
+    }
+    
+    private static RechargeApiCaller CreateSut(IMock<HttpMessageHandler> handlerMock, string baseAddress, int retryCount)
     {
         // use real http client with mocked handler here
         var httpClient = new HttpClient(handlerMock.Object)
         {
             BaseAddress = new Uri(baseAddress),
         };
-
+        
         var logger = new NullLogger<RechargeApiCaller>();
         var httpClientFactoryMock = new Mock<IHttpClientFactory>();
 
@@ -292,10 +348,34 @@ public class RechargeApiCallerTests
 
         var rechargeApiCallerOptions = new RechargeApiCallerOptions()
         {
-            ApiCallPolicy = policy,
+            RetryCount = retryCount,
             ApiKey = ApiKey
         };
-        var sut = new RechargeApiCaller(httpClientFactoryMock.Object, logger, Options.Create<RechargeApiCallerOptions>(rechargeApiCallerOptions));
+        var sut = new RechargeApiCaller(httpClientFactoryMock.Object, logger, Options.Create(rechargeApiCallerOptions));
+        return sut;
+    }
+    
+    private static RechargeApiCaller CreateSut(LoggingHttpHandler loggingHttpHandler, IMock<HttpMessageHandler> handlerMock, string baseAddress, int retryCount, ILogger<RechargeApiCaller>? logger = null)
+    {
+        loggingHttpHandler.InnerHandler = handlerMock.Object;
+        
+        // use real http client with mocked handler here
+        var httpClient = new HttpClient(loggingHttpHandler)
+        {
+            BaseAddress = new Uri(baseAddress),
+        };
+        
+        logger ??= new NullLogger<RechargeApiCaller>();
+        var httpClientFactoryMock = new Mock<IHttpClientFactory>();
+
+        httpClientFactoryMock.Setup(f => f.CreateClient(RechargeSharpDependencyInjection.RechargeSharpHttpClientKey)).Returns(httpClient);
+
+        var rechargeApiCallerOptions = new RechargeApiCallerOptions()
+        {
+            RetryCount = retryCount,
+            ApiKey = ApiKey
+        };
+        var sut = new RechargeApiCaller(httpClientFactoryMock.Object, logger, Options.Create(rechargeApiCallerOptions));
         return sut;
     }
 

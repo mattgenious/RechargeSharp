@@ -107,7 +107,7 @@ public class PaymentMethodsServiceIntegrationTests
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson("PaymentMethods/delete-payment_method_204.json");
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, HttpStatusCode.NoContent,  "/payment_methods/1111111", HttpMethod.Delete);
-        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
         
         var sut = new PaymentMethodService(apiCaller);
         
@@ -128,7 +128,7 @@ public class PaymentMethodsServiceIntegrationTests
         // Arrange
         var sampleResponseJson = await TestResourcesHelper.GetSampleResponseJson(sampleResponseJsonFile);
         var handlerMock = HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(sampleResponseJson, httpStatusCode, uriToMatch, method);
-        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock, Policy.NoOpAsync());
+        var apiCaller = RechargeApiCallerMocking.CreateRechargeApiCallerWithMockedHttpHandler(handlerMock);
         
         var sut = new PaymentMethodService(apiCaller);
         
