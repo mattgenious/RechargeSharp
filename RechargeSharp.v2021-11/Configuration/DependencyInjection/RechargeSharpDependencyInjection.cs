@@ -1,6 +1,5 @@
 using System.Net.Http.Headers;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using RechargeSharp.v2021_11.Endpoints.Addresses;
 using RechargeSharp.v2021_11.Endpoints.Customers;
 using RechargeSharp.v2021_11.Endpoints.PaymentMethods;
@@ -30,6 +29,7 @@ public static class RechargeSharpDependencyInjection
         services.AddLogging();
 
         services
+            .AddTransient<LoggingHttpHandler>()
             .AddTransient<IRechargeApiCaller, RechargeApiCaller>()
             .AddTransient<IAddressService,AddressService>()
             .AddTransient<ICustomerService, CustomerService>()

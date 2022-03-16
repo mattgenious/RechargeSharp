@@ -4,12 +4,20 @@ namespace RechargeSharp.v2021_11.SharedModels.Errors;
 
 public class ApiError
 {
-    public JsonElement? Errors { get; set; }
+    /// <summary>
+    ///     If the errors in the request body was JSON, this property will contain the deserialized body
+    /// </summary>
+    public JsonElement? ErrorsAsJson { get; set; }
+    
+    /// <summary>
+    ///     If the request body with errors was *not* JSON, this property will contain the error body as a string
+    /// </summary>
+    public string? RawErrorBody { get; set; }
     
     public override string ToString()
     {
-        return Errors?.ToString() ?? "(no errors was reported in the response data)";
+        return (ErrorsAsJson?.ToString() ?? RawErrorBody) ?? "(no errors was reported in the response data)";
     }
 
-    public bool IsNotFoundError() => Errors?.ValueEquals("Not Found") == true;
+    public bool IsEntityNotFoundError() => ErrorsAsJson?.ValueEquals("Not Found") == true;
 }

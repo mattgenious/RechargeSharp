@@ -125,7 +125,7 @@ public class RechargeApiCallerTests
 
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.Errors?.Should().BeNull();
+        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().BeNull();
 
         AssertThatExpectedHttpCallsWereMade(httpHandlerMock, HttpMethod.Post, retryCount + 1);
     }
@@ -143,8 +143,8 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.Errors?.Should().NotBeNull();
-        var structuredApiErrorData = thrownException.ErrorDataJson!.Errors;
+        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorDataJson!.ErrorsAsJson;
         
         structuredApiErrorData!.Value.GetString().Should().Be("endpoint not found");
     }
@@ -162,7 +162,7 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.Errors?.Should().BeNull();
+        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().BeNull();
     }
     
     [Fact]
@@ -178,8 +178,8 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.Errors?.Should().NotBeNull();
-        var structuredApiErrorData = thrownException.ErrorDataJson!.Errors!;
+        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorDataJson!.ErrorsAsJson!;
         
         structuredApiErrorData.Value.GetString().Should().Be("Not Found");
     }
@@ -198,8 +198,8 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.Errors?.Should().NotBeNull();
-        var structuredApiErrorData = thrownException.ErrorDataJson!.Errors!;
+        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorDataJson!.ErrorsAsJson!;
         
         structuredApiErrorData.Value.GetProperty("email").GetString().Should().Be("Required field missing");
         structuredApiErrorData.Value.GetProperty("first_name").GetString().Should().Be("Required field missing");
@@ -220,8 +220,8 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.Errors?.Should().NotBeNull();
-        var structuredApiErrorData = thrownException.ErrorDataJson!.Errors!;
+        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorDataJson!.ErrorsAsJson!;
         
         structuredApiErrorData.Value.GetProperty("email").GetString().Should().Be("Required field missing");
         structuredApiErrorData.Value.GetProperty("first_name").GetString().Should().Be("Required field missing");
@@ -280,7 +280,7 @@ public class RechargeApiCallerTests
         var jsonReturnedByApi = "{\"some_string_property\": \"someValue\"}";
         var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(jsonReturnedByApi, HttpStatusCode.OK, "/somepath", HttpMethod.Get);
         var logger = new TestJsonLogger<LoggingHttpHandler>();
-        var loggingHttpHandler = new LoggingHttpHandler(logger);
+        var loggingHttpHandler = new LoggingHttpHandler(logger, Options.Create(new LoggingHttpHandlerOptions()));
         var sut = CreateSut(loggingHttpHandler, httpHandlerMock, BaseAddress, 0);
 
         // Act
@@ -307,7 +307,7 @@ public class RechargeApiCallerTests
         var retryCount = 2;
         var testJsonLogger = new TestJsonLogger<LoggingHttpHandler>();
         var apiCallerJsonLogger = new TestJsonLogger<RechargeApiCaller>();
-        var loggingHttpHandler = new LoggingHttpHandler(testJsonLogger);
+        var loggingHttpHandler = new LoggingHttpHandler(testJsonLogger, Options.Create(new LoggingHttpHandlerOptions()));
         var sut = CreateSut(loggingHttpHandler, httpHandlerMock, BaseAddress, retryCount, apiCallerJsonLogger);
 
         // Act

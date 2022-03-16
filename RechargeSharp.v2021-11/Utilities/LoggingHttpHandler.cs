@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using RechargeSharp.v2021_11.Configuration;
 
 namespace RechargeSharp.v2021_11.Utilities;
@@ -6,9 +7,11 @@ namespace RechargeSharp.v2021_11.Utilities;
 public class LoggingHttpHandler : DelegatingHandler
 {
     private readonly ILogger<LoggingHttpHandler> _logger;
+    private readonly LoggingHttpHandlerOptions _configuration;
 
-    public LoggingHttpHandler(ILogger<LoggingHttpHandler> logger)
+    public LoggingHttpHandler(ILogger<LoggingHttpHandler> logger, IOptions<LoggingHttpHandlerOptions> options)
     {
+        _configuration = options.Value;
         _logger = logger;
     }
 
@@ -21,25 +24,21 @@ public class LoggingHttpHandler : DelegatingHandler
         return response;
     }
 
-    private void LogResponse(HttpResponseMessage response, string requestId)
-    {
-        var formattedHeaders = string.Join(", ", response.Headers.Select(FormatHeader));
-
-        var logLevel = LogLevel.Information;
-        _logger.Log(logLevel, "({RequestId}) Response: {StatusCode} - headers: {Headers}", requestId, response.StatusCode, formattedHeaders);
-    }
-
     private void LogRequest(HttpRequestMessage request, string requestId)
     {
         var formattedHeaders = string.Join(", ", request.Headers.Select(FormatHeader));
-
-        var logLevel = LogLevel.Information;
-        _logger.Log(logLevel, "({RequestId}) Request: {HttpMethod} {Url} - headers: {Headers}", requestId, request.Method, request.RequestUri?.ToString() ?? "-", formattedHeaders);
+        _logger.Log(_configuration.RequestLogLevel, "({RequestId}) Request: {HttpMethod} {Url} - headers: {Headers}", requestId, request.Method, request.RequestUri?.ToString() ?? "-", formattedHeaders);
+    }
+    
+    private void LogResponse(HttpResponseMessage response, string requestId)
+    {
+        var formattedHeaders = string.Join(", ", response.Headers.Select(FormatHeader));
+        _logger.Log(_configuration.ResponseLogLevel, "({RequestId}) Response: {StatusCode} - headers: {Headers}", requestId, response.StatusCode, formattedHeaders);
     }
 
-    private static string FormatHeader(KeyValuePair<string, IEnumerable<string>> h)
+    private static string FormatHeader(KeyValuePair<string, IEnumerable<string>> header)
     {
-        var (key, values) = h;
+        var (key, values) = header;
         var formattedHeaderValue = string.Join(", ", values);
         if (key.Equals(RechargeConstants.Headers.Keys.ApiKey))
         {
@@ -51,4 +50,10 @@ public class LoggingHttpHandler : DelegatingHandler
             
         return $"({key}: {formattedHeaderValue})";
     }
+}
+
+public class LoggingHttpHandlerOptions
+{
+    public LogLevel RequestLogLevel { get; set; } = LogLevel.Information;
+    public LogLevel ResponseLogLevel { get; set; } = LogLevel.Information;
 }

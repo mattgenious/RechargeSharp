@@ -20,11 +20,11 @@ public class ApiErrorJsonConverter : JsonConverter<ApiError>
         // The "errors" property can appear in both singular and plural
         if (jsonDocument.RootElement.TryGetProperty("errors", out var errors))
         {
-            apiError.Errors = errors.Clone();
+            apiError.ErrorsAsJson = errors.Clone();
         }
         else if (jsonDocument.RootElement.TryGetProperty("error", out errors))
         {
-            apiError.Errors = errors.Clone();
+            apiError.ErrorsAsJson = errors.Clone();
         }
 
         return apiError;

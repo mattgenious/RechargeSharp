@@ -32,7 +32,6 @@ namespace RechargeSharp.Services
             {
                 var client = httpClientFactory.CreateClient("RechargeSharpClient");
                 client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", apiKey);
-                //client.DefaultRequestHeaders.Add("X-Recharge-Version", "2021-11");
                 _clients.Add(client);
             }
 

@@ -187,7 +187,7 @@ public class SubscriptionsServiceIntegrationTests
         var thrownException = exceptionShouldBeThrown.Which;
         thrownException.Should().BeOfType(expectedExceptionType);
         thrownException.ErrorDataJson.Should().NotBeNull();
-        thrownException.ErrorDataJson.Errors.Should().NotBeNull();
+        thrownException.ErrorDataJson.ErrorsAsJson.Should().NotBeNull();
     }
     
     public static IEnumerable<object[]> RechargeApiHttpResponseErrorTestCases()
