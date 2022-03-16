@@ -165,8 +165,8 @@ public class CustomerServiceIntegrationTests
         var exceptionShouldBeThrown = await act.Should().ThrowAsync<RechargeApiException>();
         var thrownException = exceptionShouldBeThrown.Which;
         thrownException.Should().BeOfType(expectedExceptionType);
-        thrownException.ErrorDataJson.Should().NotBeNull();
-        thrownException.ErrorDataJson!.ErrorsAsJson.Should().NotBeNull();
+        thrownException.ErrorData.Should().NotBeNull();
+        thrownException.ErrorData!.ErrorsAsJson.Should().NotBeNull();
     }
     
     public static IEnumerable<object[]> RechargeApiHttpResponseErrorTestCases()

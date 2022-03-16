@@ -261,7 +261,7 @@ public class RechargeApiCaller : IRechargeApiCaller
 
             // Unknown error
             _ => RechargeApiError.WithExceptionToBeThrown(new RechargeApiException(
-                $"An unknown error occurred with unhandled status code {(int) response.StatusCode}"))
+                $"An unknown error occurred with unhandled status code {(int) response.StatusCode}", responseBodyAsStructuredJson))
         };
     }
 

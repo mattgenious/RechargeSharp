@@ -125,7 +125,7 @@ public class RechargeApiCallerTests
 
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().BeNull();
+        thrownException.ErrorData?.ErrorsAsJson?.Should().BeNull();
 
         AssertThatExpectedHttpCallsWereMade(httpHandlerMock, HttpMethod.Post, retryCount + 1);
     }
@@ -143,10 +143,29 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().NotBeNull();
-        var structuredApiErrorData = thrownException.ErrorDataJson!.ErrorsAsJson;
+        thrownException.ErrorData?.ErrorsAsJson?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorData!.ErrorsAsJson;
         
         structuredApiErrorData!.Value.GetString().Should().Be("endpoint not found");
+    }
+    
+        
+    [Fact]
+    public async Task CanHandleNonJsonReturnBodyOnError()
+    {
+        // Arrange
+        var errorJsonFromApi = "this is not JSON";
+        var httpHandlerMock =  HttpHandlerMocking.SetupHttpHandlerMock_ReturningJsonWithStatusCode(errorJsonFromApi, HttpStatusCode.BadGateway, "/doesntmatter", HttpMethod.Get);
+        var sut = CreateSut(httpHandlerMock, BaseAddress);
+
+        // Act
+        var act = () => sut.GetAsync<SomeClass>("/doesntmatter");
+        
+        // Assert
+        var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
+        thrownException.ErrorData.Should().NotBeNull();
+        thrownException.ErrorData!.ErrorsAsJson?.Should().BeNull();
+        thrownException.ErrorData!.RawErrorBody?.Should().Contain(errorJsonFromApi);
     }
 
     [Fact]
@@ -162,7 +181,7 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().BeNull();
+        thrownException.ErrorData?.ErrorsAsJson?.Should().BeNull();
     }
     
     [Fact]
@@ -178,8 +197,8 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().NotBeNull();
-        var structuredApiErrorData = thrownException.ErrorDataJson!.ErrorsAsJson!;
+        thrownException.ErrorData?.ErrorsAsJson?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorData!.ErrorsAsJson!;
         
         structuredApiErrorData.Value.GetString().Should().Be("Not Found");
     }
@@ -198,8 +217,8 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().NotBeNull();
-        var structuredApiErrorData = thrownException.ErrorDataJson!.ErrorsAsJson!;
+        thrownException.ErrorData?.ErrorsAsJson?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorData!.ErrorsAsJson!;
         
         structuredApiErrorData.Value.GetProperty("email").GetString().Should().Be("Required field missing");
         structuredApiErrorData.Value.GetProperty("first_name").GetString().Should().Be("Required field missing");
@@ -220,8 +239,8 @@ public class RechargeApiCallerTests
         
         // Assert
         var thrownException = (await act.Should().ThrowAsync<RechargeApiException>()).Which;
-        thrownException.ErrorDataJson?.ErrorsAsJson?.Should().NotBeNull();
-        var structuredApiErrorData = thrownException.ErrorDataJson!.ErrorsAsJson!;
+        thrownException.ErrorData?.ErrorsAsJson?.Should().NotBeNull();
+        var structuredApiErrorData = thrownException.ErrorData!.ErrorsAsJson!;
         
         structuredApiErrorData.Value.GetProperty("email").GetString().Should().Be("Required field missing");
         structuredApiErrorData.Value.GetProperty("first_name").GetString().Should().Be("Required field missing");
@@ -379,7 +398,7 @@ public class RechargeApiCallerTests
         return sut;
     }
 
-    public record SomeClass
+    private record SomeClass
     {
         public string SomeStringProperty { get; set; }
     }

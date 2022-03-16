@@ -7,7 +7,7 @@ namespace RechargeSharp.v2021_11.Exceptions;
 /// </summary>
 public class RechargeApiException : Exception
 {
-    public ApiError? ErrorDataJson { get; }
+    public ApiError? ErrorData { get; }
 
     /// <summary>
     ///     * If true, the error is definitely transient.
@@ -20,14 +20,14 @@ public class RechargeApiException : Exception
     {
     }
     
-    public RechargeApiException(ApiError? errorDataJson) : base(errorDataJson?.ToString() ?? "An error was returned without any structured error data")
+    public RechargeApiException(ApiError? errorData) : base(errorData?.ToString() ?? "An error was returned without any structured error data")
     {
-        ErrorDataJson = errorDataJson;
+        ErrorData = errorData;
     }
     
-    public RechargeApiException(string? message, ApiError? errorDataJson) : base(message)
+    public RechargeApiException(string? message, ApiError? errorData) : base(message)
     {
-        ErrorDataJson = errorDataJson;
+        ErrorData = errorData;
     }
 }
 
@@ -36,7 +36,7 @@ public class RechargeApiException : Exception
 /// </summary>
 public class RechargeApiServerException : RechargeApiException
 {
-    public RechargeApiServerException(ApiError? errorDataJson) : base(errorDataJson)
+    public RechargeApiServerException(ApiError? errorData) : base(errorData)
     {
     }
 }
@@ -45,7 +45,7 @@ public class RateLimitingException : RechargeApiException
 {
     public override bool? IsTransient => true;
 
-    public RateLimitingException(ApiError? errorDataJson) : base(errorDataJson)
+    public RateLimitingException(ApiError? errorData) : base(errorData)
     {
     }
 }
@@ -53,7 +53,7 @@ public class RateLimitingException : RechargeApiException
 public class InvalidApiVersionException : RechargeApiException
 {
     public override bool? IsTransient => false;
-    public InvalidApiVersionException(ApiError? errorDataJson) : base(errorDataJson)
+    public InvalidApiVersionException(ApiError? errorData) : base(errorData)
     {
     }
 }
@@ -62,7 +62,7 @@ public class InvalidApiVersionException : RechargeApiException
 public class UnprocessableEntityException  : RechargeApiException
 {
     public override bool? IsTransient => false;
-    public UnprocessableEntityException(ApiError? errorDataJson) : base(errorDataJson)
+    public UnprocessableEntityException(ApiError? errorData) : base(errorData)
     {
     }
 }
@@ -70,21 +70,21 @@ public class UnprocessableEntityException  : RechargeApiException
 public class UnsupportedMediaTypeException : RechargeApiException
 {
     public override bool? IsTransient => false;
-    public UnsupportedMediaTypeException(ApiError? errorDataJson) : base(errorDataJson)
+    public UnsupportedMediaTypeException(ApiError? errorData) : base(errorData)
     {
     }
 }
 
 public class UnknownApiFailureException : RechargeApiException
 {
-    public UnknownApiFailureException(ApiError? errorDataJson) : base(errorDataJson)
+    public UnknownApiFailureException(ApiError? errorData) : base(errorData)
     {
     }
 }
 
 public class ConflictException : RechargeApiException
 {
-    public ConflictException(ApiError? errorDataJson) : base(errorDataJson)
+    public ConflictException(ApiError? errorData) : base(errorData)
     {
     }
 }
@@ -92,7 +92,7 @@ public class ConflictException : RechargeApiException
 public class UnauthorizedException : RechargeApiException
 {
     public override bool? IsTransient => false;
-    public UnauthorizedException(ApiError? errorDataJson) : base(errorDataJson)
+    public UnauthorizedException(ApiError? errorData) : base(errorData)
     {
     }
 }
@@ -100,7 +100,7 @@ public class UnauthorizedException : RechargeApiException
 public class ForbiddenException : RechargeApiException
 {
     public override bool? IsTransient => false;
-    public ForbiddenException(ApiError? errorDataJson) : base(errorDataJson)
+    public ForbiddenException(ApiError? errorData) : base(errorData)
     {
     }
 }
@@ -108,7 +108,7 @@ public class ForbiddenException : RechargeApiException
 public class NotFoundException : RechargeApiException
 {
     public override bool? IsTransient => false;
-    public NotFoundException(ApiError? errorDataJson) : base(errorDataJson)
+    public NotFoundException(ApiError? errorData) : base(errorData)
     {
     }
 }
@@ -116,7 +116,7 @@ public class NotFoundException : RechargeApiException
 public class MethodNotAllowedException : RechargeApiException
 {
     public override bool? IsTransient => false;
-    public MethodNotAllowedException(ApiError? errorDataJson) : base(errorDataJson)
+    public MethodNotAllowedException(ApiError? errorData) : base(errorData)
     {
     }
 }
@@ -124,7 +124,7 @@ public class MethodNotAllowedException : RechargeApiException
 public class BadRequestException : RechargeApiException
 {
     public override bool? IsTransient => false;
-    public BadRequestException(ApiError? errorDataJson) : base(errorDataJson)
+    public BadRequestException(ApiError? errorData) : base(errorData)
     {
     }
 }
