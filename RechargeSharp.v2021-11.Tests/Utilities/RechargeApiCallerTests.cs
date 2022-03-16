@@ -18,6 +18,7 @@ using RechargeSharp.v2021_11.Configuration.DependencyInjection;
 using RechargeSharp.v2021_11.Exceptions;
 using RechargeSharp.v2021_11.Tests.TestHelpers;
 using RechargeSharp.v2021_11.Utilities;
+using RechargeSharp.v2021_11.Utilities.Logging;
 using Xunit;
 
 namespace RechargeSharp.v2021_11.Tests.Utilities;

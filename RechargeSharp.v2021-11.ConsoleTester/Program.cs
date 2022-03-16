@@ -11,6 +11,6 @@ var hostBuilder = Host.CreateDefaultBuilder()
     {
         collection.AddRechargeSharp2021_11(options => options.ApiKey = apiKey);
         collection.AddHostedService<ConsoleTesterLogic>();
-    }).UseSerilog((context, configuration) => configuration.WriteTo.Console());
+    }).UseSerilog((context, configuration) => configuration.MinimumLevel.Debug().WriteTo.Console());
 
 await hostBuilder.RunConsoleAsync();
