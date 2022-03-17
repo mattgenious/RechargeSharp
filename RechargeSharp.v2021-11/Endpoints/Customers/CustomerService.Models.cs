@@ -158,9 +158,17 @@ public partial class CustomerService
             public decimal? UnitPrice { get; init; }
             public string? VariantTitle { get; init; }
         }
-
+        
         public record PaymentDetails
         {
+            public string? Brand { get; init; }
+            public int? ExpMonth { get; init; }
+            public int? ExpYear { get; init; }
+            public string? Last4 { get; init; }
+            public string? PaypalEmail { get; init; }
+            public string? PaypalPayerId { get; init; }
+            public string? WalletType { get; init; }
+            public string? FundingType { get; init; }
         }
 
         public record PaymentMethod
