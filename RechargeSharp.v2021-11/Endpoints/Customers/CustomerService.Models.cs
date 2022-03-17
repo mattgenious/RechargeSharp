@@ -161,9 +161,6 @@ public partial class CustomerService
 
         public record PaymentDetails
         {
-            public PaymentDetails()
-            {
-            }
         }
 
         public record PaymentMethod

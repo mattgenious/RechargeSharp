@@ -327,7 +327,7 @@ public class RechargeApiCaller : IRechargeApiCaller
     {
         public static RechargeApiResponse Success(HttpContent content) => new RechargeApiResponse(content, null);
         public static RechargeApiResponse Failure(ApiError? error) => new RechargeApiResponse(null, error);
-    };
+    }
 
     private record RechargeApiError(ApiError? ApiError, Exception? ExceptionToThrow)
     {
