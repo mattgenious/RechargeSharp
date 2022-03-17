@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Polly;
-using RechargeSharp.v2021_11.Exceptions;
 
 namespace RechargeSharp.v2021_11
 {

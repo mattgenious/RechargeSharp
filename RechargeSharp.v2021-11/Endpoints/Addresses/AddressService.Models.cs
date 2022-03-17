@@ -13,8 +13,8 @@ public partial class AddressService
 
         public record OrderAttribute
         {
-            public string Name { get; init; }
-            public string Value { get; init; }
+            public string? Name { get; init; }
+            public string? Value { get; init; }
         }
 
         public record Address

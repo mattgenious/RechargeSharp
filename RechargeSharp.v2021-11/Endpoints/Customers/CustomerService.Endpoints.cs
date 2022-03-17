@@ -1,4 +1,3 @@
-using RechargeSharp.v2021_11.SharedModels;
 using RechargeSharp.v2021_11.Utilities;
 using RechargeSharp.v2021_11.Utilities.Queries;
 

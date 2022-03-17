@@ -91,7 +91,7 @@ public partial class SubscriptionService
     {
         public record Response
         {
-            public SharedSubscriptionTypes.Subscription Subscription { get; init; }
+            public SharedSubscriptionTypes.Subscription? Subscription { get; init; }
         }
     }
 
@@ -159,7 +159,7 @@ public partial class SubscriptionService
 
         public record Response
         {
-            public SharedSubscriptionTypes.Subscription Subscription { get; init; }
+            public SharedSubscriptionTypes.Subscription? Subscription { get; init; }
         }
     }
 
