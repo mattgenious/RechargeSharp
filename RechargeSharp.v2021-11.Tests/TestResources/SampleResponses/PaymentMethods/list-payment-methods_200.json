@@ -1,0 +1,65 @@
+{
+  "payment_methods": [
+    {
+      "id": 324534534,
+      "customer_id": 132123123,
+      "billing_address": {
+        "address1": "Teststreet 1",
+        "address2": null,
+        "city": "København",
+        "company": "",
+        "country": "Denmark",
+        "country_code": "DK",
+        "first_name": "Firstname",
+        "last_name": "Lastname",
+        "phone": "11223344",
+        "province": null,
+        "zip": "1000"
+      },
+      "created_at": "2022-03-09T10:27:40",
+      "default": true,
+      "include": {},
+      "payment_details": {
+        "brand": "visa",
+        "exp_month": 3,
+        "exp_year": 2023,
+        "last4": "0001"
+      },
+      "payment_type": "CREDIT_CARD",
+      "processor_customer_token": "cus_testtest1",
+      "processor_name": "stripe",
+      "processor_payment_method_token": "pm_testtest1",
+      "status": null,
+      "status_reason": null,
+      "updated_at": "2022-03-09T10:27:40"
+    },
+    {
+      "id": 123123123,
+      "customer_id": 23232323,
+      "billing_address": {
+        "address1": null,
+        "address2": null,
+        "city": null,
+        "company": null,
+        "country": null,
+        "country_code": null,
+        "first_name": null,
+        "last_name": null,
+        "phone": null,
+        "province": null,
+        "zip": null
+      },
+      "created_at": "2022-03-09T10:27:40",
+      "default": null,
+      "include": {},
+      "payment_details": {},
+      "payment_type": null,
+      "processor_customer_token": null,
+      "processor_name": "stripe",
+      "processor_payment_method_token": null,
+      "status": null,
+      "status_reason": null,
+      "updated_at": "2022-03-09T10:27:33"
+    }
+  ]
+}

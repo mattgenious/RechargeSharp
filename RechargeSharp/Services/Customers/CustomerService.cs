@@ -7,7 +7,21 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Customers
 {
-    public class CustomerService : RechargeSharpService
+    public interface ICustomerService
+    {
+        Task<bool> CustomerExistsAsync(long id);
+        Task<Customer?> GetCustomerAsync(long id);
+        Task<IEnumerable<Customer>?> GetCustomersAsync(int page = 1, int limit = 50, string? email = null, string? status = null, long? shopifyCustomerId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null, string? hash = null);
+        Task<IEnumerable<Customer>?> GetAllCustomersWithParamsAsync(string? email = null, string? status = null, long? shopifyCustomerId = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null, string? hash = null);
+        Task<long?> CountCustomersAsync(string? status = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<Customer?> CreateCustomerAsync(CreateCustomerRequest createCustomerRequest);
+        Task<Customer?> UpdateCustomerAsync(long id, UpdateCustomerRequest updateCustomerRequest);
+        Task<Customer?> UpdateCustomerPaymentTokenAsync(long id, UpdateCustomerPaymentTokenRequest customerPaymentTokenRequest);
+        Task DeleteCustomerAsync(long id);
+        Task<IEnumerable<PaymentSource>?> GetCustomerPaymentSourcesAsync(long id);
+    }
+
+    public class CustomerService : RechargeSharpService, ICustomerService
     {
         public CustomerService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {

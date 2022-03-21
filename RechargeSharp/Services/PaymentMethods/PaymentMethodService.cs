@@ -5,7 +5,17 @@ using RechargeSharp.Entities.PaymentMethods;
 
 namespace RechargeSharp.Services.PaymentMethods
 {
-    public class PaymentMethodService : RechargeSharpService
+    public interface IPaymentMethodService
+    {
+        Task<bool> PaymentMethodExistsAsync(long paymentMethodId);
+        Task<PaymentMethod?> GetPaymentMethodAsync(long paymentMethodId);
+        Task<PaymentMethod?> CreatePaymentMethodAsync(CreatePaymentMethodRequest createPaymentMethodRequest);
+        Task<PaymentMethod?> UpdatePaymentMethodAsync(long paymentMethodId, UpdatePaymentMethodRequest updatePaymentMethodRequest);
+        Task<IEnumerable<PaymentMethod>?> GetPaymentMethodsAsync(int page = 1, int limit = 50, long? customerId = null);
+        Task DeletePaymentMethodAsync(long paymentMethodId);
+    }
+
+    public class PaymentMethodService : RechargeSharpService, IPaymentMethodService
     {
         public PaymentMethodService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {

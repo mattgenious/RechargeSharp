@@ -12,23 +12,32 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Webhooks
 {
-    public class WebhookService
+    public interface IWebhookService
+    {
+        Task<bool?> WebhookExistsAsync(long id);
+        Task<Webhook?> GetWebhookAsync(long id);
+        Task<IEnumerable<Webhook>?> GetWebhooksAsync();
+        Task<Webhook?> CreateWebhookAsync(CreateWebhookRequest createWebhookRequest);
+        Task<Webhook?> UpdateWebhookAsync(long id, UpdateWebhookRequest updateWebhookRequest);
+        Task<Webhook?> OverrideShippingLines(long id, OverrideShippingLinesRequest overrideShippingLinesRequest);
+        Task DeleteWebhookAsync(long id);
+    }
+
+    public class WebhookService : IWebhookService
     {
         protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicy;
 
         private readonly ILogger<RechargeSharpService> _logger;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly RechargeServiceOptions _rechargeServiceOptions;
         private readonly HttpClient _client;
+        
         public WebhookService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions)
         {
             _logger = logger;
-            _httpClientFactory = httpClientFactory;
-            _rechargeServiceOptions = rechargeServiceOptions.Value;
+            var rechargeServiceOptions1 = rechargeServiceOptions.Value;
 
-            _client = _httpClientFactory.CreateClient("RechargeSharpWebhookClient");
+            _client = httpClientFactory.CreateClient("RechargeSharpWebhookClient");
             _client.DefaultRequestHeaders.Remove("X-Recharge-Access-Token");
-            _client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", _rechargeServiceOptions.GetWebhookApiKey());
+            _client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", rechargeServiceOptions1.GetWebhookApiKey());
 
             AsyncRetryPolicy = Policy.HandleResult<HttpResponseMessage>(x =>
             {

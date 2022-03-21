@@ -1,0 +1,7 @@
+{
+  "errors": {
+    "address": [
+      "Can not delete payment method associated with addresses"
+    ]
+  }
+}

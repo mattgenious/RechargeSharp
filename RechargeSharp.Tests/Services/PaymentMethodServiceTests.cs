@@ -1,21 +1,21 @@
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using RechargeSharp.Services.PaymentMethods;
 using RechargeSharp.Tests.Fixtures;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace RechargeSharp.Tests
+namespace RechargeSharp.Tests.Services
 {
     public class PaymentMethodServiceTests
     {
-        private readonly PaymentMethodService _sut;
+        private readonly IPaymentMethodService _sut;
         private TestFixture _testFixture;
 
         public PaymentMethodServiceTests()
         {
             _testFixture = new TestFixture();
-            _sut = _testFixture.ServiceProvider.GetRequiredService<PaymentMethodService>();
+            _sut = _testFixture.ServiceProvider.GetRequiredService<IPaymentMethodService>();
         }
 
         [Fact]

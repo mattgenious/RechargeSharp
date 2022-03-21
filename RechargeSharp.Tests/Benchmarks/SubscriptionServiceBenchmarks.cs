@@ -1,16 +1,14 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
-using BenchmarkDotNet.Running;
 using Microsoft.Extensions.DependencyInjection;
 using RechargeSharp.Entities.Subscriptions;
 using RechargeSharp.Services.Subscriptions;
 using RechargeSharp.Tests.Fixtures;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
 
-namespace RechargeSharp.Tests
+namespace RechargeSharp.Tests.Benchmarks
 {
     [SimpleJob(RunStrategy.ColdStart, launchCount: 1, warmupCount: 0, targetCount: 1, id: "FastAndImprecise")]
     public class SubscriptionServiceBenchmarks

@@ -7,7 +7,22 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Orders
 {
-    public class OrderService : RechargeSharpService
+    public interface IOrderService
+    {
+        Task<bool> OrderExistsAsync(long id);
+        Task<Order?> GetOrderAsync(long id);
+        Task<IEnumerable<Order>?> GetOrdersAsync(int page = 1, int limit = 50, long? customerId = null, long? addressId = null, long? subscriptionId = null, long? chargeId = null, string? status = null, long? shopifyOrderId = null, DateTimeOffset? scheduledAtMin = null, DateTimeOffset? scheduledAtMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null, DateTimeOffset? shippingDate = null);
+        Task<IEnumerable<Order>> GetAllOrdersWithParamsAsync(long? customerId = null, long? addressId = null, long? subscriptionId = null, long? chargeId = null, string? status = null, long? shopifyOrderId = null, DateTimeOffset? scheduledAtMin = null, DateTimeOffset? scheduledAtMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null, DateTimeOffset? shippingDate = null);
+        Task<long?> CountOrdersAsync(string queryParams);
+        Task<Order?> UpdateOrderAsync(long id, UpdateOrderRequest updateOrderRequest);
+        Task<Order?> UpdateLineItemsAsync(long id, UpdateLineItemsRequest updateLineItemsRequest);
+        Task<Order?> ChangeOrderDateAsync(long id, ChangeOrderDateRequest changeOrderDateRequest);
+        Task<Order?> ChangeOrderVariant(long orderId, long currentShopifyVariantId, ChangeOrderVariantRequest changeOrderVariantRequest);
+        Task<Order?> CloneOrderAsync(long orderId, long chargeId, CloneOrderRequest cloneOrderRequest);
+        Task DeleteOrderAsync(long id);
+    }
+
+    public class OrderService : RechargeSharpService, IOrderService
     {
         public OrderService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {

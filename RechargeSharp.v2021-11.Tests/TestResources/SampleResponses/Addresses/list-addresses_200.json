@@ -1,0 +1,50 @@
+{
+  "next_cursor": "eyJzdGFydGluZ19iZWZvcmVfaWQiOjg3OTExMDMxLCJsYXN0X3ZhbHVlIjo4NzkxMTAzMSwic29ydF9ieSI6ImlkLWRlc2MiLCJjdXJzb3JfZGlyIjoibmV4dCJ9",
+  "previous_cursor": null,
+  "addresses": [
+    {
+      "id": 123123,
+      "customer_id": 22222222,
+      "payment_method_id": 33333333,
+      "address1": "Teststreet 1",
+      "address2": "Teststreet 1",
+      "city": "København",
+      "company": null,
+      "country_code": "DK",
+      "created_at": "2022-03-10T12:13:28+00:00",
+      "discounts": [],
+      "first_name": "Firstname",
+      "last_name": "Lastname",
+      "order_attributes": [],
+      "order_note": null,
+      "phone": "22222222",
+      "presentment_currency": null,
+      "province": null,
+      "shipping_lines_override": [],
+      "updated_at": "2022-03-10T12:13:28+00:00",
+      "zip": "1000"
+    },
+    {
+      "id": 2342342,
+      "customer_id": 4444444,
+      "payment_method_id": 5555555,
+      "address1": "Teststreet 1",
+      "address2": "Teststreet 1",
+      "city": "København",
+      "company": null,
+      "country_code": "DK",
+      "created_at": "2022-03-10T11:58:29+00:00",
+      "discounts": [],
+      "first_name": "Firstname",
+      "last_name": "Lastname",
+      "order_attributes": [],
+      "order_note": null,
+      "phone": "22222222",
+      "presentment_currency": null,
+      "province": null,
+      "shipping_lines_override": [],
+      "updated_at": "2022-03-10T11:58:29+00:00",
+      "zip": "1000"
+    }
+  ]
+}

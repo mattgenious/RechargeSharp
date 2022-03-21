@@ -7,7 +7,16 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Products
 {
-    public class ProductService : RechargeSharpService
+    public interface IProductService
+    {
+        Task<bool> ProductExistsAsync(long id);
+        Task<Product?> GetProductAsync(long id);
+        Task<IEnumerable<Product>?> GetProductsAsync(int page = 1, int limit = 50, List<long>? id = null, List<long>? shopifyProductId = null, string? collectionId = null);
+        Task<IEnumerable<Product>> GetAllProductsWithParamsAsync(List<long>? id = null, List<long>? shopifyProductId = null, string? collectionId = null);
+        Task<long?> CountProducts(long? collectionId = null, string? storefrontPurchaseOptions = null);
+    }
+
+    public class ProductService : RechargeSharpService, IProductService
     {
         public ProductService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {

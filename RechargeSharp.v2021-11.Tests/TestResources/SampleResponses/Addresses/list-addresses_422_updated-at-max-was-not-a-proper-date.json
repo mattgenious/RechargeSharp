@@ -1,0 +1,7 @@
+{
+  "errors": {
+    "updated_at_max": [
+      "Invalid date: test. Must be a valid ISO-8601 datetime string"
+    ]
+  }
+}

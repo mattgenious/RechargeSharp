@@ -10,7 +10,25 @@ using Address = RechargeSharp.Entities.Addresses.Address;
 
 namespace RechargeSharp.Services.Discounts
 {
-    public class DiscountService : RechargeSharpService
+    public interface IDiscountService
+    {
+        Task<bool> DiscountExistsAsync(long id);
+        Task<Discount?> GetDiscountAsync(long id);
+        Task<IEnumerable<Discount>?> GetDiscountsAsync(int page = 1, int limit = 50, string? status = null, string? discountType = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<IEnumerable<Discount>> GetAllDiscountsWithParamsAsync(string? status = null, string? discountType = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<long?> CountDiscountsAsync();
+        Task<Address?> AddDiscountToAddressByIdAsync(long discountId, long addressId);
+        Task<Address?> AddDiscountToAddressByCodeAsync(string discountCode, long addressId);
+        Task<Address?> RemoveDiscountFromAddress(long addressId);
+        Task<Charge?> AddDiscountToChargeByIdAsync(long discountId, long chargeId);
+        Task<Charge?> AddDiscountToChargeByCodeAsync(string discountCode, long chargeId);
+        Task<Charge?> RemoveDiscountFromCharge(long chargeId);
+        Task<Discount?> CreateDiscountAsync(CreateDiscountRequest createDiscountRequest);
+        Task<Discount?> UpdateDiscountAsync(long id, UpdateDiscountRequest updateDiscountRequest);
+        Task DeleteDiscountAsync(long id);
+    }
+
+    public class DiscountService : RechargeSharpService, IDiscountService
     {
         public DiscountService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {

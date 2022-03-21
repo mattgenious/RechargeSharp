@@ -1,0 +1,55 @@
+{
+  "subscription": {
+    "id": 111111,
+    "address_id": 222222,
+    "customer_id": 333333,
+    "analytics_data": {
+      "utm_params": []
+    },
+    "cancellation_reason": null,
+    "cancellation_reason_comments": null,
+    "cancelled_at": null,
+    "charge_interval_frequency": 30,
+    "created_at": "2022-03-10T12:13:28+00:00",
+    "expire_after_specific_number_of_charges": null,
+    "external_product_id": {
+      "ecommerce": "123123123"
+    },
+    "external_variant_id": {
+      "ecommerce": "234234234"
+    },
+    "has_queued_charges": true,
+    "is_prepaid": false,
+    "is_skippable": true,
+    "is_swappable": false,
+    "max_retries_reached": false,
+    "next_charge_scheduled_at": "2022-04-09",
+    "order_day_of_month": null,
+    "order_day_of_week": null,
+    "order_interval_frequency": 30,
+    "order_interval_unit": "day",
+    "presentment_currency": null,
+    "price": "49.00",
+    "product_title": "Test product",
+    "properties": [
+      {
+        "name": "charge_interval_frequency",
+        "value": "30"
+      },
+      {
+        "name": "shipping_interval_frequency",
+        "value": "30"
+      },
+      {
+        "name": "shipping_interval_unit_type",
+        "value": "day"
+      }
+    ],
+    "quantity": 4,
+    "sku": null,
+    "sku_override": false,
+    "status": "active",
+    "updated_at": "2022-03-11T07:01:12+00:00",
+    "variant_title": "972-1"
+  }
+}
