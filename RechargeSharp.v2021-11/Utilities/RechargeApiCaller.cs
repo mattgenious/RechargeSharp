@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
@@ -70,6 +71,7 @@ public class RechargeApiCaller : IRechargeApiCaller
         {
             PropertyNameCaseInsensitive = true,
             PropertyNamingPolicy = new SnakeCaseNamingPolicy(),
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
         jsonSerializerOptions.Converters.Add(new ApiErrorJsonConverter());
         jsonSerializerOptions.Converters.Add(new DateOnlyNullableConverter());
