@@ -128,13 +128,13 @@ public partial class SubscriptionService
     {
         public record Request
         {
-            public string? AddressId { get; init; }
-            public IReadOnlyList<string>? AddressIds { get; init; }
+            public long? AddressId { get; init; }
+            public IReadOnlyList<long>? AddressIds { get; init; }
             public DateTime? CreatedAtMax { get; init; }
             public DateTime? CreatedAtMin { get; init; }
             public string? Cursor { get; init; }
-            public string? CustomerId { get; init; }
-            public IReadOnlyList<string>? Ids { get; init; }
+            public long? CustomerId { get; init; }
+            public IReadOnlyList<long>? Ids { get; init; }
             public string? Limit { get; init; }
             public int? Page { get; init; }
             public string? Status { get; init; }
