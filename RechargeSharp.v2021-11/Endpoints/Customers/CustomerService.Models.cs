@@ -180,7 +180,7 @@ public partial class CustomerService
 
         public record Order
         {
-            public string? Id { get; init; }
+            public long? Id { get; init; }
             public long? AddressId { get; init; }
             public long? ChargeId { get; init; }
             public IReadOnlyList<LineItem>? LineItems { get; init; }

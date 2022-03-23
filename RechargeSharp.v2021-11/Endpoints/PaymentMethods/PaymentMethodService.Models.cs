@@ -82,7 +82,7 @@ public partial class PaymentMethodService
     {
         public record Request
         {
-            public string? CustomerId { get; init; }
+            public long? CustomerId { get; init; }
             public int? Page { get; init; }
             public int? Limit { get; init; }
         }

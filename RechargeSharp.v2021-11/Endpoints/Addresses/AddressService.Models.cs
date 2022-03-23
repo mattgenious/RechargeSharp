@@ -117,7 +117,7 @@ public partial class AddressService
             public DateTime? CreatedAtMax { get; init; }
             public DateTime? CreatedAtMin { get; init; }
             public string? DiscountCode { get; init; }
-            public string? DiscountId { get; init; }
+            public long? DiscountId { get; init; }
             public int? Limit { get; init; }
             public int? Page { get; init; }
             public string? UpdatedAtMax { get; init; }
