@@ -38,7 +38,8 @@ namespace RechargeSharp.Services
             services.AddTransient(x => options);
             services.AddLogging();
 
-            services.AddTransient<IAddressService, AddressService>()
+            services
+                .AddTransient<IAddressService, AddressService>()
                 .AddTransient<IChargeService, ChargeService>()
                 .AddTransient<ICheckoutService, CheckoutService>()
                 .AddTransient<ICollectionService, CollectionService>()
@@ -51,7 +52,21 @@ namespace RechargeSharp.Services
                 .AddTransient<IShopService, ShopService>()
                 .AddTransient<ISubscriptionService, SubscriptionService>()
                 .AddTransient<IWebhookService, WebhookService>()
-                .AddTransient<IPaymentMethodService, PaymentMethodService>();
+                .AddTransient<IPaymentMethodService, PaymentMethodService>()
+                .AddTransient<AddressService>()
+                .AddTransient<ChargeService>()
+                .AddTransient<CheckoutService>()
+                .AddTransient<CollectionService>()
+                .AddTransient<CustomerService>()
+                .AddTransient<DiscountService>()
+                .AddTransient<MetafieldService>()
+                .AddTransient<OnetimeService>()
+                .AddTransient<OrderService>()
+                .AddTransient<ProductService>()
+                .AddTransient<ShopService>()
+                .AddTransient<SubscriptionService>()
+                .AddTransient<WebhookService>()
+                .AddTransient<PaymentMethodService>();
 
             return services;
         }
