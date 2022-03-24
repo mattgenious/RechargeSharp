@@ -55,7 +55,7 @@ public static class ObjectToQueryStringSerializer
             {
                 case JsonValueKind.String:
                 case JsonValueKind.Number:
-                    arrayElementsAsStrings.Add(arrayElement.GetString()!);
+                    arrayElementsAsStrings.Add(arrayElement.ToString());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(arrayElement.ValueKind),
