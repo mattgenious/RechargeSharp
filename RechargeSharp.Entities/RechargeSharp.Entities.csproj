@@ -6,19 +6,18 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>11.1.0-beta.5</Version>
-		<AssemblyVersion>11.1.0.0</AssemblyVersion>
+		<Version>11.2.0-alpha.1</Version>
+		<AssemblyVersion>11.2.0.0</AssemblyVersion>
 		<PackageLicenseExpression></PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/mattgenious/RechargeSharp</RepositoryUrl>
 		<RepositoryType>GIT</RepositoryType>
 		<PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<FileVersion>11.1.0.0</FileVersion>
+		<FileVersion>11.2.0.0</FileVersion>
 		<Authors>Matt Luccas Phaure Minet</Authors>
 		<Description>A C# library for RechargePayments</Description>
 		<PackageReleaseNotes>Simplify target frameworks</PackageReleaseNotes>
-		<LangVersion>8.0</LangVersion>
 		<PackageIcon>icon.png</PackageIcon>
 		<Company>Matt Luccas Phaure Minet</Company>
 		<NeutralLanguage>en</NeutralLanguage>
