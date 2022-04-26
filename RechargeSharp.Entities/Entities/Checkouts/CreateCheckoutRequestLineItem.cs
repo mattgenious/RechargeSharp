@@ -9,7 +9,7 @@ namespace RechargeSharp.Entities.Checkouts
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
-            return ChargeIntervalFrequency == other.ChargeIntervalFrequency && CutoffDayOfMonth == other.CutoffDayOfMonth && CutoffDayOfWeek == other.CutoffDayOfWeek && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && FulfillmentService == other.FulfillmentService && Grams == other.Grams && LinePrice == other.LinePrice && OrderDayOfMonth == other.OrderDayOfMonth && OrderDayOfWeek == other.OrderDayOfWeek && OrderIntervalFrequency == other.OrderIntervalFrequency && OrderIntervalUnit == other.OrderIntervalUnit && Price == other.Price && ProductId == other.ProductId && Quantity == other.Quantity && RequiresShipping == other.RequiresShipping && Sku == other.Sku && Taxable == other.Taxable && Title == other.Title && VariantId == other.VariantId && VariantTitle == other.VariantTitle && Vendor == other.Vendor;
+            return ChargeIntervalFrequency == other.ChargeIntervalFrequency && CutoffDayOfMonth == other.CutoffDayOfMonth && CutoffDayOfWeek == other.CutoffDayOfWeek && ExpireAfterSpecificNumberOfCharges == other.ExpireAfterSpecificNumberOfCharges && FirstRecurringChargeDelay == other.FirstRecurringChargeDelay && FulfillmentService == other.FulfillmentService && Grams == other.Grams && LinePrice == other.LinePrice && OrderDayOfMonth == other.OrderDayOfMonth && OrderDayOfWeek == other.OrderDayOfWeek && OrderIntervalFrequency == other.OrderIntervalFrequency && OrderIntervalUnit == other.OrderIntervalUnit && Price == other.Price && ProductId == other.ProductId && Quantity == other.Quantity && RequiresShipping == other.RequiresShipping && Sku == other.Sku && Taxable == other.Taxable && Title == other.Title && VariantId == other.VariantId && VariantTitle == other.VariantTitle && Vendor == other.Vendor;
         }
 
         public override bool Equals(object? obj)
@@ -27,6 +27,7 @@ namespace RechargeSharp.Entities.Checkouts
             hash.Add(CutoffDayOfMonth);
             hash.Add(CutoffDayOfWeek);
             hash.Add(ExpireAfterSpecificNumberOfCharges);
+            hash.Add(FirstRecurringChargeDelay);
             hash.Add(FulfillmentService);
             hash.Add(Grams);
             hash.Add(LinePrice);
@@ -69,6 +70,9 @@ namespace RechargeSharp.Entities.Checkouts
 
         [JsonProperty("expire_after_specific_number_of_charges", NullValueHandling = NullValueHandling.Ignore)]
         public long? ExpireAfterSpecificNumberOfCharges { get; set; }
+        
+        [JsonProperty("first_recurring_charge_delay", NullValueHandling = NullValueHandling.Ignore)]
+        public long? FirstRecurringChargeDelay { get; set; }
 
         [JsonProperty("fulfillment_service", NullValueHandling = NullValueHandling.Ignore)]
         public string? FulfillmentService { get; set; }
