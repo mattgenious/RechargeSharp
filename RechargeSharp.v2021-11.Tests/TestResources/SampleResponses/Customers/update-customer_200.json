@@ -1,0 +1,22 @@
+{
+  "customer": {
+    "id": 82940507,
+    "analytics_data": {
+      "utm_params": []
+    },
+    "created_at": "2022-03-09T03:03:28",
+    "email": "testtesttest11@test.dk",
+    "external_customer_id": {
+      "ecommerce": null
+    },
+    "first_charge_processed_at": null,
+    "first_name": "Niels",
+    "has_payment_method_in_dunning": false,
+    "has_valid_payment_method": false,
+    "hash": "76c76acc6ee60a756616312a75baba",
+    "last_name": "Bohr",
+    "subscriptions_active_count": 0,
+    "subscriptions_total_count": 0,
+    "updated_at": "2022-03-09T03:03:49"
+  }
+}

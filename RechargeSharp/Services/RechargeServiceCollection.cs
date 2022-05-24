@@ -9,6 +9,7 @@ using RechargeSharp.Services.Discounts;
 using RechargeSharp.Services.Metafields;
 using RechargeSharp.Services.Onetimes;
 using RechargeSharp.Services.Orders;
+using RechargeSharp.Services.PaymentMethods;
 using RechargeSharp.Services.Products;
 using RechargeSharp.Services.Shops;
 using RechargeSharp.Services.Subscriptions;
@@ -37,7 +38,22 @@ namespace RechargeSharp.Services
             services.AddTransient(x => options);
             services.AddLogging();
 
-            services.AddTransient<AddressService>()
+            services
+                .AddTransient<IAddressService, AddressService>()
+                .AddTransient<IChargeService, ChargeService>()
+                .AddTransient<ICheckoutService, CheckoutService>()
+                .AddTransient<ICollectionService, CollectionService>()
+                .AddTransient<ICustomerService, CustomerService>()
+                .AddTransient<IDiscountService, DiscountService>()
+                .AddTransient<IMetafieldService, MetafieldService>()
+                .AddTransient<IOnetimeService, OnetimeService>()
+                .AddTransient<IOrderService, OrderService>()
+                .AddTransient<IProductService, ProductService>()
+                .AddTransient<IShopService, ShopService>()
+                .AddTransient<ISubscriptionService, SubscriptionService>()
+                .AddTransient<IWebhookService, WebhookService>()
+                .AddTransient<IPaymentMethodService, PaymentMethodService>()
+                .AddTransient<AddressService>()
                 .AddTransient<ChargeService>()
                 .AddTransient<CheckoutService>()
                 .AddTransient<CollectionService>()
@@ -49,7 +65,8 @@ namespace RechargeSharp.Services
                 .AddTransient<ProductService>()
                 .AddTransient<ShopService>()
                 .AddTransient<SubscriptionService>()
-                .AddTransient<WebhookService>();
+                .AddTransient<WebhookService>()
+                .AddTransient<PaymentMethodService>();
 
             return services;
         }

@@ -7,7 +7,23 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Charges
 {
-    public class ChargeService : RechargeSharpService
+    public interface IChargeService
+    {
+        Task<bool?> ChargeExistsAsync(long id);
+        Task<Charge?> GetChargeAsync(long id);
+        Task<IEnumerable<Charge>?> GetChargesAsync(int page = 1, int limit = 50, long? discountId = null, string? discountCode = null, string? status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTimeOffset? date = null, DateTimeOffset? dateMin = null, DateTimeOffset? dateMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<IEnumerable<Charge>> GetAllChargesWithParamsAsync(long? discountId = null, string? discountCode = null, string? status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTimeOffset? date = null, DateTimeOffset? dateMin = null, DateTimeOffset? dateMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<long?> CountChargesAsync(long? discountId = null, string? discountCode = null, string? status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTimeOffset? date = null, DateTimeOffset? dateMin = null, DateTimeOffset? dateMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<Charge?> ChangeNextChargeDateAsync(long chargeId, ChangeNextChargeDateRequest changeNextChargeDateRequest);
+        Task<Charge?> SkipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest);
+        Task<Charge?> UnskipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest);
+        Task<Charge?> RefundChargeAsync(long chargeId, RefundChargeRequest refundChargeRequest);
+        Task<Charge?> TotalRefundChargeAsync(long chargeId, TotalRefundChargeRequest totalRefundChargeRequest);
+        Task DeleteChargeAsync(long id);
+        Task<Charge?> ProcessChargeAsync(long id);
+    }
+
+    public class ChargeService : RechargeSharpService, IChargeService
     {
         public ChargeService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {
@@ -182,6 +198,11 @@ namespace RechargeSharp.Services.Charges
             _ = await DeleteAsync($"/charges/{id}").ConfigureAwait(false);
         }
 
-
+        public async Task<Charge?> ProcessChargeAsync(long id)
+        {
+            var response = await PostAsJsonAsync($"/charges/{id}/process", "{}").ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<ChargeResponse>(
+                await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
+        }
     }
 }

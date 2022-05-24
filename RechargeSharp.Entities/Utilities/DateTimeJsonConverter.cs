@@ -33,5 +33,7 @@ namespace RechargeSharp.Utilities
                 writer.WriteNull();
             writer.WriteValue(value?.ToString("O"));
         }
+
+        public static readonly DateTimeOffsetJsonConverter Singleton = new DateTimeOffsetJsonConverter();
     }
 }

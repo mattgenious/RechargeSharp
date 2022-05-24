@@ -1,0 +1,51 @@
+{
+  "subscription": {
+    "id": 123123123,
+    "address_id": 22222222,
+    "customer_id": 333333333,
+    "analytics_data": {
+      "utm_params": []
+    },
+    "cancellation_reason": null,
+    "cancellation_reason_comments": null,
+    "cancelled_at": null,
+    "charge_interval_frequency": 30,
+    "created_at": "2022-03-10T14:14:30+00:00",
+    "expire_after_specific_number_of_charges": 1,
+    "external_product_id": {
+      "ecommerce": "44444444444"
+    },
+    "external_variant_id": {
+      "ecommerce": "555555555555"
+    },
+    "has_queued_charges": true,
+    "is_prepaid": false,
+    "is_skippable": true,
+    "is_swappable": false,
+    "max_retries_reached": false,
+    "next_charge_scheduled_at": "2022-12-17",
+    "order_day_of_month": null,
+    "order_day_of_week": null,
+    "order_interval_frequency": 30,
+    "order_interval_unit": "day",
+    "presentment_currency": "DKK",
+    "price": "49.00",
+    "product_title": "Test product",
+    "properties": [
+      {
+        "name": "Colour",
+        "value": "Yellow"
+      },
+      {
+        "name": "Bottle Material",
+        "value": "Glass"
+      }
+    ],
+    "quantity": 3,
+    "sku": null,
+    "sku_override": false,
+    "status": "active",
+    "updated_at": "2022-03-10T14:14:30+00:00",
+    "variant_title": "972-1"
+  }
+}

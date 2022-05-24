@@ -8,7 +8,22 @@ using Address = RechargeSharp.Entities.Addresses.Address;
 
 namespace RechargeSharp.Services.Addresses
 {
-    public class AddressService : RechargeSharpService
+    public interface IAddressService
+    {
+        Task<bool> AddressExistsAsync(long id);
+        Task<Address?> GetAddressAsync(long id);
+        Task<IEnumerable<Address>?> GetAllAddressesForCustomerAsync(long customerId);
+        Task<IEnumerable<Address>?> GetAddressesAsync(int page = 1, int limit = 50, long? discountId = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<IEnumerable<Address>> GetAllAddressesWithParamsAsync(long? discountId = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<long?> CountAddressesAsync(long? discountId = null, string? discountCode = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
+        Task<Address?> CreateAddressAsync(CreateAddressRequest createAddressRequest, long customerId);
+        Task<Address?> UpdateAddressAsync(long id, UpdateAddressRequest updateAddressRequest);
+        Task<Address?> OverrideShippingLines(long id, OverrideShippingLinesRequest overrideShippingLinesRequest);
+        Task<ValidateAddressResponse?> ValidateAddress(ValidateAddressRequest validateAddressRequest);
+        Task DeleteAddressAsync(long id);
+    }
+
+    public class AddressService : RechargeSharpService, IAddressService
     {
         public AddressService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {

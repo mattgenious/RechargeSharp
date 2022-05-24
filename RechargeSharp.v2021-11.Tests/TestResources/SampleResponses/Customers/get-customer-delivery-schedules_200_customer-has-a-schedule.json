@@ -1,0 +1,155 @@
+{
+  "customer": {
+    "id": 100000,
+    "email": "test@test.dk",
+    "first_name": "Test",
+    "last_name": "Testesen"
+  },
+  "deliveries": [
+    {
+      "date": "2022-03-31",
+      "orders": [
+        {
+          "id": null,
+          "address_id": 1111111,
+          "charge_id": 999999999,
+          "line_items": [
+            {
+              "subscription_id": 3333333,
+              "external_product_id": {
+                "ecommerce": null
+              },
+              "external_variant_id": {
+                "ecommerce": null
+              },
+              "images": {},
+              "is_skippable": false,
+              "plan_type": null,
+              "product_title": "Test product",
+              "properties": [
+                {
+                  "name": "gram per dag",
+                  "value": "328"
+                },
+                {
+                  "name": "kg per måned",
+                  "value": "10"
+                }
+              ],
+              "quantity": 2,
+              "subtotal_price": "0.00",
+              "unit_price": "0.00",
+              "variant_title": "571"
+            }
+          ],
+          "payment_method": {
+            "id": 1111111,
+            "billing_address": {
+              "address1": "Test Street 1",
+              "address2": null,
+              "city": "København",
+              "company": null,
+              "country_code": "DK",
+              "first_name": "TestFirstName",
+              "last_name": "TestLastName",
+              "phone": "11223344",
+              "province": null,
+              "zip": "1000"
+            },
+            "payment_details": {}
+          },
+          "shipping_address": {
+            "address1": "Test Street 1",
+            "address2": null,
+            "city": "København",
+            "company": null,
+            "country_code": "DK",
+            "first_name": "TestFirstName",
+            "last_name": "TestLastName",
+            "phone": "11223344",
+            "province": null,
+            "zip": "1000"
+          }
+        }
+      ]
+    },
+    {
+      "date": "2022-04-30",
+      "orders": [
+        {
+          "id": null,
+          "address_id": 22222222,
+          "charge_id": null,
+          "line_items": [],
+          "payment_method": {
+            "id": 88888888,
+            "billing_address": {
+              "address1": "Test Street 1",
+              "address2": null,
+              "city": "København",
+              "company": null,
+              "country_code": "DK",
+              "first_name": "TestFirstName",
+              "last_name": "TestLastName",
+              "phone": "11223344",
+              "province": null,
+              "zip": "1000"
+            },
+            "payment_details": {}
+          },
+          "shipping_address": {
+            "address1": null,
+            "address2": null,
+            "city": null,
+            "company": null,
+            "country_code": null,
+            "first_name": null,
+            "last_name": null,
+            "phone": null,
+            "province": null,
+            "zip": null
+          }
+        }
+      ]
+    },
+    {
+      "date": "2022-05-30",
+      "orders": [
+        {
+          "id": null,
+          "address_id": 22222222,
+          "charge_id": null,
+          "line_items": [],
+          "payment_method": {
+            "id": 88888888,
+            "billing_address": {
+              "address1": "Test Street 1",
+              "address2": null,
+              "city": "København",
+              "company": null,
+              "country_code": "DK",
+              "first_name": "TestFirstName",
+              "last_name": "TestLastName",
+              "phone": "11223344",
+              "province": null,
+              "zip": "1000"
+            },
+            "payment_details": {}
+          },
+          "shipping_address": {
+            "address1": null,
+            "address2": null,
+            "city": null,
+            "company": null,
+            "country_code": null,
+            "first_name": null,
+            "last_name": null,
+            "phone": null,
+            "province": null,
+            "zip": null
+          }
+        }
+      ]
+    }
+  ]
+}

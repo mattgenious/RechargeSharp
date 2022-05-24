@@ -1,0 +1,10 @@
+{
+  "errors": {
+    "first_name": [
+      "Shorter than minimum length 1."
+    ],
+    "last_name": [
+      "Shorter than minimum length 1."
+    ]
+  }
+}

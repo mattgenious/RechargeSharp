@@ -1,0 +1,108 @@
+{
+  "next_cursor": "eyJzdGFydGluZ19iZWZvcmVfaWQiOjIxOTQwNTgzNywibGFzdF92YWx1ZSI6MjE5NDA1ODM3LCJzb3J0X2J5IjoiaWQtZGVzYyIsImN1cnNvcl9kaXIiOiJuZXh0In0",
+  "previous_cursor": null,
+  "subscriptions": [
+    {
+      "id": 1111,
+      "address_id": 222222,
+      "customer_id": 33333,
+      "analytics_data": {
+        "utm_params": []
+      },
+      "cancellation_reason": null,
+      "cancellation_reason_comments": null,
+      "cancelled_at": null,
+      "charge_interval_frequency": 30,
+      "created_at": "2022-03-10T14:14:30+00:00",
+      "expire_after_specific_number_of_charges": 1,
+      "external_product_id": {
+        "ecommerce": "123123123"
+      },
+      "external_variant_id": {
+        "ecommerce": "234324234"
+      },
+      "has_queued_charges": true,
+      "is_prepaid": false,
+      "is_skippable": true,
+      "is_swappable": false,
+      "max_retries_reached": false,
+      "next_charge_scheduled_at": "2022-12-17",
+      "order_day_of_month": null,
+      "order_day_of_week": null,
+      "order_interval_frequency": 30,
+      "order_interval_unit": "day",
+      "presentment_currency": "DKK",
+      "price": "49.00",
+      "product_title": "Test producttitle",
+      "properties": [
+        {
+          "name": "Colour",
+          "value": "Yellow"
+        },
+        {
+          "name": "Bottle Material",
+          "value": "Glass"
+        }
+      ],
+      "quantity": 3,
+      "sku": null,
+      "sku_override": false,
+      "status": "active",
+      "updated_at": "2022-03-10T14:14:30+00:00",
+      "variant_title": "972-1"
+    },
+    {
+      "id": 555555,
+      "address_id": 666666,
+      "customer_id": 777777,
+      "analytics_data": {
+        "utm_params": []
+      },
+      "cancellation_reason": null,
+      "cancellation_reason_comments": null,
+      "cancelled_at": null,
+      "charge_interval_frequency": 30,
+      "created_at": "2022-03-10T12:13:28+00:00",
+      "expire_after_specific_number_of_charges": null,
+      "external_product_id": {
+        "ecommerce": "12341234"
+      },
+      "external_variant_id": {
+        "ecommerce": "213432142"
+      },
+      "has_queued_charges": true,
+      "is_prepaid": false,
+      "is_skippable": true,
+      "is_swappable": false,
+      "max_retries_reached": false,
+      "next_charge_scheduled_at": "2022-04-09",
+      "order_day_of_month": null,
+      "order_day_of_week": null,
+      "order_interval_frequency": 30,
+      "order_interval_unit": "day",
+      "presentment_currency": null,
+      "price": "49.00",
+      "product_title": "Test producttitle",
+      "properties": [
+        {
+          "name": "charge_interval_frequency",
+          "value": "30"
+        },
+        {
+          "name": "shipping_interval_frequency",
+          "value": "30"
+        },
+        {
+          "name": "shipping_interval_unit_type",
+          "value": "day"
+        }
+      ],
+      "quantity": 4,
+      "sku": null,
+      "sku_override": false,
+      "status": "active",
+      "updated_at": "2022-03-11T07:01:12+00:00",
+      "variant_title": "972-1"
+    }
+  ]
+}

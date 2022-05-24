@@ -1,0 +1,46 @@
+{
+  "next_cursor": "eyJzdGFydGluZ19iZWZvcmVfaWQiOjcwNDgwODQ0LCJsYXN0X3ZhbHVlIjo3MDQ4MDg0NCwic29ydF9ieSI6ImlkLWRlc2MiLCJjdXJzb3JfZGlyIjoibmV4dCJ9",
+  "previous_cursor": null,
+  "customers": [
+    {
+      "id": 82940007,
+      "analytics_data": {
+        "utm_params": []
+      },
+      "created_at": "2022-03-09T02:36:35",
+      "email": "testtesttest5@test.dk",
+      "external_customer_id": {
+        "ecommerce": "5624561795145"
+      },
+      "first_charge_processed_at": null,
+      "first_name": "Niels",
+      "has_payment_method_in_dunning": false,
+      "has_valid_payment_method": false,
+      "hash": "6edd4a4f6ca8b1658c581e597ce492",
+      "last_name": "Bohr",
+      "subscriptions_active_count": 0,
+      "subscriptions_total_count": 0,
+      "updated_at": "2022-03-09T02:37:31"
+    },
+    {
+      "id": 82939898,
+      "analytics_data": {
+        "utm_params": []
+      },
+      "created_at": "2022-03-09T02:31:39",
+      "email": "testtesttest4@test.dk",
+      "external_customer_id": {
+        "ecommerce": "5624559960137"
+      },
+      "first_charge_processed_at": null,
+      "first_name": "Niels",
+      "has_payment_method_in_dunning": false,
+      "has_valid_payment_method": false,
+      "hash": "5c67cf72683ba786c29af7dc3948f0",
+      "last_name": "Bohr",
+      "subscriptions_active_count": 0,
+      "subscriptions_total_count": 0,
+      "updated_at": "2022-03-09T02:31:58"
+    }
+  ]
+}

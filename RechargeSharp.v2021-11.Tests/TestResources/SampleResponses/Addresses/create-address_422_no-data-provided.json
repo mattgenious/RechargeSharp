@@ -1,0 +1,8 @@
+{
+  "errors": {
+    "_schema": [
+      "city, country_code, first_name, province, last_name, customer_id, address1 are required fields.",
+      "city, country_code, first_name, province, last_name, customer_id, address1 are required fields."
+    ]
+  }
+}

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Headers;
+using System.Security.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
@@ -13,25 +14,23 @@ namespace RechargeSharp.Services
         protected readonly AsyncRetryPolicy<HttpResponseMessage> AsyncRetryPolicy;
 
         private readonly ILogger<RechargeSharpService> _logger;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly RechargeServiceOptions _rechargeServiceOptions;
         private readonly List<HttpClient> _clients;
         private readonly Random _random;
+        
         protected RechargeSharpService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions)
         {
             _logger = logger;
-            _httpClientFactory = httpClientFactory;
-            _rechargeServiceOptions = rechargeServiceOptions.Value;
+            var rechargeServiceOptions1 = rechargeServiceOptions.Value;
             _random = new Random();
             _clients = new List<HttpClient>();
 
-            if (_rechargeServiceOptions is null || _rechargeServiceOptions.ApiKeyArray is null)
+            if (rechargeServiceOptions1?.ApiKeyArray is null)
             {
                 throw new ArgumentException("RechargeServiceOptions were null or RechargeServiceOptions.ApiKeyArray was null");
             }
-            foreach (var apiKey in _rechargeServiceOptions.ApiKeyArray)
+            foreach (var apiKey in rechargeServiceOptions1.ApiKeyArray)
             {
-                var client = _httpClientFactory.CreateClient("RechargeSharpClient");
+                var client = httpClientFactory.CreateClient("RechargeSharpClient");
                 client.DefaultRequestHeaders.Add("X-Recharge-Access-Token", apiKey);
                 _clients.Add(client);
             }
@@ -87,17 +86,8 @@ namespace RechargeSharp.Services
 
         private bool HandleHttpRequestException(HttpRequestException httpRequestException)
         {
-            _logger.LogError("HttpRequestException", httpRequestException);
-
-            if (httpRequestException.InnerException is IOException)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+            _logger.LogError(httpRequestException, "HttpRequestException");
+            return httpRequestException.InnerException is IOException or AuthenticationException;
         }
 
         private async Task<HttpResponseMessage> ExecuteSingleRequest(Func<Task<HttpResponseMessage>> funky)

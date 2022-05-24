@@ -7,7 +7,19 @@ using RechargeSharp.Utilities;
 
 namespace RechargeSharp.Services.Metafields
 {
-    public class MetafieldService : RechargeSharpService
+    public interface IMetafieldService
+    {
+        Task<bool> MetafieldExistsAsync(long id);
+        Task<Metafield?> GetMetafieldAsync(long id);
+        Task<IEnumerable<Metafield>?> GetMetafieldsAsync(long limit = 50, long page = 1, string ownerResource = "store", string? _namespace  = null, long? ownerId = null);
+        Task<IEnumerable<Metafield>> GetAllMetafieldsWithParamsAsync(string ownerResource = "store", string? _namespace = null, long? ownerId = null);
+        Task<Metafield?> CreateMetafieldAsync(CreateMetafieldRequest createMetafieldRequest);
+        Task<Metafield?> UpdateMetafieldAsync(long id, UpdateMetafieldRequest updateMetafieldRequest);
+        Task DeleteMetafieldAsync(long id);
+        Task<long?> CountMetafields(long limit = 50, long page = 1, string ownerResource = "store", string? _namespace = null, long? owner_id = null);
+    }
+
+    public class MetafieldService : RechargeSharpService, IMetafieldService
     {
         public MetafieldService(ILogger<RechargeSharpService> logger, IHttpClientFactory httpClientFactory, IOptions<RechargeServiceOptions> rechargeServiceOptions) : base(logger, httpClientFactory, rechargeServiceOptions)
         {

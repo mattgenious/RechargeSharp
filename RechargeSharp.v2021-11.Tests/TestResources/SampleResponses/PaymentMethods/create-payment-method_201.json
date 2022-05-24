@@ -1,0 +1,35 @@
+{
+  "payment_method": {
+    "id": 123123,
+    "customer_id": 2222222,
+    "billing_address": {
+      "address1": null,
+      "address2": null,
+      "city": null,
+      "company": null,
+      "country": null,
+      "country_code": null,
+      "first_name": null,
+      "last_name": null,
+      "phone": null,
+      "province": null,
+      "zip": null
+    },
+    "created_at": "2022-03-09T08:45:03",
+    "default": true,
+    "include": {},
+    "payment_details": {
+      "brand": "visa",
+      "exp_month": 4,
+      "exp_year": 2024,
+      "last4": "1234"
+    },
+    "payment_type": "CREDIT_CARD",
+    "processor_customer_token": "cus_testtest",
+    "processor_name": "stripe",
+    "processor_payment_method_token": "pm_testtest",
+    "status": null,
+    "status_reason": null,
+    "updated_at": "2022-03-09T08:45:03"
+  }
+}
