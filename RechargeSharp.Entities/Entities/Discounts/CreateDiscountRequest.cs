@@ -63,7 +63,7 @@ namespace RechargeSharp.Entities.Discounts
 
         [Required]
         [JsonProperty("value")]
-        public long? Value { get; set; }
+        public double? Value { get; set; }
 
         [StringValues(AllowableValues = new string?[] { "shopify_product", "shopify_collection_id", null })]
         [JsonProperty("applies_to_resource", NullValueHandling = NullValueHandling.Ignore)]
