@@ -13,11 +13,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.Entities.Enti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.Tests", "RechargeSharp.Tests\RechargeSharp.Tests.csproj", "{B5322ED0-A946-43EA-9F42-D9317DD4362E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RechargeSharp.v2021-11", "RechargeSharp.v2021-11\RechargeSharp.v2021-11.csproj", "{51F556F5-26B8-479C-9581-63CDC8FAFAA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.v2021-11", "RechargeSharp.v2021-11\RechargeSharp.v2021-11.csproj", "{51F556F5-26B8-479C-9581-63CDC8FAFAA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RechargeSharp.v2021-11.Tests", "RechargeSharp.v2021-11.Tests\RechargeSharp.v2021-11.Tests.csproj", "{96441ED5-22B5-4BD6-B1FB-AAE3BCB7B366}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.v2021-11.Tests", "RechargeSharp.v2021-11.Tests\RechargeSharp.v2021-11.Tests.csproj", "{96441ED5-22B5-4BD6-B1FB-AAE3BCB7B366}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RechargeSharp.v2021-11.ConsoleTester", "RechargeSharp.v2021-11.ConsoleTester\RechargeSharp.v2021-11.ConsoleTester.csproj", "{F0CC7738-17C5-4FAF-A05A-EC7BBC52724D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RechargeSharp.v2021-11.ConsoleTester", "RechargeSharp.v2021-11.ConsoleTester\RechargeSharp.v2021-11.ConsoleTester.csproj", "{F0CC7738-17C5-4FAF-A05A-EC7BBC52724D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{63EEAE26-A5F1-40C4-8AC8-70756918DDB0}"
+	ProjectSection(SolutionItems) = preProject
+		.github\dependabot.yml = .github\dependabot.yml
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
