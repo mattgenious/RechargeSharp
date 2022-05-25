@@ -60,7 +60,7 @@ namespace RechargeSharp.Entities.Discounts
         public string? Code { get; set; }
 
         [JsonProperty("value")]
-        public long Value { get; set; }
+        public double Value { get; set; }
 
         [JsonProperty("ends_at")]
         public DateTimeOffset? EndsAt { get; set; }

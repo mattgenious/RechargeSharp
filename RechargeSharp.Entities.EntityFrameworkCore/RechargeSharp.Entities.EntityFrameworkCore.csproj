@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>11.2.0-alpha.1</Version>
+		<Version>11.2.0-alpha.2</Version>
 		<AssemblyVersion>11.2.0.0</AssemblyVersion>
 		<PackageLicenseExpression></PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/mattgenious/RechargeSharp</PackageProjectUrl>
@@ -88,7 +88,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="RechargeSharp.Entities" Version="11.2.0-alpha.1" />
+	  <PackageReference Include="RechargeSharp.Entities" Version="11.2.0-alpha.2" />
 	</ItemGroup>
 
 </Project>
