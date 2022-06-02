@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace RechargeSharp.Entities.Charges
 {
-    public class SkipNextChargeRequest : IEquatable<SkipNextChargeRequest>
+    public class SkipNextChargeRequestWithSingleSubscriptionId : IEquatable<SkipNextChargeRequestWithSingleSubscriptionId>, ISkipNextChargeRequest
     {
-        public bool Equals(SkipNextChargeRequest? other)
+        public bool Equals(SkipNextChargeRequestWithSingleSubscriptionId? other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -17,7 +17,7 @@ namespace RechargeSharp.Entities.Charges
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((SkipNextChargeRequest) obj);
+            return Equals((SkipNextChargeRequestWithSingleSubscriptionId) obj);
         }
 
         public override int GetHashCode()
@@ -25,12 +25,12 @@ namespace RechargeSharp.Entities.Charges
             return (SubscriptionId != null ? SubscriptionId.GetHashCode() : 0);
         }
 
-        public static bool operator ==(SkipNextChargeRequest left, SkipNextChargeRequest right)
+        public static bool operator ==(SkipNextChargeRequestWithSingleSubscriptionId left, SkipNextChargeRequestWithSingleSubscriptionId right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(SkipNextChargeRequest left, SkipNextChargeRequest right)
+        public static bool operator !=(SkipNextChargeRequestWithSingleSubscriptionId left, SkipNextChargeRequestWithSingleSubscriptionId right)
         {
             return !Equals(left, right);
         }

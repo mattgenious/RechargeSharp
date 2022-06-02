@@ -249,11 +249,11 @@ namespace RechargeSharp.Entities.Tests
 
         [Theory]
         [InlineAutoData]
-        public void SerializeDeserializeSkipNextChargeRequestTest(SkipNextChargeRequest sut)
+        public void SerializeDeserializeSkipNextChargeRequestWithSingleSubscriptionIdTest(SkipNextChargeRequestWithSingleSubscriptionId sut)
         {
             var jsonString = JsonConvert.SerializeObject(sut);
 
-            Assert.Equal(sut, JsonConvert.DeserializeObject<SkipNextChargeRequest>(jsonString));
+            Assert.Equal(sut, JsonConvert.DeserializeObject<SkipNextChargeRequestWithSingleSubscriptionId>(jsonString));
         }
 
         [Theory]
