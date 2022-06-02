@@ -249,14 +249,6 @@ namespace RechargeSharp.Entities.Tests
 
         [Theory]
         [InlineAutoData]
-        public void SerializeDeserializeSkipNextChargeRequestWithMultipleSubscriptionIdsTest(SkipNextChargeRequestWithMultipleSubscriptionIds sut)
-        {
-            var jsonString = JsonConvert.SerializeObject(sut);
-
-            Assert.Equal(sut, JsonConvert.DeserializeObject<SkipNextChargeRequestWithMultipleSubscriptionIds>(jsonString));
-        }
-        [Theory]
-        [InlineAutoData]
         public void SerializeDeserializeSkipNextChargeRequestWithSingleSubscriptionIdTest(SkipNextChargeRequestWithSingleSubscriptionId sut)
         {
             var jsonString = JsonConvert.SerializeObject(sut);
