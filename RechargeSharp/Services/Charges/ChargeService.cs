@@ -157,7 +157,7 @@ namespace RechargeSharp.Services.Charges
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
         }
 
-        public async Task<Charge?> SkipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest)
+        public async Task<Charge?> SkipNextChargeAsync(long chargeId, SkipNextChargeRequest? skipNextChargeRequest = null)
         {
             ValidateModel(skipNextChargeRequest);
 
@@ -166,7 +166,7 @@ namespace RechargeSharp.Services.Charges
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
         }
 
-        public async Task<Charge?> UnskipNextChargeAsync(long chargeId, SkipNextChargeRequest skipNextChargeRequest)
+        public async Task<Charge?> UnskipNextChargeAsync(long chargeId, SkipNextChargeRequest? skipNextChargeRequest = null)
         {
             ValidateModel(skipNextChargeRequest);
 
