@@ -15,8 +15,8 @@ namespace RechargeSharp.Services.Charges
         Task<IEnumerable<Charge>> GetAllChargesWithParamsAsync(long? discountId = null, string? discountCode = null, string? status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTimeOffset? date = null, DateTimeOffset? dateMin = null, DateTimeOffset? dateMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
         Task<long?> CountChargesAsync(long? discountId = null, string? discountCode = null, string? status = null, long? customerId = null, long? addressId = null, long? shopifyOrderId = null, long? subscriptionId = null, DateTimeOffset? date = null, DateTimeOffset? dateMin = null, DateTimeOffset? dateMax = null, DateTimeOffset? createdAtMin = null, DateTimeOffset? createdAtMax = null, DateTimeOffset? updatedAtMin = null, DateTimeOffset? updatedAtMax = null);
         Task<Charge?> ChangeNextChargeDateAsync(long chargeId, ChangeNextChargeDateRequest changeNextChargeDateRequest);
-        Task<Charge?> SkipNextChargeAsync(long chargeId, ISkipNextChargeRequest skipNextChargeRequest);
-        Task<Charge?> UnskipNextChargeAsync(long chargeId, ISkipNextChargeRequest skipNextChargeRequest);
+        Task<Charge?> SkipNextChargeAsync(long chargeId, SkipNextChargeRequestWithMultipleSubscriptionIds skipNextChargeRequest);
+        Task<Charge?> UnskipNextChargeAsync(long chargeId, SkipNextChargeRequestWithMultipleSubscriptionIds skipNextChargeRequest);
         Task<Charge?> RefundChargeAsync(long chargeId, RefundChargeRequest refundChargeRequest);
         Task<Charge?> TotalRefundChargeAsync(long chargeId, TotalRefundChargeRequest totalRefundChargeRequest);
         Task DeleteChargeAsync(long id);
@@ -157,35 +157,17 @@ namespace RechargeSharp.Services.Charges
                 await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
         }
 
-        public async Task<Charge?> SkipNextChargeAsync(long chargeId, ISkipNextChargeRequest? skipNextChargeRequest = null)
+        public async Task<Charge?> SkipNextChargeAsync(long chargeId, SkipNextChargeRequestWithMultipleSubscriptionIds skipNextChargeRequest)
         {
-            HttpResponseMessage response;
-            if (skipNextChargeRequest is not null)
-            {
-                ValidateModel(skipNextChargeRequest);
-                response = await PostAsJsonAsync($"/charges/{chargeId}/skip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
-            }
-            else
-            {
-                response = await PostAsJsonAsync($"/charges/{chargeId}/skip", string.Empty).ConfigureAwait(false);
-            }
-
+            ValidateModel(skipNextChargeRequest);
+            var response = await PostAsJsonAsync($"/charges/{chargeId}/skip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
         }
 
-        public async Task<Charge?> UnskipNextChargeAsync(long chargeId, ISkipNextChargeRequest? skipNextChargeRequest = null)
+        public async Task<Charge?> UnskipNextChargeAsync(long chargeId, SkipNextChargeRequestWithMultipleSubscriptionIds skipNextChargeRequest)
         {
-            HttpResponseMessage response;
-            if (skipNextChargeRequest is not null)
-            {
-                ValidateModel(skipNextChargeRequest);
-                response = await PostAsJsonAsync($"/charges/{chargeId}/unskip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
-            }
-            else
-            {
-                response = await PostAsJsonAsync($"/charges/{chargeId}/unskip", string.Empty).ConfigureAwait(false);
-            }
-
+            ValidateModel(skipNextChargeRequest);
+            var response = await PostAsJsonAsync($"/charges/{chargeId}/unskip", JsonConvert.SerializeObject(skipNextChargeRequest)).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ChargeResponse>(await response.Content.ReadAsStringAsync().ConfigureAwait(false), new DateTimeOffsetJsonConverter())?.Charge;
         }
 
