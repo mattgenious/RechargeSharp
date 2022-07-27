@@ -39,6 +39,8 @@ namespace RechargeSharp.Entities.Webhooks
         CustomerActivated,
         [EnumMember(Value = "customer/deactivated")]
         CustomerDeactivated,
+        [EnumMember(Value = "customer/deleted")]
+        CustomerDeleted,
 
         [EnumMember(Value = "address/created")]
         AddressCreated,
