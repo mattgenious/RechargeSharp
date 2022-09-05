@@ -72,7 +72,6 @@ namespace RechargeSharp.Entities.Shared
         [JsonProperty("last_name")]
         public string? LastName { get; set; }
 
-        [Required]
         [JsonProperty("phone")]
         public string? Phone { get; set; }
 
