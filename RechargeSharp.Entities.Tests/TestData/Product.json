@@ -1,0 +1,33 @@
+{
+  "collection_id": null,
+  "created_at": "2022-09-12T06:39:18",
+  "discount_amount": 0E-10,
+  "discount_type": "percentage",
+  "handle": "test",
+  "id": 123,
+  "images": {
+    "large": "https://cdn.shopify.com/s/files/1/123/123/123/products/Test_large.png",
+    "medium": "https://cdn.shopify.com/s/files/1/123/123/123/products/Test_medium.png",
+    "original": "https://cdn.shopify.com/s/files/1/123/123/123/products/Test.png",
+    "small": "https://cdn.shopify.com/s/files/1/123/123/123/products/Test_small.png"
+  },
+  "product_id": 123123,
+  "shopify_product_id": 123123,
+  "subscription_defaults": {
+    "charge_interval_frequency": 30,
+    "cutoff_day_of_month": null,
+    "cutoff_day_of_week": null,
+    "expire_after_specific_number_of_charges": null,
+    "modifiable_properties": [],
+    "number_charges_until_expiration": null,
+    "order_day_of_month": null,
+    "order_day_of_week": null,
+    "order_interval_frequency_options": [
+      "30"
+    ],
+    "order_interval_unit": "day",
+    "storefront_purchase_options": "subscription_and_onetime"
+  },
+  "title": "Test product",
+  "updated_at": "2022-09-12T09:10:01"
+}
