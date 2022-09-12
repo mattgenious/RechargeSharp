@@ -50,7 +50,7 @@ namespace RechargeSharp.Entities.Products
         }
 
         [JsonProperty("collection_id")]
-        public long CollectionId { get; set; }
+        public long? CollectionId { get; set; }
 
         [JsonProperty("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
