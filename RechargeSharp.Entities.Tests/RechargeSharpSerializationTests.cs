@@ -864,6 +864,16 @@ namespace RechargeSharp.Entities.Tests
             Assert.NotNull(deserialized);
             Assert.NotEqual(0, deserialized.Id);
         }
+        
+        [Theory]
+        [InlineAutoData]
+        public void CanDeserializeActualProduct2JsonTest()
+        {
+            var jsonString = TestDataHandler.GetProduct2String;
+            var deserialized = JsonConvert.DeserializeObject<Product>(jsonString);
+            Assert.NotNull(deserialized);
+            Assert.NotEqual(0, deserialized.Id);
+        }
 
         [Theory]
         [InlineAutoData]

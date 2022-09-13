@@ -19,5 +19,6 @@ namespace RechargeSharp.Entities.Tests.Utilities
         public static string GetTestAddressUTCString => File.ReadAllText(TestDataPaths.AddressUTC);
         
         public static string GetProductString => File.ReadAllText(TestDataPaths.Product);
+        public static string GetProduct2String => File.ReadAllText(TestDataPaths.Product2);
     }
 }
