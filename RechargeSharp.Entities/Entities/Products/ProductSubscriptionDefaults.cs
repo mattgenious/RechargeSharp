@@ -50,28 +50,28 @@ namespace RechargeSharp.Entities.Products
         public long ChargeIntervalFrequency { get; set; }
 
         [JsonProperty("cutoff_day_of_month")]
-        public long CutoffDayOfMonth { get; set; }
+        public long? CutoffDayOfMonth { get; set; }
 
         [JsonProperty("cutoff_day_of_week")]
-        public long CutoffDayOfWeek { get; set; }
+        public long? CutoffDayOfWeek { get; set; }
 
         [JsonProperty("expire_after_specific_number_of_charges")]
-        public long ExpireAfterSpecificNumberOfCharges { get; set; }
+        public long? ExpireAfterSpecificNumberOfCharges { get; set; }
 
         [JsonProperty("handle")]
         public string? Handle { get; set; }
 
         [JsonProperty("number_charges_until_expiration")]
-        public long NumberChargesUntilExpiration { get; set; }
+        public long? NumberChargesUntilExpiration { get; set; }
 
         [JsonProperty("order_day_of_month")]
-        public long OrderDayOfMonth { get; set; }
+        public long? OrderDayOfMonth { get; set; }
 
         [JsonProperty("order_day_of_week")]
         public string? OrderDayOfWeek { get; set; }
 
         [JsonProperty("order_interval_frequency")]
-        public long OrderIntervalFrequency { get; set; }
+        public long? OrderIntervalFrequency { get; set; }
 
         [JsonProperty("order_interval_frequency_options")]
         public IEnumerable<long>? OrderIntervalFrequencyOptions { get; set; }
