@@ -10,5 +10,6 @@ namespace RechargeSharp.Entities.Tests.Utilities
         public static string AddressUTC => Path.Join(BasePath, "AddressUTC.json");
         public static string AddressOffset => Path.Join(BasePath, "AddressOffset.json");
         public static string Product => Path.Join(BasePath, "Product.json");
+        public static string Product2 => Path.Join(BasePath, "Product2.json");
     }
 }

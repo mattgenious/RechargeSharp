@@ -10,6 +10,8 @@ namespace RechargeSharp.Entities.Products
         [EnumMember(Value = "subscription_only")]
         SubscriptionOnly,
         [EnumMember(Value = "subscription_and_onetime")]
-        SubscriptionAndOnetime
+        SubscriptionAndOnetime,
+        [EnumMember(Value = "inactive")]
+        Inactive
     }
 }

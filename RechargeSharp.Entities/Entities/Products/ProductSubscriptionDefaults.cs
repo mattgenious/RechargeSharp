@@ -47,7 +47,7 @@ namespace RechargeSharp.Entities.Products
         }
 
         [JsonProperty("charge_interval_frequency")]
-        public long ChargeIntervalFrequency { get; set; }
+        public long? ChargeIntervalFrequency { get; set; }
 
         [JsonProperty("cutoff_day_of_month")]
         public long? CutoffDayOfMonth { get; set; }
