@@ -88,6 +88,9 @@ namespace RechargeSharp.Entities.Subscriptions
         [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public string? Status { get; set; }
 
+        [JsonProperty("sku", NullValueHandling = NullValueHandling.Ignore)]
+        public string? Sku { get; set; }
+
         [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
         public double? Price { get; set; }
 
