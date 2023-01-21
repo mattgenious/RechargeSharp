@@ -10,7 +10,7 @@ using RechargeSharp.Tests.Fixtures;
 
 namespace RechargeSharp.Tests.Benchmarks
 {
-    [SimpleJob(RunStrategy.ColdStart, launchCount: 1, warmupCount: 0, targetCount: 1, id: "FastAndImprecise")]
+    [SimpleJob(RunStrategy.ColdStart, launchCount: 1, warmupCount: 0, iterationCount: 1, id: "FastAndImprecise")]
     public class SubscriptionServiceBenchmarks
     {
         private readonly SubscriptionService _sut;
