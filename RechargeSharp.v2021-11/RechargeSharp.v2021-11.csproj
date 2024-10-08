@@ -19,7 +19,7 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<Authors>Jesper Nysteen;Matt Luccas Phaure Minet</Authors>
 		<Description>A C# library for RechargePayments API version 2021-11</Description>
-		<PackageReleaseNotes>Simplify target frameworks</PackageReleaseNotes>
+		<PackageReleaseNotes>Added missing storefront purchase option</PackageReleaseNotes>
 		<PackageIcon>icon.png</PackageIcon>
 		<Company>Matt Luccas Phaure Minet</Company>
 		<NeutralLanguage>en</NeutralLanguage>
