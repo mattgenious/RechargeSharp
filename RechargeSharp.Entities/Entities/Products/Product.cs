@@ -56,7 +56,7 @@ namespace RechargeSharp.Entities.Products
         public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("discount_amount")]
-        public long DiscountAmount { get; set; }
+        public long? DiscountAmount { get; set; }
 
         [JsonProperty("discount_type")]
         public string? DiscountType { get; set; }
