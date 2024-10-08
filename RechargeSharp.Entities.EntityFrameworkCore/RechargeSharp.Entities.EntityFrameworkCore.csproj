@@ -16,7 +16,7 @@
 		<FileVersion>12.2.3.0</FileVersion>
 		<Authors>Matt Luccas Phaure Minet</Authors>
 		<Description>A C# library for RechargePayments</Description>
-		<PackageReleaseNotes>Simplify target frameworks</PackageReleaseNotes>
+		<PackageReleaseNotes>Added missing storefront purchase option</PackageReleaseNotes>
 		<PackageIcon>icon.png</PackageIcon>
 		<Company>Matt Luccas Phaure Minet</Company>
 		<NeutralLanguage>en</NeutralLanguage>
