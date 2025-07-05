@@ -59,6 +59,10 @@ namespace RechargeSharp.Entities.Webhooks
         OrderUpcoming,
         [EnumMember(Value = "order/cancelled")]
         OrderCancelled,
+        [EnumMember(Value = "order/success")]
+        OrderSuccess,
+        [EnumMember(Value = "order/payment_captured")]
+        OrderPaymentCaptured,
 
         [EnumMember(Value = "charge/created")]
         ChargeCreated,
