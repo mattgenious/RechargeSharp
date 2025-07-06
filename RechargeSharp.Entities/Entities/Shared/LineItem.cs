@@ -73,7 +73,7 @@ namespace RechargeSharp.Entities.Shared
         public string? Sku { get; set; }
 
         [JsonProperty("subscription_id")]
-        public long SubscriptionId { get; set; }
+        public long? SubscriptionId { get; set; }
 
         [JsonProperty("title")]
         public string? Title { get; set; }
