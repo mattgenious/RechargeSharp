@@ -15,11 +15,11 @@
 		<PackageTags>C#, .NET, ecommerce, recharge, rechargepayments</PackageTags>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<FileVersion>12.2.6.0</FileVersion>
-		<Authors>Matt Luccas Phaure Minet</Authors>
+		<Authors>Matt Luccas Phaure Jensen</Authors>
 		<Description>A C# library for RechargePayments</Description>
 		<PackageReleaseNotes>Added missing storefront purchase option</PackageReleaseNotes>
 		<PackageIcon>icon.png</PackageIcon>
-		<Company>Matt Luccas Phaure Minet</Company>
+		<Company>Matt Luccas Phaure Jensen</Company>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
